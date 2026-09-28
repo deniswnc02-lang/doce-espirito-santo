@@ -2,16 +2,35 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
 
   <meta name="theme-color" content="#170d08">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Doce Espírito Santo">
 
-  <title>Doce Espírito Santo — Um Amigo Íntimo</title>
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
+
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent"
+  >
+
+  <meta
+    name="apple-mobile-web-app-title"
+    content="Doce Espírito Santo"
+  >
+
+  <title>
+    Doce Espírito Santo — Um Amigo Íntimo
+  </title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -38,7 +57,7 @@
     .app {
       min-height: 100vh;
       min-height: 100dvh;
-      position: relative;
+
       background:
         radial-gradient(
           circle at 50% 5%,
@@ -53,12 +72,12 @@
         );
     }
 
-    /* Atmosfera dourada */
-
     .light {
       position: fixed;
+
       top: -180px;
       right: -120px;
+
       width: 450px;
       height: 450px;
 
@@ -71,92 +90,125 @@
         );
 
       filter: blur(20px);
+
       pointer-events: none;
+
       z-index: 0;
     }
-
-    /* Topo */
 
     header {
       position: relative;
       z-index: 3;
+
       padding: 25px 20px 8px;
+
       text-align: center;
     }
 
     .top-label {
       font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: rgba(244, 223, 189, 0.58);
-    }
 
-    /* Conteúdo */
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+
+      color:
+        rgba(244, 223, 189, 0.58);
+    }
 
     main {
       position: relative;
       z-index: 2;
+
       width: 100%;
       max-width: 520px;
+
       margin: 0 auto;
-      padding: 20px 20px 125px;
+
+      padding:
+        20px
+        20px
+        125px;
     }
 
-    /* Capa oficial */
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
 
     .cover-container {
       width: 100%;
+
       display: flex;
+
       justify-content: center;
+
       margin-top: 18px;
     }
 
     .cover {
       width: 100%;
+
       max-width: 390px;
+
       height: auto;
+
       display: block;
 
       border-radius: 14px;
 
-      border: 1px solid rgba(244, 211, 154, 0.18);
+      border:
+        1px solid
+        rgba(244, 211, 154, 0.18);
 
       box-shadow:
-        0 25px 70px rgba(0, 0, 0, 0.60),
-        0 0 40px rgba(217, 157, 71, 0.12);
-    }
+        0 25px 70px
+        rgba(0, 0, 0, 0.60),
 
-    /* Texto principal */
+        0 0 40px
+        rgba(217, 157, 71, 0.12);
+    }
 
     .manifesto {
       text-align: center;
+
       max-width: 390px;
+
       margin: 30px auto 0;
 
-      color: rgba(246, 227, 198, 0.84);
+      color:
+        rgba(246, 227, 198, 0.84);
 
       font-size: 17px;
+
       line-height: 1.75;
     }
 
     .manifesto strong {
       color: #f1c980;
+
       font-weight: normal;
     }
 
-    /* Botão */
-
     .start-button {
       display: block;
+
       width: 100%;
+
       max-width: 330px;
 
       margin: 30px auto 0;
+
       padding: 17px 25px;
 
       border-radius: 50px;
 
-      border: 1px solid rgba(244, 211, 154, 0.55);
+      border:
+        1px solid
+        rgba(244, 211, 154, 0.55);
 
       background:
         linear-gradient(
@@ -168,27 +220,25 @@
       color: #fff0d2;
 
       font-size: 14px;
+
       letter-spacing: 1.5px;
+
       text-transform: uppercase;
 
       box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.35);
+        0 12px 35px
+        rgba(0, 0, 0, 0.35);
 
       cursor: pointer;
-
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
     }
 
     .start-button:active {
       transform: scale(0.97);
     }
 
-    /* Pena */
-
     .feather {
       text-align: center;
+
       margin-top: 30px;
 
       font-size: 34px;
@@ -202,34 +252,35 @@
         );
     }
 
-    /* Frase */
-
     .quote {
       text-align: center;
+
       margin-top: 18px;
 
-      color: rgba(244, 223, 189, 0.52);
+      color:
+        rgba(244, 223, 189, 0.52);
 
       font-size: 13px;
+
       font-style: italic;
+
       line-height: 1.6;
     }
 
-    /* Autor */
-
     .author {
       text-align: center;
+
       margin-top: 35px;
 
       font-size: 9px;
+
       letter-spacing: 2px;
 
-      color: rgba(244, 223, 189, 0.32);
+      color:
+        rgba(244, 223, 189, 0.32);
 
       text-transform: uppercase;
     }
-
-    /* Navegação */
 
     nav {
       position: fixed;
@@ -241,7 +292,9 @@
       height: 78px;
 
       display: flex;
+
       align-items: center;
+
       justify-content: space-around;
 
       z-index: 20;
@@ -250,6 +303,7 @@
         rgba(16, 8, 5, 0.95);
 
       backdrop-filter: blur(18px);
+
       -webkit-backdrop-filter: blur(18px);
 
       border-top:
@@ -261,6 +315,7 @@
       min-width: 58px;
 
       background: transparent;
+
       border: none;
 
       color:
@@ -282,16 +337,6 @@
         rgba(244, 211, 154, 0.78);
     }
 
-    /* Telas futuras */
-
-    .screen {
-      display: none;
-    }
-
-    .screen.active {
-      display: block;
-    }
-
     .section-title {
       text-align: center;
 
@@ -300,6 +345,7 @@
       color: #f1c980;
 
       font-size: 30px;
+
       font-weight: normal;
     }
 
@@ -357,6 +403,33 @@
       cursor: pointer;
     }
 
+    textarea {
+      width: 100%;
+
+      min-height: 220px;
+
+      padding: 16px;
+
+      border-radius: 12px;
+
+      border:
+        1px solid
+        rgba(244, 211, 154, 0.18);
+
+      background:
+        rgba(0, 0, 0, 0.22);
+
+      color: #f4dfbd;
+
+      font-family: Georgia, serif;
+
+      font-size: 16px;
+
+      line-height: 1.6;
+
+      resize: vertical;
+    }
+
     @media (min-width: 700px) {
 
       main {
@@ -381,413 +454,484 @@
           0
           0;
       }
+
     }
+
   </style>
 </head>
 
 <body>
 
-  <div class="app">
+<div class="app">
 
-    <div class="light"></div>
+  <div class="light"></div>
 
-    <header>
-      <div class="top-label">
-        365 dias de presença
+  <header>
+
+    <div class="top-label">
+      365 dias de presença
+    </div>
+
+  </header>
+
+
+  <main>
+
+
+    <!-- INÍCIO -->
+
+    <section
+      id="home"
+      class="screen active"
+    >
+
+      <div class="cover-container">
+
+        <img
+          class="cover"
+          src="https://raw.githubusercontent.com/deniswnc02-lang/doce-espirito-santo/main/Doce%20Esp%C3%ADrito%20Santo.png"
+          alt="Doce Espírito Santo — Um Amigo Íntimo"
+        >
+
       </div>
-    </header>
 
-    <main>
 
-      <!-- INÍCIO -->
+      <p class="manifesto">
 
-      <section
-        id="home"
-        class="screen active"
+        <strong>365 dias</strong>
+        não para aprender mais sobre
+        o Espírito Santo,
+
+        mas para aprender
+        a perceber Sua presença.
+
+      </p>
+
+
+      <button
+        class="start-button"
+        onclick="showScreen('journey')"
       >
+        Começar minha jornada
+      </button>
 
-        <div class="cover-container">
 
-          <img
-            class="cover"
-            src="capa.jpg"
-            alt="Doce Espírito Santo — Um Amigo Íntimo"
-          >
+      <div class="feather">
+        🪶
+      </div>
 
+
+      <p class="quote">
+        “Permanecei em mim...”
+      </p>
+
+
+      <div class="author">
+        Denis Willian Cruz
+      </div>
+
+    </section>
+
+
+    <!-- JORNADA -->
+
+    <section
+      id="journey"
+      class="screen"
+    >
+
+      <h1 class="section-title">
+        Minha Jornada
+      </h1>
+
+      <p class="section-subtitle">
+        365 dias para aprender<br>
+        a perceber Sua presença.
+      </p>
+
+
+      <div class="card">
+
+        <div class="card-title">
+          🪶 Fase 1
         </div>
 
-        <p class="manifesto">
-
-          <strong>365 dias</strong>
-          não para aprender mais sobre
-          o Espírito Santo,
-
-          mas para aprender
-          a perceber Sua presença.
-
+        <p>
+          <strong>
+            Reconhecendo a Presença
+          </strong>
         </p>
+
+        <p style="margin-top:10px; opacity:.7;">
+          Dias 1 — 30
+        </p>
+
 
         <button
           class="start-button"
-          onclick="showScreen('journey')"
+          style="margin-top:22px;"
+          onclick="openDay(1)"
         >
-          Começar minha jornada
+          Começar jornada
         </button>
 
-        <div class="feather">
-          🪶
-        </div>
+      </div>
 
-        <p class="quote">
-          “Permanecei em mim...”
-        </p>
-
-        <div class="author">
-          Denis Willian Cruz
-        </div>
-
-      </section>
-
-
-      <!-- JORNADA -->
-
-      <section
-        id="journey"
-        class="screen"
-      >
-
-        <h1 class="section-title">
-          Minha Jornada
-        </h1>
-
-        <p class="section-subtitle">
-          365 dias para aprender<br>
-          a perceber Sua presença.
-        </p>
-
-        <div class="card">
-
-          <div class="card-title">
-            🪶 Fase 1
-          </div>
-
-          <p>
-            <strong>
-              Reconhecendo a Presença
-            </strong>
-          </p>
-
-          <p style="margin-top:10px; opacity:.7;">
-            Dias 1 — 30
-          </p>
-
-          <button
-            class="start-button"
-            style="margin-top:22px;"
-            onclick="openDay(1)"
-          >
-            Começar jornada
-          </button>
-
-        </div>
-
-        <button
-          class="back-button"
-          onclick="showScreen('home')"
-        >
-          Voltar
-        </button>
-
-      </section>
-
-
-      <!-- DEVOCIONAL -->
-
-      <section
-        id="devotional"
-        class="screen"
-      >
-
-        <h1 class="section-title">
-          Dia <span id="dayNumber">1</span>
-        </h1>
-
-        <div class="card">
-
-          <div class="card-title">
-            Reconhecendo a Presença
-          </div>
-
-          <p>
-            Este será o espaço dos
-            365 devocionais.
-          </p>
-
-          <p style="margin-top:18px; line-height:1.7; opacity:.78;">
-            Aqui vamos colocar a Palavra,
-            a contemplação, a reflexão,
-            a oração e a prática diária.
-          </p>
-
-        </div>
-
-        <button
-          class="back-button"
-          onclick="showScreen('journey')"
-        >
-          Voltar para a jornada
-        </button>
-
-      </section>
-
-
-      <!-- DIÁRIO -->
-
-      <section
-        id="journal"
-        class="screen"
-      >
-
-        <h1 class="section-title">
-          Meu Diário
-        </h1>
-
-        <p class="section-subtitle">
-          O que o Espírito Santo
-          despertou em você hoje?
-        </p>
-
-        <div class="card">
-
-          <textarea
-            id="journalText"
-            placeholder="Escreva aqui..."
-            style="
-              width:100%;
-              min-height:220px;
-              padding:16px;
-              border-radius:12px;
-              border:1px solid rgba(244,211,154,.18);
-              background:rgba(0,0,0,.22);
-              color:#f4dfbd;
-              font-family:Georgia,serif;
-              font-size:16px;
-              line-height:1.6;
-              resize:vertical;
-            "
-          ></textarea>
-
-          <button
-            class="start-button"
-            onclick="saveJournal()"
-          >
-            Salvar reflexão
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <!-- FAVORITOS -->
-
-      <section
-        id="favorites"
-        class="screen"
-      >
-
-        <h1 class="section-title">
-          Favoritos
-        </h1>
-
-        <p class="section-subtitle">
-          Seus momentos especiais
-          ficarão aqui.
-        </p>
-
-        <div class="card">
-
-          <div class="card-title">
-            ♡ Ainda não há favoritos
-          </div>
-
-          <p>
-            Conforme você avançar na jornada,
-            poderá guardar os devocionais
-            que mais tocaram seu coração.
-          </p>
-
-        </div>
-
-      </section>
-
-
-      <!-- PERFIL -->
-
-      <section
-        id="profile"
-        class="screen"
-      >
-
-        <h1 class="section-title">
-          Meu Perfil
-        </h1>
-
-        <div class="card">
-
-          <div class="card-title">
-            Doce Espírito Santo
-          </div>
-
-          <p>
-            Um Amigo Íntimo
-          </p>
-
-          <p style="margin-top:18px; opacity:.7;">
-            Jornada de 365 dias
-          </p>
-
-        </div>
-
-      </section>
-
-    </main>
-
-
-    <!-- MENU INFERIOR -->
-
-    <nav>
 
       <button
+        class="back-button"
         onclick="showScreen('home')"
       >
-        <span class="icon">⌂</span>
-        Início
+        Voltar
       </button>
 
+    </section>
+
+
+    <!-- DEVOCIONAL -->
+
+    <section
+      id="devotional"
+      class="screen"
+    >
+
+      <h1 class="section-title">
+
+        Dia
+        <span id="dayNumber">
+          1
+        </span>
+
+      </h1>
+
+
+      <div class="card">
+
+        <div class="card-title">
+          Reconhecendo a Presença
+        </div>
+
+
+        <p>
+          Este será o espaço dos
+          365 devocionais.
+        </p>
+
+
+        <p
+          style="
+            margin-top:18px;
+            line-height:1.7;
+            opacity:.78;
+          "
+        >
+
+          Aqui vamos colocar a Palavra,
+          a contemplação, a reflexão,
+          a oração e a prática diária.
+
+        </p>
+
+      </div>
+
+
       <button
+        class="back-button"
         onclick="showScreen('journey')"
       >
-        <span class="icon">✦</span>
-        Jornada
+        Voltar para a jornada
       </button>
 
-      <button
-        onclick="showScreen('journal')"
-      >
-        <span class="icon">✎</span>
-        Diário
-      </button>
+    </section>
 
-      <button
-        onclick="showScreen('favorites')"
-      >
-        <span class="icon">♡</span>
+
+    <!-- DIÁRIO -->
+
+    <section
+      id="journal"
+      class="screen"
+    >
+
+      <h1 class="section-title">
+        Meu Diário
+      </h1>
+
+
+      <p class="section-subtitle">
+        O que o Espírito Santo
+        despertou em você hoje?
+      </p>
+
+
+      <div class="card">
+
+        <textarea
+          id="journalText"
+          placeholder="Escreva aqui..."
+        ></textarea>
+
+
+        <button
+          class="start-button"
+          onclick="saveJournal()"
+        >
+          Salvar reflexão
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- FAVORITOS -->
+
+    <section
+      id="favorites"
+      class="screen"
+    >
+
+      <h1 class="section-title">
         Favoritos
-      </button>
-
-      <button
-        onclick="showScreen('profile')"
-      >
-        <span class="icon">○</span>
-        Perfil
-      </button>
-
-    </nav>
-
-  </div>
+      </h1>
 
 
-  <script>
+      <p class="section-subtitle">
+        Seus momentos especiais
+        ficarão aqui.
+      </p>
 
-    function showScreen(screenId) {
 
-      document
-        .querySelectorAll('.screen')
-        .forEach(function(screen) {
+      <div class="card">
 
-          screen.classList.remove('active');
+        <div class="card-title">
+          ♡ Ainda não há favoritos
+        </div>
 
-        });
 
-      const screen =
-        document.getElementById(screenId);
+        <p>
+          Conforme você avançar na jornada,
+          poderá guardar os devocionais
+          que mais tocaram seu coração.
+        </p>
 
-      if (screen) {
+      </div>
 
-        screen.classList.add('active');
+    </section>
 
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
 
-      }
+    <!-- PERFIL -->
+
+    <section
+      id="profile"
+      class="screen"
+    >
+
+      <h1 class="section-title">
+        Meu Perfil
+      </h1>
+
+
+      <div class="card">
+
+        <div class="card-title">
+          Doce Espírito Santo
+        </div>
+
+
+        <p>
+          Um Amigo Íntimo
+        </p>
+
+
+        <p
+          style="
+            margin-top:18px;
+            opacity:.7;
+          "
+        >
+          Jornada de 365 dias
+        </p>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- MENU -->
+
+  <nav>
+
+    <button
+      onclick="showScreen('home')"
+    >
+
+      <span class="icon">
+        ⌂
+      </span>
+
+      Início
+
+    </button>
+
+
+    <button
+      onclick="showScreen('journey')"
+    >
+
+      <span class="icon">
+        ✦
+      </span>
+
+      Jornada
+
+    </button>
+
+
+    <button
+      onclick="showScreen('journal')"
+    >
+
+      <span class="icon">
+        ✎
+      </span>
+
+      Diário
+
+    </button>
+
+
+    <button
+      onclick="showScreen('favorites')"
+    >
+
+      <span class="icon">
+        ♡
+      </span>
+
+      Favoritos
+
+    </button>
+
+
+    <button
+      onclick="showScreen('profile')"
+    >
+
+      <span class="icon">
+        ○
+      </span>
+
+      Perfil
+
+    </button>
+
+  </nav>
+
+
+</div>
+
+
+<script>
+
+  function showScreen(screenId) {
+
+    document
+      .querySelectorAll('.screen')
+      .forEach(function(screen) {
+
+        screen.classList.remove('active');
+
+      });
+
+
+    const screen =
+      document.getElementById(screenId);
+
+
+    if (screen) {
+
+      screen.classList.add('active');
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
 
     }
 
+  }
 
-    function openDay(day) {
 
+  function openDay(day) {
+
+    document.getElementById(
+      'dayNumber'
+    ).textContent = day;
+
+
+    showScreen('devotional');
+
+  }
+
+
+  function saveJournal() {
+
+    const text =
       document.getElementById(
-        'dayNumber'
-      ).textContent = day;
-
-      showScreen('devotional');
-
-    }
+        'journalText'
+      ).value;
 
 
-    function saveJournal() {
-
-      const text =
-        document.getElementById(
-          'journalText'
-        ).value;
-
-      if (!text.trim()) {
-
-        alert(
-          'Escreva sua reflexão antes de salvar.'
-        );
-
-        return;
-
-      }
-
-      localStorage.setItem(
-        'doce-espirito-diario',
-        text
-      );
+    if (!text.trim()) {
 
       alert(
-        'Sua reflexão foi salva. 🪶'
+        'Escreva sua reflexão antes de salvar.'
       );
 
-    }
-
-
-    function loadJournal() {
-
-      const saved =
-        localStorage.getItem(
-          'doce-espirito-diario'
-        );
-
-      if (saved) {
-
-        document.getElementById(
-          'journalText'
-        ).value = saved;
-
-      }
+      return;
 
     }
 
 
-    loadJournal();
+    localStorage.setItem(
+      'doce-espirito-diario',
+      text
+    );
 
-  </script>
+
+    alert(
+      'Sua reflexão foi salva. 🪶'
+    );
+
+  }
+
+
+  function loadJournal() {
+
+    const saved =
+      localStorage.getItem(
+        'doce-espirito-diario'
+      );
+
+
+    if (saved) {
+
+      document.getElementById(
+        'journalText'
+      ).value = saved;
+
+    }
+
+  }
+
+
+  loadJournal();
+
+</script>
 
 </body>
 </html>
