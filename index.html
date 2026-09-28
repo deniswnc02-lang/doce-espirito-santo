@@ -1,935 +1,860 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  >
-
-  <meta name="theme-color" content="#170d08">
-
-  <meta
-    name="apple-mobile-web-app-capable"
-    content="yes"
-  >
-
-  <meta
-    name="apple-mobile-web-app-status-bar-style"
-    content="black-translucent"
-  >
-
-  <meta
-    name="apple-mobile-web-app-title"
-    content="Doce Espírito Santo"
-  >
-
-  <title>
-    Doce Espírito Santo — Um Amigo Íntimo
-  </title>
-
-  <style>
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html,
-    body {
-      width: 100%;
-      min-height: 100%;
-    }
-
-    body {
-      background: #100805;
-      color: #f4dfbd;
-      font-family: Georgia, "Times New Roman", serif;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8">
 
-    button {
-      font-family: inherit;
-    }
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    .app {
-      min-height: 100vh;
-      min-height: 100dvh;
+<meta name="theme-color" content="#170d08">
 
-      background:
-        radial-gradient(
-          circle at 50% 5%,
-          rgba(220, 165, 83, 0.18),
-          transparent 35%
-        ),
-        linear-gradient(
-          180deg,
-          #120906 0%,
-          #2b170c 50%,
-          #100805 100%
-        );
-    }
+<meta name="apple-mobile-web-app-capable" content="yes">
 
-    .light {
-      position: fixed;
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-      top: -180px;
-      right: -120px;
+<meta name="apple-mobile-web-app-title" content="Doce Espírito Santo">
 
-      width: 450px;
-      height: 450px;
+<title>Doce Espírito Santo — Um Amigo Íntimo</title>
 
-      background:
-        radial-gradient(
-          circle,
-          rgba(255, 221, 157, 0.25),
-          rgba(211, 151, 66, 0.08) 42%,
-          transparent 70%
-        );
+<style>
 
-      filter: blur(20px);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-      pointer-events: none;
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
 
-      z-index: 0;
-    }
+body {
+  background: #100805;
+  color: #f4dfbd;
+  font-family: Georgia, "Times New Roman", serif;
+  overflow-x: hidden;
+}
 
-    header {
-      position: relative;
-      z-index: 3;
+button {
+  font-family: inherit;
+}
 
-      padding: 25px 20px 8px;
+.app {
+  min-height: 100vh;
+  min-height: 100dvh;
 
-      text-align: center;
-    }
+  position: relative;
 
-    .top-label {
-      font-size: 10px;
+  background:
+    radial-gradient(
+      circle at 50% 5%,
+      rgba(220,165,83,0.18),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      #120906 0%,
+      #2b170c 50%,
+      #100805 100%
+    );
+}
 
-      letter-spacing: 3px;
+.light {
+  position: fixed;
 
-      text-transform: uppercase;
+  top: -180px;
+  right: -120px;
 
-      color:
-        rgba(244, 223, 189, 0.58);
-    }
+  width: 450px;
+  height: 450px;
 
-    main {
-      position: relative;
-      z-index: 2;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,221,157,0.25),
+      rgba(211,151,66,0.08) 42%,
+      transparent 70%
+    );
 
-      width: 100%;
-      max-width: 520px;
+  filter: blur(20px);
 
-      margin: 0 auto;
+  pointer-events: none;
 
-      padding:
-        20px
-        20px
-        125px;
-    }
+  z-index: 0;
+}
 
-    .screen {
-      display: none;
-    }
+header {
+  position: relative;
+  z-index: 3;
 
-    .screen.active {
-      display: block;
-    }
+  padding: 25px 20px 8px;
 
-    .cover-container {
-      width: 100%;
+  text-align: center;
+}
 
-      display: flex;
+.top-label {
+  font-size: 10px;
 
-      justify-content: center;
+  letter-spacing: 3px;
 
-      margin-top: 18px;
-    }
+  text-transform: uppercase;
 
-    .cover {
-      width: 100%;
+  color: rgba(244,223,189,0.58);
+}
 
-      max-width: 390px;
+main {
+  position: relative;
+  z-index: 2;
 
-      height: auto;
+  width: 100%;
+  max-width: 520px;
 
-      display: block;
+  margin: 0 auto;
 
-      border-radius: 14px;
+  padding: 20px 20px 125px;
+}
 
-      border:
-        1px solid
-        rgba(244, 211, 154, 0.18);
+.screen {
+  display: none;
+}
 
-      box-shadow:
-        0 25px 70px
-        rgba(0, 0, 0, 0.60),
+.screen.active {
+  display: block;
+}
 
-        0 0 40px
-        rgba(217, 157, 71, 0.12);
-    }
+.cover-container {
+  width: 100%;
 
-    .manifesto {
-      text-align: center;
+  display: flex;
 
-      max-width: 390px;
+  justify-content: center;
 
-      margin: 30px auto 0;
+  margin-top: 18px;
+}
 
-      color:
-        rgba(246, 227, 198, 0.84);
+.cover {
+  width: 100%;
 
-      font-size: 17px;
+  max-width: 390px;
 
-      line-height: 1.75;
-    }
+  height: auto;
 
-    .manifesto strong {
-      color: #f1c980;
+  display: block;
 
-      font-weight: normal;
-    }
+  border-radius: 14px;
 
-    .start-button {
-      display: block;
+  border:
+    1px solid
+    rgba(244,211,154,0.18);
 
-      width: 100%;
+  box-shadow:
+    0 25px 70px rgba(0,0,0,0.60),
+    0 0 40px rgba(217,157,71,0.12);
+}
 
-      max-width: 330px;
+.manifesto {
+  text-align: center;
 
-      margin: 30px auto 0;
+  max-width: 390px;
 
-      padding: 17px 25px;
+  margin: 30px auto 0;
 
-      border-radius: 50px;
+  color: rgba(246,227,198,0.84);
 
-      border:
-        1px solid
-        rgba(244, 211, 154, 0.55);
+  font-size: 17px;
 
-      background:
-        linear-gradient(
-          135deg,
-          #9a622b,
-          #5d3419
-        );
+  line-height: 1.75;
+}
 
-      color: #fff0d2;
+.manifesto strong {
+  color: #f1c980;
 
-      font-size: 14px;
+  font-weight: normal;
+}
 
-      letter-spacing: 1.5px;
+.start-button {
+  display: block;
 
-      text-transform: uppercase;
+  width: 100%;
 
-      box-shadow:
-        0 12px 35px
-        rgba(0, 0, 0, 0.35);
+  max-width: 330px;
 
-      cursor: pointer;
-    }
+  margin: 30px auto 0;
 
-    .start-button:active {
-      transform: scale(0.97);
-    }
+  padding: 17px 25px;
 
-    .feather {
-      text-align: center;
+  border-radius: 50px;
 
-      margin-top: 30px;
+  border:
+    1px solid
+    rgba(244,211,154,0.55);
 
-      font-size: 34px;
+  background:
+    linear-gradient(
+      135deg,
+      #9a622b,
+      #5d3419
+    );
 
-      opacity: 0.75;
+  color: #fff0d2;
 
-      filter:
-        drop-shadow(
-          0 0 14px
-          rgba(240, 190, 100, 0.45)
-        );
-    }
+  font-size: 14px;
 
-    .quote {
-      text-align: center;
+  letter-spacing: 1.5px;
 
-      margin-top: 18px;
+  text-transform: uppercase;
 
-      color:
-        rgba(244, 223, 189, 0.52);
+  box-shadow:
+    0 12px 35px rgba(0,0,0,0.35);
 
-      font-size: 13px;
+  cursor: pointer;
+}
 
-      font-style: italic;
+.start-button:active {
+  transform: scale(0.97);
+}
 
-      line-height: 1.6;
-    }
+.feather {
+  text-align: center;
 
-    .author {
-      text-align: center;
+  margin-top: 30px;
 
-      margin-top: 35px;
+  font-size: 34px;
 
-      font-size: 9px;
+  opacity: 0.75;
 
-      letter-spacing: 2px;
+  filter:
+    drop-shadow(
+      0 0 14px
+      rgba(240,190,100,0.45)
+    );
+}
 
-      color:
-        rgba(244, 223, 189, 0.32);
+.quote {
+  text-align: center;
 
-      text-transform: uppercase;
-    }
+  margin-top: 18px;
 
-    nav {
-      position: fixed;
+  color: rgba(244,223,189,0.52);
 
-      left: 0;
-      right: 0;
-      bottom: 0;
+  font-size: 13px;
 
-      height: 78px;
+  font-style: italic;
 
-      display: flex;
+  line-height: 1.6;
+}
 
-      align-items: center;
+.author {
+  text-align: center;
 
-      justify-content: space-around;
+  margin-top: 35px;
 
-      z-index: 20;
+  font-size: 9px;
 
-      background:
-        rgba(16, 8, 5, 0.95);
+  letter-spacing: 2px;
 
-      backdrop-filter: blur(18px);
+  color: rgba(244,223,189,0.32);
 
-      -webkit-backdrop-filter: blur(18px);
+  text-transform: uppercase;
+}
 
-      border-top:
-        1px solid
-        rgba(244, 211, 154, 0.12);
-    }
+nav {
+  position: fixed;
 
-    nav button {
-      min-width: 58px;
+  left: 0;
+  right: 0;
+  bottom: 0;
 
-      background: transparent;
+  height: 78px;
 
-      border: none;
+  display: flex;
 
-      color:
-        rgba(244, 223, 189, 0.58);
+  align-items: center;
 
-      font-size: 10px;
+  justify-content: space-around;
 
-      cursor: pointer;
-    }
+  z-index: 20;
 
-    nav button .icon {
-      display: block;
+  background:
+    rgba(16,8,5,0.95);
 
-      margin-bottom: 4px;
+  backdrop-filter: blur(18px);
 
-      font-size: 21px;
+  -webkit-backdrop-filter: blur(18px);
 
-      color:
-        rgba(244, 211, 154, 0.78);
-    }
+  border-top:
+    1px solid
+    rgba(244,211,154,0.12);
+}
 
-    .section-title {
-      text-align: center;
+nav button {
+  min-width: 58px;
 
-      margin-top: 30px;
+  background: transparent;
 
-      color: #f1c980;
+  border: none;
 
-      font-size: 30px;
+  color:
+    rgba(244,223,189,0.58);
 
-      font-weight: normal;
-    }
+  font-size: 10px;
 
-    .section-subtitle {
-      text-align: center;
+  cursor: pointer;
+}
 
-      margin-top: 10px;
+nav button .icon {
+  display: block;
 
-      color:
-        rgba(244, 223, 189, 0.65);
+  margin-bottom: 4px;
 
-      line-height: 1.6;
-    }
+  font-size: 21px;
 
-    .card {
-      margin-top: 25px;
+  color:
+    rgba(244,211,154,0.78);
+}
 
-      padding: 24px;
+.section-title {
+  text-align: center;
 
-      border-radius: 18px;
+  margin-top: 30px;
 
-      background:
-        rgba(255, 221, 157, 0.055);
+  color: #f1c980;
 
-      border:
-        1px solid
-        rgba(244, 211, 154, 0.12);
-    }
+  font-size: 30px;
 
-    .card-title {
-      color: #f1c980;
+  font-weight: normal;
+}
 
-      font-size: 21px;
+.section-subtitle {
+  text-align: center;
 
-      margin-bottom: 12px;
-    }
+  margin-top: 10px;
 
-    .back-button {
-      display: block;
+  color:
+    rgba(244,223,189,0.65);
 
-      margin: 30px auto 0;
+  line-height: 1.6;
+}
 
-      padding: 13px 25px;
+.card {
+  margin-top: 25px;
 
-      border-radius: 30px;
+  padding: 24px;
 
-      background: transparent;
+  border-radius: 18px;
 
-      border:
-        1px solid
-        rgba(244, 211, 154, 0.35);
+  background:
+    rgba(255,221,157,0.055);
 
-      color: #f4dfbd;
+  border:
+    1px solid
+    rgba(244,211,154,0.12);
+}
 
-      cursor: pointer;
-    }
+.card-title {
+  color: #f1c980;
 
-    textarea {
-      width: 100%;
+  font-size: 21px;
 
-      min-height: 220px;
+  margin-bottom: 12px;
+}
 
-      padding: 16px;
+.back-button {
+  display: block;
 
-      border-radius: 12px;
+  margin: 30px auto 0;
 
-      border:
-        1px solid
-        rgba(244, 211, 154, 0.18);
+  padding: 13px 25px;
 
-      background:
-        rgba(0, 0, 0, 0.22);
+  border-radius: 30px;
 
-      color: #f4dfbd;
+  background: transparent;
 
-      font-family: Georgia, serif;
+  border:
+    1px solid
+    rgba(244,211,154,0.35);
 
-      font-size: 16px;
+  color: #f4dfbd;
 
-      line-height: 1.6;
+  cursor: pointer;
+}
 
-      resize: vertical;
-    }
+textarea {
+  width: 100%;
 
-    @media (min-width: 700px) {
+  min-height: 220px;
 
-      main {
-        padding-top: 35px;
-      }
+  padding: 16px;
 
-      .cover {
-        max-width: 420px;
-      }
+  border-radius: 12px;
 
-      nav {
-        max-width: 700px;
+  border:
+    1px solid
+    rgba(244,211,154,0.18);
 
-        left: 50%;
-        right: auto;
+  background:
+    rgba(0,0,0,0.22);
 
-        transform: translateX(-50%);
+  color: #f4dfbd;
 
-        border-radius:
-          22px
-          22px
-          0
-          0;
-      }
+  font-family: Georgia, serif;
 
-    }
+  font-size: 16px;
 
-  </style>
+  line-height: 1.6;
+
+  resize: vertical;
+}
+
+@media (min-width:700px) {
+
+  main {
+    padding-top: 35px;
+  }
+
+  .cover {
+    max-width: 420px;
+  }
+
+  nav {
+    max-width: 700px;
+
+    left: 50%;
+    right: auto;
+
+    transform: translateX(-50%);
+
+    border-radius:
+      22px 22px 0 0;
+  }
+
+}
+
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
-  <div class="light"></div>
+<div class="light"></div>
 
-  <header>
+<header>
 
-    <div class="top-label">
-      365 dias de presença
-    </div>
+<div class="top-label">
+365 dias de presença
+</div>
 
-  </header>
+</header>
 
+<main>
 
-  <main>
+<section
+id="home"
+class="screen active"
+>
 
+<div class="cover-container">
 
-    <!-- INÍCIO -->
+<img
+class="cover"
+src="IMG_3198.jpeg"
+alt="Doce Espírito Santo — Um Amigo Íntimo"
+>
 
-    <section
-      id="home"
-      class="screen active"
-    >
+</div>
 
-      <div class="cover-container">
+<p class="manifesto">
 
-        <img
-          class="cover"
-          src="https://raw.githubusercontent.com/deniswnc02-lang/doce-espirito-santo/main/Doce%20Esp%C3%ADrito%20Santo.png"
-          alt="Doce Espírito Santo — Um Amigo Íntimo"
-        >
+<strong>365 dias</strong>
+não para aprender mais sobre
+o Espírito Santo,
 
-      </div>
+mas para aprender
+a perceber Sua presença.
 
+</p>
 
-      <p class="manifesto">
+<button
+class="start-button"
+onclick="showScreen('journey')"
+>
 
-        <strong>365 dias</strong>
-        não para aprender mais sobre
-        o Espírito Santo,
+Começar minha jornada
 
-        mas para aprender
-        a perceber Sua presença.
+</button>
 
-      </p>
+<div class="feather">
+🪶
+</div>
 
+<p class="quote">
+“Permanecei em mim...”
+</p>
 
-      <button
-        class="start-button"
-        onclick="showScreen('journey')"
-      >
-        Começar minha jornada
-      </button>
+<div class="author">
+Denis Willian Cruz
+</div>
 
+</section>
 
-      <div class="feather">
-        🪶
-      </div>
 
+<section
+id="journey"
+class="screen"
+>
 
-      <p class="quote">
-        “Permanecei em mim...”
-      </p>
+<h1 class="section-title">
+Minha Jornada
+</h1>
 
+<p class="section-subtitle">
 
-      <div class="author">
-        Denis Willian Cruz
-      </div>
+365 dias para aprender<br>
+a perceber Sua presença.
 
-    </section>
+</p>
 
+<div class="card">
 
-    <!-- JORNADA -->
+<div class="card-title">
+🪶 Fase 1
+</div>
 
-    <section
-      id="journey"
-      class="screen"
-    >
+<p>
+<strong>
+Reconhecendo a Presença
+</strong>
+</p>
 
-      <h1 class="section-title">
-        Minha Jornada
-      </h1>
+<p style="margin-top:10px;opacity:.7;">
+Dias 1 — 30
+</p>
 
-      <p class="section-subtitle">
-        365 dias para aprender<br>
-        a perceber Sua presença.
-      </p>
+<button
+class="start-button"
+style="margin-top:22px;"
+onclick="openDay(1)"
+>
 
+Começar jornada
 
-      <div class="card">
+</button>
 
-        <div class="card-title">
-          🪶 Fase 1
-        </div>
+</div>
 
-        <p>
-          <strong>
-            Reconhecendo a Presença
-          </strong>
-        </p>
+<button
+class="back-button"
+onclick="showScreen('home')"
+>
 
-        <p style="margin-top:10px; opacity:.7;">
-          Dias 1 — 30
-        </p>
+Voltar
 
+</button>
 
-        <button
-          class="start-button"
-          style="margin-top:22px;"
-          onclick="openDay(1)"
-        >
-          Começar jornada
-        </button>
+</section>
 
-      </div>
 
+<section
+id="devotional"
+class="screen"
+>
 
-      <button
-        class="back-button"
-        onclick="showScreen('home')"
-      >
-        Voltar
-      </button>
+<h1 class="section-title">
 
-    </section>
+Dia
+<span id="dayNumber">1</span>
 
+</h1>
 
-    <!-- DEVOCIONAL -->
+<div class="card">
 
-    <section
-      id="devotional"
-      class="screen"
-    >
+<div class="card-title">
+Reconhecendo a Presença
+</div>
 
-      <h1 class="section-title">
+<p>
+Este será o espaço dos
+365 devocionais.
+</p>
 
-        Dia
-        <span id="dayNumber">
-          1
-        </span>
+<p
+style="
+margin-top:18px;
+line-height:1.7;
+opacity:.78;
+"
+>
 
-      </h1>
+Aqui vamos colocar a Palavra,
+a contemplação, a reflexão,
+a oração e a prática diária.
 
+</p>
 
-      <div class="card">
+</div>
 
-        <div class="card-title">
-          Reconhecendo a Presença
-        </div>
+<button
+class="back-button"
+onclick="showScreen('journey')"
+>
 
+Voltar para a jornada
 
-        <p>
-          Este será o espaço dos
-          365 devocionais.
-        </p>
+</button>
 
+</section>
 
-        <p
-          style="
-            margin-top:18px;
-            line-height:1.7;
-            opacity:.78;
-          "
-        >
 
-          Aqui vamos colocar a Palavra,
-          a contemplação, a reflexão,
-          a oração e a prática diária.
+<section
+id="journal"
+class="screen"
+>
 
-        </p>
+<h1 class="section-title">
+Meu Diário
+</h1>
 
-      </div>
+<p class="section-subtitle">
 
+O que o Espírito Santo
+despertou em você hoje?
 
-      <button
-        class="back-button"
-        onclick="showScreen('journey')"
-      >
-        Voltar para a jornada
-      </button>
+</p>
 
-    </section>
+<div class="card">
 
+<textarea
+id="journalText"
+placeholder="Escreva aqui..."
+></textarea>
 
-    <!-- DIÁRIO -->
+<button
+class="start-button"
+onclick="saveJournal()"
+>
 
-    <section
-      id="journal"
-      class="screen"
-    >
+Salvar reflexão
 
-      <h1 class="section-title">
-        Meu Diário
-      </h1>
+</button>
 
+</div>
 
-      <p class="section-subtitle">
-        O que o Espírito Santo
-        despertou em você hoje?
-      </p>
+</section>
 
 
-      <div class="card">
+<section
+id="favorites"
+class="screen"
+>
 
-        <textarea
-          id="journalText"
-          placeholder="Escreva aqui..."
-        ></textarea>
+<h1 class="section-title">
+Favoritos
+</h1>
 
+<p class="section-subtitle">
 
-        <button
-          class="start-button"
-          onclick="saveJournal()"
-        >
-          Salvar reflexão
-        </button>
+Seus momentos especiais
+ficarão aqui.
 
-      </div>
+</p>
 
-    </section>
+<div class="card">
 
+<div class="card-title">
+♡ Ainda não há favoritos
+</div>
 
-    <!-- FAVORITOS -->
+<p>
 
-    <section
-      id="favorites"
-      class="screen"
-    >
+Conforme você avançar na jornada,
+poderá guardar os devocionais
+que mais tocaram seu coração.
 
-      <h1 class="section-title">
-        Favoritos
-      </h1>
+</p>
 
+</div>
 
-      <p class="section-subtitle">
-        Seus momentos especiais
-        ficarão aqui.
-      </p>
+</section>
 
 
-      <div class="card">
+<section
+id="profile"
+class="screen"
+>
 
-        <div class="card-title">
-          ♡ Ainda não há favoritos
-        </div>
+<h1 class="section-title">
+Meu Perfil
+</h1>
 
+<div class="card">
 
-        <p>
-          Conforme você avançar na jornada,
-          poderá guardar os devocionais
-          que mais tocaram seu coração.
-        </p>
+<div class="card-title">
+Doce Espírito Santo
+</div>
 
-      </div>
+<p>
+Um Amigo Íntimo
+</p>
 
-    </section>
+<p
+style="
+margin-top:18px;
+opacity:.7;
+"
+>
 
+Jornada de 365 dias
 
-    <!-- PERFIL -->
+</p>
 
-    <section
-      id="profile"
-      class="screen"
-    >
+</div>
 
-      <h1 class="section-title">
-        Meu Perfil
-      </h1>
+</section>
 
+</main>
 
-      <div class="card">
 
-        <div class="card-title">
-          Doce Espírito Santo
-        </div>
+<nav>
 
+<button onclick="showScreen('home')">
 
-        <p>
-          Um Amigo Íntimo
-        </p>
+<span class="icon">⌂</span>
 
+Início
 
-        <p
-          style="
-            margin-top:18px;
-            opacity:.7;
-          "
-        >
-          Jornada de 365 dias
-        </p>
+</button>
 
-      </div>
 
-    </section>
+<button onclick="showScreen('journey')">
 
+<span class="icon">✦</span>
 
-  </main>
+Jornada
 
+</button>
 
-  <!-- MENU -->
 
-  <nav>
+<button onclick="showScreen('journal')">
 
-    <button
-      onclick="showScreen('home')"
-    >
+<span class="icon">✎</span>
 
-      <span class="icon">
-        ⌂
-      </span>
+Diário
 
-      Início
+</button>
 
-    </button>
 
+<button onclick="showScreen('favorites')">
 
-    <button
-      onclick="showScreen('journey')"
-    >
+<span class="icon">♡</span>
 
-      <span class="icon">
-        ✦
-      </span>
+Favoritos
 
-      Jornada
+</button>
 
-    </button>
 
+<button onclick="showScreen('profile')">
 
-    <button
-      onclick="showScreen('journal')"
-    >
+<span class="icon">○</span>
 
-      <span class="icon">
-        ✎
-      </span>
+Perfil
 
-      Diário
+</button>
 
-    </button>
-
-
-    <button
-      onclick="showScreen('favorites')"
-    >
-
-      <span class="icon">
-        ♡
-      </span>
-
-      Favoritos
-
-    </button>
-
-
-    <button
-      onclick="showScreen('profile')"
-    >
-
-      <span class="icon">
-        ○
-      </span>
-
-      Perfil
-
-    </button>
-
-  </nav>
-
+</nav>
 
 </div>
 
 
 <script>
 
-  function showScreen(screenId) {
+function showScreen(screenId) {
 
-    document
-      .querySelectorAll('.screen')
-      .forEach(function(screen) {
+document
+.querySelectorAll('.screen')
+.forEach(function(screen) {
 
-        screen.classList.remove('active');
+screen.classList.remove('active');
 
-      });
+});
 
+const screen =
+document.getElementById(screenId);
 
-    const screen =
-      document.getElementById(screenId);
+if (screen) {
 
+screen.classList.add('active');
 
-    if (screen) {
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
 
-      screen.classList.add('active');
+}
 
-
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-
-    }
-
-  }
+}
 
 
-  function openDay(day) {
+function openDay(day) {
 
-    document.getElementById(
-      'dayNumber'
-    ).textContent = day;
+document.getElementById(
+'dayNumber'
+).textContent = day;
 
+showScreen('devotional');
 
-    showScreen('devotional');
-
-  }
-
-
-  function saveJournal() {
-
-    const text =
-      document.getElementById(
-        'journalText'
-      ).value;
+}
 
 
-    if (!text.trim()) {
+function saveJournal() {
 
-      alert(
-        'Escreva sua reflexão antes de salvar.'
-      );
+const text =
+document.getElementById(
+'journalText'
+).value;
 
-      return;
+if (!text.trim()) {
 
-    }
+alert(
+'Escreva sua reflexão antes de salvar.'
+);
 
+return;
 
-    localStorage.setItem(
-      'doce-espirito-diario',
-      text
-    );
+}
 
+localStorage.setItem(
+'doce-espirito-diario',
+text
+);
 
-    alert(
-      'Sua reflexão foi salva. 🪶'
-    );
+alert(
+'Sua reflexão foi salva. 🪶'
+);
 
-  }
-
-
-  function loadJournal() {
-
-    const saved =
-      localStorage.getItem(
-        'doce-espirito-diario'
-      );
+}
 
 
-    if (saved) {
+function loadJournal() {
 
-      document.getElementById(
-        'journalText'
-      ).value = saved;
+const saved =
+localStorage.getItem(
+'doce-espirito-diario'
+);
 
-    }
+if (saved) {
 
-  }
+document.getElementById(
+'journalText'
+).value = saved;
 
+}
 
-  loadJournal();
+}
+
+loadJournal();
 
 </script>
 
