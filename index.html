@@ -1,1032 +1,504 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
->
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <meta name="theme-color" content="#170d08">
 
-<meta
-name="apple-mobile-web-app-capable"
-content="yes"
->
-
-<meta
-name="apple-mobile-web-app-status-bar-style"
-content="black-translucent"
->
-
-<meta
-name="apple-mobile-web-app-title"
-content="Doce Espírito Santo"
->
-
 <title>Doce Espírito Santo — Um Amigo Íntimo</title>
-
 
 <style>
 
-* {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
-html,
-body {
-width: 100%;
-min-height: 100%;
+html,body{
+width:100%;
+min-height:100%;
 }
 
-body {
-
-background: #100805;
-
-color: #f4dfbd;
-
-font-family:
-Georgia,
-"Times New Roman",
-serif;
-
-overflow-x: hidden;
+body{
+background:#100805;
+color:#f4dfbd;
+font-family:Georgia,"Times New Roman",serif;
+overflow-x:hidden;
 }
 
-button {
-font-family: inherit;
+button{
+font-family:inherit;
 }
 
-.app {
-
-min-height: 100vh;
-min-height: 100dvh;
-
-position: relative;
-
+.app{
+min-height:100vh;
+min-height:100dvh;
 background:
-
-radial-gradient(
-circle at 50% 5%,
-rgba(220,165,83,0.18),
-transparent 35%
-),
-
-linear-gradient(
-180deg,
-#120906 0%,
-#2b170c 50%,
-#100805 100%
-);
+radial-gradient(circle at 50% 5%,rgba(220,165,83,.18),transparent 35%),
+linear-gradient(180deg,#120906 0%,#2b170c 50%,#100805 100%);
 }
 
-
-.light {
-
-position: fixed;
-
-top: -180px;
-right: -120px;
-
-width: 450px;
-height: 450px;
-
+.light{
+position:fixed;
+top:-180px;
+right:-120px;
+width:450px;
+height:450px;
 background:
-
-radial-gradient(
-circle,
-rgba(255,221,157,0.25),
-rgba(211,151,66,0.08) 42%,
-transparent 70%
-);
-
-filter: blur(20px);
-
-pointer-events: none;
-
-z-index: 0;
+radial-gradient(circle,rgba(255,221,157,.25),rgba(211,151,66,.08) 42%,transparent 70%);
+filter:blur(20px);
+pointer-events:none;
+z-index:0;
 }
 
-
-header {
-
-position: relative;
-
-z-index: 3;
-
-padding:
-25px
-20px
-8px;
-
-text-align: center;
+header{
+position:relative;
+z-index:3;
+padding:25px 20px 8px;
+text-align:center;
 }
 
-
-.top-label {
-
-font-size: 10px;
-
-letter-spacing: 3px;
-
-text-transform: uppercase;
-
-color:
-rgba(244,223,189,0.58);
+.top-label{
+font-size:10px;
+letter-spacing:3px;
+text-transform:uppercase;
+color:rgba(244,223,189,.58);
 }
 
-
-main {
-
-position: relative;
-
-z-index: 2;
-
-width: 100%;
-
-max-width: 520px;
-
-margin: 0 auto;
-
-padding:
-20px
-20px
-125px;
+main{
+position:relative;
+z-index:2;
+width:100%;
+max-width:520px;
+margin:0 auto;
+padding:20px 20px 125px;
 }
 
-
-.screen {
-display: none;
+.screen{
+display:none;
 }
 
-.screen.active {
-display: block;
+.screen.active{
+display:block;
 }
 
-
-.cover-container {
-
-width: 100%;
-
-display: flex;
-
-justify-content: center;
-
-margin-top: 18px;
+.cover-container{
+display:flex;
+justify-content:center;
+margin-top:18px;
 }
 
-
-.cover {
-
-width: 100%;
-
-max-width: 390px;
-
-height: auto;
-
-display: block;
-
-border-radius: 14px;
-
-border:
-1px solid
-rgba(244,211,154,0.18);
-
+.cover{
+width:100%;
+max-width:390px;
+height:auto;
+display:block;
+border-radius:14px;
+border:1px solid rgba(244,211,154,.18);
 box-shadow:
-
-0 25px 70px
-rgba(0,0,0,0.60),
-
-0 0 40px
-rgba(217,157,71,0.12);
+0 25px 70px rgba(0,0,0,.60),
+0 0 40px rgba(217,157,71,.12);
 }
 
-
-.manifesto {
-
-text-align: center;
-
-max-width: 390px;
-
-margin:
-30px
-auto
-0;
-
-color:
-rgba(246,227,198,0.84);
-
-font-size: 17px;
-
-line-height: 1.75;
+.manifesto{
+text-align:center;
+max-width:390px;
+margin:30px auto 0;
+color:rgba(246,227,198,.84);
+font-size:17px;
+line-height:1.75;
 }
 
-
-.manifesto strong {
-
-color: #f1c980;
-
-font-weight: normal;
+.manifesto strong{
+color:#f1c980;
+font-weight:normal;
 }
 
-
-.start-button {
-
-display: block;
-
-width: 100%;
-
-max-width: 330px;
-
-margin:
-30px
-auto
-0;
-
-padding:
-17px
-25px;
-
-border-radius: 50px;
-
-border:
-1px solid
-rgba(244,211,154,0.55);
-
-background:
-
-linear-gradient(
-135deg,
-#9a622b,
-#5d3419
-);
-
-color: #fff0d2;
-
-font-size: 14px;
-
-letter-spacing: 1.5px;
-
-text-transform: uppercase;
-
-box-shadow:
-0 12px 35px
-rgba(0,0,0,0.35);
-
-cursor: pointer;
+.start-button,
+.complete-button{
+display:block;
+width:100%;
+max-width:330px;
+margin:25px auto 0;
+padding:16px 22px;
+border-radius:50px;
+border:1px solid rgba(244,211,154,.55);
+background:linear-gradient(135deg,#9a622b,#5d3419);
+color:#fff0d2;
+font-size:14px;
+letter-spacing:1.3px;
+text-transform:uppercase;
+cursor:pointer;
 }
 
-
-.start-button:active {
-
-transform: scale(0.97);
+.start-button:active,
+.complete-button:active{
+transform:scale(.97);
 }
 
-
-.feather {
-
-text-align: center;
-
-margin-top: 30px;
-
-font-size: 34px;
-
-opacity: 0.75;
-
-filter:
-
-drop-shadow(
-0 0 14px
-rgba(240,190,100,0.45)
-);
+.feather{
+text-align:center;
+font-size:34px;
+margin-top:30px;
+opacity:.75;
 }
 
-
-.quote {
-
-text-align: center;
-
-margin-top: 18px;
-
-color:
-rgba(244,223,189,0.52);
-
-font-size: 13px;
-
-font-style: italic;
-
-line-height: 1.6;
+.quote{
+text-align:center;
+margin-top:18px;
+color:rgba(244,223,189,.52);
+font-size:13px;
+font-style:italic;
+line-height:1.6;
 }
 
-
-.author {
-
-text-align: center;
-
-margin-top: 35px;
-
-font-size: 9px;
-
-letter-spacing: 2px;
-
-color:
-rgba(244,223,189,0.32);
-
-text-transform: uppercase;
+.author{
+text-align:center;
+margin-top:35px;
+font-size:9px;
+letter-spacing:2px;
+color:rgba(244,223,189,.32);
+text-transform:uppercase;
 }
 
-
-nav {
-
-position: fixed;
-
-left: 0;
-right: 0;
-bottom: 0;
-
-height: 78px;
-
-display: flex;
-
-align-items: center;
-
-justify-content: space-around;
-
-z-index: 20;
-
-background:
-rgba(16,8,5,0.95);
-
-backdrop-filter:
-blur(18px);
-
--webkit-backdrop-filter:
-blur(18px);
-
-border-top:
-1px solid
-rgba(244,211,154,0.12);
+.section-title{
+text-align:center;
+margin-top:30px;
+color:#f1c980;
+font-size:30px;
+font-weight:normal;
 }
 
-
-nav button {
-
-min-width: 58px;
-
-background: transparent;
-
-border: none;
-
-color:
-rgba(244,223,189,0.58);
-
-font-size: 10px;
-
-cursor: pointer;
+.section-subtitle{
+text-align:center;
+margin-top:10px;
+color:rgba(244,223,189,.65);
+line-height:1.6;
 }
 
-
-nav button .icon {
-
-display: block;
-
-margin-bottom: 4px;
-
-font-size: 21px;
-
-color:
-rgba(244,211,154,0.78);
+.progress{
+margin-top:22px;
+text-align:center;
+font-size:12px;
+color:rgba(244,223,189,.58);
 }
 
-
-.section-title {
-
-text-align: center;
-
-margin-top: 30px;
-
-color: #f1c980;
-
-font-size: 30px;
-
-font-weight: normal;
+.progress-bar{
+height:6px;
+margin-top:10px;
+border-radius:10px;
+background:rgba(255,255,255,.08);
+overflow:hidden;
 }
 
-
-.section-subtitle {
-
-text-align: center;
-
-margin-top: 10px;
-
-color:
-rgba(244,223,189,0.65);
-
-line-height: 1.6;
+.progress-fill{
+height:100%;
+width:0%;
+background:#b47a35;
+transition:width .4s ease;
 }
 
-
-.card {
-
-margin-top: 25px;
-
-padding: 24px;
-
-border-radius: 18px;
-
-background:
-rgba(255,221,157,0.055);
-
-border:
-1px solid
-rgba(244,211,154,0.12);
+.card{
+margin-top:22px;
+padding:22px;
+border-radius:18px;
+background:rgba(255,221,157,.055);
+border:1px solid rgba(244,211,154,.12);
 }
 
-
-.card-title {
-
-color: #f1c980;
-
-font-size: 21px;
-
-margin-bottom: 12px;
+.card-title{
+color:#f1c980;
+font-size:20px;
+margin-bottom:10px;
 }
 
-
-.back-button {
-
-display: block;
-
-margin:
-30px
-auto
-0;
-
-padding:
-13px
-25px;
-
-border-radius: 30px;
-
-background: transparent;
-
-border:
-1px solid
-rgba(244,211,154,0.35);
-
-color: #f4dfbd;
-
-cursor: pointer;
+.day-list{
+display:flex;
+flex-direction:column;
+gap:10px;
+margin-top:20px;
 }
 
-
-.devotional-intro {
-
-text-align: center;
-
-margin-top: 28px;
-
-font-size: 15px;
-
-line-height: 1.8;
-
-color:
-rgba(246,227,198,0.82);
+.day-button{
+width:100%;
+padding:15px;
+border-radius:14px;
+border:1px solid rgba(244,211,154,.14);
+background:rgba(0,0,0,.16);
+color:#f4dfbd;
+text-align:left;
+cursor:pointer;
 }
 
-
-.silence-box {
-
-margin-top: 25px;
-
-padding:
-25px
-20px;
-
-text-align: center;
-
-border-radius: 18px;
-
-background:
-rgba(255,221,157,0.045);
-
-border:
-1px solid
-rgba(244,211,154,0.12);
+.day-button.done{
+border-color:rgba(180,122,53,.55);
+background:rgba(154,98,43,.14);
 }
 
-
-.silence-box .feather {
-
-margin-top: 0;
-
-margin-bottom: 15px;
+.day-number{
+color:#f1c980;
+font-size:13px;
+display:block;
+margin-bottom:4px;
 }
 
-
-.silence-title {
-
-color: #f1c980;
-
-font-size: 18px;
-
-margin-bottom: 12px;
+.day-name{
+font-size:15px;
 }
 
-
-.silence-text {
-
-font-size: 14px;
-
-line-height: 1.8;
-
-color:
-rgba(244,223,189,0.70);
+.back-button{
+display:block;
+margin:25px auto 0;
+padding:12px 24px;
+border-radius:30px;
+background:transparent;
+border:1px solid rgba(244,211,154,.35);
+color:#f4dfbd;
+cursor:pointer;
 }
 
-
-.bible {
-
-margin-top: 25px;
-
-padding: 25px;
-
-border-left:
-2px solid
-#b47a35;
-
-background:
-rgba(0,0,0,0.15);
-
-border-radius:
-0
-15px
-15px
-0;
+.devotional{
+margin-top:25px;
 }
 
-
-.bible-label {
-
-font-size: 10px;
-
-letter-spacing: 2px;
-
-text-transform: uppercase;
-
-color:
-rgba(244,223,189,0.48);
-
-margin-bottom: 10px;
+.devotional-title{
+text-align:center;
+font-size:24px;
+color:#f1c980;
+line-height:1.35;
 }
 
-
-.bible-title {
-
-color: #f1c980;
-
-font-size: 20px;
-
-margin-bottom: 12px;
+.intro{
+text-align:center;
+margin-top:22px;
+font-size:15px;
+line-height:1.9;
+color:rgba(246,227,198,.82);
 }
 
-
-.bible-text {
-
-font-size: 15px;
-
-line-height: 1.8;
-
-color:
-rgba(246,227,198,0.82);
+.bible{
+margin-top:28px;
+padding:22px;
+border-left:2px solid #b47a35;
+background:rgba(0,0,0,.15);
+border-radius:0 15px 15px 0;
 }
 
-
-.reflection {
-
-margin-top: 28px;
-
-font-size: 16px;
-
-line-height: 1.9;
-
-color:
-rgba(246,227,198,0.86);
+.label{
+font-size:9px;
+letter-spacing:2px;
+text-transform:uppercase;
+color:rgba(244,223,189,.48);
+margin-bottom:8px;
 }
 
-
-.reflection p {
-
-margin-bottom: 18px;
+.bible-ref{
+font-size:18px;
+color:#f1c980;
+margin-bottom:10px;
 }
 
-
-.highlight {
-
-color: #f1c980;
-
-font-size: 18px;
-
-text-align: center;
-
-line-height: 1.7;
-
-margin:
-25px
-0;
+.bible p{
+font-size:14px;
+line-height:1.8;
+color:rgba(246,227,198,.78);
 }
 
-
-.question {
-
-margin-top: 30px;
-
-padding: 24px;
-
-border-radius: 18px;
-
-background:
-rgba(154,98,43,0.10);
-
-border:
-1px solid
-rgba(244,211,154,0.15);
-
-text-align: center;
+.reflection{
+margin-top:28px;
+font-size:16px;
+line-height:1.9;
+color:rgba(246,227,198,.86);
 }
 
-
-.question-title {
-
-color: #f1c980;
-
-font-size: 17px;
-
-margin-bottom: 14px;
+.reflection p{
+margin-bottom:17px;
 }
 
-
-.question-text {
-
-font-style: italic;
-
-font-size: 16px;
-
-line-height: 1.7;
-
-color:
-rgba(246,227,198,0.84);
+.highlight{
+text-align:center;
+color:#f1c980;
+font-size:18px;
+line-height:1.7;
+margin:25px 0;
 }
 
-
-.prayer {
-
-margin-top: 30px;
-
-padding: 26px 22px;
-
-border-radius: 18px;
-
-background:
-rgba(255,221,157,0.045);
-
-border:
-1px solid
-rgba(244,211,154,0.12);
+.question{
+margin-top:28px;
+padding:22px;
+border-radius:18px;
+background:rgba(154,98,43,.10);
+border:1px solid rgba(244,211,154,.15);
+text-align:center;
 }
 
-
-.prayer-title {
-
-text-align: center;
-
-color: #f1c980;
-
-font-size: 22px;
-
-margin-bottom: 20px;
+.question-title{
+color:#f1c980;
+font-size:17px;
+margin-bottom:12px;
 }
 
-
-.prayer-text {
-
-font-size: 16px;
-
-line-height: 1.95;
-
-color:
-rgba(246,227,198,0.86);
+.question-text{
+font-style:italic;
+font-size:15px;
+line-height:1.7;
 }
 
-
-.audio-button {
-
-display: block;
-
-width: 100%;
-
-margin-top: 22px;
-
-padding: 16px;
-
-border-radius: 50px;
-
-border:
-1px solid
-rgba(244,211,154,0.45);
-
-background:
-rgba(154,98,43,0.28);
-
-color: #f4dfbd;
-
-font-size: 14px;
-
-cursor: pointer;
+.practice{
+margin-top:25px;
+padding:22px;
+border-radius:18px;
+background:rgba(255,221,157,.045);
+border:1px solid rgba(244,211,154,.12);
 }
 
-
-.audio-button:active {
-
-transform: scale(0.98);
+.practice-title{
+color:#f1c980;
+font-size:18px;
+margin-bottom:10px;
 }
 
-
-.ore-comigo {
-
-margin-top: 30px;
-
-padding: 24px;
-
-border-radius: 18px;
-
-background:
-rgba(255,221,157,0.045);
-
-border:
-1px solid
-rgba(244,211,154,0.12);
+.practice p{
+font-size:14px;
+line-height:1.8;
 }
 
-
-.ore-title {
-
-text-align: center;
-
-color: #f1c980;
-
-font-size: 21px;
-
-margin-bottom: 8px;
+.prayer{
+margin-top:28px;
+padding:24px 20px;
+border-radius:18px;
+background:rgba(255,221,157,.045);
+border:1px solid rgba(244,211,154,.12);
 }
 
-
-.ore-subtitle {
-
-text-align: center;
-
-font-size: 13px;
-
-line-height: 1.6;
-
-color:
-rgba(244,223,189,0.60);
-
-margin-bottom: 18px;
+.prayer-title{
+text-align:center;
+color:#f1c980;
+font-size:21px;
+margin-bottom:18px;
 }
 
-
-.mood-grid {
-
-display: grid;
-
-grid-template-columns:
-1fr 1fr;
-
-gap: 10px;
+.prayer-text{
+font-size:15px;
+line-height:1.95;
+color:rgba(246,227,198,.86);
 }
 
-
-.mood-button {
-
-padding:
-14px
-8px;
-
-border-radius: 14px;
-
-border:
-1px solid
-rgba(244,211,154,0.15);
-
-background:
-rgba(0,0,0,0.16);
-
-color:
-rgba(246,227,198,0.78);
-
-font-size: 13px;
-
-cursor: pointer;
+.audio-button{
+display:block;
+width:100%;
+margin-top:20px;
+padding:15px;
+border-radius:50px;
+border:1px solid rgba(244,211,154,.4);
+background:rgba(154,98,43,.2);
+color:#f4dfbd;
+cursor:pointer;
 }
 
-
-.mood-button:active {
-
-background:
-rgba(154,98,43,0.30);
+.journal-title{
+margin-top:28px;
+text-align:center;
+color:#f1c980;
+font-size:19px;
 }
 
-
-.generated-prayer {
-
-display: none;
-
-margin-top: 22px;
-
-padding: 20px;
-
-border-radius: 15px;
-
-background:
-rgba(154,98,43,0.10);
-
-font-size: 15px;
-
-line-height: 1.85;
-
-color:
-rgba(246,227,198,0.86);
+textarea{
+width:100%;
+min-height:190px;
+margin-top:15px;
+padding:15px;
+border-radius:12px;
+border:1px solid rgba(244,211,154,.18);
+background:rgba(0,0,0,.22);
+color:#f4dfbd;
+font-family:Georgia,serif;
+font-size:15px;
+line-height:1.6;
+resize:vertical;
 }
 
-
-.journal-title {
-
-margin-top: 30px;
-
-color: #f1c980;
-
-font-size: 20px;
-
-text-align: center;
+.navigation-days{
+display:flex;
+gap:10px;
+margin-top:18px;
 }
 
-
-textarea {
-
-width: 100%;
-
-min-height: 220px;
-
-margin-top: 15px;
-
-padding: 16px;
-
-border-radius: 12px;
-
-border:
-1px solid
-rgba(244,211,154,0.18);
-
-background:
-rgba(0,0,0,0.22);
-
-color: #f4dfbd;
-
-font-family:
-Georgia,
-serif;
-
-font-size: 16px;
-
-line-height: 1.6;
-
-resize: vertical;
+.navigation-days button{
+flex:1;
+padding:12px;
+border-radius:25px;
+border:1px solid rgba(244,211,154,.25);
+background:transparent;
+color:#f4dfbd;
 }
 
-
-.complete-button {
-
-display: block;
-
-width: 100%;
-
-margin-top: 25px;
-
-padding: 17px;
-
-border-radius: 50px;
-
-border:
-1px solid
-rgba(244,211,154,0.55);
-
-background:
-
-linear-gradient(
-135deg,
-#9a622b,
-#5d3419
-);
-
-color: #fff0d2;
-
-font-size: 14px;
-
-letter-spacing: 1px;
-
-cursor: pointer;
+nav{
+position:fixed;
+left:0;
+right:0;
+bottom:0;
+height:78px;
+display:flex;
+align-items:center;
+justify-content:space-around;
+z-index:20;
+background:rgba(16,8,5,.95);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+border-top:1px solid rgba(244,211,154,.12);
 }
 
-
-.progress {
-
-margin-top: 22px;
-
-text-align: center;
-
-color:
-rgba(244,223,189,0.55);
-
-font-size: 12px;
+nav button{
+min-width:58px;
+background:transparent;
+border:none;
+color:rgba(244,223,189,.58);
+font-size:10px;
+cursor:pointer;
 }
 
-
-.progress-bar {
-
-height: 6px;
-
-margin-top: 10px;
-
-border-radius: 10px;
-
-background:
-rgba(255,255,255,0.08);
-
-overflow: hidden;
+nav button .icon{
+display:block;
+margin-bottom:4px;
+font-size:21px;
+color:rgba(244,211,154,.78);
 }
 
+@media(min-width:700px){
 
-.progress-fill {
-
-height: 100%;
-
-width: 0%;
-
-background:
-#b47a35;
-
-transition:
-width 0.5s ease;
+main{
+padding-top:35px;
 }
 
-
-@media (min-width:700px) {
-
-main {
-padding-top: 35px;
+.cover{
+max-width:420px;
 }
 
-.cover {
-max-width: 420px;
-}
-
-nav {
-
-max-width: 700px;
-
-left: 50%;
-right: auto;
-
-transform:
-translateX(-50%);
-
-border-radius:
-22px
-22px
-0
-0;
+nav{
+max-width:700px;
+left:50%;
+right:auto;
+transform:translateX(-50%);
+border-radius:22px 22px 0 0;
 }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
-
 <div class="app">
 
 <div class="light"></div>
-
 
 <header>
 
@@ -1040,13 +512,7 @@ border-radius:
 <main>
 
 
-<!-- INÍCIO -->
-
-<section
-id="home"
-class="screen active"
->
-
+<section id="home" class="screen active">
 
 <div class="cover-container">
 
@@ -1057,7 +523,6 @@ alt="Doce Espírito Santo — Um Amigo Íntimo"
 >
 
 </div>
-
 
 <p class="manifesto">
 
@@ -1070,7 +535,6 @@ a perceber Sua presença.
 
 </p>
 
-
 <button
 class="start-button"
 onclick="showScreen('journey')"
@@ -1080,37 +544,26 @@ Começar minha jornada
 
 </button>
 
-
 <div class="feather">
 🪶
 </div>
-
 
 <p class="quote">
 “Permanecei em mim...”
 </p>
 
-
 <div class="author">
 Denis Willian Cruz
 </div>
 
-
 </section>
 
 
-<!-- JORNADA -->
-
-<section
-id="journey"
-class="screen"
->
-
+<section id="journey" class="screen">
 
 <h1 class="section-title">
 Minha Jornada
 </h1>
-
 
 <p class="section-subtitle">
 
@@ -1119,10 +572,11 @@ a perceber Sua presença.
 
 </p>
 
-
 <div class="progress">
 
-Jornada: <strong id="progressText">0 / 365</strong>
+<strong id="progressText">
+0 / 365
+</strong>
 
 <div class="progress-bar">
 
@@ -1135,47 +589,24 @@ class="progress-fill"
 
 </div>
 
-
 <div class="card">
 
-
 <div class="card-title">
-🪶 Fase 1
+🪶 Fase 1 — Reconhecendo a Presença
 </div>
 
-
-<p>
-<strong>
-Reconhecendo a Presença
-</strong>
-</p>
-
-
-<p
-style="
-margin-top:10px;
-opacity:.7;
-"
->
+<p style="line-height:1.7;opacity:.75;">
 
 Dias 1 — 30
 
 </p>
 
-
-<button
-class="start-button"
-style="margin-top:22px;"
-onclick="openDay(1)"
->
-
-Começar Dia 1
-
-</button>
-
+<div
+id="dayList"
+class="day-list"
+></div>
 
 </div>
-
 
 <button
 class="back-button"
@@ -1186,418 +617,108 @@ Voltar
 
 </button>
 
-
 </section>
 
 
-<!-- DIA 1 -->
+<section id="devotional" class="screen">
 
-<section
-id="day1"
-class="screen"
+<div class="devotional">
+
+<div
+id="devotionalNumber"
+class="label"
+style="text-align:center;"
 >
+DIA 1
+</div>
 
-
-<h1 class="section-title">
-
-Dia 1
-
+<h1
+id="devotionalTitle"
+class="devotional-title"
+>
 </h1>
 
-
-<p
-class="section-subtitle"
+<div
+id="devotionalIntro"
+class="intro"
 >
-
-A Presença que já está aqui
-
-</p>
-
-
-<div class="devotional-intro">
-
-Antes de começar,
-pare por alguns segundos.
-
-<br><br>
-
-Não tenha pressa.
-
-<br><br>
-
-Respire.
-
-<br><br>
-
-Deixe o barulho ao redor diminuir.
-
-<br><br>
-
-Você não precisa produzir nada agora.
-
-<br><br>
-
-Apenas permaneça.
-
-</div>
-
-
-<div class="silence-box">
-
-<div class="feather">
-🪶
-</div>
-
-
-<div class="silence-title">
-
-Permaneça por alguns instantes
-
-</div>
-
-
-<div class="silence-text">
-
-Não tente sentir alguma coisa.
-
-Não tente encontrar palavras.
-
-Apenas fique aqui.
-
-</div>
-
 </div>
 
 
 <div class="bible">
 
-
-<div class="bible-label">
+<div class="label">
 A Palavra
 </div>
 
-
-<div class="bible-title">
-João 14:16–17
+<div
+id="devotionalBible"
+class="bible-ref"
+>
 </div>
 
-
-<div class="bible-text">
-
-Jesus promete aos seus discípulos
-que o Pai lhes daria outro Consolador,
-para estar com eles para sempre.
-
-Ele fala do Espírito da verdade,
-que estaria com eles
-e estaria neles.
-
-</div>
+<p>
+A referência bíblica acima será a base
+da contemplação deste dia.
+</p>
 
 </div>
 
 
-<div class="reflection">
-
-
-<p>
-
-Talvez você tenha passado muito tempo
-tentando sentir alguma coisa
-para ter certeza de que Deus está perto.
-
-</p>
-
-
-<p>
-
-Procurando uma emoção.
-
-Uma resposta.
-
-Um sinal.
-
-Uma experiência extraordinária.
-
-</p>
-
-
-<div class="highlight">
-
-Mas a presença do Espírito Santo
-não depende da intensidade
-do que você sente.
-
-</div>
-
-
-<p>
-
-Ele não se torna presente
-quando você percebe.
-
-</p>
-
-
-<p>
-
-Você é que começa a perceber
-quando aprende a permanecer.
-
-</p>
-
-
-<p>
-
-Hoje, não tente fabricar
-uma experiência espiritual.
-
-</p>
-
-
-<p>
-
-Apenas fique.
-
-Silencie.
-
-Preste atenção.
-
-</p>
-
-
-<p>
-
-E permita que o seu coração reconheça
-aquilo que a sua pressa frequentemente
-não consegue perceber:
-
-</p>
-
-
-<div class="highlight">
-
-Você não está sozinho.
-
-</div>
-
-
+<div
+id="devotionalReflection"
+class="reflection"
+>
 </div>
 
 
 <div class="question">
 
-
 <div class="question-title">
 💭 Pergunta para o coração
 </div>
 
-
-<div class="question-text">
-
-“Tenho vivido como alguém que precisa
-encontrar Deus ou como alguém que
-aprende a reconhecer Sua presença?”
+<div
+id="devotionalQuestion"
+class="question-text"
+>
+</div>
 
 </div>
+
+
+<div class="practice">
+
+<div class="practice-title">
+🪶 Prática do dia
+</div>
+
+<p
+id="devotionalPractice"
+>
+</p>
 
 </div>
 
 
 <div class="prayer">
 
-
 <div class="prayer-title">
 🙏 Oração
 </div>
 
-
 <div
-id="mainPrayer"
+id="devotionalPrayer"
 class="prayer-text"
 >
-
-Espírito Santo...
-
-<br><br>
-
-Eu estou aqui.
-
-<br><br>
-
-Talvez eu não saiba exatamente
-o que dizer.
-
-Talvez eu nem saiba perceber
-a Tua presença como gostaria.
-
-<br><br>
-
-Mas eu quero aprender.
-
-<br><br>
-
-Ensina-me a permanecer.
-
-<br><br>
-
-Ensina-me a silenciar aquilo
-que faz tanto barulho dentro de mim.
-
-<br><br>
-
-Faz-me perceber Tua presença
-nos pequenos momentos deste dia.
-
-<br><br>
-
-Quando eu estiver cansado,
-lembra-me que não estou sozinho.
-
-<br><br>
-
-Quando eu estiver confuso,
-conduz meus pensamentos.
-
-<br><br>
-
-Quando eu estiver com medo,
-lembra-me que Tu estás comigo.
-
-<br><br>
-
-Não quero apenas saber coisas sobre Ti.
-
-<br><br>
-
-<strong>
-Quero conhecer Tua presença.
-</strong>
-
-<br><br>
-
-Fica comigo neste momento.
-
-<br><br>
-
-E ensina meu coração a reconhecer
-quando Tu estás falando.
-
-<br><br>
-
-Amém.
-
 </div>
-
 
 <button
 class="audio-button"
-onclick="readPrayer()"
+onclick="readCurrentPrayer()"
 >
-
 🔊 Ouvir oração
-
 </button>
-
-
-</div>
-
-
-<div class="ore-comigo">
-
-
-<div class="ore-title">
-✨ Ore comigo
-</div>
-
-
-<div class="ore-subtitle">
-
-Como você está chegando hoje?
-
-Escolha uma opção.
-
-</div>
-
-
-<div class="mood-grid">
-
-
-<button
-class="mood-button"
-onclick="generatePrayer('cansado')"
->
-
-😔<br>
-Estou cansado
-
-</button>
-
-
-<button
-class="mood-button"
-onclick="generatePrayer('ansioso')"
->
-
-😟<br>
-Estou ansioso
-
-</button>
-
-
-<button
-class="mood-button"
-onclick="generatePrayer('ferido')"
->
-
-💔<br>
-Estou ferido
-
-</button>
-
-
-<button
-class="mood-button"
-onclick="generatePrayer('direcao')"
->
-
-🙏<br>
-Preciso de direção
-
-</button>
-
-
-<button
-class="mood-button"
-onclick="generatePrayer('agradecido')"
->
-
-❤️<br>
-Estou agradecido
-
-</button>
-
-
-<button
-class="mood-button"
-onclick="generatePrayer('recomeco')"
->
-
-🌱<br>
-Estou recomeçando
-
-</button>
-
-
-</div>
-
-
-<div
-id="generatedPrayer"
-class="generated-prayer"
->
-</div>
-
 
 </div>
 
@@ -1608,21 +729,33 @@ class="generated-prayer"
 
 </div>
 
-
 <textarea
-id="journalText"
+id="dayJournal"
 placeholder="Escreva aqui o que aconteceu dentro de você..."
 ></textarea>
 
 
 <button
 class="complete-button"
-onclick="completeDay1()"
+onclick="completeCurrentDay()"
 >
 
-✓ Concluir Dia 1
+✓ Concluir este dia
 
 </button>
+
+
+<div class="navigation-days">
+
+<button onclick="previousDay()">
+← Anterior
+</button>
+
+<button onclick="nextDay()">
+Próximo →
+</button>
+
+</div>
 
 
 <button
@@ -1634,140 +767,92 @@ Voltar para a jornada
 
 </button>
 
+</div>
 
 </section>
 
 
-<!-- DIÁRIO -->
-
-<section
-id="journal"
-class="screen"
->
-
+<section id="journal" class="screen">
 
 <h1 class="section-title">
 Meu Diário
 </h1>
 
-
 <p class="section-subtitle">
 
-O que o Espírito Santo
-despertou em você hoje?
+Aqui ficarão suas reflexões.
 
 </p>
 
-
 <div class="card">
-
 
 <textarea
 id="generalJournal"
 placeholder="Escreva aqui..."
 ></textarea>
 
-
 <button
 class="start-button"
-onclick="saveJournal()"
+onclick="saveGeneralJournal()"
 >
 
 Salvar reflexão
 
 </button>
 
-
 </div>
-
 
 </section>
 
 
-<!-- FAVORITOS -->
-
-<section
-id="favorites"
-class="screen"
->
-
+<section id="favorites" class="screen">
 
 <h1 class="section-title">
 Favoritos
 </h1>
 
-
-<p class="section-subtitle">
-
-Seus momentos especiais
-ficarão aqui.
-
-</p>
-
-
 <div class="card">
 
-
 <div class="card-title">
-♡ Ainda não há favoritos
+♡ Seus momentos especiais
 </div>
 
+<p style="line-height:1.8;">
 
-<p>
-
-Conforme você avançar na jornada,
-poderá guardar os devocionais
-que mais tocaram seu coração.
+Em breve você poderá guardar
+os devocionais que mais tocaram
+seu coração.
 
 </p>
 
-
 </div>
-
 
 </section>
 
 
-<!-- PERFIL -->
-
-<section
-id="profile"
-class="screen"
->
-
+<section id="profile" class="screen">
 
 <h1 class="section-title">
 Meu Perfil
 </h1>
 
-
 <div class="card">
-
 
 <div class="card-title">
 Doce Espírito Santo
 </div>
 
-
 <p>
 Um Amigo Íntimo
 </p>
 
-
-<p
-style="
-margin-top:18px;
-opacity:.7;
-"
->
+<p style="margin-top:18px;opacity:.7;">
 
 Jornada de 365 dias
 
 </p>
 
-
 </div>
-
 
 </section>
 
@@ -1775,78 +860,44 @@ Jornada de 365 dias
 </main>
 
 
-<!-- MENU -->
-
 <nav>
 
+<button onclick="showScreen('home')">
 
-<button
-onclick="showScreen('home')"
->
-
-<span class="icon">
-⌂
-</span>
-
+<span class="icon">⌂</span>
 Início
 
 </button>
 
+<button onclick="showScreen('journey')">
 
-<button
-onclick="showScreen('journey')"
->
-
-<span class="icon">
-✦
-</span>
-
+<span class="icon">✦</span>
 Jornada
 
 </button>
 
+<button onclick="showScreen('journal')">
 
-<button
-onclick="showScreen('journal')"
->
-
-<span class="icon">
-✎
-</span>
-
+<span class="icon">✎</span>
 Diário
 
 </button>
 
+<button onclick="showScreen('favorites')">
 
-<button
-onclick="showScreen('favorites')"
->
-
-<span class="icon">
-♡
-</span>
-
+<span class="icon">♡</span>
 Favoritos
 
 </button>
 
+<button onclick="showScreen('profile')">
 
-<button
-onclick="showScreen('profile')"
->
-
-<span class="icon">
-○
-</span>
-
+<span class="icon">○</span>
 Perfil
 
 </button>
 
-
 </nav>
-
 
 </div>
 
@@ -1854,29 +905,548 @@ Perfil
 <script>
 
 
-function showScreen(screenId) {
+const devotionals = [
 
+{
+title:"A Presença que já está aqui",
+bible:"João 14:16–17",
+intro:"Antes de começar, pare por alguns segundos. Não tenha pressa. Respire. Deixe o barulho ao redor diminuir. Você não precisa produzir nada agora. Apenas permaneça.",
+reflection:`
+<p>Talvez você tenha passado muito tempo tentando sentir alguma coisa para ter certeza de que Deus está perto.</p>
+
+<p>Procurando uma emoção. Uma resposta. Um sinal. Uma experiência extraordinária.</p>
+
+<div class="highlight">Mas a presença do Doce Espírito Santo não depende da intensidade do que você sente.</div>
+
+<p>Ele não se torna presente quando você percebe.</p>
+
+<p>Você é que começa a perceber quando aprende a permanecer.</p>
+
+<p>Hoje, não tente fabricar uma experiência espiritual. Apenas fique. Silencie. Preste atenção.</p>
+
+<p>Permita que o seu coração reconheça aquilo que a sua pressa frequentemente não consegue perceber.</p>
+
+<div class="highlight">Você não está sozinho.</div>
+`,
+question:"Tenho vivido como alguém que precisa encontrar Deus ou como alguém que aprende a reconhecer Sua presença?",
+practice:"Durante alguns minutos hoje, pare o que estiver fazendo. Não peça nada. Apenas permaneça em silêncio e reconheça: o Doce Espírito Santo está comigo.",
+prayer:"Doce Espírito Santo, eu estou aqui. Talvez eu não saiba exatamente o que dizer. Talvez eu nem saiba perceber Tua presença como gostaria. Mas eu quero aprender. Ensina-me a permanecer. Ensina-me a silenciar aquilo que faz tanto barulho dentro de mim. Faz-me perceber Tua presença nos pequenos momentos deste dia. Quando eu estiver cansado, lembra-me que não estou sozinho. Quando eu estiver confuso, conduz meus pensamentos. Quando eu estiver com medo, lembra-me que Tu estás comigo. Não quero apenas saber coisas sobre Ti. Quero conhecer Tua presença. Fica comigo neste momento e ensina meu coração a reconhecer quando Tu estás falando. Amém."
+},
+
+{
+title:"Pare de correr",
+bible:"Salmo 46:10",
+intro:"Talvez você tenha chegado até aqui carregando a velocidade dos últimos dias. Antes de continuar, permita-se diminuir o ritmo.",
+reflection:`
+<p>A vida frequentemente nos ensina a correr antes mesmo de nos ensinar a permanecer.</p>
+
+<p>Corremos para resolver. Corremos para responder. Corremos para chegar. E, sem perceber, levamos essa mesma pressa para nossa vida com Deus.</p>
+
+<div class="highlight">O Doce Espírito Santo não precisa competir com a sua pressa.</div>
+
+<p>Quando você desacelera, não está perdendo tempo. Está criando espaço para perceber.</p>
+
+<p>Hoje, permita que o silêncio seja uma forma de confiança.</p>
+`,
+question:"O que dentro de mim está sempre com pressa?",
+practice:"Escolha cinco minutos do seu dia para ficar em silêncio, sem celular e sem tentar resolver nada.",
+prayer:"Doce Espírito Santo, desacelera meu coração. Eu tenho corrido tanto que muitas vezes não percebo aquilo que está acontecendo dentro de mim. Ensina-me a parar. Ensina-me a permanecer. Que eu não confunda movimento com propósito. Fica comigo no silêncio. Amém."
+},
+
+{
+title:"Aprender a permanecer",
+bible:"João 15:4–5",
+intro:"Permanecer é diferente de visitar. Hoje, o convite é para deixar de tratar a presença de Deus como um lugar ao qual você vai e começar a enxergá-la como o lugar onde você vive.",
+reflection:`
+<p>Jesus usa a imagem da videira e dos ramos para falar de uma vida que depende da permanência.</p>
+
+<p>O ramo não precisa produzir vida sozinho. Ele permanece ligado.</p>
+
+<div class="highlight">Talvez sua maior necessidade hoje não seja fazer mais, mas permanecer mais.</div>
+
+<p>O Doce Espírito Santo nos conduz para uma vida de comunhão, não de desempenho espiritual.</p>
+`,
+question:"Estou tentando produzir sozinho aquilo que deveria nascer da minha permanência?",
+practice:"Antes de iniciar uma tarefa importante hoje, pare e diga: “Doce Espírito Santo, permanece comigo neste momento.”",
+prayer:"Doce Espírito Santo, ensina-me a permanecer. Eu tenho tentado fazer sozinho aquilo que deveria nascer da comunhão contigo. Liga meu coração à Tua presença. Amém."
+},
+
+{
+title:"O Deus que se aproxima",
+bible:"Tiago 4:8",
+intro:"A intimidade começa quando deixamos de imaginar Deus como distante e respondemos ao convite para nos aproximarmos.",
+reflection:`
+<p>Existe um movimento de aproximação na vida espiritual.</p>
+
+<p>Não é apenas você procurando Deus. É Deus chamando você para perto.</p>
+
+<p>O Doce Espírito Santo não deseja apenas ser conhecido intelectualmente. Ele nos conduz à comunhão.</p>
+
+<div class="highlight">A aproximação começa com um coração disponível.</div>
+`,
+question:"Existe alguma área da minha vida em que tenho mantido distância do Doce Espírito Santo?",
+practice:"Converse com o Doce Espírito Santo sobre algo que você normalmente tenta esconder.",
+prayer:"Doce Espírito Santo, aproxima meu coração de Ti. Eu não quero viver uma fé distante. Quero aprender a Te conhecer com intimidade, verdade e sinceridade. Amém."
+},
+
+{
+title:"Quando o silêncio fala",
+bible:"1 Reis 19:11–13",
+intro:"Nem toda manifestação da presença de Deus chega acompanhada de barulho. Algumas coisas só são percebidas quando a alma aprende a ficar quieta.",
+reflection:`
+<p>Elias aprendeu que a percepção da presença de Deus não estava necessariamente no espetáculo.</p>
+
+<p>Existem momentos em que esperamos algo grandioso enquanto o Doce Espírito Santo nos encontra na delicadeza.</p>
+
+<div class="highlight">Silêncio não significa ausência.</div>
+
+<p>Talvez você precise aprender a ouvir aquilo que a agitação impede de perceber.</p>
+`,
+question:"O que o excesso de barulho tem impedido meu coração de perceber?",
+practice:"Fique cinco minutos sem música, vídeos ou notificações. Apenas permaneça.",
+prayer:"Doce Espírito Santo, ensina-me a reconhecer Tua presença também na quietude. Que eu não precise de grandes acontecimentos para saber que estás perto. Amém."
+},
+
+{
+title:"A presença no cotidiano",
+bible:"Colossenses 3:17",
+intro:"A presença do Doce Espírito Santo não pertence somente ao momento devocional. Ela alcança a cozinha, o trabalho, a família, o trânsito e os pequenos detalhes.",
+reflection:`
+<p>É possível separar artificialmente a vida espiritual do restante da vida.</p>
+
+<p>Mas Deus não está interessado apenas nos minutos em que abrimos uma Bíblia.</p>
+
+<p>O cotidiano também pode se tornar lugar de comunhão.</p>
+
+<div class="highlight">O sagrado pode ser percebido no simples.</div>
+`,
+question:"Em quais momentos comuns do meu dia eu posso aprender a perceber a presença?",
+practice:"Escolha três momentos comuns hoje e conscientemente reconheça o Doce Espírito Santo neles.",
+prayer:"Doce Espírito Santo, acompanha-me nas coisas simples. Ensina-me a perceber Tua presença enquanto vivo o cotidiano. Amém."
+},
+
+{
+title:"Você não está sozinho",
+bible:"Mateus 28:20",
+intro:"Existem dias em que a solidão parece maior do que a realidade. Hoje, permita que esta verdade encontre espaço dentro de você.",
+reflection:`
+<p>Jesus encerra sua promessa lembrando que não abandonaria os seus.</p>
+
+<p>Sentir-se sozinho não significa necessariamente estar sozinho.</p>
+
+<div class="highlight">A presença não depende da sensação.</div>
+
+<p>O Doce Espírito Santo nos lembra que Deus permanece próximo mesmo quando nossas emoções dizem o contrário.</p>
+`,
+question:"Em que área da minha vida tenho me sentido sozinho?",
+practice:"Quando perceber solidão hoje, pare e diga lentamente: “Doce Espírito Santo, Tu estás comigo.”",
+prayer:"Doce Espírito Santo, encontra-me nos momentos em que me sinto sozinho. Lembra meu coração de que Tua presença não depende daquilo que sinto. Amém."
+},
+
+{
+title:"Aprendendo a perceber",
+bible:"João 10:27",
+intro:"Perceber exige atenção. Talvez você não precise de mais sinais, mas de um coração mais atento.",
+reflection:`
+<p>Jesus fala sobre ouvir sua voz e reconhecer sua condução.</p>
+
+<p>Reconhecimento nasce de relacionamento.</p>
+
+<div class="highlight">Quanto mais intimidade, mais familiar se torna a voz.</div>
+
+<p>O Doce Espírito Santo deseja formar em nós um coração atento, sensível e disposto a obedecer.</p>
+`,
+question:"Tenho criado espaço para ouvir ou apenas espaço para falar?",
+practice:"Antes de orar hoje, permaneça um minuto em silêncio.",
+prayer:"Doce Espírito Santo, torna meu coração atento. Ensina-me a ouvir antes de falar e a reconhecer Tua direção. Amém."
+},
+
+{
+title:"O coração distraído",
+bible:"Lucas 10:38–42",
+intro:"Nem sempre estamos fazendo algo errado. Às vezes estamos apenas ocupados demais para perceber o essencial.",
+reflection:`
+<p>Marta estava envolvida em muitas coisas. Maria escolheu permanecer aos pés de Jesus.</p>
+
+<p>A questão não era simplesmente atividade. Era atenção.</p>
+
+<div class="highlight">Um coração ocupado pode perder aquilo que realmente importa.</div>
+
+<p>O Doce Espírito Santo nos chama novamente para o centro.</p>
+`,
+question:"O que tem ocupado tanto meu coração que quase não sobra espaço para Deus?",
+practice:"Hoje, retire uma distração desnecessária por alguns minutos.",
+prayer:"Doce Espírito Santo, reorganiza minhas prioridades. Tira de mim aquilo que ocupa espaço demais e devolve meu coração ao essencial. Amém."
+},
+
+{
+title:"Quando a alma desacelera",
+bible:"Salmo 131:1–2",
+intro:"Existe uma quietude que não nasce da ausência de problemas, mas da confiança.",
+reflection:`
+<p>Uma alma aquietada não significa uma vida sem dificuldades.</p>
+
+<p>Significa aprender onde colocar aquilo que não conseguimos controlar.</p>
+
+<div class="highlight">Descanso espiritual é também confiança.</div>
+
+<p>O Doce Espírito Santo nos ensina a entregar o controle sem abandonar a responsabilidade.</p>
+`,
+question:"O que estou tentando controlar porque ainda não consegui entregar?",
+practice:"Nomeie uma preocupação e entregue-a conscientemente ao Doce Espírito Santo.",
+prayer:"Doce Espírito Santo, aquieta aquilo que está agitado em mim. Ensina-me a confiar sem fugir da realidade. Amém."
+},
+
+{
+title:"O Doce Espírito Santo consola",
+bible:"João 14:16–18",
+intro:"Consolo não significa negar a dor. Significa descobrir que não precisamos atravessá-la sozinhos.",
+reflection:`
+<p>Jesus apresenta o Consolador como aquele que permanece com os seus.</p>
+
+<p>Há dores que palavras humanas não conseguem alcançar.</p>
+
+<div class="highlight">O Doce Espírito Santo encontra lugares que ninguém mais consegue encontrar.</div>
+`,
+question:"Existe alguma dor que eu ainda não permiti que o Doce Espírito Santo tocasse?",
+practice:"Fale honestamente com o Doce Espírito Santo sobre uma dor específica.",
+prayer:"Doce Espírito Santo, consola aquilo que eu não consigo explicar. Entra nos lugares da minha dor e permanece comigo enquanto eu caminho por eles. Amém."
+},
+
+{
+title:"Quando você não sabe o que orar",
+bible:"Romanos 8:26–27",
+intro:"Existem momentos em que até as palavras desaparecem. Isso não significa que a oração terminou.",
+reflection:`
+<p>Paulo fala sobre nossa fraqueza e sobre o auxílio do Espírito em nossa vida de oração.</p>
+
+<p>Você não precisa construir uma oração perfeita para se aproximar.</p>
+
+<div class="highlight">Às vezes, um suspiro sincero já é o começo.</div>
+`,
+question:"O que existe dentro de mim que eu não consigo transformar em palavras?",
+practice:"Fique alguns minutos em silêncio e entregue ao Doce Espírito Santo aquilo que você não consegue explicar.",
+prayer:"Doce Espírito Santo, quando me faltarem palavras, recebe até aquilo que eu não consigo dizer. Ensina-me a descansar em Ti. Amém."
+},
+
+{
+title:"A presença no cansaço",
+bible:"Mateus 11:28–30",
+intro:"Você não precisa chegar forte para se aproximar. Pode chegar cansado.",
+reflection:`
+<p>Jesus não chama apenas os fortes. Ele chama os cansados.</p>
+
+<p>A espiritualidade cristã não é uma competição de resistência.</p>
+
+<div class="highlight">Você pode chegar exatamente como está.</div>
+
+<p>O Doce Espírito Santo conhece seus limites.</p>
+`,
+question:"Onde estou tentando parecer forte quando, na verdade, estou cansado?",
+practice:"Permita-se descansar conscientemente durante alguns minutos sem culpa.",
+prayer:"Doce Espírito Santo, eu não quero esconder meu cansaço. Recebe-me como estou e ensina-me a descansar em Deus. Amém."
+},
+
+{
+title:"A presença na ansiedade",
+bible:"Filipenses 4:6–7",
+intro:"A ansiedade tenta levar a mente para um futuro que ainda não chegou. A presença nos devolve ao momento presente.",
+reflection:`
+<p>Paulo não trata a ansiedade como algo que deve simplesmente ser ignorado. Ele aponta para oração, gratidão e confiança.</p>
+
+<p>O Doce Espírito Santo nos ajuda a permanecer presentes enquanto entregamos aquilo que não controlamos.</p>
+
+<div class="highlight">Você não precisa viver hoje os problemas de amanhã.</div>
+`,
+question:"Qual futuro estou tentando viver antecipadamente?",
+practice:"Quando a ansiedade surgir, respire e entregue ao Doce Espírito Santo somente o próximo passo.",
+prayer:"Doce Espírito Santo, encontra minha mente quando ela correr para o amanhã. Traz-me de volta para este momento. Ensina-me a confiar no próximo passo. Amém."
+},
+
+{
+title:"A presença na dor",
+bible:"Salmo 34:18",
+intro:"A dor pode fazer Deus parecer distante. Mas a Escritura apresenta uma realidade diferente.",
+reflection:`
+<p>O sofrimento pode estreitar nossa visão.</p>
+
+<p>Quando dói, enxergamos apenas aquilo que está diante dos olhos.</p>
+
+<p>O Doce Espírito Santo não promete uma vida sem lágrimas, mas sua presença no meio delas.</p>
+`,
+question:"O que minha dor tem me feito acreditar sobre Deus?",
+practice:"Apresente sua dor ao Doce Espírito Santo sem tentar suavizá-la.",
+prayer:"Doce Espírito Santo, permanece comigo na dor. Não me deixe interpretar meu sofrimento como abandono. Sustenta-me enquanto atravesso este momento. Amém."
+},
+
+{
+title:"A presença na alegria",
+bible:"Salmo 16:11",
+intro:"Também precisamos aprender a perceber Deus quando tudo está bem.",
+reflection:`
+<p>Às vezes procuramos Deus somente quando precisamos de ajuda.</p>
+
+<p>Mas intimidade também se expressa na gratidão.</p>
+
+<div class="highlight">A alegria também pode se tornar lugar de comunhão.</div>
+`,
+question:"Tenho percebido o Doce Espírito Santo também nos dias bons?",
+practice:"Liste três motivos de gratidão e agradeça conscientemente.",
+prayer:"Doce Espírito Santo, abre meus olhos para reconhecer a bondade presente na minha vida. Que minha alegria também me aproxime de Ti. Amém."
+},
+
+{
+title:"Aprendendo a ouvir",
+bible:"1 Samuel 3:9–10",
+intro:"Samuel precisou aprender a reconhecer quem estava chamando.",
+reflection:`
+<p>Ouvir espiritualmente também envolve aprendizado.</p>
+
+<p>Nem toda impressão deve ser tratada automaticamente como voz de Deus. Discernimento exige Escritura, sabedoria, maturidade e disposição para obedecer.</p>
+
+<div class="highlight">Intimidade não elimina discernimento. Ela o amadurece.</div>
+`,
+question:"Tenho buscado discernir ou apenas confirmar aquilo que já quero?",
+practice:"Antes de tomar uma decisão, ore e examine suas motivações.",
+prayer:"Doce Espírito Santo, ensina-me a ouvir com sabedoria. Livra-me de confundir meus desejos com Tua direção. Amém."
+},
+
+{
+title:"Nem todo silêncio é ausência",
+bible:"Salmo 13",
+intro:"Há momentos em que Deus parece silencioso. A Bíblia não esconde essa experiência.",
+reflection:`
+<p>Os salmos mostram pessoas que perguntaram, choraram e esperaram.</p>
+
+<p>A fé não exige fingir que tudo está bem.</p>
+
+<div class="highlight">Você pode permanecer mesmo quando não entende.</div>
+`,
+question:"Como reajo quando não recebo uma resposta imediata?",
+practice:"Em vez de buscar uma resposta hoje, pratique permanecer.",
+prayer:"Doce Espírito Santo, quando eu não entender Teu silêncio, sustenta minha confiança. Ensina-me a permanecer sem precisar controlar a resposta. Amém."
+},
+
+{
+title:"Quando Deus parece distante",
+bible:"Salmo 42",
+intro:"A sensação de distância pode ser real emocionalmente sem representar uma ausência real de Deus.",
+reflection:`
+<p>O salmista conversa com a própria alma.</p>
+
+<p>Ele não nega sua sede. Ele a leva para Deus.</p>
+
+<div class="highlight">Você pode levar até sua sensação de distância para a presença.</div>
+`,
+question:"O que faço quando não sinto Deus perto?",
+practice:"Fale ao Doce Espírito Santo exatamente como você está se sentindo.",
+prayer:"Doce Espírito Santo, mesmo quando não consigo perceber Tua presença, eu escolho permanecer. Encontra minha alma exatamente onde ela está. Amém."
+},
+
+{
+title:"Permanecer sem sentir",
+bible:"2 Coríntios 5:7",
+intro:"A fé não é construída apenas sobre aquilo que conseguimos sentir.",
+reflection:`
+<p>Existem dias intensos e existem dias silenciosos.</p>
+
+<p>Se nossa comunhão dependesse apenas de emoções, nossa caminhada seria instável.</p>
+
+<div class="highlight">Permanecer também é confiar quando a emoção não acompanha.</div>
+`,
+question:"Minha fé depende demais do que estou sentindo?",
+practice:"Hoje, permaneça alguns minutos mesmo sem buscar nenhuma sensação.",
+prayer:"Doce Espírito Santo, ensina-me uma fé que não dependa apenas das minhas emoções. Quero permanecer porque confio em Ti. Amém."
+},
+
+{
+title:"O coração que se rende",
+bible:"Romanos 12:1–2",
+intro:"Rendição não é desistência. É entregar o controle daquilo que nunca conseguimos controlar completamente.",
+reflection:`
+<p>A vida com Deus envolve transformação.</p>
+
+<p>Não se trata apenas de pedir que Deus abençoe nossos planos, mas de permitir que Ele transforme nossa maneira de pensar e viver.</p>
+
+<div class="highlight">Rendição é abrir espaço para Deus transformar.</div>
+`,
+question:"O que ainda estou segurando com medo de entregar?",
+practice:"Nomeie uma área e entregue-a conscientemente.",
+prayer:"Doce Espírito Santo, mostra-me aquilo que ainda estou segurando. Dá-me coragem para entregar e confiança para obedecer. Amém."
+},
+
+{
+title:"A voz que conduz",
+bible:"Isaías 30:21",
+intro:"Direção espiritual não é simplesmente receber sinais. É aprender a caminhar com atenção.",
+reflection:`
+<p>Deus conduz seu povo, mas condução exige disposição para andar.</p>
+
+<p>O Doce Espírito Santo não quer apenas informar seu próximo passo. Ele quer formar seu caráter enquanto você caminha.</p>
+`,
+question:"Estou procurando apenas respostas ou também transformação?",
+practice:"Pergunte hoje: “O que preciso aprender enquanto caminho?”",
+prayer:"Doce Espírito Santo, não me dê apenas respostas. Forma em mim um coração capaz de caminhar contigo. Amém."
+},
+
+{
+title:"Discernindo a direção",
+bible:"Tiago 1:5",
+intro:"Quando não sabemos o que fazer, podemos pedir sabedoria.",
+reflection:`
+<p>Nem toda decisão terá uma sensação extraordinária de certeza.</p>
+
+<p>Às vezes precisamos reunir oração, Escritura, sabedoria, conselhos maduros e responsabilidade.</p>
+
+<div class="highlight">O Doce Espírito Santo também nos conduz através da sabedoria.</div>
+`,
+question:"Tenho buscado sabedoria ou apenas uma confirmação emocional?",
+practice:"Antes de uma decisão importante, ore e escreva os fatos que precisa considerar.",
+prayer:"Doce Espírito Santo, dá-me sabedoria. Guarda-me da impulsividade e da confusão. Ensina-me a decidir com fé, verdade e responsabilidade. Amém."
+},
+
+{
+title:"Intimidade não é pressa",
+bible:"Salmo 27:14",
+intro:"Relacionamentos profundos não são construídos em velocidade.",
+reflection:`
+<p>Queremos respostas imediatas, experiências rápidas e mudanças instantâneas.</p>
+
+<p>Mas intimidade cresce com permanência.</p>
+
+<div class="highlight">O Doce Espírito Santo não precisa ser apressado para ser próximo.</div>
+`,
+question:"Onde minha pressa está atrapalhando minha intimidade com Deus?",
+practice:"Faça hoje uma oração sem pedidos. Apenas permaneça.",
+prayer:"Doce Espírito Santo, tira de mim a pressa de transformar tudo imediatamente. Ensina-me a caminhar contigo no tempo certo. Amém."
+},
+
+{
+title:"O segredo da permanência",
+bible:"João 15:9–10",
+intro:"Permanecer também envolve permanecer no amor.",
+reflection:`
+<p>Não queremos apenas conhecer informações sobre Deus. Queremos viver em comunhão com Ele.</p>
+
+<p>O amor de Deus não é apenas um conceito. Ele transforma a maneira como permanecemos, obedecemos e nos relacionamos.</p>
+`,
+question:"Tenho vivido minha relação com Deus a partir do amor ou do medo?",
+practice:"Hoje, lembre-se conscientemente de que você é chamado para permanecer no amor de Deus.",
+prayer:"Doce Espírito Santo, ensina-me a viver a partir do amor e não do medo. Que minha obediência nasça da intimidade contigo. Amém."
+},
+
+{
+title:"Quando você falha",
+bible:"1 João 1:9",
+intro:"Falhar não precisa significar fugir da presença.",
+reflection:`
+<p>Quando erramos, uma das primeiras tentações é esconder.</p>
+
+<p>Mas a graça nos chama para a luz.</p>
+
+<div class="highlight">O caminho de volta começa com honestidade.</div>
+
+<p>O Doce Espírito Santo não nos conduz à negação, mas ao arrependimento e à restauração.</p>
+`,
+question:"O que tenho tentado esconder por vergonha?",
+practice:"Confesse a Deus honestamente aquilo que precisa ser colocado na luz.",
+prayer:"Doce Espírito Santo, eu não quero fugir quando falhar. Dá-me coragem para reconhecer meus erros e caminhar novamente na luz. Amém."
+},
+
+{
+title:"Recomeçar na presença",
+bible:"Lamentações 3:22–23",
+intro:"Todo recomeço precisa de graça.",
+reflection:`
+<p>Alguns dias atrás de nós parecem ter sido desperdiçados.</p>
+
+<p>Mas a misericórdia de Deus não depende da perfeição do nosso passado.</p>
+
+<div class="highlight">Hoje também pode ser um começo.</div>
+`,
+question:"O que preciso deixar para trás para recomeçar?",
+practice:"Escreva uma frase começando com: “Hoje eu escolho recomeçar...”",
+prayer:"Doce Espírito Santo, recebe meu recomeço. Não quero viver preso ao que passou. Ensina-me a caminhar novamente. Amém."
+},
+
+{
+title:"Caminhar acompanhado",
+bible:"Eclesiastes 4:9–10",
+intro:"A caminhada cristã não foi desenhada para o isolamento.",
+reflection:`
+<p>Precisamos de Deus e também precisamos de pessoas.</p>
+
+<p>Intimidade espiritual não significa abandonar comunidade, aconselhamento, amizade ou cuidado.</p>
+
+<div class="highlight">O Doce Espírito Santo também trabalha através de relacionamentos saudáveis.</div>
+`,
+question:"Quem são as pessoas maduras com quem posso caminhar?",
+practice:"Procure hoje uma pessoa de confiança e compartilhe sinceramente como você está.",
+prayer:"Doce Espírito Santo, coloca pessoas certas ao meu redor e ensina-me também a ser presença saudável na vida de outros. Amém."
+},
+
+{
+title:"O que mudou em você?",
+bible:"2 Coríntios 5:17",
+intro:"Depois de alguns dias, pare e observe. Não apenas o que você aprendeu, mas o que começou a mudar dentro de você.",
+reflection:`
+<p>Uma jornada espiritual verdadeira não produz apenas informação.</p>
+
+<p>Ela começa a tocar hábitos, pensamentos, desejos, relacionamentos e decisões.</p>
+
+<div class="highlight">Observe os pequenos sinais de transformação.</div>
+`,
+question:"O que mudou em mim desde o início desta jornada?",
+practice:"Releia suas anotações dos últimos dias e identifique uma mudança.",
+prayer:"Doce Espírito Santo, abre meus olhos para perceber aquilo que Tu estás formando em mim. Que eu não despreze os pequenos processos. Amém."
+},
+
+{
+title:"Reconhecendo a Presença",
+bible:"Atos 2:1–4",
+intro:"Chegamos ao final desta primeira fase. Mas talvez o verdadeiro começo esteja apenas acontecendo.",
+reflection:`
+<p>Nos primeiros trinta dias, o convite foi simples: parar, perceber e permanecer.</p>
+
+<p>Você não precisava produzir uma experiência extraordinária. Precisava aprender a prestar atenção.</p>
+
+<p>Agora olhe para trás.</p>
+
+<div class="highlight">Talvez a maior mudança não tenha sido sentir mais. Talvez tenha sido perceber mais.</div>
+
+<p>O Doce Espírito Santo continua sendo presença. E a jornada continua.</p>
+`,
+question:"O que aprendi sobre a presença do Doce Espírito Santo nestes primeiros 30 dias?",
+practice:"Reserve hoje um tempo maior de silêncio e releia suas principais anotações.",
+prayer:"Doce Espírito Santo, obrigado por estes primeiros passos. Quero continuar aprendendo a perceber Tua presença. Não quero que esta jornada termine aqui. Quero levar esta consciência para cada dia da minha vida. Continua comigo, conduzindo, consolando, ensinando e transformando. Amém."
+}
+
+];
+
+
+let currentDay = 1;
+
+
+function showScreen(id){
 
 document
-.querySelectorAll('.screen')
-.forEach(function(screen) {
+.querySelectorAll(".screen")
+.forEach(function(screen){
 
-screen.classList.remove('active');
+screen.classList.remove("active");
 
 });
-
 
 const screen =
-document.getElementById(screenId);
+document.getElementById(id);
 
+if(screen){
 
-if (screen) {
-
-screen.classList.add('active');
+screen.classList.add("active");
 
 window.scrollTo({
-top: 0,
-behavior: 'smooth'
+top:0,
+behavior:"smooth"
 });
 
 }
@@ -1884,373 +1454,303 @@ behavior: 'smooth'
 }
 
 
-function openDay(day) {
+function isDone(day){
 
-showScreen('day1');
-
-}
-
-
-function readPrayer() {
-
-
-const prayer =
-document.getElementById(
-'mainPrayer'
-).innerText;
-
-
-if (
-' speechSynthesis ' in window
-) {
-
-window.speechSynthesis.cancel();
-
-
-const utterance =
-new SpeechSynthesisUtterance(
-prayer
-);
-
-
-utterance.lang =
-'pt-BR';
-
-
-utterance.rate =
-0.82;
-
-
-utterance.pitch =
-0.95;
-
-
-window.speechSynthesis.speak(
-utterance
-);
-
-} else {
-
-alert(
-'A leitura em voz não está disponível neste navegador.'
-);
-
-}
+return localStorage.getItem(
+"day-"+day+"-done"
+)==="true";
 
 }
 
 
-function generatePrayer(mood) {
+function renderDayList(){
 
+const list =
+document.getElementById("dayList");
 
-const prayers = {
+list.innerHTML="";
 
+devotionals.forEach(function(day,index){
 
-cansado:
+const number=index+1;
 
-`Espírito Santo, eu chego diante de Ti cansado.
+const button=
+document.createElement("button");
 
-Talvez minhas forças tenham diminuído
-e eu não saiba como continuar.
+button.className=
+"day-button"+
+(isDone(number)?" done":"");
 
-Encontra-me exatamente onde estou.
+button.innerHTML=
+`
+<span class="day-number">
+Dia ${number}
+${isDone(number)?" ✓":""}
+</span>
 
-Acalma meu coração.
+<span class="day-name">
+${day.title}
+</span>
+`;
 
-Renova aquilo que em mim está enfraquecido.
+button.onclick=function(){
 
-Ensina-me a descansar na Tua presença
-sem precisar carregar tudo sozinho.
-
-Hoje eu não quero provar minha força.
-
-Quero aprender a permanecer em Ti.
-
-Amém.`,
-
-
-ansioso:
-
-`Espírito Santo, Tu conheces aquilo
-que está inquietando meu coração.
-
-Conheces os pensamentos que se repetem,
-os cenários que ainda nem aconteceram
-e os medos que eu não consigo explicar.
-
-Eu entrego tudo isso a Ti.
-
-Ensina meu coração a permanecer no presente.
-
-Quando minha mente correr para o amanhã,
-traz-me novamente para Tua presença.
-
-Eu não preciso controlar tudo.
-
-Posso confiar em Ti.
-
-Amém.`,
-
-
-ferido:
-
-`Espírito Santo, Tu conheces minhas feridas.
-
-Conheces aquilo que eu não consigo
-explicar para ninguém.
-
-Eu não quero esconder de Ti
-aquilo que dói.
-
-Aproxima-Te do lugar da minha dor.
-
-Traz consolo onde existe tristeza.
-
-Traz paz onde existe confusão.
-
-E ensina-me a caminhar
-sem permitir que minha ferida
-seja maior do que aquilo que Tu estás fazendo
-em minha vida.
-
-Amém.`,
-
-
-direcao:
-
-`Espírito Santo, eu preciso de direção.
-
-Existem caminhos diante de mim
-e nem sempre sei qual escolher.
-
-Não quero ser conduzido apenas
-pela minha ansiedade ou pela minha pressa.
-
-Ensina-me a ouvir.
-
-Dá-me sabedoria para reconhecer
-o caminho que devo seguir.
-
-E dá-me coragem para obedecer
-quando eu compreender.
-
-Guia meus passos.
-
-Amém.`,
-
-
-agradecido:
-
-`Espírito Santo, hoje eu quero simplesmente agradecer.
-
-Obrigado porque Tua presença
-não depende das circunstâncias.
-
-Obrigado pelas pequenas coisas
-que muitas vezes passam despercebidas.
-
-Abre meus olhos para reconhecer
-a bondade que já existe ao meu redor.
-
-Ensina-me a viver este dia
-com um coração atento.
-
-Que minha gratidão se transforme
-em intimidade contigo.
-
-Amém.`,
-
-
-recomeco:
-
-`Espírito Santo, eu estou recomeçando.
-
-Talvez eu tenha falhado.
-
-Talvez tenha me afastado.
-
-Talvez simplesmente tenha perdido
-a percepção da Tua presença.
-
-Mas hoje eu estou aqui novamente.
-
-Recebe este novo começo.
-
-Ensina-me a caminhar um dia de cada vez.
-
-Não quero viver preso ao que passou.
-
-Quero aprender a permanecer contigo
-a partir de agora.
-
-Amém.`
+openDay(number);
 
 };
 
+list.appendChild(button);
 
-const box =
-document.getElementById(
-'generatedPrayer'
-);
-
-
-box.innerText =
-prayers[mood];
-
-
-box.style.display =
-'block';
-
-
-box.scrollIntoView({
-behavior: 'smooth',
-block: 'center'
 });
 
-}
-
-
-function completeDay1() {
-
-
-const journal =
-document.getElementById(
-'journalText'
-).value;
-
-
-localStorage.setItem(
-'day1-complete',
-'true'
-);
-
-
-localStorage.setItem(
-'day1-journal',
-journal
-);
-
-
-document.getElementById(
-'progressText'
-).innerText =
-'1 / 365';
-
-
-document.getElementById(
-'progressFill'
-).style.width =
-'0.27%';
-
-
-alert(
-'Dia 1 concluído. 🪶\n\nAmanhã começa uma nova experiência.'
-);
-
-
-showScreen('journey');
+updateProgress();
 
 }
 
 
-function saveJournal() {
+function updateProgress(){
 
+let count=0;
 
-const text =
+for(let i=1;i<=365;i++){
+
+if(isDone(i)) count++;
+
+}
+
 document.getElementById(
-'generalJournal'
-).value;
+"progressText"
+).innerText=
+count+" / 365";
+
+document.getElementById(
+"progressFill"
+).style.width=
+((count/365)*100)+"%";
+
+}
 
 
-if (!text.trim()) {
+function openDay(day){
+
+if(day<1) day=1;
+
+if(day>30) day=30;
+
+currentDay=day;
+
+const data=
+devotionals[day-1];
+
+document.getElementById(
+"devotionalNumber"
+).innerText=
+"DIA "+day;
+
+document.getElementById(
+"devotionalTitle"
+).innerText=
+data.title;
+
+document.getElementById(
+"devotionalIntro"
+).innerText=
+data.intro;
+
+document.getElementById(
+"devotionalBible"
+).innerText=
+data.bible;
+
+document.getElementById(
+"devotionalReflection"
+).innerHTML=
+data.reflection;
+
+document.getElementById(
+"devotionalQuestion"
+).innerText=
+data.question;
+
+document.getElementById(
+"devotionalPractice"
+).innerText=
+data.practice;
+
+document.getElementById(
+"devotionalPrayer"
+).innerText=
+data.prayer;
+
+const saved=
+localStorage.getItem(
+"day-"+day+"-journal"
+);
+
+document.getElementById(
+"dayJournal"
+).value=
+saved || "";
+
+showScreen("devotional");
+
+}
+
+
+function saveCurrentJournal(){
+
+localStorage.setItem(
+"day-"+currentDay+"-journal",
+document.getElementById(
+"dayJournal"
+).value
+);
+
+}
+
+
+function completeCurrentDay(){
+
+saveCurrentJournal();
+
+localStorage.setItem(
+"day-"+currentDay+"-done",
+"true"
+);
+
+updateProgress();
+
+renderDayList();
 
 alert(
-'Escreva sua reflexão antes de salvar.'
+"Dia "+currentDay+" concluído. 🪶"
+);
+
+showScreen("journey");
+
+}
+
+
+function previousDay(){
+
+saveCurrentJournal();
+
+if(currentDay>1){
+
+openDay(currentDay-1);
+
+}else{
+
+showScreen("journey");
+
+}
+
+}
+
+
+function nextDay(){
+
+saveCurrentJournal();
+
+if(currentDay<30){
+
+openDay(currentDay+1);
+
+}else{
+
+showScreen("journey");
+
+}
+
+}
+
+
+function readCurrentPrayer(){
+
+if(
+!("speechSynthesis" in window)
+){
+
+alert(
+"A leitura em voz não está disponível neste navegador."
 );
 
 return;
 
 }
 
+window.speechSynthesis.cancel();
+
+const text=
+devotionals[currentDay-1].prayer;
+
+const voice=
+new SpeechSynthesisUtterance(text);
+
+voice.lang="pt-BR";
+
+voice.rate=.82;
+
+voice.pitch=.95;
+
+window.speechSynthesis.speak(voice);
+
+}
+
+
+function saveGeneralJournal(){
+
+const text=
+document.getElementById(
+"generalJournal"
+).value;
+
+if(!text.trim()){
+
+alert(
+"Escreva sua reflexão antes de salvar."
+);
+
+return;
+
+}
 
 localStorage.setItem(
-'doce-espirito-diario',
+"general-journal",
 text
 );
 
-
 alert(
-'Sua reflexão foi salva. 🪶'
+"Reflexão salva. 🪶"
 );
 
 }
 
 
-function loadData() {
+function loadData(){
 
-
-const completed =
+const general=
 localStorage.getItem(
-'day1-complete'
+"general-journal"
 );
 
-
-if (completed === 'true') {
-
-document.getElementById(
-'progressText'
-).innerText =
-'1 / 365';
-
+if(general){
 
 document.getElementById(
-'progressFill'
-).style.width =
-'0.27%';
-
-
-const saved =
-localStorage.getItem(
-'day1-journal'
-);
-
-
-if (saved) {
-
-document.getElementById(
-'journalText'
-).value =
-saved;
-
-}
-
-}
-
-
-const general =
-localStorage.getItem(
-'doce-espirito-diario'
-);
-
-
-if (general) {
-
-document.getElementById(
-'generalJournal'
-).value =
+"generalJournal"
+).value=
 general;
 
 }
+
+renderDayList();
 
 }
 
 
 loadData();
 
-
 </script>
 
-
 </body>
-
 </html>
