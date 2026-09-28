@@ -2,8 +2,12 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#24150d">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <meta name="theme-color" content="#170d08">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Doce Espírito Santo">
 
   <title>Doce Espírito Santo — Um Amigo Íntimo</title>
 
@@ -14,195 +18,368 @@
       padding: 0;
     }
 
+    html,
     body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      background: #100805;
+      color: #f4dfbd;
       font-family: Georgia, "Times New Roman", serif;
-      background:
-        radial-gradient(circle at 75% 10%, rgba(255, 210, 130, 0.22), transparent 30%),
-        linear-gradient(145deg, #120b07, #3b2112 48%, #120b07);
-      color: #f8e6c5;
-      min-height: 100vh;
       overflow-x: hidden;
+    }
+
+    button {
+      font-family: inherit;
     }
 
     .app {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      min-height: 100dvh;
       position: relative;
+      background:
+        radial-gradient(
+          circle at 50% 5%,
+          rgba(220, 165, 83, 0.18),
+          transparent 35%
+        ),
+        linear-gradient(
+          180deg,
+          #120906 0%,
+          #2b170c 50%,
+          #100805 100%
+        );
     }
 
-    /* Atmosfera de luz */
+    /* Atmosfera dourada */
+
     .light {
-      position: absolute;
-      width: 420px;
-      height: 420px;
+      position: fixed;
       top: -180px;
-      right: -140px;
-      background: radial-gradient(
-        circle,
-        rgba(255, 224, 160, 0.35),
-        rgba(255, 200, 100, 0.08) 45%,
-        transparent 70%
-      );
-      filter: blur(15px);
+      right: -120px;
+      width: 450px;
+      height: 450px;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(255, 221, 157, 0.25),
+          rgba(211, 151, 66, 0.08) 42%,
+          transparent 70%
+        );
+
+      filter: blur(20px);
       pointer-events: none;
+      z-index: 0;
     }
+
+    /* Topo */
 
     header {
-      padding: 28px 22px 10px;
-      text-align: center;
       position: relative;
-      z-index: 2;
+      z-index: 3;
+      padding: 25px 20px 8px;
+      text-align: center;
     }
 
-    .brand-small {
-      font-size: 12px;
+    .top-label {
+      font-size: 10px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      opacity: 0.72;
+      color: rgba(244, 223, 189, 0.58);
     }
+
+    /* Conteúdo */
 
     main {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 30px 22px 110px;
       position: relative;
       z-index: 2;
-    }
-
-    .home {
       width: 100%;
       max-width: 520px;
-      text-align: center;
+      margin: 0 auto;
+      padding: 20px 20px 125px;
     }
 
-    .symbol {
-      width: 115px;
-      height: 115px;
-      margin: 20px auto 32px;
-      border-radius: 50%;
-      border: 1px solid rgba(244, 211, 154, 0.35);
+    /* Capa oficial */
+
+    .cover-container {
+      width: 100%;
       display: flex;
-      align-items: center;
       justify-content: center;
+      margin-top: 18px;
+    }
+
+    .cover {
+      width: 100%;
+      max-width: 390px;
+      height: auto;
+      display: block;
+
+      border-radius: 14px;
+
+      border: 1px solid rgba(244, 211, 154, 0.18);
+
       box-shadow:
-        0 0 45px rgba(230, 176, 85, 0.14),
-        inset 0 0 30px rgba(255, 210, 130, 0.05);
+        0 25px 70px rgba(0, 0, 0, 0.60),
+        0 0 40px rgba(217, 157, 71, 0.12);
     }
 
-    .feather {
-      font-size: 58px;
-      transform: rotate(-25deg);
-      filter: drop-shadow(0 0 14px rgba(255, 210, 130, 0.5));
-    }
-
-    h1 {
-      font-size: clamp(42px, 12vw, 72px);
-      line-height: 0.92;
-      font-weight: 400;
-      letter-spacing: -2px;
-      color: #f4d49f;
-      text-shadow: 0 3px 25px rgba(0,0,0,0.4);
-    }
-
-    .subtitle {
-      margin-top: 22px;
-      font-size: 23px;
-      font-style: italic;
-      color: #efd09c;
-      letter-spacing: 1px;
-    }
+    /* Texto principal */
 
     .manifesto {
-      margin: 28px auto 0;
+      text-align: center;
       max-width: 390px;
-      font-size: 16px;
-      line-height: 1.8;
-      color: rgba(250, 231, 199, 0.78);
+      margin: 30px auto 0;
+
+      color: rgba(246, 227, 198, 0.84);
+
+      font-size: 17px;
+      line-height: 1.75;
     }
+
+    .manifesto strong {
+      color: #f1c980;
+      font-weight: normal;
+    }
+
+    /* Botão */
 
     .start-button {
-      margin-top: 35px;
-      border: 1px solid rgba(244, 211, 154, 0.6);
-      background: linear-gradient(
-        135deg,
-        rgba(177, 117, 46, 0.85),
-        rgba(106, 62, 25, 0.9)
-      );
-      color: #fff0d2;
-      padding: 16px 30px;
+      display: block;
+      width: 100%;
+      max-width: 330px;
+
+      margin: 30px auto 0;
+      padding: 17px 25px;
+
       border-radius: 50px;
-      font-family: inherit;
-      font-size: 15px;
+
+      border: 1px solid rgba(244, 211, 154, 0.55);
+
+      background:
+        linear-gradient(
+          135deg,
+          #9a622b,
+          #5d3419
+        );
+
+      color: #fff0d2;
+
+      font-size: 14px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
+
+      box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.35);
+
       cursor: pointer;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.3);
-      transition: 0.3s ease;
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
     }
 
-    .start-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 40px rgba(190, 135, 61, 0.25);
+    .start-button:active {
+      transform: scale(0.97);
     }
+
+    /* Pena */
+
+    .feather {
+      text-align: center;
+      margin-top: 30px;
+
+      font-size: 34px;
+
+      opacity: 0.75;
+
+      filter:
+        drop-shadow(
+          0 0 14px
+          rgba(240, 190, 100, 0.45)
+        );
+    }
+
+    /* Frase */
 
     .quote {
-      margin-top: 38px;
-      font-size: 14px;
+      text-align: center;
+      margin-top: 18px;
+
+      color: rgba(244, 223, 189, 0.52);
+
+      font-size: 13px;
       font-style: italic;
-      opacity: 0.58;
+      line-height: 1.6;
     }
+
+    /* Autor */
+
+    .author {
+      text-align: center;
+      margin-top: 35px;
+
+      font-size: 9px;
+      letter-spacing: 2px;
+
+      color: rgba(244, 223, 189, 0.32);
+
+      text-transform: uppercase;
+    }
+
+    /* Navegação */
 
     nav {
       position: fixed;
-      bottom: 0;
+
       left: 0;
       right: 0;
-      height: 76px;
-      background: rgba(18, 11, 7, 0.94);
-      backdrop-filter: blur(15px);
-      border-top: 1px solid rgba(244, 211, 154, 0.12);
+      bottom: 0;
+
+      height: 78px;
+
       display: flex;
-      justify-content: space-around;
       align-items: center;
-      z-index: 10;
+      justify-content: space-around;
+
+      z-index: 20;
+
+      background:
+        rgba(16, 8, 5, 0.95);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      border-top:
+        1px solid
+        rgba(244, 211, 154, 0.12);
     }
 
     nav button {
-      background: none;
+      min-width: 58px;
+
+      background: transparent;
       border: none;
-      color: rgba(248, 230, 197, 0.6);
-      font-family: inherit;
-      font-size: 11px;
+
+      color:
+        rgba(244, 223, 189, 0.58);
+
+      font-size: 10px;
+
       cursor: pointer;
     }
 
-    nav button span {
+    nav button .icon {
       display: block;
-      font-size: 21px;
+
       margin-bottom: 4px;
+
+      font-size: 21px;
+
+      color:
+        rgba(244, 211, 154, 0.78);
     }
 
-    .footer-mark {
-      margin-top: 45px;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      opacity: 0.45;
+    /* Telas futuras */
+
+    .screen {
+      display: none;
     }
 
-    @media (max-width: 400px) {
-      h1 {
-        font-size: 43px;
+    .screen.active {
+      display: block;
+    }
+
+    .section-title {
+      text-align: center;
+
+      margin-top: 30px;
+
+      color: #f1c980;
+
+      font-size: 30px;
+      font-weight: normal;
+    }
+
+    .section-subtitle {
+      text-align: center;
+
+      margin-top: 10px;
+
+      color:
+        rgba(244, 223, 189, 0.65);
+
+      line-height: 1.6;
+    }
+
+    .card {
+      margin-top: 25px;
+
+      padding: 24px;
+
+      border-radius: 18px;
+
+      background:
+        rgba(255, 221, 157, 0.055);
+
+      border:
+        1px solid
+        rgba(244, 211, 154, 0.12);
+    }
+
+    .card-title {
+      color: #f1c980;
+
+      font-size: 21px;
+
+      margin-bottom: 12px;
+    }
+
+    .back-button {
+      display: block;
+
+      margin: 30px auto 0;
+
+      padding: 13px 25px;
+
+      border-radius: 30px;
+
+      background: transparent;
+
+      border:
+        1px solid
+        rgba(244, 211, 154, 0.35);
+
+      color: #f4dfbd;
+
+      cursor: pointer;
+    }
+
+    @media (min-width: 700px) {
+
+      main {
+        padding-top: 35px;
       }
 
-      .subtitle {
-        font-size: 20px;
+      .cover {
+        max-width: 420px;
       }
 
-      .manifesto {
-        font-size: 15px;
+      nav {
+        max-width: 700px;
+
+        left: 50%;
+        right: auto;
+
+        transform: translateX(-50%);
+
+        border-radius:
+          22px
+          22px
+          0
+          0;
       }
     }
   </style>
@@ -215,104 +392,401 @@
     <div class="light"></div>
 
     <header>
-      <div class="brand-small">
+      <div class="top-label">
         365 dias de presença
       </div>
     </header>
 
     <main>
 
-      <section class="home">
+      <!-- INÍCIO -->
 
-        <div class="symbol">
-          <div class="feather">🪶</div>
-        </div>
+      <section
+        id="home"
+        class="screen active"
+      >
 
-        <h1>
-          Doce<br>
-          Espírito<br>
-          Santo
-        </h1>
+        <div class="cover-container">
 
-        <div class="subtitle">
-          Um Amigo Íntimo
+          <img
+            class="cover"
+            src="capa.jpg"
+            alt="Doce Espírito Santo — Um Amigo Íntimo"
+          >
+
         </div>
 
         <p class="manifesto">
-          365 dias não para aprender mais sobre
-          o Espírito Santo, mas para aprender
+
+          <strong>365 dias</strong>
+          não para aprender mais sobre
+          o Espírito Santo,
+
+          mas para aprender
           a perceber Sua presença.
+
         </p>
 
-        <button class="start-button" onclick="startJourney()">
+        <button
+          class="start-button"
+          onclick="showScreen('journey')"
+        >
           Começar minha jornada
         </button>
 
-        <div class="quote">
-          “Permanecei em mim...”
+        <div class="feather">
+          🪶
         </div>
 
-        <div class="footer-mark">
-          UM PROJETO DE DENIS WILLIAN CRUZ
+        <p class="quote">
+          “Permanecei em mim...”
+        </p>
+
+        <div class="author">
+          Denis Willian Cruz
+        </div>
+
+      </section>
+
+
+      <!-- JORNADA -->
+
+      <section
+        id="journey"
+        class="screen"
+      >
+
+        <h1 class="section-title">
+          Minha Jornada
+        </h1>
+
+        <p class="section-subtitle">
+          365 dias para aprender<br>
+          a perceber Sua presença.
+        </p>
+
+        <div class="card">
+
+          <div class="card-title">
+            🪶 Fase 1
+          </div>
+
+          <p>
+            <strong>
+              Reconhecendo a Presença
+            </strong>
+          </p>
+
+          <p style="margin-top:10px; opacity:.7;">
+            Dias 1 — 30
+          </p>
+
+          <button
+            class="start-button"
+            style="margin-top:22px;"
+            onclick="openDay(1)"
+          >
+            Começar jornada
+          </button>
+
+        </div>
+
+        <button
+          class="back-button"
+          onclick="showScreen('home')"
+        >
+          Voltar
+        </button>
+
+      </section>
+
+
+      <!-- DEVOCIONAL -->
+
+      <section
+        id="devotional"
+        class="screen"
+      >
+
+        <h1 class="section-title">
+          Dia <span id="dayNumber">1</span>
+        </h1>
+
+        <div class="card">
+
+          <div class="card-title">
+            Reconhecendo a Presença
+          </div>
+
+          <p>
+            Este será o espaço dos
+            365 devocionais.
+          </p>
+
+          <p style="margin-top:18px; line-height:1.7; opacity:.78;">
+            Aqui vamos colocar a Palavra,
+            a contemplação, a reflexão,
+            a oração e a prática diária.
+          </p>
+
+        </div>
+
+        <button
+          class="back-button"
+          onclick="showScreen('journey')"
+        >
+          Voltar para a jornada
+        </button>
+
+      </section>
+
+
+      <!-- DIÁRIO -->
+
+      <section
+        id="journal"
+        class="screen"
+      >
+
+        <h1 class="section-title">
+          Meu Diário
+        </h1>
+
+        <p class="section-subtitle">
+          O que o Espírito Santo
+          despertou em você hoje?
+        </p>
+
+        <div class="card">
+
+          <textarea
+            id="journalText"
+            placeholder="Escreva aqui..."
+            style="
+              width:100%;
+              min-height:220px;
+              padding:16px;
+              border-radius:12px;
+              border:1px solid rgba(244,211,154,.18);
+              background:rgba(0,0,0,.22);
+              color:#f4dfbd;
+              font-family:Georgia,serif;
+              font-size:16px;
+              line-height:1.6;
+              resize:vertical;
+            "
+          ></textarea>
+
+          <button
+            class="start-button"
+            onclick="saveJournal()"
+          >
+            Salvar reflexão
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- FAVORITOS -->
+
+      <section
+        id="favorites"
+        class="screen"
+      >
+
+        <h1 class="section-title">
+          Favoritos
+        </h1>
+
+        <p class="section-subtitle">
+          Seus momentos especiais
+          ficarão aqui.
+        </p>
+
+        <div class="card">
+
+          <div class="card-title">
+            ♡ Ainda não há favoritos
+          </div>
+
+          <p>
+            Conforme você avançar na jornada,
+            poderá guardar os devocionais
+            que mais tocaram seu coração.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- PERFIL -->
+
+      <section
+        id="profile"
+        class="screen"
+      >
+
+        <h1 class="section-title">
+          Meu Perfil
+        </h1>
+
+        <div class="card">
+
+          <div class="card-title">
+            Doce Espírito Santo
+          </div>
+
+          <p>
+            Um Amigo Íntimo
+          </p>
+
+          <p style="margin-top:18px; opacity:.7;">
+            Jornada de 365 dias
+          </p>
+
         </div>
 
       </section>
 
     </main>
 
+
+    <!-- MENU INFERIOR -->
+
     <nav>
-      <button onclick="home()">
-        <span>⌂</span>
+
+      <button
+        onclick="showScreen('home')"
+      >
+        <span class="icon">⌂</span>
         Início
       </button>
 
-      <button onclick="journey()">
-        <span>✦</span>
+      <button
+        onclick="showScreen('journey')"
+      >
+        <span class="icon">✦</span>
         Jornada
       </button>
 
-      <button onclick="journal()">
-        <span>✎</span>
+      <button
+        onclick="showScreen('journal')"
+      >
+        <span class="icon">✎</span>
         Diário
       </button>
 
-      <button onclick="favorites()">
-        <span>♡</span>
+      <button
+        onclick="showScreen('favorites')"
+      >
+        <span class="icon">♡</span>
         Favoritos
       </button>
 
-      <button onclick="profile()">
-        <span>○</span>
+      <button
+        onclick="showScreen('profile')"
+      >
+        <span class="icon">○</span>
         Perfil
       </button>
+
     </nav>
 
   </div>
 
+
   <script>
-    function startJourney() {
-      alert("Sua jornada começa aqui. 🪶");
+
+    function showScreen(screenId) {
+
+      document
+        .querySelectorAll('.screen')
+        .forEach(function(screen) {
+
+          screen.classList.remove('active');
+
+        });
+
+      const screen =
+        document.getElementById(screenId);
+
+      if (screen) {
+
+        screen.classList.add('active');
+
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+
+      }
+
     }
 
-    function home() {
-      alert("Início");
+
+    function openDay(day) {
+
+      document.getElementById(
+        'dayNumber'
+      ).textContent = day;
+
+      showScreen('devotional');
+
     }
 
-    function journey() {
-      alert("Jornada dos 365 dias");
+
+    function saveJournal() {
+
+      const text =
+        document.getElementById(
+          'journalText'
+        ).value;
+
+      if (!text.trim()) {
+
+        alert(
+          'Escreva sua reflexão antes de salvar.'
+        );
+
+        return;
+
+      }
+
+      localStorage.setItem(
+        'doce-espirito-diario',
+        text
+      );
+
+      alert(
+        'Sua reflexão foi salva. 🪶'
+      );
+
     }
 
-    function journal() {
-      alert("Meu Diário");
+
+    function loadJournal() {
+
+      const saved =
+        localStorage.getItem(
+          'doce-espirito-diario'
+        );
+
+      if (saved) {
+
+        document.getElementById(
+          'journalText'
+        ).value = saved;
+
+      }
+
     }
 
-    function favorites() {
-      alert("Meus Favoritos");
-    }
 
-    function profile() {
-      alert("Meu Perfil");
-    }
+    loadJournal();
+
   </script>
 
 </body>
