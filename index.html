@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
 
 <meta
@@ -10,293 +12,477 @@
 
 <meta
     name="theme-color"
-    content="#110b08"
+    content="#100a07"
 >
 
-<title>Doce Espírito Santo — Um Amigo Íntimo</title>
+<title>
+    Doce Espírito Santo — Um Amigo Íntimo
+</title>
 
-<!--
-    FONTES
-    Títulos: Cormorant Garamond
-    Texto: Manrope
--->
+
+<!-- =====================================================
+     FONTES
+===================================================== -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap"
     rel="stylesheet"
 >
 
+
 <style>
 
-/* =========================================================
-   IDENTIDADE VISUAL
-========================================================= */
+/* =====================================================
+   IDENTIDADE
+===================================================== */
 
 :root{
-    --bg:#120b08;
-    --bg-soft:#1c110b;
-    --card:#25180f;
-    --card-soft:#2b1c12;
 
-    --gold:#d9a85d;
+    --bg:#120b08;
+
+    --bg-dark:#0f0906;
+
+    --bg-soft:#1d120b;
+
+    --card:#26180f;
+
+    --card-soft:#2c1c12;
+
+    --gold:#d8a85e;
+
     --gold-light:#f0cd8c;
 
-    --cream:#f3e8d7;
+    --cream:#f4e8d6;
+
     --text:#eadfce;
+
     --muted:#bcae9d;
 
-    --border:rgba(235,214,181,.14);
+    --border:rgba(239,214,176,.14);
 
-    --title-font:"Cormorant Garamond", Georgia, serif;
-    --body-font:"Manrope",-apple-system,BlinkMacSystemFont,"SF Pro Text",Arial,sans-serif;
+    --font:
+        "Cormorant Garamond",
+        Georgia,
+        "Times New Roman",
+        serif;
 }
 
 
-/* =========================================================
+/* =====================================================
    RESET
-========================================================= */
+===================================================== */
 
 *{
+
     box-sizing:border-box;
+
     -webkit-tap-highlight-color:transparent;
+
 }
 
 html{
+
     scroll-behavior:smooth;
+
 }
 
 body{
+
     margin:0;
+
     min-height:100vh;
 
     background:
+
         radial-gradient(
             circle at 50% 0%,
-            rgba(213,164,91,.12),
-            transparent 38%
+            rgba(216,168,94,.12),
+            transparent 40%
         ),
+
         linear-gradient(
             180deg,
             #100a07 0%,
-            #1b100b 45%,
+            #1b100b 50%,
             #100906 100%
         );
 
     color:var(--text);
 
-    font-family:var(--body-font);
+    font-family:var(--font);
 
     -webkit-font-smoothing:antialiased;
+
     text-rendering:optimizeLegibility;
+
 }
 
 button,
 textarea,
 select,
 input{
-    font-family:var(--body-font);
+
+    font-family:var(--font);
+
 }
 
 button{
+
     -webkit-appearance:none;
+
     appearance:none;
+
 }
 
 .hidden{
+
     display:none !important;
+
 }
 
 
-/* =========================================================
+/* =====================================================
    TELAS
-========================================================= */
+===================================================== */
 
 .screen{
+
     display:none;
+
     min-height:100vh;
-    padding-bottom:88px;
+
 }
 
 .screen.active{
+
     display:block;
+
 }
 
 
-/* =========================================================
-   CAPA
-========================================================= */
+/* =====================================================
+   CAPA / PRIMEIRA EXPERIÊNCIA
+===================================================== */
 
 #coverScreen{
+
+    min-height:100vh;
+
     padding:0;
+
 }
 
+
 .cover{
+
     position:relative;
 
-    width:100%;
     min-height:100vh;
 
     display:flex;
-    align-items:flex-end;
-    justify-content:center;
 
-    overflow:hidden;
+    flex-direction:column;
 
-    background:#120b08;
+    background:#100906;
+
 }
+
+
+/* IMAGEM */
 
 .cover-image{
-    position:absolute;
-    inset:0;
 
     width:100%;
-    height:100%;
+
+    height:62vh;
+
+    min-height:470px;
 
     object-fit:cover;
+
+    object-position:center top;
+
+    display:block;
+
 }
 
-.cover-overlay{
-    position:absolute;
-    inset:0;
 
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(10,6,4,.04) 10%,
-            rgba(10,6,4,.10) 42%,
-            rgba(10,6,4,.56) 72%,
-            rgba(10,6,4,.94) 100%
-        );
-}
+/* TRANSIÇÃO DA IMAGEM */
 
-.cover-content{
+.cover-image-wrapper{
+
     position:relative;
-    z-index:2;
 
     width:100%;
 
-    padding:
-        30px 24px
-        calc(42px + env(safe-area-inset-bottom));
-
-    text-align:center;
 }
 
-.cover-title{
-    font-family:var(--title-font);
+.cover-image-wrapper::after{
 
-    font-size:43px;
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:-1px;
+
+    height:120px;
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            transparent,
+            #100906
+        );
+
+}
+
+
+/* CONTEÚDO ABAIXO DA CAPA */
+
+.cover-content{
+
+    position:relative;
+
+    margin-top:-25px;
+
+    padding:
+
+        0 28px
+        calc(35px + env(safe-area-inset-bottom));
+
+    text-align:center;
+
+    z-index:2;
+
+}
+
+
+/* TÍTULO */
+
+.cover-title{
+
+    margin:0;
+
+    font-size:44px;
+
     line-height:.95;
 
     font-weight:600;
 
-    color:#f7ead5;
+    letter-spacing:-.6px;
 
-    letter-spacing:-.8px;
+    color:var(--cream);
 
     text-shadow:
-        0 3px 25px rgba(0,0,0,.65);
+        0 4px 25px rgba(0,0,0,.45);
+
 }
 
+
+/* SUBTÍTULO */
+
 .cover-subtitle{
+
     margin-top:10px;
 
-    font-size:14px;
+    color:var(--gold-light);
 
-    letter-spacing:1.8px;
+    font-size:15px;
+
+    letter-spacing:2px;
 
     text-transform:uppercase;
 
-    color:var(--gold-light);
 }
 
+
+/* APRESENTAÇÃO */
+
+.cover-introduction{
+
+    max-width:620px;
+
+    margin:27px auto 0;
+
+    text-align:left;
+
+}
+
+
+.cover-introduction h2{
+
+    margin:0 0 12px;
+
+    color:var(--gold-light);
+
+    font-size:25px;
+
+    line-height:1;
+
+    font-weight:600;
+
+}
+
+
+.cover-introduction p{
+
+    margin:0 0 13px;
+
+    color:var(--text);
+
+    font-size:18px;
+
+    line-height:1.65;
+
+}
+
+
+/* FRASE FINAL */
+
+.cover-final{
+
+    margin-top:20px;
+
+    color:var(--gold-light);
+
+    font-size:19px;
+
+    line-height:1.45;
+
+    font-weight:500;
+
+}
+
+
+/* BOTÃO */
+
 .start-button{
+
     width:100%;
-    max-width:350px;
 
-    margin-top:28px;
+    max-width:380px;
 
-    padding:16px 20px;
+    margin:28px auto 0;
+
+    padding:17px 22px;
 
     border:0;
-    border-radius:17px;
+
+    border-radius:18px;
 
     background:
+
         linear-gradient(
             135deg,
-            #e2b96f,
-            #b87e35
+            #e3b86f,
+            #b87d35
         );
 
-    color:#1a0f08;
+    color:#1b1008;
 
-    font-size:15px;
+    font-size:18px;
+
     font-weight:700;
+
+    letter-spacing:.2px;
 
     box-shadow:
         0 12px 30px rgba(0,0,0,.35);
 
     cursor:pointer;
+
 }
+
 
 .start-button:active{
+
     transform:scale(.98);
+
 }
 
 
-/* =========================================================
+/* =====================================================
    CABEÇALHO
-========================================================= */
+===================================================== */
 
 .topbar{
+
     position:sticky;
+
     top:0;
+
     z-index:50;
 
     min-height:80px;
 
     padding:
+
         calc(12px + env(safe-area-inset-top))
         20px
         12px;
 
     background:
-        rgba(15,9,6,.94);
+
+        rgba(15,9,6,.95);
 
     backdrop-filter:blur(18px);
+
     -webkit-backdrop-filter:blur(18px);
 
     border-bottom:1px solid var(--border);
+
 }
 
+
 .topbar-inner{
+
     position:relative;
 
     min-height:48px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
 }
 
-.topbar-title{
-    font-family:var(--title-font);
 
-    font-size:27px;
+.topbar-title{
+
+    font-size:29px;
+
     font-weight:600;
 
     color:var(--cream);
 
-    letter-spacing:-.2px;
+    line-height:1;
+
 }
 
+
 .back-button{
+
     position:absolute;
+
     left:0;
 
     width:46px;
+
     height:46px;
 
     border-radius:16px;
@@ -304,115 +490,146 @@ button{
     border:1px solid var(--border);
 
     background:
+
         rgba(255,255,255,.045);
 
     color:var(--cream);
 
-    font-size:27px;
+    font-size:28px;
+
     line-height:1;
 
     cursor:pointer;
+
 }
 
 
-/* =========================================================
+/* =====================================================
    HOME
-========================================================= */
+===================================================== */
 
 .home{
+
     width:100%;
+
     max-width:850px;
 
     margin:0 auto;
 
     padding:
+
         34px 32px
-        42px;
+        120px;
+
 }
 
+
 .home-intro small{
+
     display:block;
 
     margin-bottom:7px;
 
     color:var(--muted);
 
-    font-size:14px;
+    font-size:17px;
+
 }
 
+
 .home-intro h1{
-    margin:0 0 8px;
 
-    font-family:var(--title-font);
+    margin:0 0 10px;
 
-    font-size:48px;
-    line-height:.95;
+    font-size:52px;
+
+    line-height:.9;
 
     font-weight:600;
 
     color:var(--cream);
 
-    letter-spacing:-.8px;
 }
 
+
 .home-intro p{
-    max-width:650px;
 
     margin:0;
 
+    max-width:680px;
+
     color:var(--muted);
 
-    font-size:16px;
+    font-size:19px;
 
-    line-height:1.75;
+    line-height:1.6;
+
 }
 
 
-/* =========================================================
+/* =====================================================
    PROGRESSO
-========================================================= */
+===================================================== */
 
 .progress-card{
-    margin-top:28px;
 
-    padding:22px;
+    margin-top:30px;
+
+    padding:23px;
 
     border:1px solid var(--border);
 
     border-radius:25px;
 
     background:
+
         linear-gradient(
             145deg,
-            rgba(213,164,91,.10),
+            rgba(216,168,94,.10),
             rgba(255,255,255,.025)
         );
+
 }
 
+
 .progress-header{
+
     display:flex;
 
     align-items:center;
+
     justify-content:space-between;
 
-    margin-bottom:14px;
+    margin-bottom:15px;
+
 }
+
 
 .progress-title{
-    font-size:17px;
-    font-weight:700;
+
+    font-size:22px;
+
+    font-weight:600;
+
 }
+
 
 .progress-percent{
+
     color:var(--gold-light);
 
-    font-size:17px;
+    font-size:21px;
+
     font-weight:700;
+
 }
 
+
 .progress-bar{
+
     width:100%;
-    height:8px;
+
+    height:9px;
 
     border-radius:100px;
 
@@ -420,62 +637,74 @@ button{
 
     background:
         rgba(255,255,255,.08);
+
 }
 
+
 .progress-fill{
+
     width:0;
+
     height:100%;
 
     border-radius:100px;
 
     background:
+
         linear-gradient(
             90deg,
-            #a96e2c,
+            #a86d2c,
             #f0cb81
         );
 
     transition:
         width .5s ease;
+
 }
 
+
 .progress-text{
+
     margin-top:11px;
 
     color:var(--muted);
 
-    font-size:13px;
+    font-size:16px;
+
 }
 
 
-/* =========================================================
+/* =====================================================
    TÍTULOS DE SEÇÃO
-========================================================= */
+===================================================== */
 
 .section-title{
+
     margin:
-        34px 3px
-        15px;
 
-    font-family:var(--title-font);
+        38px 4px
+        16px;
 
-    font-size:30px;
+    font-size:34px;
+
     line-height:1;
 
     font-weight:600;
 
     color:var(--cream);
+
 }
 
 
-/* =========================================================
+/* =====================================================
    CONTINUE
-========================================================= */
+===================================================== */
 
 .continue-card{
+
     width:100%;
 
-    padding:21px;
+    padding:22px;
 
     text-align:left;
 
@@ -484,6 +713,7 @@ button{
     border-radius:23px;
 
     background:
+
         linear-gradient(
             145deg,
             rgba(255,255,255,.045),
@@ -493,43 +723,56 @@ button{
     color:var(--cream);
 
     cursor:pointer;
+
 }
 
+
 .continue-label{
+
     display:block;
 
     margin-bottom:9px;
 
     color:var(--gold-light);
 
-    font-size:14px;
-    font-weight:700;
+    font-size:17px;
+
+    font-weight:600;
+
 }
 
+
 .continue-title{
-    font-family:var(--title-font);
+
+    display:block;
 
     font-size:25px;
+
     line-height:1.1;
 
     font-weight:600;
+
 }
 
 
-/* =========================================================
+/* =====================================================
    GRID DOS DIAS
-========================================================= */
+===================================================== */
 
 .days-grid{
+
     display:grid;
 
     grid-template-columns:
         repeat(3,minmax(0,1fr));
 
     gap:10px;
+
 }
 
+
 .day-card{
+
     position:relative;
 
     min-height:145px;
@@ -543,6 +786,7 @@ button{
     border-radius:22px;
 
     background:
+
         linear-gradient(
             145deg,
             rgba(255,255,255,.038),
@@ -553,112 +797,137 @@ button{
 
     cursor:pointer;
 
-    transition:
-        transform .18s ease,
-        background .18s ease,
-        border-color .18s ease;
 }
+
 
 .day-card:active{
+
     transform:scale(.975);
+
 }
+
 
 .day-card.done{
+
     border-color:
-        rgba(216,168,93,.34);
+        rgba(216,168,94,.34);
 
     background:
-        rgba(216,168,93,.065);
+        rgba(216,168,94,.065);
+
 }
+
 
 .day-number{
+
     color:var(--gold-light);
 
-    font-size:13px;
+    font-size:16px;
+
     font-weight:700;
 
-    letter-spacing:.7px;
+    letter-spacing:.6px;
+
 }
+
 
 .day-title{
+
     margin-top:12px;
 
-    font-family:var(--title-font);
+    font-size:20px;
 
-    font-size:21px;
-    line-height:1.08;
+    line-height:1.15;
 
-    font-weight:600;
+    font-weight:500;
 
-    color:var(--cream);
 }
 
+
 .day-check{
+
     position:absolute;
 
     top:15px;
+
     right:15px;
 
     color:var(--gold-light);
 
-    font-size:14px;
+    font-size:15px;
+
 }
 
 
-/* =========================================================
+/* =====================================================
    DEVOCIONAL
-========================================================= */
+===================================================== */
 
 .devotional{
+
     width:100%;
+
     max-width:850px;
 
     margin:0 auto;
 
     padding:
+
         40px 32px
-        50px;
+        120px;
+
 }
 
+
 .day-label{
+
     color:var(--gold-light);
 
-    font-size:14px;
+    font-size:17px;
+
     font-weight:700;
 
     letter-spacing:1px;
+
 }
 
+
 .devotional-title{
+
     margin:
-        9px 0 7px;
 
-    max-width:760px;
+        9px 0 8px;
 
-    font-family:var(--title-font);
+    max-width:780px;
 
-    font-size:56px;
-    line-height:.95;
+    font-size:55px;
+
+    line-height:.92;
 
     font-weight:600;
 
-    letter-spacing:-1px;
+    letter-spacing:-.7px;
 
-    color:#f4e8d7;
+    color:var(--cream);
+
 }
+
 
 .reference{
+
     color:var(--muted);
 
-    font-size:16px;
+    font-size:19px;
+
 }
 
 
-/* =========================================================
+/* =====================================================
    CARDS
-========================================================= */
+===================================================== */
 
 .dev-card{
+
     margin-top:22px;
 
     padding:28px;
@@ -668,75 +937,101 @@ button{
     border-radius:27px;
 
     background:
+
         linear-gradient(
             145deg,
             rgba(255,255,255,.045),
             rgba(255,255,255,.018)
         );
+
 }
 
+
 .dev-card h2{
+
     margin:
         0 0 15px;
 
-    font-family:var(--title-font);
+    color:var(--gold-light);
 
-    font-size:27px;
+    font-size:28px;
+
     line-height:1;
 
     font-weight:600;
 
-    color:var(--gold-light);
 }
 
+
 .dev-card p{
+
     margin:0;
 
     color:var(--text);
 
-    font-size:17px;
+    font-size:19px;
 
-    line-height:1.85;
+    line-height:1.72;
+
 }
+
 
 .reflection p + p{
-    margin-top:17px;
+
+    margin-top:18px;
+
 }
+
 
 .question-card{
+
     border-left:
         3px solid var(--gold);
+
 }
 
+
 .practice-card{
+
     background:
+
         linear-gradient(
             145deg,
             rgba(215,166,90,.09),
             rgba(255,255,255,.025)
         );
+
 }
 
+
 .prayer-card{
+
     background:
+
         radial-gradient(
             circle at 50% 0%,
             rgba(215,166,90,.10),
             transparent 70%
         ),
+
         rgba(255,255,255,.025);
+
 }
 
 
-/* =========================================================
+/* =====================================================
    ÁUDIO
-========================================================= */
+===================================================== */
 
 .audio-area{
-    margin-top:20px;
+
+    margin-top:21px;
+
 }
 
+
 .audio-button{
+
     width:100%;
 
     padding:15px 18px;
@@ -751,12 +1046,17 @@ button{
 
     color:var(--gold-light);
 
-    font-weight:700;
+    font-size:17px;
+
+    font-weight:600;
 
     cursor:pointer;
+
 }
 
+
 .voice-button{
+
     margin-top:9px;
 
     width:100%;
@@ -767,14 +1067,20 @@ button{
 
     border-radius:15px;
 
-    background:rgba(255,255,255,.035);
+    background:
+        rgba(255,255,255,.035);
 
     color:var(--muted);
 
+    font-size:16px;
+
     cursor:pointer;
+
 }
 
+
 .voice-settings{
+
     display:none;
 
     margin-top:12px;
@@ -787,23 +1093,32 @@ button{
         rgba(0,0,0,.15);
 
     border:1px solid var(--border);
+
 }
+
 
 .voice-settings.open{
+
     display:block;
+
 }
 
+
 .voice-settings label{
+
     display:block;
 
     margin-bottom:7px;
 
     color:var(--muted);
 
-    font-size:12px;
+    font-size:15px;
+
 }
 
+
 .voice-settings select{
+
     width:100%;
 
     padding:12px;
@@ -816,21 +1131,26 @@ button{
 
     color:var(--cream);
 
-    outline:none;
+    font-size:15px;
+
 }
 
+
 .voice-settings input{
+
     width:100%;
 
     accent-color:var(--gold);
+
 }
 
 
-/* =========================================================
-   DIÁRIO DO DIA
-========================================================= */
+/* =====================================================
+   DIÁRIO
+===================================================== */
 
 .day-journal textarea{
+
     width:100%;
 
     min-height:180px;
@@ -848,19 +1168,25 @@ button{
 
     color:var(--cream);
 
-    font-size:15px;
+    font-size:18px;
 
     line-height:1.65;
 
     outline:none;
+
 }
+
 
 .day-journal textarea:focus{
+
     border-color:
         rgba(215,166,90,.35);
+
 }
 
+
 .save-button{
+
     width:100%;
 
     margin-top:10px;
@@ -876,15 +1202,19 @@ button{
 
     color:var(--gold-light);
 
-    font-weight:700;
+    font-size:17px;
+
+    font-weight:600;
+
 }
 
 
-/* =========================================================
-   NAVEGAÇÃO DO DEVOCIONAL
-========================================================= */
+/* =====================================================
+   NAVEGAÇÃO ENTRE DIAS
+===================================================== */
 
 .dev-navigation{
+
     display:grid;
 
     grid-template-columns:1fr 1fr;
@@ -892,9 +1222,12 @@ button{
     gap:10px;
 
     margin-top:22px;
+
 }
 
+
 .day-nav-button{
+
     padding:15px 10px;
 
     border-radius:17px;
@@ -906,14 +1239,20 @@ button{
 
     color:var(--cream);
 
-    cursor:pointer;
+    font-size:16px;
+
 }
+
 
 .day-nav-button:disabled{
+
     opacity:.35;
+
 }
 
+
 .complete-button{
+
     grid-column:1 / -1;
 
     padding:16px;
@@ -923,6 +1262,7 @@ button{
     border-radius:17px;
 
     background:
+
         linear-gradient(
             135deg,
             #dcae63,
@@ -931,59 +1271,71 @@ button{
 
     color:#1b1008;
 
-    font-weight:800;
+    font-size:17px;
 
-    cursor:pointer;
+    font-weight:700;
+
 }
 
 
-/* =========================================================
+/* =====================================================
    JORNADA
-========================================================= */
+===================================================== */
 
-.journey{
+.journey,
+.journal,
+.favorites{
+
     width:100%;
+
     max-width:850px;
 
     margin:0 auto;
 
     padding:
+
         34px 32px
-        45px;
+        120px;
+
 }
+
 
 .journey h1,
 .journal h1,
-.favorites h1,
-.profile h1{
+.favorites h1{
+
     margin:0;
 
-    font-family:var(--title-font);
+    font-size:52px;
 
-    font-size:48px;
-
-    line-height:.95;
+    line-height:.9;
 
     font-weight:600;
 
     color:var(--cream);
+
 }
 
+
 .journey-intro{
+
     margin:
-        15px 0 25px;
+        16px 0 25px;
 
     color:var(--muted);
 
-    font-size:16px;
+    font-size:18px;
 
-    line-height:1.7;
+    line-height:1.65;
+
 }
 
+
 .phase-card{
+
     margin-top:12px;
 
-    padding:20px;
+    padding:21px;
 
     border-radius:21px;
 
@@ -991,52 +1343,56 @@ button{
 
     background:
         rgba(255,255,255,.035);
+
 }
+
 
 .phase-card h3{
+
     margin:0 0 7px;
 
-    font-family:var(--title-font);
-
-    font-size:23px;
-
     color:var(--gold-light);
+
+    font-size:25px;
+
+    line-height:1.1;
+
+    font-weight:600;
+
 }
 
+
 .phase-card p{
+
     margin:0;
 
     color:var(--muted);
 
-    font-size:13px;
+    font-size:16px;
+
 }
 
 
-/* =========================================================
-   DIÁRIO
-========================================================= */
-
-.journal{
-    width:100%;
-    max-width:850px;
-
-    margin:0 auto;
-
-    padding:
-        34px 32px
-        45px;
-}
+/* =====================================================
+   DIÁRIO GERAL
+===================================================== */
 
 .journal-intro{
+
     margin:
         15px 0;
 
     color:var(--muted);
 
-    line-height:1.7;
+    font-size:18px;
+
+    line-height:1.65;
+
 }
 
+
 .general-journal{
+
     width:100%;
 
     min-height:280px;
@@ -1054,32 +1410,23 @@ button{
 
     color:var(--cream);
 
-    font-size:16px;
+    font-size:18px;
 
     line-height:1.7;
 
     resize:vertical;
 
     outline:none;
+
 }
 
 
-/* =========================================================
+/* =====================================================
    FAVORITOS
-========================================================= */
-
-.favorites{
-    width:100%;
-    max-width:850px;
-
-    margin:0 auto;
-
-    padding:
-        34px 32px
-        45px;
-}
+===================================================== */
 
 .empty{
+
     margin-top:22px;
 
     padding:35px 20px;
@@ -1091,63 +1438,24 @@ button{
     border:1px dashed var(--border);
 
     color:var(--muted);
+
+    font-size:17px;
+
 }
 
 
-/* =========================================================
-   PERFIL
-========================================================= */
-
-.profile{
-    width:100%;
-    max-width:850px;
-
-    margin:0 auto;
-
-    padding:
-        34px 32px
-        45px;
-}
-
-.profile-card{
-    margin-top:25px;
-
-    padding:25px;
-
-    border-radius:23px;
-
-    border:1px solid var(--border);
-
-    background:
-        rgba(255,255,255,.035);
-}
-
-.profile-card h2{
-    margin:0 0 10px;
-
-    font-family:var(--title-font);
-
-    font-size:31px;
-
-    color:var(--gold-light);
-}
-
-.profile-card p{
-    color:var(--muted);
-
-    line-height:1.7;
-}
-
-
-/* =========================================================
+/* =====================================================
    BARRA INFERIOR
-========================================================= */
+===================================================== */
 
 .bottom-nav{
+
     position:fixed;
 
     left:0;
+
     right:0;
+
     bottom:0;
 
     z-index:100;
@@ -1158,19 +1466,24 @@ button{
         repeat(4,1fr);
 
     padding:
+
         8px 9px
         calc(8px + env(safe-area-inset-bottom));
 
     background:
-        rgba(14,8,5,.95);
+        rgba(14,8,5,.96);
 
     backdrop-filter:blur(20px);
+
     -webkit-backdrop-filter:blur(20px);
 
     border-top:1px solid var(--border);
+
 }
 
+
 .bottom-nav button{
+
     border:0;
 
     background:transparent;
@@ -1181,51 +1494,43 @@ button{
 
     cursor:pointer;
 
-    font-size:11px;
 }
+
 
 .bottom-nav button.active{
+
     color:var(--gold-light);
+
 }
 
+
 .nav-icon{
+
     display:block;
 
     margin-bottom:4px;
 
+    font-family:Arial,sans-serif;
+
     font-size:23px;
 
     line-height:1;
+
 }
+
 
 .nav-label{
-    font-size:11px;
+
+    font-family:var(--font);
+
+    font-size:15px;
+
 }
 
 
-/* =========================================================
-   LOADING
-========================================================= */
-
-.loading{
-    min-height:100vh;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    padding:30px;
-
-    color:var(--muted);
-
-    text-align:center;
-}
-
-
-/* =========================================================
+/* =====================================================
    RESPONSIVO
-========================================================= */
+===================================================== */
 
 @media(max-width:650px){
 
@@ -1233,111 +1538,162 @@ button{
     .devotional,
     .journey,
     .journal,
-    .favorites,
-    .profile{
+    .favorites{
+
         padding-left:33px;
+
         padding-right:33px;
+
     }
 
-    .days-grid{
-        grid-template-columns:
-            repeat(3,minmax(0,1fr));
 
-        gap:10px;
+    .cover-image{
+
+        height:57vh;
+
+        min-height:430px;
+
     }
 
-    .day-card{
-        min-height:145px;
 
-        padding:17px;
+    .cover-title{
+
+        font-size:40px;
+
     }
 
-    .day-title{
-        font-size:20px;
+
+    .cover-content{
+
+        padding-left:28px;
+
+        padding-right:28px;
+
     }
 
-    .devotional-title{
-        font-size:50px;
+
+    .cover-introduction p{
+
+        font-size:17px;
+
     }
 
-}
-
-@media(max-width:430px){
-
-    .home,
-    .devotional,
-    .journey,
-    .journal,
-    .favorites,
-    .profile{
-        padding-left:33px;
-        padding-right:33px;
-    }
 
     .home-intro h1{
-        font-size:45px;
+
+        font-size:49px;
+
     }
+
 
     .section-title{
-        font-size:28px;
+
+        font-size:31px;
+
     }
+
 
     .devotional-title{
-        font-size:47px;
+
+        font-size:49px;
+
     }
 
-    .dev-card{
-        padding:27px 28px;
-    }
 
     .dev-card p{
-        font-size:16px;
-        line-height:1.8;
+
+        font-size:18px;
+
     }
+
 
     .day-card{
+
         min-height:142px;
+
         padding:17px;
+
     }
 
+
     .day-title{
+
         font-size:19px;
+
     }
 
 }
 
 
-/* =========================================================
-   DESKTOP
-========================================================= */
+@media(max-width:390px){
+
+    .days-grid{
+
+        gap:8px;
+
+    }
+
+
+    .day-card{
+
+        padding:14px;
+
+        min-height:135px;
+
+    }
+
+
+    .day-title{
+
+        font-size:18px;
+
+    }
+
+
+    .devotional-title{
+
+        font-size:45px;
+
+    }
+
+}
+
 
 @media(min-width:900px){
 
     .days-grid{
+
         grid-template-columns:
             repeat(5,minmax(0,1fr));
+
     }
 
 }
 
 </style>
+
 </head>
 
 
 <body>
 
+
 <div id="app">
 
-    <!-- ====================================================
-         CAPA
-    ===================================================== -->
 
-    <section
-        id="coverScreen"
-        class="screen active"
-    >
+<!-- =====================================================
+     CAPA
+===================================================== -->
 
-        <div class="cover">
+<section
+    id="coverScreen"
+    class="screen active"
+>
+
+    <div class="cover">
+
+
+        <div class="cover-image-wrapper">
 
             <img
                 class="cover-image"
@@ -1345,758 +1701,932 @@ button{
                 alt="Doce Espírito Santo — Um Amigo Íntimo"
             >
 
-            <div class="cover-overlay"></div>
-
-            <div class="cover-content">
-
-                <div class="cover-title">
-                    Doce Espírito Santo
-                </div>
-
-                <div class="cover-subtitle">
-                    Um Amigo Íntimo
-                </div>
-
-                <button
-                    class="start-button"
-                    onclick="enterApp()"
-                >
-                    Começar minha jornada
-                </button>
-
-            </div>
-
         </div>
 
-    </section>
+
+        <div class="cover-content">
 
 
-    <!-- ====================================================
-         HOME
-    ===================================================== -->
-
-    <section
-        id="homeScreen"
-        class="screen"
-    >
-
-        <header class="topbar">
-
-            <div class="topbar-inner">
-
-                <div class="topbar-title">
-                    Doce Espírito Santo
-                </div>
-
+            <div class="cover-title">
+                Doce Espírito Santo
             </div>
 
-        </header>
+
+            <div class="cover-subtitle">
+                Um Amigo Íntimo
+            </div>
 
 
-        <main class="home">
+            <div class="cover-introduction">
 
-            <div class="home-intro">
 
-                <small>
-                    Uma jornada de presença
-                </small>
+                <h2>
+                    Antes de começar
+                </h2>
 
-                <h1>
-                    Permaneça.
-                </h1>
 
                 <p>
-                    Não tenha pressa. Há encontros que só acontecem
-                    quando aprendemos a permanecer.
+                    Esta não é uma jornada para simplesmente
+                    receber informações. É um convite para
+                    aprender a perceber.
                 </p>
 
-            </div>
+
+                <p>
+                    A Presença nem sempre chega como você imagina.
+                    Às vezes, ela se revela no silêncio, em uma
+                    inquietação, em uma palavra que permanece,
+                    em uma paz que você não consegue explicar.
+                </p>
 
 
-            <div class="progress-card">
+                <p>
+                    Ao longo desta jornada, desacelere.
+                    Leia sem pressa. Permita-se permanecer.
+                    Observe o que acontece dentro de você.
+                </p>
 
-                <div class="progress-header">
 
-                    <span class="progress-title">
-                        Sua jornada
-                    </span>
+                <p>
+                    Aqui, cada dia é um pequeno espaço para
+                    encontrar o Doce Espírito Santo no cotidiano.
+                </p>
 
-                    <span
-                        id="progressPercent"
-                        class="progress-percent"
-                    >
-                        0%
-                    </span>
 
-                </div>
+                <div class="cover-final">
 
-                <div class="progress-bar">
+                    Um dia de cada vez.<br>
 
-                    <div
-                        id="progressFill"
-                        class="progress-fill"
-                    ></div>
+                    Uma presença para perceber.<br>
+
+                    Um relacionamento para aprofundar.
 
                 </div>
 
-                <div
-                    id="progressText"
-                    class="progress-text"
-                >
-                    0 dias concluídos de 365
-                </div>
 
             </div>
-
-
-            <h2 class="section-title">
-                Continue sua jornada
-            </h2>
-
-
-            <div id="continueArea"></div>
-
-
-            <h2 class="section-title">
-                Todos os dias
-            </h2>
-
-
-            <div
-                id="daysGrid"
-                class="days-grid"
-            ></div>
-
-        </main>
-
-    </section>
-
-
-    <!-- ====================================================
-         JORNADA
-    ===================================================== -->
-
-    <section
-        id="journeyScreen"
-        class="screen"
-    >
-
-        <header class="topbar">
-
-            <div class="topbar-inner">
-
-                <div class="topbar-title">
-                    Jornada
-                </div>
-
-            </div>
-
-        </header>
-
-
-        <main class="journey">
-
-            <h1>
-                Sua caminhada
-            </h1>
-
-            <p class="journey-intro">
-                Cada dia é um convite para diminuir o ritmo,
-                perceber a Presença e permitir que ela transforme
-                o modo como você vive.
-            </p>
-
-
-            <div class="phase-card">
-                <h3>
-                    Fase 1 — Reconhecendo a Presença
-                </h3>
-                <p>
-                    Dias 1–30
-                </p>
-            </div>
-
-
-            <div class="phase-card">
-                <h3>
-                    Fase 2 — Aprofundando a Intimidade
-                </h3>
-                <p>
-                    Dias 31–60
-                </p>
-            </div>
-
-
-            <div class="phase-card">
-                <h3>
-                    Fase 3 — Uma intimidade que transforma
-                </h3>
-                <p>
-                    Dias 61–90
-                </p>
-            </div>
-
-
-            <div class="phase-card">
-                <h3>
-                    Fase 4 — Vivendo pela Presença
-                </h3>
-                <p>
-                    Dias 91–120
-                </p>
-            </div>
-
-
-            <div class="phase-card">
-                <h3>
-                    Fase 5 — Quando a Presença forma o caráter
-                </h3>
-                <p>
-                    Dias 121–150
-                </p>
-            </div>
-
-
-            <div class="phase-card">
-                <h3>
-                    Fase 6 — Intimidade que gera maturidade
-                </h3>
-                <p>
-                    Dias 151–180
-                </p>
-            </div>
-
-
-            <div class="phase-card">
-                <h3>
-                    Fase 7 — Propósito
-                </h3>
-                <p>
-                    Dias 181–210
-                </p>
-            </div>
-
-
-            <div class="phase-card">
-                <h3>
-                    Fase 8 — Serviço
-                </h3>
-                <p>
-                    Dias 211–240
-                </p>
-            </div>
-
-
-            <div class="phase-card">
-                <h3>
-                    Fase 9 — Maturidade
-                </h3>
-                <p>
-                    Dias 241–270
-                </p>
-            </div>
-
-
-            <div class="phase-card">
-                <h3>
-                    Fase 10 — Comunhão
-                </h3>
-                <p>
-                    Dias 271–300
-                </p>
-            </div>
-
-
-            <div class="phase-card">
-                <h3>
-                    Fase 11 — Missão
-                </h3>
-                <p>
-                    Dias 301–330
-                </p>
-            </div>
-
-
-            <div class="phase-card">
-                <h3>
-                    Fase 12 — Permanecer
-                </h3>
-                <p>
-                    Dias 331–365
-                </p>
-            </div>
-
-        </main>
-
-    </section>
-
-
-    <!-- ====================================================
-         DIÁRIO
-    ===================================================== -->
-
-    <section
-        id="journalScreen"
-        class="screen"
-    >
-
-        <header class="topbar">
-
-            <div class="topbar-inner">
-
-                <div class="topbar-title">
-                    Diário
-                </div>
-
-            </div>
-
-        </header>
-
-
-        <main class="journal">
-
-            <h1>
-                Meu diário
-            </h1>
-
-            <p class="journal-intro">
-                Algumas coisas precisam ser escritas para serem percebidas.
-            </p>
-
-
-            <textarea
-                id="generalJournal"
-                class="general-journal"
-                placeholder="Escreva o que está acontecendo dentro de você..."
-            ></textarea>
 
 
             <button
-                class="save-button"
-                onclick="saveGeneralJournal()"
+                class="start-button"
+                onclick="startJourney()"
             >
-                Salvar meu diário
+
+                Vamos iniciar
+
             </button>
 
-        </main>
 
-    </section>
+        </div>
 
+    </div>
 
-    <!-- ====================================================
-         FAVORITOS
-    ===================================================== -->
+</section>
 
-    <section
-        id="favoritesScreen"
-        class="screen"
-    >
 
-        <header class="topbar">
 
-            <div class="topbar-inner">
+<!-- =====================================================
+     HOME
+===================================================== -->
 
-                <div class="topbar-title">
-                    Favoritos
-                </div>
+<section
+    id="homeScreen"
+    class="screen"
+>
 
-            </div>
 
-        </header>
+<header class="topbar">
 
+    <div class="topbar-inner">
 
-        <main class="favorites">
+        <div class="topbar-title">
+            Doce Espírito Santo
+        </div>
 
-            <h1>
-                Meus favoritos
-            </h1>
+    </div>
 
+</header>
 
-            <div
-                id="favoritesArea"
-                class="empty"
-            >
-                Seus devocionais favoritos aparecerão aqui.
-            </div>
 
-        </main>
+<main class="home">
 
-    </section>
 
+<div class="home-intro">
 
-    <!-- ====================================================
-         PERFIL
-    ===================================================== -->
+    <small>
+        Uma jornada de presença
+    </small>
 
-    <section
-        id="profileScreen"
-        class="screen"
-    >
 
-        <header class="topbar">
+    <h1>
+        Permaneça.
+    </h1>
 
-            <div class="topbar-inner">
 
-                <div class="topbar-title">
-                    Perfil
-                </div>
-
-            </div>
-
-        </header>
-
-
-        <main class="profile">
-
-            <h1>
-                Perfil
-            </h1>
-
-
-            <div class="profile-card">
-
-                <h2>
-                    Doce Espírito Santo
-                </h2>
-
-                <p>
-                    Um Amigo Íntimo.
-                </p>
-
-                <p>
-                    Uma jornada de 365 dias para aprender
-                    a permanecer, perceber e caminhar na Presença.
-                </p>
-
-                <p>
-                    Dias disponíveis:
-                    <strong id="totalDaysProfile">0</strong>
-                </p>
-
-            </div>
-
-        </main>
-
-    </section>
-
-
-    <!-- ====================================================
-         DEVOCIONAL
-    ===================================================== -->
-
-    <section
-        id="devotionalScreen"
-        class="screen"
-    >
-
-        <header class="topbar">
-
-            <div class="topbar-inner">
-
-                <button
-                    class="back-button"
-                    onclick="goHome()"
-                >
-                    ←
-                </button>
-
-
-                <div
-                    id="headerDay"
-                    class="topbar-title"
-                >
-                    Dia
-                </div>
-
-            </div>
-
-        </header>
-
-
-        <main class="devotional">
-
-            <div
-                id="dayLabel"
-                class="day-label"
-            ></div>
-
-
-            <h1
-                id="devTitle"
-                class="devotional-title"
-            ></h1>
-
-
-            <div
-                id="devReference"
-                class="reference"
-            ></div>
-
-
-            <!-- CHEGUE AQUI -->
-
-            <div class="dev-card">
-
-                <h2>
-                    Chegue aqui
-                </h2>
-
-                <p
-                    id="devIntro"
-                ></p>
-
-            </div>
-
-
-            <!-- REFLEXÃO -->
-
-            <div class="dev-card">
-
-                <h2>
-                    Reflexão
-                </h2>
-
-                <div
-                    id="devReflection"
-                    class="reflection"
-                ></div>
-
-            </div>
-
-
-            <!-- PERGUNTA -->
-
-            <div
-                class="dev-card question-card"
-            >
-
-                <h2>
-                    Pergunta para o coração
-                </h2>
-
-                <p
-                    id="devQuestion"
-                ></p>
-
-            </div>
-
-
-            <!-- PRÁTICA -->
-
-            <div
-                class="dev-card practice-card"
-            >
-
-                <h2>
-                    Prática de hoje
-                </h2>
-
-                <p
-                    id="devPractice"
-                ></p>
-
-            </div>
-
-
-            <!-- ORAÇÃO -->
-
-            <div
-                class="dev-card prayer-card"
-            >
-
-                <h2>
-                    Oração
-                </h2>
-
-                <p
-                    id="devPrayer"
-                ></p>
-
-
-                <div class="audio-area">
-
-                    <button
-                        id="audioButton"
-                        class="audio-button"
-                        onclick="togglePrayerAudio()"
-                    >
-                        ▶ Ouvir oração
-                    </button>
-
-
-                    <button
-                        class="voice-button"
-                        onclick="toggleVoiceSettings()"
-                    >
-                        ⚙ Configurar voz
-                    </button>
-
-
-                    <div
-                        id="voiceSettings"
-                        class="voice-settings"
-                    >
-
-                        <label for="voiceSelect">
-                            Voz disponível no aparelho
-                        </label>
-
-                        <select
-                            id="voiceSelect"
-                            onchange="saveVoicePreference()"
-                        ></select>
-
-
-                        <label
-                            for="voiceRate"
-                            style="margin-top:15px;"
-                        >
-                            Velocidade da oração
-                        </label>
-
-                        <input
-                            id="voiceRate"
-                            type="range"
-                            min="0.68"
-                            max="1"
-                            step="0.01"
-                            value="0.84"
-                            oninput="saveVoicePreference()"
-                        >
-
-                        <div
-                            id="voiceRateValue"
-                            style="
-                                margin-top:5px;
-                                color:var(--muted);
-                                font-size:12px;
-                            "
-                        >
-                            0,84
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- DIÁRIO DO DIA -->
-
-            <div class="dev-card day-journal">
-
-                <h2>
-                    Diário
-                </h2>
-
-                <textarea
-                    id="dayJournal"
-                    placeholder="O que esse momento despertou em você?"
-                ></textarea>
-
-
-                <button
-                    class="save-button"
-                    onclick="saveDayJournal()"
-                >
-                    Salvar reflexão
-                </button>
-
-            </div>
-
-
-            <!-- NAVEGAÇÃO -->
-
-            <div class="dev-navigation">
-
-                <button
-                    id="previousButton"
-                    class="day-nav-button"
-                    onclick="previousDay()"
-                >
-                    ← Dia anterior
-                </button>
-
-
-                <button
-                    id="nextButton"
-                    class="day-nav-button"
-                    onclick="nextDay()"
-                >
-                    Próximo dia →
-                </button>
-
-
-                <button
-                    id="completeButton"
-                    class="complete-button"
-                    onclick="completeCurrentDay()"
-                >
-                    Concluir este dia ✓
-                </button>
-
-            </div>
-
-        </main>
-
-    </section>
-
-
-    <!-- ====================================================
-         NAVEGAÇÃO INFERIOR
-    ===================================================== -->
-
-    <nav
-        id="bottomNav"
-        class="bottom-nav hidden"
-    >
-
-        <button
-            id="navHome"
-            onclick="showScreen('homeScreen')"
-        >
-            <span class="nav-icon">⌂</span>
-            <span class="nav-label">Início</span>
-        </button>
-
-
-        <button
-            id="navJourney"
-            onclick="showScreen('journeyScreen')"
-        >
-            <span class="nav-icon">◌</span>
-            <span class="nav-label">Jornada</span>
-        </button>
-
-
-        <button
-            id="navJournal"
-            onclick="showScreen('journalScreen')"
-        >
-            <span class="nav-icon">♢</span>
-            <span class="nav-label">Diário</span>
-        </button>
-
-
-        <button
-            id="navFavorites"
-            onclick="showScreen('favoritesScreen')"
-        >
-            <span class="nav-icon">♡</span>
-            <span class="nav-label">Favoritos</span>
-        </button>
-
-    </nav>
+    <p>
+        Não tenha pressa. Há encontros que só acontecem
+        quando aprendemos a permanecer.
+    </p>
 
 </div>
 
 
+
+<div class="progress-card">
+
+
+    <div class="progress-header">
+
+        <span class="progress-title">
+            Sua jornada
+        </span>
+
+
+        <span
+            id="progressPercent"
+            class="progress-percent"
+        >
+            0%
+        </span>
+
+    </div>
+
+
+    <div class="progress-bar">
+
+        <div
+            id="progressFill"
+            class="progress-fill"
+        ></div>
+
+    </div>
+
+
+    <div
+        id="progressText"
+        class="progress-text"
+    >
+        0 dias concluídos de 365
+    </div>
+
+
+</div>
+
+
+
+<h2 class="section-title">
+    Continue sua jornada
+</h2>
+
+
+<div id="continueArea"></div>
+
+
+
+<h2 class="section-title">
+    Todos os dias
+</h2>
+
+
+<div
+    id="daysGrid"
+    class="days-grid"
+></div>
+
+
+</main>
+
+</section>
+
+
+
+<!-- =====================================================
+     JORNADA
+===================================================== -->
+
+<section
+    id="journeyScreen"
+    class="screen"
+>
+
+
+<header class="topbar">
+
+    <div class="topbar-inner">
+
+        <div class="topbar-title">
+            Jornada
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="journey">
+
+
+<h1>
+    Sua caminhada
+</h1>
+
+
+<p class="journey-intro">
+
+    Cada dia é um convite para diminuir o ritmo,
+    perceber a Presença e permitir que ela transforme
+    o modo como você vive.
+
+</p>
+
+
+
+<div class="phase-card">
+
+    <h3>
+        Fase 1 — Reconhecendo a Presença
+    </h3>
+
+    <p>
+        Dias 1–30
+    </p>
+
+</div>
+
+
+
+<div class="phase-card">
+
+    <h3>
+        Fase 2 — Aprofundando a Intimidade
+    </h3>
+
+    <p>
+        Dias 31–60
+    </p>
+
+</div>
+
+
+
+<div class="phase-card">
+
+    <h3>
+        Fase 3 — Uma intimidade que transforma
+    </h3>
+
+    <p>
+        Dias 61–90
+    </p>
+
+</div>
+
+
+
+<div class="phase-card">
+
+    <h3>
+        Fase 4 — Vivendo pela Presença
+    </h3>
+
+    <p>
+        Dias 91–120
+    </p>
+
+</div>
+
+
+
+<div class="phase-card">
+
+    <h3>
+        Fase 5 — Quando a Presença forma o caráter
+    </h3>
+
+    <p>
+        Dias 121–150
+    </p>
+
+</div>
+
+
+
+<div class="phase-card">
+
+    <h3>
+        Fase 6 — Intimidade que gera maturidade
+    </h3>
+
+    <p>
+        Dias 151–180
+    </p>
+
+</div>
+
+
+
+<div class="phase-card">
+
+    <h3>
+        Fase 7 — Propósito
+    </h3>
+
+    <p>
+        Dias 181–210
+    </p>
+
+</div>
+
+
+
+<div class="phase-card">
+
+    <h3>
+        Fase 8 — Serviço
+    </h3>
+
+    <p>
+        Dias 211–240
+    </p>
+
+</div>
+
+
+
+<div class="phase-card">
+
+    <h3>
+        Fase 9 — Maturidade
+    </h3>
+
+    <p>
+        Dias 241–270
+    </p>
+
+</div>
+
+
+
+<div class="phase-card">
+
+    <h3>
+        Fase 10 — Comunhão
+    </h3>
+
+    <p>
+        Dias 271–300
+    </p>
+
+</div>
+
+
+
+<div class="phase-card">
+
+    <h3>
+        Fase 11 — Missão
+    </h3>
+
+    <p>
+        Dias 301–330
+    </p>
+
+</div>
+
+
+
+<div class="phase-card">
+
+    <h3>
+        Fase 12 — Permanecer
+    </h3>
+
+    <p>
+        Dias 331–365
+    </p>
+
+</div>
+
+
+</main>
+
+</section>
+
+
+
+<!-- =====================================================
+     DIÁRIO
+===================================================== -->
+
+<section
+    id="journalScreen"
+    class="screen"
+>
+
+
+<header class="topbar">
+
+    <div class="topbar-inner">
+
+        <div class="topbar-title">
+            Diário
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="journal">
+
+
+<h1>
+    Meu diário
+</h1>
+
+
+<p class="journal-intro">
+
+    Algumas coisas precisam ser escritas
+    para serem percebidas.
+
+</p>
+
+
+<textarea
+    id="generalJournal"
+    class="general-journal"
+    placeholder="Escreva o que está acontecendo dentro de você..."
+></textarea>
+
+
+<button
+    class="save-button"
+    onclick="saveGeneralJournal()"
+>
+
+    Salvar meu diário
+
+</button>
+
+
+</main>
+
+</section>
+
+
+
+<!-- =====================================================
+     FAVORITOS
+===================================================== -->
+
+<section
+    id="favoritesScreen"
+    class="screen"
+>
+
+
+<header class="topbar">
+
+    <div class="topbar-inner">
+
+        <div class="topbar-title">
+            Favoritos
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="favorites">
+
+
+<h1>
+    Meus favoritos
+</h1>
+
+
+<div
+    id="favoritesArea"
+    class="empty"
+>
+
+    Seus devocionais favoritos aparecerão aqui.
+
+</div>
+
+
+</main>
+
+</section>
+
+
+
+<!-- =====================================================
+     DEVOCIONAL
+===================================================== -->
+
+<section
+    id="devotionalScreen"
+    class="screen"
+>
+
+
+<header class="topbar">
+
+
+<div class="topbar-inner">
+
+
+<button
+    class="back-button"
+    onclick="goHome()"
+>
+    ←
+</button>
+
+
+<div
+    id="headerDay"
+    class="topbar-title"
+>
+    Dia
+</div>
+
+
+</div>
+
+</header>
+
+
+
+<main class="devotional">
+
+
+<div
+    id="dayLabel"
+    class="day-label"
+></div>
+
+
+
+<h1
+    id="devTitle"
+    class="devotional-title"
+></h1>
+
+
+
+<div
+    id="devReference"
+    class="reference"
+></div>
+
+
+
+<!-- CHEGUE AQUI -->
+
+<div class="dev-card">
+
+    <h2>
+        Chegue aqui
+    </h2>
+
+    <p
+        id="devIntro"
+    ></p>
+
+</div>
+
+
+
+<!-- REFLEXÃO -->
+
+<div class="dev-card">
+
+    <h2>
+        Reflexão
+    </h2>
+
+    <div
+        id="devReflection"
+        class="reflection"
+    ></div>
+
+</div>
+
+
+
+<!-- PERGUNTA -->
+
+<div
+    class="dev-card question-card"
+>
+
+    <h2>
+        Pergunta para o coração
+    </h2>
+
+    <p
+        id="devQuestion"
+    ></p>
+
+</div>
+
+
+
+<!-- PRÁTICA -->
+
+<div
+    class="dev-card practice-card"
+>
+
+    <h2>
+        Prática de hoje
+    </h2>
+
+    <p
+        id="devPractice"
+    ></p>
+
+</div>
+
+
+
+<!-- ORAÇÃO -->
+
+<div
+    class="dev-card prayer-card"
+>
+
+    <h2>
+        Oração
+    </h2>
+
+    <p
+        id="devPrayer"
+    ></p>
+
+
+
+    <div class="audio-area">
+
+
+        <button
+            id="audioButton"
+            class="audio-button"
+            onclick="togglePrayerAudio()"
+        >
+
+            ▶ Ouvir oração
+
+        </button>
+
+
+
+        <button
+            class="voice-button"
+            onclick="toggleVoiceSettings()"
+        >
+
+            ⚙ Configurar voz
+
+        </button>
+
+
+
+        <div
+            id="voiceSettings"
+            class="voice-settings"
+        >
+
+
+            <label for="voiceSelect">
+
+                Voz disponível no aparelho
+
+            </label>
+
+
+            <select
+                id="voiceSelect"
+                onchange="saveVoicePreference()"
+            ></select>
+
+
+
+            <label
+                for="voiceRate"
+                style="margin-top:15px;"
+            >
+
+                Velocidade da oração
+
+            </label>
+
+
+            <input
+                id="voiceRate"
+                type="range"
+                min="0.65"
+                max="1"
+                step="0.01"
+                value="0.82"
+                oninput="saveVoicePreference()"
+            >
+
+
+            <div
+                id="voiceRateValue"
+                style="
+                    margin-top:5px;
+                    color:var(--muted);
+                    font-size:15px;
+                "
+            >
+                0,82
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- DIÁRIO DO DIA -->
+
+<div
+    class="dev-card day-journal"
+>
+
+
+    <h2>
+        Diário
+    </h2>
+
+
+    <textarea
+        id="dayJournal"
+        placeholder="O que esse momento despertou em você?"
+    ></textarea>
+
+
+    <button
+        class="save-button"
+        onclick="saveDayJournal()"
+    >
+
+        Salvar reflexão
+
+    </button>
+
+
+</div>
+
+
+
+<!-- NAVEGAÇÃO -->
+
+<div class="dev-navigation">
+
+
+    <button
+        id="previousButton"
+        class="day-nav-button"
+        onclick="previousDay()"
+    >
+
+        ← Dia anterior
+
+    </button>
+
+
+    <button
+        id="nextButton"
+        class="day-nav-button"
+        onclick="nextDay()"
+    >
+
+        Próximo dia →
+
+    </button>
+
+
+    <button
+        id="completeButton"
+        class="complete-button"
+        onclick="completeCurrentDay()"
+    >
+
+        Concluir este dia ✓
+
+    </button>
+
+
+</div>
+
+
+</main>
+
+</section>
+
+
+
+<!-- =====================================================
+     BARRA INFERIOR
+===================================================== -->
+
+<nav
+    id="bottomNav"
+    class="bottom-nav hidden"
+>
+
+
+<button
+    id="navHome"
+    onclick="showScreen('homeScreen')"
+>
+
+    <span class="nav-icon">
+        ⌂
+    </span>
+
+    <span class="nav-label">
+        Início
+    </span>
+
+</button>
+
+
+
+<button
+    id="navJourney"
+    onclick="showScreen('journeyScreen')"
+>
+
+    <span class="nav-icon">
+        ◌
+    </span>
+
+    <span class="nav-label">
+        Jornada
+    </span>
+
+</button>
+
+
+
+<button
+    id="navJournal"
+    onclick="showScreen('journalScreen')"
+>
+
+    <span class="nav-icon">
+        ♢
+    </span>
+
+    <span class="nav-label">
+        Diário
+    </span>
+
+</button>
+
+
+
+<button
+    id="navFavorites"
+    onclick="showScreen('favoritesScreen')"
+>
+
+    <span class="nav-icon">
+        ♡
+    </span>
+
+    <span class="nav-label">
+        Favoritos
+    </span>
+
+</button>
+
+
+</nav>
+
+
+</div>
+
+
+
 <script>
 
-/* =========================================================
-   CONFIGURAÇÃO PRINCIPAL
-========================================================= */
+/* =====================================================
+   CONFIGURAÇÃO
+===================================================== */
 
 const TOTAL_DIAS = 365;
 
@@ -2108,23 +2638,39 @@ let voices = [];
 
 let currentUtterance = null;
 
+let prayerSentences = [];
 
-/* =========================================================
-   FUNÇÃO CURTA PARA ELEMENTOS
-========================================================= */
+let prayerSentenceIndex = 0;
+
+
+/* =====================================================
+   ATALHO
+===================================================== */
 
 function $(id){
+
     return document.getElementById(id);
+
 }
 
 
-/* =========================================================
+/* =====================================================
    INICIALIZAÇÃO
-========================================================= */
+===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
     function(){
+
+        /*
+         * IMPORTANTE:
+         *
+         * Não existe mais enteredApp.
+         *
+         * A capa é SEMPRE a primeira tela.
+         */
+
+        showScreen("coverScreen");
 
         loadDevocionais();
 
@@ -2138,24 +2684,34 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   CARREGAR DEVOCIONAIS
-========================================================= */
+/* =====================================================
+   INICIAR JORNADA
+===================================================== */
+
+function startJourney(){
+
+    showScreen("homeScreen");
+
+    renderDays();
+
+    updateProgress();
+
+    updateContinueArea();
+
+}
+
+
+/* =====================================================
+   CARREGAR JSON
+===================================================== */
 
 async function loadDevocionais(){
 
     try{
 
-        /*
-         * NÃO há limite de 150.
-         *
-         * O aplicativo lê tudo que existir
-         * dentro do devocionais.json.
-         */
-
         const response =
             await fetch(
-                "devocionais.json?v=12",
+                "devocionais.json?v=13",
                 {
                     cache:"no-store"
                 }
@@ -2178,11 +2734,18 @@ async function loadDevocionais(){
         if(!Array.isArray(data)){
 
             throw new Error(
-                "O arquivo devocionais.json não é uma lista válida."
+                "O arquivo devocionais.json não contém uma lista válida."
             );
 
         }
 
+
+        /*
+         * TODOS os dias existentes no JSON.
+         *
+         * Não existe limite de 150.
+         * Não existe limite de 180.
+         */
 
         devocionais =
             data
@@ -2199,13 +2762,13 @@ async function loadDevocionais(){
 
 
         console.log(
-            "Total de devocionais:",
+            "Devocionais carregados:",
             devocionais.length
         );
 
 
         console.log(
-            "Último dia carregado:",
+            "Último dia:",
             devocionais[
                 devocionais.length - 1
             ]?.dia
@@ -2220,34 +2783,11 @@ async function loadDevocionais(){
 
         updateProfile();
 
-
-        /*
-         * Depois de carregar,
-         * mostra a tela apropriada.
-         */
-
-        if(
-            localStorage.getItem(
-                "enteredApp"
-            ) === "true"
-        ){
-
-            showScreen(
-                "homeScreen"
-            );
-
-        }else{
-
-            showScreen(
-                "coverScreen"
-            );
-
-        }
-
     }
     catch(error){
 
         console.error(error);
+
 
         document.body.innerHTML = `
 
@@ -2257,22 +2797,41 @@ async function loadDevocionais(){
                     padding:35px;
                     background:#120b08;
                     color:#eadfce;
-                    font-family:Arial,sans-serif;
+                    font-family:Georgia,serif;
                 "
             >
 
-                <h2 style="color:#e5b879;">
+                <h2
+                    style="color:#e5b879;"
+                >
                     Não foi possível carregar a jornada
                 </h2>
 
-                <p style="line-height:1.7;color:#bcae9d;">
+
+                <p
+                    style="
+                        line-height:1.7;
+                        color:#bcae9d;
+                        font-size:18px;
+                    "
+                >
+
                     O aplicativo não conseguiu ler
                     o arquivo devocionais.json.
+
                 </p>
 
-                <p style="line-height:1.7;color:#bcae9d;">
-                    Erro:
+
+                <p
+                    style="
+                        line-height:1.7;
+                        color:#bcae9d;
+                        font-size:15px;
+                    "
+                >
+
                     ${escapeHTML(error.message)}
+
                 </p>
 
             </div>
@@ -2284,33 +2843,9 @@ async function loadDevocionais(){
 }
 
 
-/* =========================================================
-   ENTRAR NO APP
-========================================================= */
-
-function enterApp(){
-
-    localStorage.setItem(
-        "enteredApp",
-        "true"
-    );
-
-    showScreen(
-        "homeScreen"
-    );
-
-    renderDays();
-
-    updateProgress();
-
-    updateContinueArea();
-
-}
-
-
-/* =========================================================
+/* =====================================================
    NAVEGAÇÃO
-========================================================= */
+===================================================== */
 
 function showScreen(screenId){
 
@@ -2322,13 +2857,13 @@ function showScreen(screenId){
         );
 
 
-    const screen =
+    const target =
         $(screenId);
 
 
-    if(screen){
+    if(target){
 
-        screen.classList.add("active");
+        target.classList.add("active");
 
     }
 
@@ -2337,20 +2872,22 @@ function showScreen(screenId){
         $("bottomNav");
 
 
+    /*
+     * A barra inferior NÃO aparece
+     * na capa.
+     */
+
     if(
         screenId === "coverScreen" ||
         screenId === "devotionalScreen"
     ){
 
-        nav.classList.add(
-            "hidden"
-        );
+        nav.classList.add("hidden");
 
-    }else{
+    }
+    else{
 
-        nav.classList.remove(
-            "hidden"
-        );
+        nav.classList.remove("hidden");
 
     }
 
@@ -2428,9 +2965,9 @@ function goHome(){
 }
 
 
-/* =========================================================
-   RENDERIZAR DIAS
-========================================================= */
+/* =====================================================
+   DIAS
+===================================================== */
 
 function renderDays(){
 
@@ -2439,27 +2976,14 @@ function renderDays(){
 
 
     if(!grid){
+
         return;
+
     }
 
 
     grid.innerHTML = "";
 
-
-    /*
-     * AQUI ESTÁ A CORREÇÃO PRINCIPAL.
-     *
-     * Não existe:
-     *
-     * i <= 150
-     *
-     * nem:
-     *
-     * i <= 180
-     *
-     *
-     * Ele mostra TODOS os objetos do JSON.
-     */
 
     devocionais.forEach(
         function(dev,index){
@@ -2492,17 +3016,27 @@ function renderDays(){
             button.innerHTML = `
 
                 <div class="day-number">
+
                     DIA ${escapeHTML(dev.dia)}
+
                 </div>
 
+
                 <div class="day-title">
-                    ${escapeHTML(dev.titulo || "")}
+
+                    ${escapeHTML(
+                        dev.titulo || ""
+                    )}
+
                 </div>
+
 
                 ${
                     done
-                    ? `<div class="day-check">✓</div>`
-                    : ""
+                    ?
+                    `<div class="day-check">✓</div>`
+                    :
+                    ""
                 }
 
             `;
@@ -2526,9 +3060,9 @@ function renderDays(){
 }
 
 
-/* =========================================================
-   ABRIR DEVOCIONAL
-========================================================= */
+/* =====================================================
+   ABRIR DIA
+===================================================== */
 
 function openDay(index){
 
@@ -2596,7 +3130,6 @@ function openDay(index){
 
     updateCompleteButton();
 
-
     stopPrayerAudio();
 
 
@@ -2607,9 +3140,9 @@ function openDay(index){
 }
 
 
-/* =========================================================
+/* =====================================================
    REFLEXÃO
-========================================================= */
+===================================================== */
 
 function renderReflection(reflexao){
 
@@ -2632,8 +3165,10 @@ function renderReflection(reflexao){
                         "p"
                     );
 
+
                 p.textContent =
                     text;
+
 
                 container.appendChild(
                     p
@@ -2641,6 +3176,7 @@ function renderReflection(reflexao){
 
             }
         );
+
 
         return;
 
@@ -2664,9 +3200,9 @@ function renderReflection(reflexao){
 }
 
 
-/* =========================================================
-   NAVEGAÇÃO ENTRE DIAS
-========================================================= */
+/* =====================================================
+   NAVEGAÇÃO DOS DIAS
+===================================================== */
 
 function previousDay(){
 
@@ -2704,6 +3240,7 @@ function updateNavigationButtons(){
     const previous =
         $("previousButton");
 
+
     const next =
         $("nextButton");
 
@@ -2719,9 +3256,9 @@ function updateNavigationButtons(){
 }
 
 
-/* =========================================================
-   CONCLUIR
-========================================================= */
+/* =====================================================
+   CONCLUSÃO
+===================================================== */
 
 function completeCurrentDay(){
 
@@ -2732,7 +3269,9 @@ function completeCurrentDay(){
 
 
     if(!dev){
+
         return;
+
     }
 
 
@@ -2762,7 +3301,9 @@ function updateCompleteButton(){
 
 
     if(!dev){
+
         return;
+
     }
 
 
@@ -2773,20 +3314,23 @@ function updateCompleteButton(){
 
 
     $("completeButton").textContent =
+
         done
-        ? "Dia concluído ✓"
-        : "Concluir este dia ✓";
+        ?
+        "Dia concluído ✓"
+        :
+        "Concluir este dia ✓";
 
 }
 
 
-/* =========================================================
+/* =====================================================
    PROGRESSO
-========================================================= */
+===================================================== */
 
 function getCompletedDays(){
 
-    let total = 0;
+    let completed = 0;
 
 
     devocionais.forEach(
@@ -2798,7 +3342,7 @@ function getCompletedDays(){
                 ) === "true"
             ){
 
-                total++;
+                completed++;
 
             }
 
@@ -2806,7 +3350,7 @@ function getCompletedDays(){
     );
 
 
-    return total;
+    return completed;
 
 }
 
@@ -2838,18 +3382,21 @@ function updateProgress(){
 
 
     $("progressText").textContent =
+
         `${completed} ${
             completed === 1
-            ? "dia concluído"
-            : "dias concluídos"
+            ?
+            "dia concluído"
+            :
+            "dias concluídos"
         } de ${TOTAL_DIAS}`;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    CONTINUAR
-========================================================= */
+===================================================== */
 
 function updateContinueArea(){
 
@@ -2895,8 +3442,10 @@ function updateContinueArea(){
 
     const label =
         index === 0
-        ? "Comece sua jornada"
-        : "Continue sua jornada";
+        ?
+        "Comece sua jornada"
+        :
+        "Continue sua jornada";
 
 
     area.innerHTML = `
@@ -2907,12 +3456,17 @@ function updateContinueArea(){
         >
 
             <span class="continue-label">
+
                 ${label}
+
             </span>
 
+
             <span class="continue-title">
+
                 Dia ${escapeHTML(dev.dia)}
                 — ${escapeHTML(dev.titulo || "")}
+
             </span>
 
         </button>
@@ -2922,9 +3476,9 @@ function updateContinueArea(){
 }
 
 
-/* =========================================================
+/* =====================================================
    DIÁRIO GERAL
-========================================================= */
+===================================================== */
 
 function saveGeneralJournal(){
 
@@ -2983,9 +3537,9 @@ function loadGeneralJournal(){
 }
 
 
-/* =========================================================
+/* =====================================================
    DIÁRIO DO DIA
-========================================================= */
+===================================================== */
 
 function saveDayJournal(){
 
@@ -2996,7 +3550,9 @@ function saveDayJournal(){
 
 
     if(!dev){
+
         return;
+
     }
 
 
@@ -3047,9 +3603,9 @@ function loadDayJournal(day){
 }
 
 
-/* =========================================================
+/* =====================================================
    FAVORITOS
-========================================================= */
+===================================================== */
 
 function updateFavorites(){
 
@@ -3058,7 +3614,9 @@ function updateFavorites(){
 
 
     if(!area){
+
         return;
+
     }
 
 
@@ -3083,8 +3641,10 @@ function updateFavorites(){
         area.className =
             "empty";
 
+
         area.innerHTML =
             "Seus devocionais favoritos aparecerão aqui.";
+
 
         return;
 
@@ -3108,11 +3668,18 @@ function updateFavorites(){
                     >
 
                         <span class="continue-label">
+
                             Dia ${escapeHTML(dev.dia)}
+
                         </span>
 
+
                         <span class="continue-title">
-                            ${escapeHTML(dev.titulo || "")}
+
+                            ${escapeHTML(
+                                dev.titulo || ""
+                            )}
+
                         </span>
 
                     </button>
@@ -3150,27 +3717,9 @@ function openDayByNumber(number){
 }
 
 
-/* =========================================================
-   PERFIL
-========================================================= */
-
-function updateProfile(){
-
-    if(
-        $("totalDaysProfile")
-    ){
-
-        $("totalDaysProfile").textContent =
-            devocionais.length;
-
-    }
-
-}
-
-
-/* =========================================================
+/* =====================================================
    VOZ
-========================================================= */
+===================================================== */
 
 function loadVoices(){
 
@@ -3214,9 +3763,9 @@ if(
 }
 
 
-/* =========================================================
-   ENCONTRAR MELHOR VOZ
-========================================================= */
+/* =====================================================
+   MELHOR VOZ
+===================================================== */
 
 function getBestPortugueseVoice(){
 
@@ -3243,8 +3792,10 @@ function getBestPortugueseVoice(){
 
     const portuguese =
         ptBR.length
-        ? ptBR
-        : voices.filter(
+        ?
+        ptBR
+        :
+        voices.filter(
             function(voice){
 
                 return /^pt/i.test(
@@ -3263,12 +3814,6 @@ function getBestPortugueseVoice(){
 
     }
 
-
-    /*
-     * Primeiro tentamos encontrar
-     * vozes descritas como aprimoradas,
-     * premium, natural ou neural.
-     */
 
     const enhanced =
         portuguese.find(
@@ -3290,39 +3835,14 @@ function getBestPortugueseVoice(){
     }
 
 
-    /*
-     * Algumas versões do sistema
-     * utilizam esses nomes.
-     */
-
-    const natural =
-        portuguese.find(
-            function(voice){
-
-                return /luciana|francisca/i
-                    .test(
-                        voice.name
-                    );
-
-            }
-        );
-
-
-    if(natural){
-
-        return natural;
-
-    }
-
-
     return portuguese[0];
 
 }
 
 
-/* =========================================================
+/* =====================================================
    SELECT DE VOZ
-========================================================= */
+===================================================== */
 
 function populateVoiceSelect(){
 
@@ -3331,7 +3851,9 @@ function populateVoiceSelect(){
 
 
     if(!select){
+
         return;
+
     }
 
 
@@ -3357,8 +3879,10 @@ function populateVoiceSelect(){
 
     const list =
         portuguese.length
-        ? portuguese
-        : voices;
+        ?
+        portuguese
+        :
+        voices;
 
 
     list.forEach(
@@ -3410,7 +3934,8 @@ function populateVoiceSelect(){
         select.value =
             savedVoice;
 
-    }else{
+    }
+    else{
 
         const best =
             getBestPortugueseVoice();
@@ -3445,9 +3970,9 @@ function populateVoiceSelect(){
 }
 
 
-/* =========================================================
+/* =====================================================
    CONFIGURAÇÃO DA VOZ
-========================================================= */
+===================================================== */
 
 function saveVoicePreference(){
 
@@ -3513,9 +4038,9 @@ function toggleVoiceSettings(){
 }
 
 
-/* =========================================================
-   ORAÇÃO — LEITURA
-========================================================= */
+/* =====================================================
+   ORAÇÃO
+===================================================== */
 
 function togglePrayerAudio(){
 
@@ -3548,9 +4073,9 @@ function togglePrayerAudio(){
 }
 
 
-/* =========================================================
-   FALA MAIS NATURAL
-========================================================= */
+/* =====================================================
+   NARRAÇÃO DA ORAÇÃO
+===================================================== */
 
 function speakPrayer(){
 
@@ -3573,6 +4098,14 @@ function speakPrayer(){
     stopPrayerAudio();
 
 
+    /*
+     * Mantemos a oração inteira em uma leitura,
+     * mas diminuímos a velocidade.
+     *
+     * Isso evita a sensação de "leitor de texto"
+     * muito acelerado.
+     */
+
     const utterance =
         new SpeechSynthesisUtterance(
             dev.oracao
@@ -3587,21 +4120,15 @@ function speakPrayer(){
         "pt-BR";
 
 
-    /*
-     * 0.84 é proposital:
-     * deixa a oração mais contemplativa
-     * do que uma leitura comum.
-     */
-
     utterance.rate =
         parseFloat(
             $("voiceRate").value ||
-            "0.84"
+            "0.82"
         );
 
 
     utterance.pitch =
-        1;
+        0.96;
 
 
     utterance.volume =
@@ -3630,7 +4157,8 @@ function speakPrayer(){
         utterance.voice =
             selectedVoice;
 
-    }else{
+    }
+    else{
 
         const best =
             getBestPortugueseVoice();
@@ -3679,11 +4207,6 @@ function speakPrayer(){
         };
 
 
-    /*
-     * Pequeno atraso para o iOS
-     * selecionar corretamente a voz.
-     */
-
     setTimeout(
         function(){
 
@@ -3693,15 +4216,15 @@ function speakPrayer(){
                 );
 
         },
-        100
+        120
     );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    PARAR ORAÇÃO
-========================================================= */
+===================================================== */
 
 function stopPrayerAudio(){
 
@@ -3730,9 +4253,9 @@ function stopPrayerAudio(){
 }
 
 
-/* =========================================================
+/* =====================================================
    ESCAPAR HTML
-========================================================= */
+===================================================== */
 
 function escapeHTML(value){
 
@@ -3766,9 +4289,9 @@ function escapeHTML(value){
 }
 
 
-/* =========================================================
-   PARAR ÁUDIO AO SAIR
-========================================================= */
+/* =====================================================
+   VISIBILIDADE
+===================================================== */
 
 document.addEventListener(
     "visibilitychange",
@@ -3786,9 +4309,9 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   ATUALIZAÇÃO LOCAL
-========================================================= */
+/* =====================================================
+   ATUALIZAÇÃO
+===================================================== */
 
 window.addEventListener(
     "storage",
@@ -3800,12 +4323,12 @@ window.addEventListener(
 
         updateContinueArea();
 
-        updateProfile();
-
     }
 );
 
 </script>
 
+
 </body>
+
 </html>
