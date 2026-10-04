@@ -1,1 +1,9 @@
-
+{
+  "name": "Doce Espírito Santo — Um Amigo Íntimo",
+  "short_name": "Doce Espírito Santo",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#120b08",
+  "theme_color": "#160d09",
+  "lang": "pt-BR"
+}
