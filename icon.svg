@@ -1,1 +1,35 @@
+<svg
+xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 512 512"
+>
 
+<rect
+width="512"
+height="512"
+rx="112"
+fill="#120b08"
+/>
+
+<circle
+cx="256"
+cy="256"
+r="145"
+fill="none"
+stroke="#e8b66e"
+stroke-width="3"
+opacity=".35"
+/>
+
+<path
+d="M256 116l22 112 112 28-112 22-22 118-22-118-112-22 112-28z"
+fill="#e8b66e"
+/>
+
+<circle
+cx="256"
+cy="256"
+r="14"
+fill="#fff1d5"
+/>
+
+</svg>
