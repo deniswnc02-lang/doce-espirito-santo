@@ -1,946 +1,2625 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width,
-      initial-scale=1.0,
-      maximum-scale=1.0,
-      user-scalable=no">
+<meta
+    name="viewport"
+    content="width=device-width,
+    initial-scale=1.0,
+    maximum-scale=1.0,
+    user-scalable=no">
 
-<meta name="theme-color" content="#15120F">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta
+    name="theme-color"
+    content="#120F0C">
 
-<title>Doce Espírito Santo — Um Amigo Íntimo</title>
+<meta
+    name="apple-mobile-web-app-capable"
+    content="yes">
+
+<meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent">
+
+<meta
+    name="description"
+    content="Doce Espírito Santo — Um Amigo Íntimo. Uma jornada de 365 dias de presença, Palavra, reflexão e oração.">
+
+<title>
+    Doce Espírito Santo — Um Amigo Íntimo
+</title>
+
 
 <style>
 
+/* =====================================================
+   IDENTIDADE VISUAL
+===================================================== */
+
 :root {
-    --background: #15120F;
-    --background-2: #1C1814;
-    --card: #25211C;
-    --card-light: #302A23;
 
-    --gold: #DDAE59;
-    --gold-light: #F0D39A;
+    --bg:
+        #120F0C;
 
-    --white: #F7F3ED;
-    --text: #EEE7DE;
-    --muted: #AAA096;
+    --bg-soft:
+        #17130F;
 
-    --border: rgba(255,255,255,.08);
+    --surface:
+        #1D1813;
+
+    --surface-2:
+        #241E18;
+
+    --surface-3:
+        #2C241C;
+
+    --gold:
+        #D7A957;
+
+    --gold-light:
+        #F1D39A;
+
+    --gold-soft:
+        rgba(215,169,87,.14);
+
+    --cream:
+        #F7F1E8;
+
+    --text:
+        #EAE2D8;
+
+    --muted:
+        #A69B90;
+
+    --muted-2:
+        #776E66;
+
+    --line:
+        rgba(255,255,255,.075);
+
+    --line-gold:
+        rgba(215,169,87,.25);
+
+    --shadow:
+        0 22px 60px rgba(0,0,0,.32);
+
+    --radius:
+        22px;
+
 }
+
+
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+
+    box-sizing:
+        border-box;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
 }
 
-html,
-body {
-    width: 100%;
-    min-height: 100%;
-    background: var(--background);
+
+html {
+
+    background:
+        var(--bg);
+
+    scroll-behavior:
+        smooth;
+
 }
 
+
 body {
-    color: var(--text);
+
+    width:
+        100%;
+
+    min-height:
+        100vh;
+
+    background:
+        var(--bg);
+
+    color:
+        var(--text);
+
     font-family:
         -apple-system,
         BlinkMacSystemFont,
         "SF Pro Display",
+        "SF Pro Text",
         "Segoe UI",
         sans-serif;
 
-    overflow-x: hidden;
+    overflow-x:
+        hidden;
+
 }
+
+
+button,
+input,
+textarea {
+
+    font:
+        inherit;
+
+}
+
 
 button {
-    font: inherit;
-    border: 0;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+
+    border:
+        0;
+
+    cursor:
+        pointer;
+
 }
+
+
+/* =====================================================
+   APP
+===================================================== */
 
 .app {
-    min-height: 100vh;
+
+    min-height:
+        100vh;
 
     background:
+
         radial-gradient(
-            circle at 50% -10%,
-            rgba(221,174,89,.13),
-            transparent 35%
+            circle at 50% -12%,
+            rgba(215,169,87,.15),
+            transparent 34%
         ),
+
+        radial-gradient(
+            circle at 0% 50%,
+            rgba(215,169,87,.045),
+            transparent 30%
+        ),
+
         linear-gradient(
             180deg,
-            #181410 0%,
-            #15120F 60%,
-            #100D0B 100%
+            #18130F 0%,
+            #120F0C 45%,
+            #0D0B09 100%
         );
+
 }
 
-/* =========================
+
+/* =====================================================
    TOPO
-========================= */
+===================================================== */
 
 .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 20;
 
-    padding:
-        18px
-        18px
-        14px;
+    position:
+        sticky;
+
+    top:
+        0;
+
+    z-index:
+        100;
 
     background:
-        rgba(21,18,15,.94);
+        rgba(18,15,12,.84);
 
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter:
+        blur(24px);
+
+    -webkit-backdrop-filter:
+        blur(24px);
 
     border-bottom:
-        1px solid var(--border);
+        1px solid
+        rgba(255,255,255,.055);
+
 }
+
 
 .topbar-inner {
-    max-width: 600px;
-    margin: auto;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    width:
+        100%;
+
+    max-width:
+        680px;
+
+    margin:
+        auto;
+
+    padding:
+        13px 18px;
+
+    min-height:
+        70px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
 }
+
 
 .brand {
-    display: flex;
-    align-items: center;
-    gap: 11px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    min-width:
+        0;
+
 }
 
+
 .brand-image {
-    width: 42px;
-    height: 42px;
 
-    border-radius: 12px;
+    width:
+        43px;
 
-    object-fit: cover;
+    height:
+        43px;
+
+    flex:
+        0 0 43px;
+
+    object-fit:
+        cover;
+
+    border-radius:
+        13px;
 
     border:
         1px solid
-        rgba(221,174,89,.25);
-
-    background: #211A15;
-}
-
-.brand-name {
-    font-family: Georgia, serif;
-    font-size: 17px;
-    font-weight: 600;
-}
-
-.brand-subtitle {
-    margin-top: 2px;
-
-    font-size: 10px;
-    letter-spacing: .3px;
-
-    color: var(--muted);
-}
-
-.search {
-    width: 42px;
-    height: 42px;
-
-    border-radius: 50%;
-
-    background: transparent;
-
-    color: var(--white);
-
-    font-size: 27px;
-}
-
-/* =========================
-   CONTEÚDO
-========================= */
-
-main {
-    max-width: 600px;
-
-    margin: auto;
-
-    padding:
-        22px
-        18px
-        110px;
-}
-
-.screen {
-    display: none;
-}
-
-.screen.active {
-    display: block;
-}
-
-/* =========================
-   CABEÇALHO DA HOME
-========================= */
-
-.home-title {
-    font-family: Georgia, serif;
-
-    font-size: 34px;
-    line-height: 1.08;
-
-    color: var(--white);
-
-    margin:
-        12px
-        0
-        5px;
-}
-
-.home-subtitle {
-    color: var(--muted);
-
-    font-size: 14px;
-    line-height: 1.5;
-
-    margin-bottom: 22px;
-}
-
-/* =========================
-   ABAS
-========================= */
-
-.tabs {
-    display: flex;
-
-    gap: 4px;
-
-    padding: 4px;
-
-    border-radius: 30px;
-
-    background:
-        rgba(255,255,255,.055);
-
-    margin-bottom: 28px;
-}
-
-.tab {
-    flex: 1;
-
-    padding: 12px 8px;
-
-    border-radius: 26px;
-
-    background: transparent;
-
-    color: #B8AEA4;
-
-    font-weight: 600;
-}
-
-.tab.active {
-    background: #F7F3ED;
-
-    color: #34271D;
+        rgba(215,169,87,.32);
 
     box-shadow:
-        0 5px 15px
-        rgba(0,0,0,.22);
+        0 5px 18px
+        rgba(0,0,0,.3);
+
 }
 
-/* =========================
-   TÍTULOS DAS SEÇÕES
-========================= */
 
-.section-header {
-    display: flex;
+.brand-text {
 
-    align-items: center;
-    justify-content: space-between;
+    min-width:
+        0;
+
+}
+
+
+.brand-name {
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        16px;
+
+    line-height:
+        1.1;
+
+    color:
+        var(--cream);
+
+    white-space:
+        nowrap;
+
+}
+
+
+.brand-subtitle {
+
+    margin-top:
+        3px;
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        .45px;
+
+    color:
+        var(--muted);
+
+}
+
+
+.top-action {
+
+    width:
+        40px;
+
+    height:
+        40px;
+
+    border-radius:
+        50%;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    background:
+        rgba(255,255,255,.045);
+
+    color:
+        var(--cream);
+
+    border:
+        1px solid
+        var(--line);
+
+}
+
+
+.top-action svg {
+
+    width:
+        18px;
+
+    height:
+        18px;
+
+}
+
+
+/* =====================================================
+   CONTEÚDO
+===================================================== */
+
+main {
+
+    width:
+        100%;
+
+    max-width:
+        680px;
 
     margin:
-        24px
-        2px
-        13px;
+        auto;
+
+    padding:
+        24px 18px
+        calc(115px + env(safe-area-inset-bottom));
+
 }
+
+
+.screen {
+
+    display:
+        none;
+
+    animation:
+        screenIn .35s ease;
+
+}
+
+
+.screen.active {
+
+    display:
+        block;
+
+}
+
+
+@keyframes screenIn {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(7px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =====================================================
+   TIPOGRAFIA PRINCIPAL
+===================================================== */
+
+.eyebrow {
+
+    color:
+        var(--gold);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        1.8px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.home-title {
+
+    margin-top:
+        9px;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(31px, 8vw, 42px);
+
+    line-height:
+        1.04;
+
+    letter-spacing:
+        -.7px;
+
+    color:
+        var(--cream);
+
+}
+
+
+.home-subtitle {
+
+    max-width:
+        430px;
+
+    margin-top:
+        9px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        14px;
+
+    line-height:
+        1.65;
+
+}
+
+
+/* =====================================================
+   TABS
+===================================================== */
+
+.tabs {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        4px;
+
+    margin-top:
+        25px;
+
+    padding:
+        4px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.055);
+
+    background:
+        rgba(255,255,255,.045);
+
+    border-radius:
+        17px;
+
+}
+
+
+.tab {
+
+    min-height:
+        42px;
+
+    border-radius:
+        13px;
+
+    background:
+        transparent;
+
+    color:
+        var(--muted);
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+    transition:
+        .25s ease;
+
+}
+
+
+.tab.active {
+
+    color:
+        #2B2119;
+
+    background:
+        var(--cream);
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.22);
+
+}
+
+
+/* =====================================================
+   CABEÇALHO DAS SEÇÕES
+===================================================== */
+
+.section-header {
+
+    display:
+        flex;
+
+    align-items:
+        flex-end;
+
+    justify-content:
+        space-between;
+
+    gap:
+        12px;
+
+    margin:
+        31px 2px
+        13px;
+
+}
+
 
 .section-header h2 {
-    font-family: Georgia, serif;
 
-    font-size: 22px;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-    color: var(--white);
+    font-size:
+        21px;
+
+    font-weight:
+        500;
+
+    color:
+        var(--cream);
+
 }
 
-.section-header span {
-    color: var(--muted);
 
-    font-size: 11px;
+.section-link {
+
+    color:
+        var(--gold);
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+    white-space:
+        nowrap;
+
 }
 
-/* =========================
-   CARD PRINCIPAL
-========================= */
+
+/* =====================================================
+   HERO
+===================================================== */
 
 .feature-card {
-    position: relative;
 
-    width: 100%;
+    position:
+        relative;
 
-    height: 275px;
+    display:
+        block;
 
-    overflow: hidden;
+    width:
+        100%;
 
-    border-radius: 22px;
+    min-height:
+        335px;
 
-    background: #251C16;
+    overflow:
+        hidden;
+
+    border-radius:
+        26px;
+
+    background:
+        #211913;
 
     border:
         1px solid
         rgba(255,255,255,.07);
 
     box-shadow:
-        0 18px 40px
-        rgba(0,0,0,.35);
+        var(--shadow);
 
-    text-align: left;
+    text-align:
+        left;
+
 }
+
 
 .feature-image {
-    position: absolute;
 
-    inset: 0;
+    position:
+        absolute;
 
-    width: 100%;
-    height: 100%;
+    inset:
+        0;
 
-    object-fit: cover;
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    transform:
+        scale(1.01);
+
 }
+
 
 .feature-overlay {
-    position: absolute;
 
-    inset: 0;
+    position:
+        absolute;
+
+    inset:
+        0;
 
     background:
+
         linear-gradient(
             180deg,
-            rgba(0,0,0,.05) 20%,
-            rgba(0,0,0,.82) 100%
+            rgba(8,7,5,.05) 10%,
+            rgba(8,7,5,.12) 35%,
+            rgba(8,7,5,.78) 72%,
+            rgba(8,7,5,.96) 100%
         );
+
 }
 
-.feature-info {
-    position: absolute;
 
-    left: 20px;
-    right: 20px;
-    bottom: 18px;
+.feature-glow {
 
-    z-index: 2;
+    position:
+        absolute;
+
+    width:
+        180px;
+
+    height:
+        180px;
+
+    right:
+        -70px;
+
+    top:
+        -70px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(215,169,87,.18);
+
+    filter:
+        blur(35px);
+
 }
 
-.feature-small {
-    color: var(--gold-light);
 
-    font-size: 10px;
+.feature-badge {
 
-    letter-spacing: 1.6px;
+    position:
+        absolute;
 
-    text-transform: uppercase;
+    top:
+        15px;
 
-    margin-bottom: 6px;
-}
+    left:
+        15px;
 
-.feature-title {
-    color: white;
+    z-index:
+        3;
 
-    font-family: Georgia, serif;
+    display:
+        flex;
 
-    font-size: 25px;
+    align-items:
+        center;
 
-    line-height: 1.15;
-}
-
-.feature-description {
-    margin-top: 7px;
-
-    color: #E2D9D0;
-
-    font-size: 12px;
-}
-
-.feature-days {
-    position: absolute;
-
-    right: 14px;
-    top: 14px;
-
-    z-index: 3;
+    gap:
+        7px;
 
     padding:
-        8px
-        11px;
+        8px 11px;
 
-    border-radius: 18px;
+    border-radius:
+        30px;
 
     background:
-        rgba(20,15,12,.78);
-
-    color: white;
-
-    font-size: 11px;
+        rgba(17,13,10,.68);
 
     border:
         1px solid
-        rgba(255,255,255,.08);
+        rgba(255,255,255,.09);
+
+    backdrop-filter:
+        blur(12px);
+
+    color:
+        var(--gold-light);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        .5px;
+
 }
 
-/* =========================
-   INDICADORES
-========================= */
+
+.feature-info {
+
+    position:
+        absolute;
+
+    left:
+        20px;
+
+    right:
+        20px;
+
+    bottom:
+        21px;
+
+    z-index:
+        4;
+
+}
+
+
+.feature-small {
+
+    color:
+        var(--gold-light);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.7px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.feature-title {
+
+    max-width:
+        520px;
+
+    margin-top:
+        7px;
+
+    color:
+        #fff;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(24px, 6vw, 31px);
+
+    line-height:
+        1.13;
+
+}
+
+
+.feature-description {
+
+    max-width:
+        520px;
+
+    margin-top:
+        8px;
+
+    color:
+        #DDD3C8;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.5;
+
+    display:
+        -webkit-box;
+
+    -webkit-line-clamp:
+        2;
+
+    -webkit-box-orient:
+        vertical;
+
+    overflow:
+        hidden;
+
+}
+
+
+/* =====================================================
+   DOTS
+===================================================== */
 
 .dots {
-    display: flex;
 
-    justify-content: center;
+    display:
+        flex;
 
-    gap: 8px;
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    gap:
+        6px;
 
     margin:
-        14px
-        0
-        23px;
+        13px 0 24px;
+
 }
+
 
 .dot {
-    width: 7px;
-    height: 7px;
 
-    border-radius: 50%;
+    width:
+        5px;
 
-    background: #888078;
+    height:
+        5px;
+
+    border-radius:
+        50%;
+
+    background:
+        #615951;
+
+    transition:
+        .25s ease;
+
 }
+
 
 .dot.active {
-    background: var(--gold);
 
-    width: 9px;
-    height: 9px;
+    width:
+        20px;
+
+    border-radius:
+        20px;
+
+    background:
+        var(--gold);
+
 }
 
-/* =========================
+
+/* =====================================================
    PROGRESSO
-========================= */
+===================================================== */
 
-.progress-area {
-    margin-top: 13px;
-}
+.progress-card {
 
-.progress-top {
-    display: flex;
+    padding:
+        16px;
 
-    justify-content: space-between;
-
-    margin-bottom: 8px;
-
-    color: var(--muted);
-
-    font-size: 11px;
-}
-
-.progress {
-    width: 100%;
-
-    height: 5px;
-
-    border-radius: 10px;
-
-    background:
-        rgba(255,255,255,.08);
-
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-
-    width: 0%;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #A97432,
-            var(--gold)
-        );
-
-    transition: .3s;
-}
-
-/* =========================
-   CARDS DE CATEGORIA
-========================= */
-
-.horizontal-cards {
-    display: flex;
-
-    gap: 13px;
-
-    overflow-x: auto;
-
-    padding-bottom: 8px;
-
-    scrollbar-width: none;
-}
-
-.horizontal-cards::-webkit-scrollbar {
-    display: none;
-}
-
-.category-card {
-    flex: 0 0 185px;
-
-    min-height: 165px;
-
-    position: relative;
-
-    overflow: hidden;
-
-    border-radius: 19px;
-
-    background: var(--card);
-
-    border:
-        1px solid
-        var(--border);
-
-    text-align: left;
-}
-
-.category-image {
-    width: 100%;
-    height: 105px;
-
-    object-fit: cover;
-
-    opacity: .9;
-}
-
-.category-content {
-    padding: 11px 13px;
-}
-
-.category-title {
-    font-family: Georgia, serif;
-
-    font-size: 16px;
-
-    color: var(--white);
-}
-
-.category-text {
-    margin-top: 4px;
-
-    font-size: 10px;
-
-    color: var(--muted);
-}
-
-/* =========================
-   DIAS
-========================= */
-
-.day-card {
-    flex: 0 0 175px;
-
-    min-height: 130px;
-
-    padding: 16px;
-
-    border-radius: 18px;
-
-    background: var(--card);
-
-    border:
-        1px solid
-        var(--border);
-
-    color: white;
-
-    text-align: left;
-}
-
-.day-number {
-    color: var(--gold);
-
-    font-size: 10px;
-
-    letter-spacing: 1px;
-
-    text-transform: uppercase;
-}
-
-.day-title {
-    margin-top: 11px;
-
-    font-family: Georgia, serif;
-
-    font-size: 16px;
-
-    line-height: 1.3;
-}
-
-.day-complete {
-    display: block;
-
-    margin-top: 9px;
-
-    color: var(--gold-light);
-
-    font-size: 10px;
-}
-
-/* =========================
-   LISTA DA JORNADA
-========================= */
-
-.page-title {
-    font-family: Georgia, serif;
-
-    font-size: 30px;
-
-    margin-bottom: 7px;
-}
-
-.page-subtitle {
-    color: var(--muted);
-
-    font-size: 14px;
-
-    line-height: 1.55;
-
-    margin-bottom: 24px;
-}
-
-.day-list {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 9px;
-}
-
-.day-button {
-    width: 100%;
-
-    padding: 15px;
-
-    border-radius: 15px;
-
-    background: var(--card);
-
-    color: white;
-
-    text-align: left;
-
-    border:
-        1px solid
-        var(--border);
-}
-
-.day-button.done {
-    border-color:
-        rgba(221,174,89,.35);
-}
-
-.day-button-number {
-    color: var(--gold);
-
-    display: block;
-
-    font-size: 10px;
-
-    margin-bottom: 5px;
-}
-
-/* =========================
-   DEVOCIONAL
-========================= */
-
-.devotional-number {
-    text-align: center;
-
-    color: var(--gold);
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
-
-    text-transform: uppercase;
-
-    margin-bottom: 10px;
-}
-
-.devotional-title {
-    text-align: center;
-
-    font-family: Georgia, serif;
-
-    font-size: 29px;
-
-    line-height: 1.2;
-
-    color: var(--gold-light);
-}
-
-.devotional-intro {
-    margin-top: 18px;
-
-    text-align: center;
-
-    color: #DDD4CA;
-
-    font-size: 15px;
-
-    line-height: 1.8;
-}
-
-.content-box {
-    margin-top: 24px;
-
-    padding: 20px;
-
-    border-radius: 18px;
+    border-radius:
+        18px;
 
     background:
         rgba(255,255,255,.035);
 
     border:
         1px solid
-        var(--border);
+        var(--line);
+
 }
+
+
+.progress-top {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    margin-bottom:
+        10px;
+
+}
+
+
+.progress-label {
+
+    color:
+        var(--text);
+
+    font-size:
+        12px;
+
+    font-weight:
+        650;
+
+}
+
+
+.progress-value {
+
+    color:
+        var(--muted);
+
+    font-size:
+        10px;
+
+}
+
+
+.progress {
+
+    width:
+        100%;
+
+    height:
+        5px;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        20px;
+
+    background:
+        rgba(255,255,255,.075);
+
+}
+
+
+.progress-fill {
+
+    height:
+        100%;
+
+    width:
+        0%;
+
+    border-radius:
+        20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #95652B,
+            var(--gold),
+            #F0D39A
+        );
+
+    transition:
+        width .5s ease;
+
+}
+
+
+/* =====================================================
+   CARDS DOS DIAS
+===================================================== */
+
+.horizontal-cards {
+
+    display:
+        flex;
+
+    gap:
+        12px;
+
+    overflow-x:
+        auto;
+
+    margin:
+        0 -18px;
+
+    padding:
+        0 18px 7px;
+
+    scrollbar-width:
+        none;
+
+}
+
+
+.horizontal-cards::-webkit-scrollbar {
+
+    display:
+        none;
+
+}
+
+
+.day-card {
+
+    position:
+        relative;
+
+    flex:
+        0 0 190px;
+
+    min-height:
+        152px;
+
+    padding:
+        17px;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #292119,
+            #1D1813
+        );
+
+    border:
+        1px solid
+        var(--line);
+
+    text-align:
+        left;
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.18);
+
+}
+
+
+.day-card::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        90px;
+
+    height:
+        90px;
+
+    right:
+        -40px;
+
+    bottom:
+        -40px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(215,169,87,.08);
+
+}
+
+
+.day-number {
+
+    display:
+        block;
+
+    color:
+        var(--gold);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.3px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.day-title {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    margin-top:
+        12px;
+
+    color:
+        var(--cream);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        17px;
+
+    line-height:
+        1.25;
+
+}
+
+
+.day-complete {
+
+    position:
+        absolute;
+
+    left:
+        17px;
+
+    bottom:
+        15px;
+
+    color:
+        var(--gold-light);
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+}
+
+
+/* =====================================================
+   MOMENTOS DE INTIMIDADE
+===================================================== */
+
+.category-card {
+
+    flex:
+        0 0 210px;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        20px;
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid
+        var(--line);
+
+    text-align:
+        left;
+
+}
+
+
+.category-image {
+
+    display:
+        block;
+
+    width:
+        100%;
+
+    height:
+        108px;
+
+    object-fit:
+        cover;
+
+}
+
+
+.category-content {
+
+    padding:
+        13px 14px 15px;
+
+}
+
+
+.category-kicker {
+
+    color:
+        var(--gold);
+
+    font-size:
+        8px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.3px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.category-title {
+
+    margin-top:
+        5px;
+
+    color:
+        var(--cream);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        17px;
+
+}
+
+
+.category-text {
+
+    margin-top:
+        4px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        10px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* =====================================================
+   PÁGINAS
+===================================================== */
+
+.page-head {
+
+    margin-bottom:
+        26px;
+
+}
+
+
+.page-title {
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        32px;
+
+    line-height:
+        1.1;
+
+    color:
+        var(--cream);
+
+}
+
+
+.page-subtitle {
+
+    max-width:
+        500px;
+
+    margin-top:
+        8px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        13px;
+
+    line-height:
+        1.65;
+
+}
+
+
+/* =====================================================
+   LISTA DA JORNADA
+===================================================== */
+
+.day-list {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        9px;
+
+    margin-top:
+        22px;
+
+}
+
+
+.day-button {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    min-height:
+        67px;
+
+    padding:
+        13px 15px;
+
+    border-radius:
+        17px;
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid
+        var(--line);
+
+    color:
+        var(--cream);
+
+    text-align:
+        left;
+
+    transition:
+        .2s ease;
+
+}
+
+
+.day-button:active {
+
+    transform:
+        scale(.985);
+
+}
+
+
+.day-button.done {
+
+    border-color:
+        rgba(215,169,87,.25);
+
+}
+
+
+.day-button-number {
+
+    display:
+        block;
+
+    margin-bottom:
+        4px;
+
+    color:
+        var(--gold);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.2px;
+
+}
+
+
+.day-button-title {
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        16px;
+
+}
+
+
+.day-button-status {
+
+    position:
+        absolute;
+
+    right:
+        15px;
+
+    top:
+        50%;
+
+    transform:
+        translateY(-50%);
+
+    color:
+        var(--gold);
+
+    font-size:
+        17px;
+
+}
+
+
+/* =====================================================
+   DEVOCIONAL
+===================================================== */
+
+.devotional-top {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    margin-bottom:
+        27px;
+
+}
+
+
+.back-button {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    padding:
+        9px 12px;
+
+    border-radius:
+        30px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid
+        var(--line);
+
+    color:
+        var(--muted);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+}
+
+
+.devotional-number {
+
+    color:
+        var(--gold);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.8px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.devotional-title {
+
+    color:
+        var(--cream);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(30px, 8vw, 40px);
+
+    line-height:
+        1.1;
+
+    letter-spacing:
+        -.5px;
+
+}
+
+
+.devotional-intro {
+
+    margin-top:
+        13px;
+
+    color:
+        #C7BDB2;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.75;
+
+}
+
+
+.scripture-card {
+
+    position:
+        relative;
+
+    margin-top:
+        26px;
+
+    padding:
+        20px;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        21px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(215,169,87,.12),
+            rgba(215,169,87,.035)
+        );
+
+    border:
+        1px solid
+        var(--line-gold);
+
+}
+
+
+.scripture-card::before {
+
+    content:
+        "“";
+
+    position:
+        absolute;
+
+    right:
+        12px;
+
+    top:
+        -17px;
+
+    color:
+        rgba(215,169,87,.12);
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size:
+        100px;
+
+}
+
 
 .box-label {
-    color: var(--muted);
 
-    font-size: 9px;
+    position:
+        relative;
 
-    letter-spacing: 1.6px;
+    z-index:
+        2;
 
-    text-transform: uppercase;
+    margin-bottom:
+        9px;
 
-    margin-bottom: 8px;
+    color:
+        var(--gold);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.5px;
+
+    text-transform:
+        uppercase;
+
 }
+
 
 .bible-reference {
-    color: var(--gold-light);
 
-    font-family: Georgia, serif;
+    position:
+        relative;
 
-    font-size: 19px;
+    z-index:
+        2;
+
+    color:
+        var(--gold-light);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        20px;
+
+    line-height:
+        1.4;
+
 }
+
 
 .reflection {
-    margin-top: 24px;
 
-    color: #E4DBD2;
+    margin-top:
+        28px;
 
-    font-size: 15px;
+    color:
+        #DDD4CA;
 
-    line-height: 1.85;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        16px;
+
+    line-height:
+        1.9;
+
 }
+
 
 .reflection p {
-    margin-bottom: 16px;
+
+    margin-bottom:
+        17px;
+
 }
+
+
+.content-box {
+
+    margin-top:
+        22px;
+
+    padding:
+        19px;
+
+    border-radius:
+        20px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        var(--line);
+
+}
+
 
 .question-title,
 .practice-title,
 .prayer-title {
-    font-family: Georgia, serif;
 
-    color: var(--gold-light);
+    color:
+        var(--gold-light);
 
-    font-size: 18px;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-    margin-bottom: 10px;
+    font-size:
+        19px;
+
 }
+
 
 .question-text,
 .practice-text,
 .prayer-text {
-    color: #E3DAD1;
 
-    font-size: 14px;
+    margin-top:
+        9px;
 
-    line-height: 1.8;
+    color:
+        #CFC6BC;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.8;
+
 }
 
-textarea {
-    width: 100%;
 
-    min-height: 160px;
+/* =====================================================
+   ÁREA DE ORAÇÃO
+===================================================== */
 
-    margin-top: 12px;
-
-    padding: 15px;
-
-    border-radius: 15px;
-
-    border:
-        1px solid
-        var(--border);
+.prayer-box {
 
     background:
-        rgba(0,0,0,.18);
+        linear-gradient(
+            145deg,
+            rgba(215,169,87,.085),
+            rgba(255,255,255,.025)
+        );
 
-    color: white;
+    border-color:
+        rgba(215,169,87,.16);
 
-    resize: vertical;
-
-    outline: none;
 }
 
-.primary-button,
-.secondary-button {
-    width: 100%;
 
-    padding: 14px;
+.prayer-header {
 
-    border-radius: 28px;
+    display:
+        flex;
 
-    margin-top: 14px;
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    margin-bottom:
+        4px;
+
 }
 
-.primary-button {
+
+.prayer-icon {
+
+    width:
+        34px;
+
+    height:
+        34px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--gold-soft);
+
+    color:
+        var(--gold-light);
+
+}
+
+
+.prayer-icon svg {
+
+    width:
+        17px;
+
+    height:
+        17px;
+
+}
+
+
+.audio-button {
+
+    width:
+        100%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        9px;
+
+    margin-top:
+        17px;
+
+    min-height:
+        49px;
+
+    border-radius:
+        15px;
+
     background:
         linear-gradient(
             135deg,
-            #AD7434,
-            #70451F
+            #B47D35,
+            #805322
         );
 
-    color: #FFF4DF;
+    color:
+        #FFF4DF;
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+    box-shadow:
+        0 9px 25px
+        rgba(0,0,0,.2);
+
 }
 
-.secondary-button {
-    background: transparent;
+
+.audio-button svg {
+
+    width:
+        17px;
+
+    height:
+        17px;
+
+}
+
+
+/* =====================================================
+   DIÁRIO
+===================================================== */
+
+.journal-heading {
+
+    margin:
+        30px 0
+        10px;
+
+    text-align:
+        center;
+
+    color:
+        var(--gold-light);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        21px;
+
+}
+
+
+textarea {
+
+    display:
+        block;
+
+    width:
+        100%;
+
+    min-height:
+        155px;
+
+    margin-top:
+        12px;
+
+    padding:
+        15px;
+
+    resize:
+        vertical;
+
+    outline:
+        none;
+
+    border-radius:
+        17px;
 
     border:
         1px solid
-        var(--border);
-
-    color: white;
-}
-
-/* =========================
-   NAVEGAÇÃO INFERIOR
-========================= */
-
-.bottom-nav {
-    position: fixed;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    z-index: 50;
-
-    height: 76px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-around;
-
-    padding-bottom:
-        env(safe-area-inset-bottom);
+        var(--line);
 
     background:
-        rgba(28,24,20,.96);
+        rgba(0,0,0,.16);
 
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    color:
+        var(--cream);
+
+    font-size:
+        14px;
+
+    line-height:
+        1.7;
+
+}
+
+
+textarea::placeholder {
+
+    color:
+        #716961;
+
+}
+
+
+/* =====================================================
+   BOTÕES
+===================================================== */
+
+.primary-button,
+.secondary-button {
+
+    width:
+        100%;
+
+    min-height:
+        49px;
+
+    margin-top:
+        13px;
+
+    border-radius:
+        16px;
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+}
+
+
+.primary-button {
+
+    color:
+        #FFF3DC;
+
+    background:
+        linear-gradient(
+            135deg,
+            #B47D35,
+            #774B21
+        );
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.22);
+
+}
+
+
+.secondary-button {
+
+    color:
+        var(--text);
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid
+        var(--line);
+
+}
+
+
+/* =====================================================
+   NAVEGAÇÃO INFERIOR
+===================================================== */
+
+.bottom-nav {
+
+    position:
+        fixed;
+
+    left:
+        0;
+
+    right:
+        0;
+
+    bottom:
+        0;
+
+    z-index:
+        200;
+
+    min-height:
+        76px;
+
+    padding:
+        7px 7px
+        calc(7px + env(safe-area-inset-bottom));
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    background:
+        rgba(24,20,16,.93);
+
+    backdrop-filter:
+        blur(25px);
+
+    -webkit-backdrop-filter:
+        blur(25px);
 
     border-top:
         1px solid
-        rgba(255,255,255,.08);
+        rgba(255,255,255,.07);
+
 }
+
 
 .nav-button {
-    background: transparent;
 
-    color: #8D847C;
+    position:
+        relative;
 
-    font-size: 10px;
+    display:
+        flex;
 
-    min-width: 58px;
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        4px;
+
+    background:
+        transparent;
+
+    color:
+        #766E67;
+
+    font-size:
+        9px;
+
+    font-weight:
+        650;
+
 }
+
 
 .nav-icon {
-    display: block;
 
-    font-size: 21px;
+    width:
+        23px;
 
-    margin-bottom: 4px;
+    height:
+        23px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
 }
+
+
+.nav-icon svg {
+
+    width:
+        20px;
+
+    height:
+        20px;
+
+}
+
 
 .nav-button.active {
-    color: var(--gold);
+
+    color:
+        var(--gold);
+
 }
 
-/* =========================
-   MOBILE
-========================= */
+
+.nav-button.active::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        -7px;
+
+    width:
+        22px;
+
+    height:
+        2px;
+
+    border-radius:
+        10px;
+
+    background:
+        var(--gold);
+
+}
+
+
+/* =====================================================
+   BUSCA
+===================================================== */
+
+.search-panel {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    z-index:
+        500;
+
+    display:
+        none;
+
+    padding:
+        80px 18px 30px;
+
+    background:
+        rgba(13,10,8,.97);
+
+    backdrop-filter:
+        blur(20px);
+
+}
+
+
+.search-panel.open {
+
+    display:
+        block;
+
+}
+
+
+.search-inner {
+
+    width:
+        100%;
+
+    max-width:
+        680px;
+
+    margin:
+        auto;
+
+}
+
+
+.search-top {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+}
+
+
+.search-input {
+
+    flex:
+        1;
+
+    height:
+        50px;
+
+    margin:
+        0;
+
+    border-radius:
+        15px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.05);
+
+}
+
+
+.close-search {
+
+    width:
+        45px;
+
+    height:
+        45px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(255,255,255,.05);
+
+    color:
+        var(--cream);
+
+}
+
+
+.search-results {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        8px;
+
+    margin-top:
+        20px;
+
+}
+
+
+.search-result {
+
+    width:
+        100%;
+
+    padding:
+        14px;
+
+    border-radius:
+        15px;
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid
+        var(--line);
+
+    text-align:
+        left;
+
+    color:
+        var(--cream);
+
+}
+
+
+.search-result small {
+
+    display:
+        block;
+
+    margin-bottom:
+        4px;
+
+    color:
+        var(--gold);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1px;
+
+}
+
+
+/* =====================================================
+   FAVORITOS
+===================================================== */
+
+.favorite-button {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+    width:
+        100%;
+
+    min-height:
+        46px;
+
+    margin-top:
+        10px;
+
+    border-radius:
+        15px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid
+        var(--line);
+
+    color:
+        var(--muted);
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+}
+
+
+.favorite-button.active {
+
+    color:
+        var(--gold-light);
+
+    border-color:
+        rgba(215,169,87,.3);
+
+    background:
+        rgba(215,169,87,.08);
+
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
 
 @media (min-width: 700px) {
 
     main {
-        padding-bottom: 130px;
+
+        padding-left:
+            24px;
+
+        padding-right:
+            24px;
+
     }
 
+
     .bottom-nav {
-        max-width: 600px;
 
-        left: 50%;
+        left:
+            50%;
 
-        right: auto;
+        right:
+            auto;
+
+        width:
+            min(680px, 100%);
 
         transform:
             translateX(-50%);
 
         border-radius:
-            22px
-            22px
-            0
-            0;
+            24px 24px 0 0;
+
     }
+
+}
+
+
+/* =====================================================
+   ACESSIBILIDADE
+===================================================== */
+
+button:focus-visible,
+textarea:focus-visible,
+input:focus-visible {
+
+    outline:
+        2px solid
+        var(--gold);
+
+    outline-offset:
+        2px;
+
 }
 
 </style>
+
 </head>
 
 
 <body>
 
+
 <div class="app">
 
 
-<!-- =========================
+<!-- =====================================================
      TOPO
-========================= -->
+===================================================== -->
 
 <header class="topbar">
 
@@ -948,18 +2627,12 @@ textarea {
 
         <div class="brand">
 
-            <!--
-            IMPORTANTE:
-            Se a capa tiver outro nome no GitHub,
-            altere SOMENTE esta linha.
-            -->
-
             <img
                 class="brand-image"
                 src="IMG_3198.jpeg"
                 alt="Doce Espírito Santo">
 
-            <div>
+            <div class="brand-text">
 
                 <div class="brand-name">
                     Doce Espírito Santo
@@ -973,11 +2646,27 @@ textarea {
 
         </div>
 
-        <button
-            class="search"
-            onclick="alert('Busca em breve.')">
 
-            ⌕
+        <button
+            class="top-action"
+            onclick="openSearch()"
+            aria-label="Pesquisar">
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8">
+
+                <circle
+                    cx="11"
+                    cy="11"
+                    r="6.5"/>
+
+                <path
+                    d="m16 16 4.5 4.5"/>
+
+            </svg>
 
         </button>
 
@@ -986,29 +2675,78 @@ textarea {
 </header>
 
 
-<!-- =========================
+<!-- =====================================================
+     BUSCA
+===================================================== -->
+
+<div
+    id="searchPanel"
+    class="search-panel">
+
+    <div class="search-inner">
+
+        <div class="search-top">
+
+            <input
+                id="searchInput"
+                class="search-input"
+                type="search"
+                placeholder="Buscar um dia..."
+                oninput="searchDevotionals(this.value)">
+
+            <button
+                class="close-search"
+                onclick="closeSearch()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="searchResults"
+            class="search-results">
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
      CONTEÚDO
-========================= -->
+===================================================== -->
 
 <main>
 
 
-<!-- =========================
+<!-- =====================================================
      HOME
-========================= -->
+===================================================== -->
 
 <section
     id="home"
     class="screen active">
 
 
+    <div class="eyebrow">
+        Uma jornada de presença
+    </div>
+
+
     <h1 class="home-title">
-        Sua jornada de presença
+        Aprenda a perceber<br>
+        o que já está aqui.
     </h1>
 
+
     <p class="home-subtitle">
-        365 dias para aprender a perceber
-        o Doce Espírito Santo.
+        365 dias para cultivar intimidade,
+        silêncio, Palavra e oração com o
+        Doce Espírito Santo.
     </p>
 
 
@@ -1038,9 +2776,9 @@ textarea {
     </div>
 
 
-    <!-- =====================
+    <!-- =================================================
          MINHA JORNADA
-    ====================== -->
+    ================================================== -->
 
     <div id="journeyHome">
 
@@ -1048,22 +2786,25 @@ textarea {
         <div class="section-header">
 
             <h2>
-                Feito para você
+                Hoje
             </h2>
 
-            <span id="homeCounter">
+            <span
+                id="homeCounter"
+                class="section-link">
+
                 0 / 365
+
             </span>
 
         </div>
 
 
-        <!-- CARD PRINCIPAL -->
+        <!-- HERO -->
 
         <button
             class="feature-card"
             onclick="openNextDay()">
-
 
             <img
                 class="feature-image"
@@ -1073,9 +2814,13 @@ textarea {
 
             <div class="feature-overlay"></div>
 
+            <div class="feature-glow"></div>
 
-            <div class="feature-days">
-                ◫ 365 dias
+
+            <div class="feature-badge">
+
+                <span>365 DIAS</span>
+
             </div>
 
 
@@ -1085,6 +2830,7 @@ textarea {
                     Devocional diário
                 </div>
 
+
                 <div
                     id="featureTitle"
                     class="feature-title">
@@ -1092,6 +2838,7 @@ textarea {
                     Sua jornada começa aqui
 
                 </div>
+
 
                 <div
                     id="featureDescription"
@@ -1107,8 +2854,6 @@ textarea {
         </button>
 
 
-        <!-- INDICADORES -->
-
         <div class="dots">
 
             <span class="dot active"></span>
@@ -1120,16 +2865,20 @@ textarea {
 
         <!-- PROGRESSO -->
 
-        <div class="progress-area">
+        <div class="progress-card">
 
             <div class="progress-top">
 
-                <span>
+                <span class="progress-label">
                     Sua caminhada
                 </span>
 
-                <span id="progressHome">
+                <span
+                    id="progressHome"
+                    class="progress-value">
+
                     0 de 365 concluídos
+
                 </span>
 
             </div>
@@ -1148,9 +2897,7 @@ textarea {
         </div>
 
 
-        <!-- =====================
-             PRÓXIMOS DIAS
-        ====================== -->
+        <!-- CONTINUE -->
 
         <div class="section-header">
 
@@ -1158,9 +2905,13 @@ textarea {
                 Continue sua jornada
             </h2>
 
-            <span>
+            <button
+                class="section-link"
+                onclick="showScreen('journey')">
+
                 Ver todos
-            </span>
+
+            </button>
 
         </div>
 
@@ -1172,9 +2923,7 @@ textarea {
         </div>
 
 
-        <!-- =====================
-             CATEGORIAS
-        ====================== -->
+        <!-- MOMENTOS -->
 
         <div class="section-header">
 
@@ -1192,7 +2941,6 @@ textarea {
                 class="category-card"
                 onclick="openNextDay()">
 
-
                 <img
                     class="category-image"
                     src="IMG_3198.jpeg"
@@ -1201,12 +2949,18 @@ textarea {
 
                 <div class="category-content">
 
+                    <div class="category-kicker">
+                        Meditação
+                    </div>
+
                     <div class="category-title">
                         Palavra
                     </div>
 
                     <div class="category-text">
-                        Medite nas Escrituras.
+                        Pare, leia e deixe a Escritura
+                        falar ao seu coração.
+
                     </div>
 
                 </div>
@@ -1218,7 +2972,6 @@ textarea {
                 class="category-card"
                 onclick="openNextDay()">
 
-
                 <img
                     class="category-image"
                     src="IMG_3198.jpeg"
@@ -1227,12 +2980,18 @@ textarea {
 
                 <div class="category-content">
 
+                    <div class="category-kicker">
+                        Intimidade
+                    </div>
+
                     <div class="category-title">
                         Oração
                     </div>
 
                     <div class="category-text">
-                        Converse com o Pai.
+                        Um lugar para conversar
+                        com Deus sem pressa.
+
                     </div>
 
                 </div>
@@ -1242,8 +3001,7 @@ textarea {
 
             <button
                 class="category-card"
-                onclick="showScreen('journal')">
-
+                onclick="showScreen('journalScreen')">
 
                 <img
                     class="category-image"
@@ -1253,12 +3011,18 @@ textarea {
 
                 <div class="category-content">
 
+                    <div class="category-kicker">
+                        Reflexão
+                    </div>
+
                     <div class="category-title">
                         Diário
                     </div>
 
                     <div class="category-text">
-                        Registre sua jornada.
+                        Registre aquilo que nasceu
+                        dentro de você hoje.
+
                     </div>
 
                 </div>
@@ -1272,9 +3036,9 @@ textarea {
     </div>
 
 
-    <!-- =====================
+    <!-- =================================================
          EXPLORAR
-    ====================== -->
+    ================================================== -->
 
     <div
         id="exploreHome"
@@ -1284,7 +3048,7 @@ textarea {
         <div class="section-header">
 
             <h2>
-                Explore
+                Explore a jornada
             </h2>
 
         </div>
@@ -1295,20 +3059,27 @@ textarea {
 
             <button
                 class="category-card"
-                onclick="openNextDay()">
+                onclick="showScreen('journey')">
 
                 <img
                     class="category-image"
-                    src="IMG_3198.jpeg">
+                    src="IMG_3198.jpeg"
+                    alt="Devocionais">
+
 
                 <div class="category-content">
+
+                    <div class="category-kicker">
+                        365 dias
+                    </div>
 
                     <div class="category-title">
                         Devocionais
                     </div>
 
                     <div class="category-text">
-                        365 dias de jornada.
+                        Caminhe um dia de cada vez.
+
                     </div>
 
                 </div>
@@ -1318,13 +3089,19 @@ textarea {
 
             <button
                 class="category-card"
-                onclick="showScreen('journal')">
+                onclick="showScreen('journalScreen')">
 
                 <img
                     class="category-image"
-                    src="IMG_3198.jpeg">
+                    src="IMG_3198.jpeg"
+                    alt="Diário">
+
 
                 <div class="category-content">
+
+                    <div class="category-kicker">
+                        Seu espaço
+                    </div>
 
                     <div class="category-title">
                         Meu diário
@@ -1332,6 +3109,37 @@ textarea {
 
                     <div class="category-text">
                         Guarde suas reflexões.
+
+                    </div>
+
+                </div>
+
+            </button>
+
+
+            <button
+                class="category-card"
+                onclick="showScreen('favorites')">
+
+                <img
+                    class="category-image"
+                    src="IMG_3198.jpeg"
+                    alt="Favoritos">
+
+
+                <div class="category-content">
+
+                    <div class="category-kicker">
+                        Guardados
+                    </div>
+
+                    <div class="category-title">
+                        Favoritos
+                    </div>
+
+                    <div class="category-text">
+                        Releia os dias que marcaram você.
+
                     </div>
 
                 </div>
@@ -1347,36 +3155,48 @@ textarea {
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      JORNADA
-========================= -->
+===================================================== -->
 
 <section
     id="journey"
     class="screen">
 
 
-    <h1 class="page-title">
-        Minha Jornada
-    </h1>
+    <div class="page-head">
+
+        <div class="eyebrow">
+            Sua caminhada
+        </div>
+
+        <h1 class="page-title">
+            Minha Jornada
+        </h1>
+
+        <p class="page-subtitle">
+            365 dias para cultivar uma
+            intimidade cada vez mais consciente
+            com o Doce Espírito Santo.
+        </p>
+
+    </div>
 
 
-    <p class="page-subtitle">
-        365 dias para cultivar intimidade
-        com o Doce Espírito Santo.
-    </p>
-
-
-    <div class="progress-area">
+    <div class="progress-card">
 
         <div class="progress-top">
 
-            <span>
+            <span class="progress-label">
                 Progresso
             </span>
 
-            <span id="progressJourney">
+            <span
+                id="progressJourney"
+                class="progress-value">
+
                 0 / 365
+
             </span>
 
         </div>
@@ -1397,8 +3217,7 @@ textarea {
 
     <div
         id="dayList"
-        class="day-list"
-        style="margin-top:25px;">
+        class="day-list">
 
     </div>
 
@@ -1406,20 +3225,33 @@ textarea {
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      DEVOCIONAL
-========================= -->
+===================================================== -->
 
 <section
     id="devotional"
     class="screen">
 
 
-    <div
-        id="devotionalNumber"
-        class="devotional-number">
+    <div class="devotional-top">
 
-        DIA 1
+        <button
+            class="back-button"
+            onclick="showScreen('journey')">
+
+            ← Voltar
+
+        </button>
+
+
+        <div
+            id="devotionalNumber"
+            class="devotional-number">
+
+            DIA 1
+
+        </div>
 
     </div>
 
@@ -1438,11 +3270,14 @@ textarea {
     </div>
 
 
-    <div class="content-box">
+    <!-- PALAVRA -->
+
+    <div class="scripture-card">
 
         <div class="box-label">
             A Palavra
         </div>
+
 
         <div
             id="devotionalBible"
@@ -1453,6 +3288,8 @@ textarea {
     </div>
 
 
+    <!-- REFLEXÃO -->
+
     <div
         id="devotionalReflection"
         class="reflection">
@@ -1460,11 +3297,14 @@ textarea {
     </div>
 
 
+    <!-- PERGUNTA -->
+
     <div class="content-box">
 
         <div class="question-title">
             Pergunta para o coração
         </div>
+
 
         <div
             id="devotionalQuestion"
@@ -1475,11 +3315,14 @@ textarea {
     </div>
 
 
+    <!-- PRÁTICA -->
+
     <div class="content-box">
 
         <div class="practice-title">
             Prática do dia
         </div>
+
 
         <div
             id="devotionalPractice"
@@ -1490,11 +3333,34 @@ textarea {
     </div>
 
 
-    <div class="content-box">
+    <!-- ORAÇÃO -->
 
-        <div class="prayer-title">
-            Oração
+    <div class="content-box prayer-box">
+
+        <div class="prayer-header">
+
+            <div class="prayer-icon">
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6">
+
+                    <path
+                        d="M12 20s-7-4.4-7-10.2C5 6.5 6.8 5 9 5c1.4 0 2.5.7 3 1.7C12.5 5.7 13.6 5 15 5c2.2 0 4 1.5 4 4.8C19 15.6 12 20 12 20Z"/>
+
+                </svg>
+
+            </div>
+
+
+            <div class="prayer-title">
+                Oração
+            </div>
+
         </div>
+
 
         <div
             id="devotionalPrayer"
@@ -1504,26 +3370,44 @@ textarea {
 
 
         <button
-            class="secondary-button"
+            id="audioButton"
+            class="audio-button"
             onclick="readPrayer()">
 
-            🔊 Ouvir oração
+            <svg
+                viewBox="0 0 24 24"
+                fill="currentColor">
+
+                <path
+                    d="M8 5v14l11-7z"/>
+
+            </svg>
+
+            Ouvir oração
 
         </button>
+
 
     </div>
 
 
-    <div
-        style="
-        margin-top:28px;
-        text-align:center;
-        font-family:Georgia,serif;
-        color:#F0D39A;
-        font-size:19px;">
+    <!-- FAVORITO -->
 
+    <button
+        id="favoriteButton"
+        class="favorite-button"
+        onclick="toggleFavorite()">
+
+        ♡
+        Guardar este devocional
+
+    </button>
+
+
+    <!-- DIÁRIO -->
+
+    <div class="journal-heading">
         Meu momento com Deus
-
     </div>
 
 
@@ -1541,6 +3425,8 @@ textarea {
 
     </button>
 
+
+    <!-- NAVEGAÇÃO -->
 
     <div
         style="
@@ -1571,24 +3457,31 @@ textarea {
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      DIÁRIO
-========================= -->
+===================================================== -->
 
 <section
     id="journalScreen"
     class="screen">
 
 
-    <h1 class="page-title">
-        Meu Diário
-    </h1>
+    <div class="page-head">
 
+        <div class="eyebrow">
+            Reflexão
+        </div>
 
-    <p class="page-subtitle">
-        Um espaço para registrar aquilo
-        que o Senhor está trabalhando em você.
-    </p>
+        <h1 class="page-title">
+            Meu Diário
+        </h1>
+
+        <p class="page-subtitle">
+            Um espaço para registrar aquilo
+            que o Senhor está trabalhando em você.
+        </p>
+
+    </div>
 
 
     <textarea
@@ -1609,42 +3502,36 @@ textarea {
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      FAVORITOS
-========================= -->
+===================================================== -->
 
 <section
     id="favorites"
     class="screen">
 
 
-    <h1 class="page-title">
-        Favoritos
-    </h1>
+    <div class="page-head">
 
-
-    <p class="page-subtitle">
-        Guarde os devocionais que mais
-        tocaram seu coração.
-    </p>
-
-
-    <div class="content-box">
-
-        <div class="category-title">
-            Seus momentos especiais
+        <div class="eyebrow">
+            Guardados
         </div>
 
-        <p
-            style="
-            margin-top:10px;
-            color:#AAA096;
-            font-size:13px;
-            line-height:1.6;">
+        <h1 class="page-title">
+            Favoritos
+        </h1>
 
-            Seus favoritos aparecerão aqui.
-
+        <p class="page-subtitle">
+            Guarde os devocionais que mais
+            tocaram seu coração.
         </p>
+
+    </div>
+
+
+    <div
+        id="favoriteList"
+        class="day-list">
 
     </div>
 
@@ -1652,23 +3539,32 @@ textarea {
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      PERFIL
-========================= -->
+===================================================== -->
 
 <section
     id="profile"
     class="screen">
 
 
-    <h1 class="page-title">
-        Meu Perfil
-    </h1>
+    <div class="page-head">
 
+        <div class="eyebrow">
+            Sua caminhada
+        </div>
 
-    <p class="page-subtitle">
-        Sua caminhada com o Doce Espírito Santo.
-    </p>
+        <h1 class="page-title">
+            Meu Perfil
+        </h1>
+
+        <p class="page-subtitle">
+            Um espaço para acompanhar sua
+            jornada de intimidade com o
+            Doce Espírito Santo.
+        </p>
+
+    </div>
 
 
     <div class="content-box">
@@ -1676,6 +3572,7 @@ textarea {
         <div class="category-title">
             Doce Espírito Santo
         </div>
+
 
         <p
             style="
@@ -1690,15 +3587,37 @@ textarea {
     </div>
 
 
+    <div class="content-box">
+
+        <div class="category-title">
+            Sua jornada
+        </div>
+
+
+        <p
+            id="profileProgress"
+            style="
+            margin-top:9px;
+            color:#AAA096;
+            font-size:13px;
+            line-height:1.6;">
+
+            0 de 365 dias concluídos.
+
+        </p>
+
+    </div>
+
+
 </section>
 
 
 </main>
 
 
-<!-- =========================
-     MENU INFERIOR
-========================= -->
+<!-- =====================================================
+     NAVEGAÇÃO
+===================================================== -->
 
 <nav class="bottom-nav">
 
@@ -1709,7 +3628,21 @@ textarea {
         onclick="showScreen('home')">
 
         <span class="nav-icon">
-            ⌂
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7">
+
+                <path
+                    d="m4 10 8-6 8 6v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/>
+
+                <path
+                    d="M9 20v-6h6v6"/>
+
+            </svg>
+
         </span>
 
         Início
@@ -1723,7 +3656,23 @@ textarea {
         onclick="showScreen('journey')">
 
         <span class="nav-icon">
-            ◷
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7">
+
+                <circle
+                    cx="12"
+                    cy="12"
+                    r="8"/>
+
+                <path
+                    d="M12 8v4l3 2"/>
+
+            </svg>
+
         </span>
 
         Jornada
@@ -1737,10 +3686,24 @@ textarea {
         onclick="showScreen('journalScreen')">
 
         <span class="nav-icon">
-            ♡
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7">
+
+                <path
+                    d="M6 4h12v16H6z"/>
+
+                <path
+                    d="M9 8h6M9 12h6M9 16h4"/>
+
+            </svg>
+
         </span>
 
-        Hoje
+        Diário
 
     </button>
 
@@ -1751,7 +3714,18 @@ textarea {
         onclick="showScreen('favorites')">
 
         <span class="nav-icon">
-            ♧
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7">
+
+                <path
+                    d="M20 8.5c0 5-8 10-8 10s-8-5-8-10A4.5 4.5 0 0 1 12 6a4.5 4.5 0 0 1 8 2.5Z"/>
+
+            </svg>
+
         </span>
 
         Favoritos
@@ -1765,7 +3739,23 @@ textarea {
         onclick="showScreen('profile')">
 
         <span class="nav-icon">
-            ○
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7">
+
+                <circle
+                    cx="12"
+                    cy="8"
+                    r="3.2"/>
+
+                <path
+                    d="M5.5 20c.8-3.4 3-5.2 6.5-5.2s5.7 1.8 6.5 5.2"/>
+
+            </svg>
+
         </span>
 
         Perfil
@@ -1782,26 +3772,15 @@ textarea {
 <script>
 
 /* =====================================================
-   CONFIGURAÇÃO DA IMAGEM
+   CONFIGURAÇÃO
 ===================================================== */
-
-/*
-   Se a imagem não aparecer no GitHub,
-   MUDE SOMENTE o nome abaixo.
-
-   Exemplo:
-   IMG_3198.jpeg
-   IMG_3198.jpg
-   capa.jpeg
-*/
 
 const CAPA =
     "IMG_3198.jpeg";
 
+const DEVOCIONAIS_URL =
+    "devocionais.json?v=11";
 
-/* =====================================================
-   DADOS
-===================================================== */
 
 let devotionals = [];
 
@@ -1818,14 +3797,14 @@ async function loadDevotionals() {
 
         const response =
             await fetch(
-                "devocionais.json?v=10"
+                DEVOCIONAIS_URL
             );
 
 
         if (!response.ok) {
 
             throw new Error(
-                "Erro ao carregar devocionais."
+                "Não foi possível carregar os devocionais."
             );
 
         }
@@ -1843,16 +3822,21 @@ async function loadDevotionals() {
 
         updateNextDay();
 
+        renderFavorites();
+
+        loadGeneralJournal();
+
 
     } catch (error) {
 
         console.error(error);
 
+
         document.getElementById(
             "nextDays"
         ).innerHTML =
 
-            "<p style='color:#AAA096;padding:15px'>" +
+            "<p style='color:#A69B90;padding:15px'>" +
             "Não foi possível carregar os devocionais." +
             "</p>";
 
@@ -1897,6 +3881,20 @@ function showScreen(id) {
         });
 
 
+    if (id === "favorites") {
+
+        renderFavorites();
+
+    }
+
+
+    if (id === "profile") {
+
+        updateProfile();
+
+    }
+
+
     window.scrollTo({
         top: 0,
         behavior: "smooth"
@@ -1916,6 +3914,7 @@ function changeTab(tab) {
             "journeyHome"
         );
 
+
     const explore =
         document.getElementById(
             "exploreHome"
@@ -1927,6 +3926,7 @@ function changeTab(tab) {
             "tabJourney"
         );
 
+
     const tabExplore =
         document.getElementById(
             "tabExplore"
@@ -1935,23 +3935,35 @@ function changeTab(tab) {
 
     if (tab === "journey") {
 
-        journey.style.display = "block";
+        journey.style.display =
+            "block";
 
-        explore.style.display = "none";
+        explore.style.display =
+            "none";
 
-        tabJourney.classList.add("active");
+        tabJourney.classList.add(
+            "active"
+        );
 
-        tabExplore.classList.remove("active");
+        tabExplore.classList.remove(
+            "active"
+        );
 
     } else {
 
-        journey.style.display = "none";
+        journey.style.display =
+            "none";
 
-        explore.style.display = "block";
+        explore.style.display =
+            "block";
 
-        tabJourney.classList.remove("active");
+        tabJourney.classList.remove(
+            "active"
+        );
 
-        tabExplore.classList.add("active");
+        tabExplore.classList.add(
+            "active"
+        );
 
     }
 
@@ -2008,37 +4020,80 @@ function updateProgress() {
         (total / 365) * 100;
 
 
-    document.getElementById(
-        "progressHome"
-    ).innerText =
-        total +
-        " de 365 concluídos";
+    const progressHome =
+        document.getElementById(
+            "progressHome"
+        );
 
 
-    document.getElementById(
-        "homeCounter"
-    ).innerText =
-        total +
-        " / 365";
+    const homeCounter =
+        document.getElementById(
+            "homeCounter"
+        );
 
 
-    document.getElementById(
-        "progressJourney"
-    ).innerText =
-        total +
-        " / 365";
+    const progressJourney =
+        document.getElementById(
+            "progressJourney"
+        );
 
 
-    document.getElementById(
-        "progressFillHome"
-    ).style.width =
-        percentage + "%";
+    const fillHome =
+        document.getElementById(
+            "progressFillHome"
+        );
 
 
-    document.getElementById(
-        "progressFill"
-    ).style.width =
-        percentage + "%";
+    const fillJourney =
+        document.getElementById(
+            "progressFill"
+        );
+
+
+    if (progressHome) {
+
+        progressHome.innerText =
+            total +
+            " de 365 concluídos";
+
+    }
+
+
+    if (homeCounter) {
+
+        homeCounter.innerText =
+            total +
+            " / 365";
+
+    }
+
+
+    if (progressJourney) {
+
+        progressJourney.innerText =
+            total +
+            " / 365";
+
+    }
+
+
+    if (fillHome) {
+
+        fillHome.style.width =
+            percentage + "%";
+
+    }
+
+
+    if (fillJourney) {
+
+        fillJourney.style.width =
+            percentage + "%";
+
+    }
+
+
+    updateProfile();
 
 }
 
@@ -2078,36 +4133,53 @@ function updateNextDay() {
     const data =
         devotionals.find(
             item =>
-                Number(item.dia) === number
+                Number(item.dia) ===
+                number
         );
 
 
     if (!data) return;
 
 
-    document.getElementById(
-        "featureTitle"
-    ).innerText =
-        "Dia " +
-        number +
-        " — " +
-        (
-            data.titulo ||
-            "Sua jornada continua"
+    const title =
+        document.getElementById(
+            "featureTitle"
         );
 
 
-    document.getElementById(
-        "featureDescription"
-    ).innerText =
-        data.introducao ||
-        "Um momento de intimidade, Palavra, reflexão e oração.";
+    const description =
+        document.getElementById(
+            "featureDescription"
+        );
+
+
+    if (title) {
+
+        title.innerText =
+            "Dia " +
+            number +
+            " — " +
+            (
+                data.titulo ||
+                "Sua jornada continua"
+            );
+
+    }
+
+
+    if (description) {
+
+        description.innerText =
+            data.introducao ||
+            "Um momento de intimidade, Palavra, reflexão e oração.";
+
+    }
 
 }
 
 
 /* =====================================================
-   CARDS DOS PRÓXIMOS DIAS
+   PRÓXIMOS DIAS
 ===================================================== */
 
 function renderNextDays() {
@@ -2118,7 +4190,11 @@ function renderNextDays() {
         );
 
 
-    container.innerHTML = "";
+    if (!container) return;
+
+
+    container.innerHTML =
+        "";
 
 
     const start =
@@ -2129,7 +4205,8 @@ function renderNextDays() {
         devotionals
             .filter(
                 item =>
-                    Number(item.dia) >= start
+                    Number(item.dia) >=
+                    start
             )
             .slice(0, 6);
 
@@ -2154,22 +4231,32 @@ function renderNextDays() {
             button.innerHTML =
 
                 "<span class='day-number'>" +
-                "Dia " +
+
+                "DIA " +
                 number +
+
                 "</span>" +
 
                 "<div class='day-title'>" +
+
                 escapeHTML(
                     item.titulo ||
                     "Devocional"
                 ) +
+
                 "</div>" +
 
                 (
                     isDone(number)
+
                     ?
-                    "<span class='day-complete'>✓ Concluído</span>"
+
+                    "<span class='day-complete'>" +
+                    "✓ Concluído" +
+                    "</span>"
+
                     :
+
                     ""
                 );
 
@@ -2201,7 +4288,11 @@ function renderDayList() {
         );
 
 
-    container.innerHTML = "";
+    if (!container) return;
+
+
+    container.innerHTML =
+        "";
 
 
     devotionals.forEach(
@@ -2234,13 +4325,31 @@ function renderDayList() {
             button.innerHTML =
 
                 "<span class='day-button-number'>" +
+
                 "DIA " +
                 number +
+
+                "</span>" +
+
+                "<span class='day-button-title'>" +
+
+                escapeHTML(
+                    item.titulo ||
+                    "Devocional"
+                ) +
+
                 "</span>" +
 
                 (
-                    item.titulo ||
-                    "Devocional"
+                    isDone(number)
+
+                    ?
+
+                    "<span class='day-button-status'>✓</span>"
+
+                    :
+
+                    ""
                 );
 
 
@@ -2330,7 +4439,8 @@ function openDay(day) {
         );
 
 
-    reflection.innerHTML = "";
+    reflection.innerHTML =
+        "";
 
 
     const text =
@@ -2389,6 +4499,9 @@ function openDay(day) {
         ) || "";
 
 
+    updateFavoriteButton();
+
+
     showScreen(
         "devotional"
     );
@@ -2434,7 +4547,7 @@ function completeDay() {
     alert(
         "Dia " +
         currentDay +
-        " concluído. ✨"
+        " concluído."
     );
 
 
@@ -2482,10 +4595,19 @@ function nextDay() {
         currentDay + 1;
 
 
-    if (next <= devotionals.length) {
+    if (
+        next <=
+        devotionals.length
+    ) {
 
         openDay(
             next
+        );
+
+    } else {
+
+        alert(
+            "Você chegou ao final da jornada."
         );
 
     }
@@ -2537,11 +4659,56 @@ function readPrayer() {
 
 
     voice.rate =
-        .82;
+        .78;
 
 
     voice.pitch =
-        .95;
+        .82;
+
+
+    voice.volume =
+        1;
+
+
+    const button =
+        document.getElementById(
+            "audioButton"
+        );
+
+
+    button.innerText =
+        "❚❚ Pausar oração";
+
+
+    voice.onend =
+        () => {
+
+            button.innerHTML =
+
+                "<svg viewBox='0 0 24 24' fill='currentColor'>" +
+                "<path d='M8 5v14l11-7z'/>" +
+                "</svg>" +
+                "Ouvir oração";
+
+        };
+
+
+    voice.onpause =
+        () => {
+
+            button.innerText =
+                "▶ Continuar oração";
+
+        };
+
+
+    voice.onresume =
+        () => {
+
+            button.innerText =
+                "❚❚ Pausar oração";
+
+        };
 
 
     window.speechSynthesis.speak(
@@ -2570,7 +4737,403 @@ function saveGeneralJournal() {
 
 
     alert(
-        "Reflexão salva. ✨"
+        "Reflexão salva."
+    );
+
+}
+
+
+function loadGeneralJournal() {
+
+    const field =
+        document.getElementById(
+            "generalJournal"
+        );
+
+
+    if (!field) return;
+
+
+    field.value =
+        localStorage.getItem(
+            "general-journal"
+        ) || "";
+
+}
+
+
+/* =====================================================
+   FAVORITOS
+===================================================== */
+
+function isFavorite(day) {
+
+    return (
+        localStorage.getItem(
+            "favorite-" + day
+        ) === "true"
+    );
+
+}
+
+
+function toggleFavorite() {
+
+    const key =
+        "favorite-" +
+        currentDay;
+
+
+    const value =
+        isFavorite(currentDay);
+
+
+    localStorage.setItem(
+        key,
+        value ? "false" : "true"
+    );
+
+
+    updateFavoriteButton();
+
+}
+
+
+function updateFavoriteButton() {
+
+    const button =
+        document.getElementById(
+            "favoriteButton"
+        );
+
+
+    if (!button) return;
+
+
+    if (isFavorite(currentDay)) {
+
+        button.classList.add(
+            "active"
+        );
+
+
+        button.innerText =
+            "♥  Devocional guardado";
+
+    } else {
+
+        button.classList.remove(
+            "active"
+        );
+
+
+        button.innerText =
+            "♡  Guardar este devocional";
+
+    }
+
+}
+
+
+function renderFavorites() {
+
+    const container =
+        document.getElementById(
+            "favoriteList"
+        );
+
+
+    if (!container) return;
+
+
+    container.innerHTML =
+        "";
+
+
+    const favorites =
+        devotionals.filter(
+            item =>
+                isFavorite(
+                    Number(item.dia)
+                )
+        );
+
+
+    if (!favorites.length) {
+
+        container.innerHTML =
+
+            "<div class='content-box'>" +
+
+            "<div class='category-title'>" +
+            "Ainda não há favoritos" +
+            "</div>" +
+
+            "<p style='margin-top:9px;color:#A69B90;font-size:13px;line-height:1.6'>" +
+
+            "Quando um devocional tocar especialmente seu coração, guarde-o aqui para voltar a ele depois." +
+
+            "</p>" +
+
+            "</div>";
+
+        return;
+
+    }
+
+
+    favorites.forEach(
+        item => {
+
+            const number =
+                Number(item.dia);
+
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "day-button";
+
+
+            button.innerHTML =
+
+                "<span class='day-button-number'>" +
+
+                "DIA " +
+                number +
+
+                "</span>" +
+
+                "<span class='day-button-title'>" +
+
+                escapeHTML(
+                    item.titulo ||
+                    "Devocional"
+                ) +
+
+                "</span>" +
+
+                "<span class='day-button-status'>♥</span>";
+
+
+            button.onclick =
+                () =>
+                    openDay(number);
+
+
+            container.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   PERFIL
+===================================================== */
+
+function updateProfile() {
+
+    const field =
+        document.getElementById(
+            "profileProgress"
+        );
+
+
+    if (!field) return;
+
+
+    const total =
+        getCompletedDays();
+
+
+    field.innerText =
+        total +
+        " de 365 dias concluídos.";
+
+}
+
+
+/* =====================================================
+   BUSCA
+===================================================== */
+
+function openSearch() {
+
+    const panel =
+        document.getElementById(
+            "searchPanel"
+        );
+
+
+    panel.classList.add(
+        "open"
+    );
+
+
+    const input =
+        document.getElementById(
+            "searchInput"
+        );
+
+
+    setTimeout(
+        () =>
+            input.focus(),
+        150
+    );
+
+
+}
+
+
+function closeSearch() {
+
+    const panel =
+        document.getElementById(
+            "searchPanel"
+        );
+
+
+    panel.classList.remove(
+        "open"
+    );
+
+
+    document.getElementById(
+        "searchInput"
+    ).value = "";
+
+
+    document.getElementById(
+        "searchResults"
+    ).innerHTML = "";
+
+}
+
+
+function searchDevotionals(query) {
+
+    const container =
+        document.getElementById(
+            "searchResults"
+        );
+
+
+    const value =
+        String(query)
+            .trim()
+            .toLowerCase();
+
+
+    container.innerHTML =
+        "";
+
+
+    if (!value) return;
+
+
+    const results =
+        devotionals
+            .filter(
+                item => {
+
+                    const title =
+                        String(
+                            item.titulo ||
+                            ""
+                        )
+                        .toLowerCase();
+
+
+                    const intro =
+                        String(
+                            item.introducao ||
+                            ""
+                        )
+                        .toLowerCase();
+
+
+                    const number =
+                        String(
+                            item.dia ||
+                            ""
+                        );
+
+
+                    return (
+                        title.includes(value) ||
+                        intro.includes(value) ||
+                        number === value
+                    );
+
+                }
+            )
+            .slice(0, 12);
+
+
+    if (!results.length) {
+
+        container.innerHTML =
+
+            "<p style='color:#A69B90;font-size:13px;padding:15px'>" +
+            "Nenhum devocional encontrado." +
+            "</p>";
+
+        return;
+
+    }
+
+
+    results.forEach(
+        item => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "search-result";
+
+
+            button.innerHTML =
+
+                "<small>DIA " +
+                Number(item.dia) +
+                "</small>" +
+
+                escapeHTML(
+                    item.titulo ||
+                    "Devocional"
+                );
+
+
+            button.onclick =
+                () => {
+
+                    closeSearch();
+
+                    openDay(
+                        Number(item.dia)
+                    );
+
+                };
+
+
+            container.appendChild(
+                button
+            );
+
+        }
     );
 
 }
@@ -2605,5 +5168,7 @@ loadDevotionals();
 
 </script>
 
+
 </body>
+
 </html>
