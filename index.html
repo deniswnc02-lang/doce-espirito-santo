@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#120E0A">
+<meta name="theme-color" content="#0D0A08">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -11,21 +11,25 @@
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+/* =========================================================
+   BASE
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
 :root {
-    --bg: #100C09;
-    --bg2: #17110D;
-    --card: #201811;
-    --card2: #281E15;
+    --bg: #0d0a08;
+    --bg-soft: #15100c;
+    --card: #1c1510;
+    --card-light: #241b14;
 
-    --gold: #D9A84E;
-    --gold-light: #F1D39A;
-    --cream: #F7F0E7;
-    --text: #E8DED2;
-    --muted: #A99D91;
+    --gold: #d5a64d;
+    --gold-light: #efd19a;
+    --cream: #f5eee5;
+    --text: #e9dfd3;
+    --muted: #9f958b;
 
-    --border: rgba(218, 174, 91, 0.20);
+    --line: rgba(239, 209, 154, 0.16);
 
     --serif: "Cormorant Garamond", Georgia, serif;
     --sans: "Inter", Arial, sans-serif;
@@ -45,58 +49,59 @@ body {
     margin: 0;
     background:
         radial-gradient(
-            circle at 85% 5%,
-            rgba(179, 125, 45, 0.10),
-            transparent 28%
+            circle at 85% 0%,
+            rgba(211, 165, 73, 0.08),
+            transparent 30%
         ),
         var(--bg);
 
     color: var(--text);
     font-family: var(--sans);
+
     min-height: 100vh;
     overflow-x: hidden;
 }
 
 button {
     font-family: inherit;
+    cursor: pointer;
 }
 
-img {
-    max-width: 100%;
+button:active {
+    transform: scale(0.98);
 }
 
 
 /* =========================================================
-   CAPA DE ABERTURA
+   CAPA
 ========================================================= */
 
 #coverScreen {
     position: fixed;
     inset: 0;
+
     z-index: 9999;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding:
+        40px 26px
+        calc(32px + env(safe-area-inset-bottom));
 
     background:
         linear-gradient(
             to bottom,
-            rgba(12, 7, 3, 0.05) 0%,
-            rgba(12, 7, 3, 0.10) 35%,
-            rgba(12, 7, 3, 0.72) 82%,
-            rgba(12, 7, 3, 0.96) 100%
+            rgba(8, 5, 3, 0.03) 10%,
+            rgba(8, 5, 3, 0.16) 42%,
+            rgba(8, 5, 3, 0.82) 82%,
+            rgba(8, 5, 3, 0.98) 100%
         ),
         url("capa.jpeg") center center / cover no-repeat;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-
-    padding:
-        40px
-        28px
-        calc(34px + env(safe-area-inset-bottom));
-
     transition:
-        opacity 0.7s ease,
-        visibility 0.7s ease;
+        opacity .7s ease,
+        visibility .7s ease;
 }
 
 #coverScreen.hidden {
@@ -105,89 +110,83 @@ img {
     pointer-events: none;
 }
 
-.cover-overlay {
-    position: absolute;
-    inset: 0;
-
-    background:
-        radial-gradient(
-            circle at 80% 15%,
-            rgba(255, 208, 115, 0.18),
-            transparent 28%
-        );
-
-    pointer-events: none;
-}
-
 .cover-content {
     position: relative;
     z-index: 2;
+
+    width: 100%;
+    max-width: 620px;
+    margin: auto auto 0;
 }
 
-.cover-small {
+.cover-kicker {
     color: var(--gold-light);
-    font-size: 11px;
-    letter-spacing: 5px;
+
     text-transform: uppercase;
+    letter-spacing: 5px;
+
+    font-size: 10px;
     font-weight: 600;
+
     margin-bottom: 16px;
 }
 
 .cover-title {
-    font-family: var(--serif);
-    color: #FFF9F1;
+    margin: 0;
 
-    font-size: clamp(48px, 13vw, 78px);
-    line-height: 0.88;
+    font-family: var(--serif);
+
+    font-size: clamp(54px, 15vw, 92px);
+    line-height: .84;
+
     font-weight: 500;
 
-    max-width: 620px;
-    margin: 0;
+    color: #fff8ef;
 }
 
 .cover-subtitle {
-    font-family: var(--serif);
-    font-size: 26px;
-    color: var(--gold-light);
     margin-top: 20px;
+
+    font-family: var(--serif);
+
+    font-size: 28px;
+
+    color: var(--gold-light);
 }
 
-.cover-description {
-    color: rgba(247, 240, 231, 0.78);
+.cover-text {
+    max-width: 500px;
+
+    margin: 20px 0 27px;
+
+    color: rgba(247, 240, 231, .78);
+
     font-size: 14px;
     line-height: 1.7;
-    max-width: 470px;
-    margin: 22px 0 28px;
 }
 
 .cover-button {
-    border: none;
+    width: 100%;
+    max-width: 360px;
+
+    border: 0;
+    border-radius: 17px;
+
+    padding: 18px 22px;
+
     background: var(--gold);
-    color: #21170D;
+    color: #21170d;
 
-    border-radius: 18px;
-    padding: 18px 25px;
-
-    font-size: 14px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
 
     box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.30);
-
-    width: 100%;
-    max-width: 350px;
-
-    cursor: pointer;
-}
-
-.cover-button:active {
-    transform: scale(0.98);
+        0 12px 40px rgba(0,0,0,.30);
 }
 
 
 /* =========================================================
-   APP
+   APP HEADER
 ========================================================= */
 
 #app {
@@ -198,27 +197,24 @@ img {
 .app-header {
     position: sticky;
     top: 0;
-    z-index: 100;
 
-    height: 126px;
+    z-index: 500;
+
+    min-height: 108px;
 
     padding:
-        calc(20px + env(safe-area-inset-top))
-        42px
-        18px;
+        calc(18px + env(safe-area-inset-top))
+        24px 16px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
     background:
-        linear-gradient(
-            180deg,
-            rgba(16, 12, 9, 0.98),
-            rgba(16, 12, 9, 0.94)
-        );
+        rgba(13, 10, 8, .92);
 
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-bottom:
+        1px solid rgba(255,255,255,.045);
 
     backdrop-filter: blur(20px);
 }
@@ -226,62 +222,68 @@ img {
 .brand {
     display: flex;
     align-items: center;
-    gap: 20px;
+
+    gap: 14px;
 }
 
-.brand-mark {
-    width: 62px;
-    height: 62px;
+.brand-symbol {
+    width: 52px;
+    height: 52px;
 
-    border-radius: 20px;
+    flex-shrink: 0;
+
+    border-radius: 18px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    color: var(--gold-light);
-
     background:
-        linear-gradient(
-            145deg,
-            rgba(217,168,78,0.18),
-            rgba(255,255,255,0.02)
+        radial-gradient(
+            circle,
+            rgba(239,209,154,.18),
+            rgba(239,209,154,.02) 70%
         );
 
-    border: 1px solid rgba(217,168,78,0.35);
-
-    box-shadow:
-        inset 0 0 25px rgba(217,168,78,0.05);
+    border:
+        1px solid rgba(239,209,154,.22);
 }
 
-.brand-mark svg {
-    width: 28px;
-    height: 28px;
+.brand-symbol svg {
+    width: 30px;
+    height: 30px;
 }
 
 .brand-title {
     font-family: var(--serif);
+
     color: var(--cream);
 
-    font-size: 27px;
+    font-size: 23px;
+    line-height: .95;
+
     font-weight: 600;
-    line-height: 1;
 }
 
 .brand-subtitle {
-    margin-top: 8px;
+    margin-top: 6px;
+
     color: var(--muted);
-    font-size: 16px;
+
+    font-size: 12px;
 }
 
 .search-button {
-    width: 58px;
-    height: 58px;
+    width: 48px;
+    height: 48px;
 
     border-radius: 50%;
 
-    background: rgba(255,255,255,0.015);
-    border: 1px solid rgba(255,255,255,0.08);
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    background:
+        rgba(255,255,255,.02);
 
     color: var(--cream);
 
@@ -291,7 +293,7 @@ img {
 }
 
 .search-button svg {
-    width: 22px;
+    width: 20px;
 }
 
 
@@ -300,9 +302,57 @@ img {
 ========================================================= */
 
 .container {
-    width: min(100%, 920px);
+    width: min(100%, 1000px);
+
     margin: 0 auto;
-    padding: 48px 42px;
+
+    padding:
+        28px 24px 40px;
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+.tabs {
+    display: flex;
+
+    width: 100%;
+
+    padding: 4px;
+
+    margin-bottom: 28px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid rgba(255,255,255,.05);
+
+    border-radius: 15px;
+}
+
+.tab {
+    flex: 1;
+
+    border: 0;
+
+    border-radius: 11px;
+
+    padding: 12px;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.tab.active {
+    background: rgba(213,166,77,.13);
+
+    color: var(--gold-light);
 }
 
 
@@ -313,38 +363,41 @@ img {
 .hero {
     position: relative;
 
-    min-height: 440px;
+    min-height: 455px;
 
-    border-radius: 36px;
     overflow: hidden;
 
-    border: 1px solid var(--border);
+    border-radius: 34px;
 
-    background:
-        linear-gradient(
-            90deg,
-            rgba(20,12,7,0.96) 0%,
-            rgba(20,12,7,0.80) 46%,
-            rgba(20,12,7,0.42) 100%
-        ),
-        url("capa.jpeg") center 38% / cover no-repeat;
+    border:
+        1px solid rgba(239,209,154,.17);
 
     display: flex;
     align-items: flex-end;
 
-    padding: 48px;
+    padding: 34px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(16,10,6,.95) 0%,
+            rgba(16,10,6,.76) 47%,
+            rgba(16,10,6,.25) 100%
+        ),
+        url("capa.jpeg") center / cover no-repeat;
 }
 
 .hero::after {
     content: "";
+
     position: absolute;
     inset: 0;
 
     background:
         radial-gradient(
-            circle at 82% 15%,
-            rgba(241,211,154,0.18),
-            transparent 28%
+            circle at 76% 18%,
+            rgba(239,209,154,.18),
+            transparent 25%
         );
 
     pointer-events: none;
@@ -353,52 +406,60 @@ img {
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 600px;
+
+    max-width: 610px;
 }
 
 .eyebrow {
     color: var(--gold-light);
+
+    font-size: 10px;
+
     text-transform: uppercase;
+
     letter-spacing: 4px;
-    font-size: 11px;
-    font-weight: 700;
+
+    font-weight: 600;
 }
 
 .hero-title {
+    margin: 16px 0 15px;
+
     font-family: var(--serif);
 
-    color: #FFF8F0;
+    font-size: clamp(53px, 13vw, 84px);
 
-    font-size: clamp(52px, 9vw, 86px);
-    line-height: 0.88;
+    line-height: .84;
 
     font-weight: 500;
 
-    margin: 18px 0;
+    color: #fff8ef;
 }
 
 .hero-text {
-    font-size: 17px;
-    line-height: 1.65;
-    color: rgba(247,240,231,0.78);
-    max-width: 550px;
+    max-width: 570px;
+
+    color: rgba(247,240,231,.77);
+
+    font-size: 15px;
+
+    line-height: 1.7;
 }
 
 .primary-button {
-    margin-top: 28px;
+    margin-top: 25px;
 
-    background: var(--gold);
-    color: #24180C;
+    border: 0;
 
-    border: none;
     border-radius: 15px;
 
-    padding: 17px 27px;
+    padding: 16px 22px;
 
-    font-size: 14px;
+    background: var(--gold);
+
+    color: #21170d;
+
     font-weight: 700;
-
-    cursor: pointer;
 }
 
 
@@ -407,64 +468,69 @@ img {
 ========================================================= */
 
 .progress-card {
-    margin-top: 26px;
+    margin-top: 18px;
 
-    padding: 27px 30px;
+    padding: 23px;
 
-    border-radius: 28px;
+    border-radius: 25px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,0.035),
-            rgba(255,255,255,0.015)
+            rgba(255,255,255,.035),
+            rgba(255,255,255,.012)
         );
 
-    border: 1px solid rgba(255,255,255,0.06);
+    border:
+        1px solid rgba(255,255,255,.055);
 }
 
 .progress-top {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
 
-    margin-bottom: 18px;
+    justify-content: space-between;
+
+    margin-bottom: 14px;
 }
 
 .progress-label {
     color: var(--muted);
-    font-size: 15px;
+
+    font-size: 13px;
 }
 
 .progress-number {
     color: var(--gold-light);
-    font-size: 18px;
-    font-weight: 700;
+
+    font-size: 13px;
+
+    font-weight: 600;
 }
 
 .progress-bar {
-    height: 8px;
+    height: 6px;
 
-    background: rgba(255,255,255,0.07);
-
-    border-radius: 100px;
     overflow: hidden;
+
+    border-radius: 50px;
+
+    background: rgba(255,255,255,.06);
 }
 
 .progress-fill {
+    width: 0;
     height: 100%;
-    width: 0%;
+
+    border-radius: inherit;
 
     background:
         linear-gradient(
             90deg,
-            #A9782D,
-            #E5BC6C
+            #9b6d29,
+            #ebc979
         );
 
-    border-radius: inherit;
-
-    transition: width 0.5s ease;
+    transition: width .5s ease;
 }
 
 
@@ -473,147 +539,163 @@ img {
 ========================================================= */
 
 .section {
-    margin-top: 70px;
+    margin-top: 55px;
 }
 
-.section-heading {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
+.section-head {
+    margin-bottom: 20px;
+}
 
-    margin-bottom: 25px;
+.section-kicker {
+    color: var(--gold);
+
+    text-transform: uppercase;
+
+    letter-spacing: 3px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    margin-bottom: 7px;
 }
 
 .section-title {
-    font-family: var(--serif);
+    margin: 0;
 
     color: var(--cream);
 
-    font-size: 47px;
-    line-height: 1;
+    font-family: var(--serif);
+
+    font-size: 42px;
+
+    line-height: .95;
 
     font-weight: 500;
-
-    margin: 0;
 }
 
-.section-link {
-    color: var(--gold);
-    font-size: 14px;
+.section-description {
+    margin-top: 8px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.6;
 }
 
 
 /* =========================================================
-   PRÁTICAS
+   PILARES
 ========================================================= */
 
-.practice-row {
-    display: flex;
-    gap: 20px;
+.pillars {
+    display: grid;
 
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
-    padding-bottom: 8px;
-
-    scrollbar-width: none;
+    gap: 14px;
 }
 
-.practice-row::-webkit-scrollbar {
-    display: none;
-}
-
-.practice-card {
+.pillar {
     position: relative;
 
-    flex: 0 0 280px;
-    min-height: 280px;
-
-    scroll-snap-align: start;
+    min-height: 225px;
 
     overflow: hidden;
 
-    border-radius: 30px;
+    border-radius: 27px;
 
-    border: 1px solid rgba(255,255,255,0.07);
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    padding: 22px;
+
+    display: flex;
+    align-items: flex-end;
 
     background:
         linear-gradient(
-            145deg,
-            rgba(25,16,9,0.70),
-            rgba(25,16,9,0.93)
-        ),
-        url("capa.jpeg") center / cover no-repeat;
-
-    padding: 30px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,0.15);
+            to top,
+            rgba(12,8,5,.96) 0%,
+            rgba(12,8,5,.67) 48%,
+            rgba(12,8,5,.15) 100%
+        );
 }
 
-.practice-card:nth-child(2) {
-    background-position: 75% center;
-}
-
-.practice-card:nth-child(3) {
-    background-position: 40% center;
-}
-
-.practice-card:nth-child(4) {
-    background-position: 90% center;
-}
-
-.practice-card::before {
+.pillar::before {
     content: "";
 
     position: absolute;
     inset: 0;
 
+    opacity: .88;
+
     background:
         radial-gradient(
-            circle at 80% 15%,
-            rgba(244,207,133,0.22),
-            transparent 30%
+            circle at 72% 23%,
+            rgba(239,209,154,.20),
+            transparent 25%
         );
+}
+
+.pillar-art {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    opacity: .72;
 
     pointer-events: none;
 }
 
-.practice-art {
-    position: absolute;
-
-    top: 26px;
-    right: 26px;
-
-    width: 60px;
-    height: 60px;
-
-    color: var(--gold-light);
-
-    opacity: 0.82;
+.pillar-art svg {
+    width: 125px;
+    height: 125px;
 }
 
-.practice-content {
+.pillar-content {
     position: relative;
     z-index: 2;
 }
 
-.practice-title {
-    font-family: var(--serif);
+.pillar-number {
+    color: var(--gold);
 
-    font-size: 34px;
-    color: var(--cream);
+    font-size: 9px;
 
-    margin: 0 0 7px;
+    letter-spacing: 3px;
+
+    font-weight: 700;
+
+    margin-bottom: 6px;
 }
 
-.practice-description {
-    color: var(--muted);
-    font-size: 14px;
+.pillar-title {
+    margin: 0;
+
+    font-family: var(--serif);
+
+    color: var(--cream);
+
+    font-size: 31px;
+
+    font-weight: 500;
+}
+
+.pillar-text {
+    margin-top: 4px;
+
+    color: rgba(232,223,211,.68);
+
+    font-size: 12px;
+
     line-height: 1.5;
 }
 
@@ -624,106 +706,102 @@ img {
 
 .journey-list {
     display: flex;
+
     flex-direction: column;
-    gap: 18px;
+
+    gap: 13px;
 }
 
 .journey-card {
     position: relative;
 
-    min-height: 205px;
+    min-height: 170px;
 
     overflow: hidden;
 
-    border-radius: 30px;
+    border-radius: 28px;
 
-    padding: 34px 38px;
+    border:
+        1px solid rgba(255,255,255,.065);
 
-    border: 1px solid rgba(255,255,255,0.07);
+    padding: 25px;
+
+    display: flex;
+
+    align-items: flex-end;
 
     background:
         linear-gradient(
-            100deg,
-            rgba(28,19,12,0.96) 0%,
-            rgba(28,19,12,0.78) 65%,
-            rgba(28,19,12,0.62) 100%
-        ),
-        url("capa.jpeg") center / cover no-repeat;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.2s ease,
-        border-color 0.2s ease;
-}
-
-.journey-card:nth-child(2) {
-    background-position: 70% center;
-}
-
-.journey-card:nth-child(3) {
-    background-position: 35% center;
-}
-
-.journey-card:nth-child(4) {
-    background-position: 85% center;
-}
-
-.journey-card:active {
-    transform: scale(0.985);
-}
-
-.journey-card::after {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background:
-        radial-gradient(
-            circle at 90% 20%,
-            rgba(220,171,82,0.16),
-            transparent 25%
+            90deg,
+            rgba(19,12,8,.96),
+            rgba(19,12,8,.65)
         );
+}
 
-    pointer-events: none;
+.journey-art {
+    position: absolute;
+
+    right: 15px;
+    top: 0;
+
+    width: 180px;
+    height: 100%;
+
+    opacity: .65;
+}
+
+.journey-art svg {
+    width: 100%;
+    height: 100%;
 }
 
 .journey-content {
     position: relative;
+
     z-index: 2;
+
+    max-width: 72%;
 }
 
 .journey-days {
     color: var(--gold);
 
-    font-size: 12px;
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
     font-weight: 700;
 
-    letter-spacing: 4px;
-
-    margin-bottom: 17px;
+    margin-bottom: 7px;
 }
 
 .journey-title {
+    margin: 0;
+
     font-family: var(--serif);
+
+    font-size: 35px;
+
+    line-height: .95;
 
     color: var(--cream);
 
-    font-size: 42px;
     font-weight: 500;
-
-    margin: 0 0 5px;
 }
 
 .journey-description {
+    margin-top: 6px;
+
     color: var(--muted);
-    font-size: 15px;
+
+    font-size: 12px;
+
+    line-height: 1.5;
 }
 
 
 /* =========================================================
-   TELA DE DEVOCIONAL
+   DEVOCIONAL
 ========================================================= */
 
 .screen {
@@ -734,48 +812,48 @@ img {
     display: block;
 }
 
-.devotional-header {
-    margin-bottom: 35px;
-}
-
 .back-button {
-    border: none;
+    border: 0;
+
     background: none;
 
     color: var(--gold);
 
-    padding: 0;
+    padding: 5px 0;
 
-    font-size: 14px;
+    font-size: 13px;
 
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 .devotional-day {
     color: var(--gold);
 
-    font-size: 12px;
-    letter-spacing: 4px;
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
     font-weight: 700;
 }
 
 .devotional-title {
+    margin: 13px 0 8px;
+
     font-family: var(--serif);
 
     color: var(--cream);
 
-    font-size: clamp(48px, 10vw, 74px);
+    font-size: clamp(46px, 11vw, 74px);
 
-    line-height: 0.95;
+    line-height: .88;
 
     font-weight: 500;
-
-    margin: 14px 0;
 }
 
 .devotional-reference {
     color: var(--gold-light);
-    font-size: 16px;
+
+    font-size: 13px;
 }
 
 .devotional-card {
@@ -783,51 +861,87 @@ img {
 
     overflow: hidden;
 
-    border-radius: 32px;
+    margin-top: 28px;
 
-    padding: 40px;
+    padding: 28px;
 
-    margin-top: 30px;
+    border-radius: 29px;
+
+    border:
+        1px solid rgba(239,209,154,.13);
 
     background:
         linear-gradient(
             145deg,
-            rgba(30,20,13,0.95),
-            rgba(30,20,13,0.87)
-        ),
-        url("capa.jpeg") center / cover no-repeat;
+            rgba(30,21,14,.96),
+            rgba(22,15,10,.94)
+        );
+}
 
-    border: 1px solid rgba(217,168,78,0.15);
+.devotional-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    right: -100px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(239,209,154,.13),
+            transparent 70%
+        );
+
+    pointer-events: none;
 }
 
 .devotional-card h3 {
+    position: relative;
+    z-index: 2;
+
+    margin: 0 0 10px;
+
     font-family: var(--serif);
 
     font-size: 30px;
 
     color: var(--cream);
 
-    margin: 0 0 14px;
+    font-weight: 500;
 }
 
 .devotional-card p {
+    position: relative;
+    z-index: 2;
+
     color: var(--text);
 
-    line-height: 1.8;
+    font-size: 15px;
 
-    font-size: 16px;
+    line-height: 1.8;
 }
 
 .question {
-    margin-top: 28px;
+    position: relative;
+    z-index: 2;
 
-    padding: 25px;
+    margin-top: 27px;
 
-    border-left: 2px solid var(--gold);
+    padding: 20px;
 
-    background: rgba(255,255,255,0.025);
+    border-left:
+        2px solid var(--gold);
 
     border-radius: 0 18px 18px 0;
+
+    background:
+        rgba(255,255,255,.025);
 }
 
 .question strong {
@@ -835,58 +949,74 @@ img {
 }
 
 .journal {
+    position: relative;
+    z-index: 2;
+
     width: 100%;
-    min-height: 180px;
 
-    margin-top: 15px;
+    min-height: 170px;
 
-    padding: 18px;
+    resize: vertical;
 
-    border-radius: 18px;
+    border-radius: 17px;
 
-    border: 1px solid rgba(255,255,255,0.08);
+    border:
+        1px solid rgba(255,255,255,.08);
 
-    background: rgba(0,0,0,0.22);
+    background:
+        rgba(0,0,0,.22);
 
     color: var(--cream);
 
+    padding: 16px;
+
     font-family: var(--sans);
 
-    font-size: 15px;
-
-    resize: vertical;
+    outline: none;
 }
 
-.devotional-actions {
+.actions {
+    position: relative;
+    z-index: 2;
+
     display: flex;
-    gap: 12px;
+
+    gap: 10px;
+
     flex-wrap: wrap;
 
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
-.action-button {
-    border: 1px solid rgba(217,168,78,0.25);
+.action {
+    border-radius: 14px;
 
-    background: rgba(217,168,78,0.08);
+    padding: 14px 18px;
+
+    border:
+        1px solid rgba(239,209,154,.18);
+
+    background:
+        rgba(239,209,154,.07);
 
     color: var(--gold-light);
 
-    border-radius: 15px;
-
-    padding: 15px 20px;
+    font-size: 12px;
 
     font-weight: 600;
 }
 
-.action-button.primary {
+.action.primary {
     background: var(--gold);
-    color: #21170D;
+
+    color: #21170d;
+
+    border-color: transparent;
 }
 
 
 /* =========================================================
-   NAVEGAÇÃO
+   BOTTOM NAV
 ========================================================= */
 
 .bottom-nav {
@@ -896,42 +1026,45 @@ img {
     right: 0;
     bottom: 0;
 
-    z-index: 500;
+    z-index: 800;
 
-    height: calc(86px + env(safe-area-inset-bottom));
+    height:
+        calc(76px + env(safe-area-inset-bottom));
 
     padding:
-        9px
-        18px
-        calc(9px + env(safe-area-inset-bottom));
-
-    background:
-        rgba(15,11,8,0.96);
-
-    border-top: 1px solid rgba(255,255,255,0.05);
-
-    backdrop-filter: blur(20px);
+        8px 10px
+        calc(8px + env(safe-area-inset-bottom));
 
     display: flex;
-    justify-content: space-around;
+
+    background:
+        rgba(12,9,7,.96);
+
+    border-top:
+        1px solid rgba(255,255,255,.05);
+
+    backdrop-filter: blur(22px);
 }
 
 .nav-item {
     flex: 1;
 
-    border: none;
-    background: none;
+    border: 0;
 
-    color: #8F857B;
+    background: transparent;
+
+    color: #81776e;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
     justify-content: center;
 
-    gap: 7px;
+    gap: 5px;
 
-    font-size: 11px;
+    font-size: 9px;
 }
 
 .nav-item.active {
@@ -939,122 +1072,115 @@ img {
 }
 
 .nav-icon {
-    width: 24px;
-    height: 24px;
+    width: 21px;
+    height: 21px;
 }
 
 
 /* =========================================================
-   RESPONSIVO
+   DESKTOP
 ========================================================= */
 
-@media (max-width: 600px) {
-
-    .app-header {
-        height: 125px;
-        padding-left: 42px;
-        padding-right: 20px;
-    }
-
-    .brand-title {
-        font-size: 25px;
-    }
-
-    .brand-subtitle {
-        font-size: 15px;
-    }
+@media (min-width: 700px) {
 
     .container {
-        padding: 38px 42px;
+        padding-top: 40px;
     }
 
-    .hero {
-        min-height: 440px;
-        padding: 34px;
-        border-radius: 34px;
+    .pillars {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
     }
 
-    .hero-title {
-        font-size: 59px;
+    .pillar {
+        min-height: 245px;
     }
 
-    .section {
-        margin-top: 58px;
-    }
-
-    .section-title {
-        font-size: 43px;
-    }
-
-    .journey-card {
-        padding: 30px;
-    }
-
-    .journey-title {
-        font-size: 39px;
-    }
 }
 
-@media (max-width: 420px) {
+
+/* =========================================================
+   CELULAR PEQUENO
+========================================================= */
+
+@media (max-width: 390px) {
 
     .container {
-        padding-left: 24px;
-        padding-right: 24px;
-    }
-
-    .app-header {
-        padding-left: 24px;
-    }
-
-    .brand-mark {
-        width: 54px;
-        height: 54px;
-    }
-
-    .brand-title {
-        font-size: 21px;
-    }
-
-    .brand-subtitle {
-        font-size: 13px;
-    }
-
-    .search-button {
-        width: 52px;
-        height: 52px;
+        padding-left: 18px;
+        padding-right: 18px;
     }
 
     .hero {
-        padding: 30px;
+        min-height: 430px;
+        padding: 27px;
     }
 
     .hero-title {
-        font-size: 52px;
+        font-size: 51px;
     }
 
-    .cover-title {
-        font-size: 54px;
+    .pillars {
+        gap: 10px;
     }
+
+    .pillar {
+        min-height: 205px;
+
+        padding: 17px;
+    }
+
+    .pillar-title {
+        font-size: 27px;
+    }
+
+    .pillar-art svg {
+        width: 105px;
+        height: 105px;
+    }
+
+}
+
+
+/* =========================================================
+   ANIMAÇÃO
+========================================================= */
+
+@keyframes gentleGlow {
+
+    0%, 100% {
+        opacity: .45;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: .75;
+        transform: scale(1.04);
+    }
+
+}
+
+.glow {
+    animation:
+        gentleGlow 5s ease-in-out infinite;
 }
 
 </style>
 </head>
 
+
 <body>
 
 
-<!-- ======================================================
+<!-- =======================================================
      CAPA
-====================================================== -->
+======================================================= -->
 
 <section id="coverScreen">
 
-    <div class="cover-overlay"></div>
-
     <div class="cover-content">
 
-        <div class="cover-small">
-            Devocional
+        <div class="cover-kicker">
+            Devocional • 365 dias
         </div>
 
         <h1 class="cover-title">
@@ -1067,17 +1193,18 @@ img {
             Um Amigo Íntimo
         </div>
 
-        <p class="cover-description">
-            365 dias para cultivar intimidade com O Eterno,
-            guiado pelo Doce Espírito Santo, através da oração,
-            do jejum, da Palavra e da vivência.
+        <p class="cover-text">
+            Uma jornada para aprender a perceber
+            a presença do Doce Espírito Santo,
+            aprofundar a intimidade com O Eterno
+            e transformar a Palavra em vida.
         </p>
 
         <button
             class="cover-button"
             onclick="enterApp()"
         >
-            COMEÇAR A JORNADA →
+            COMEÇAR A JORNADA
         </button>
 
     </div>
@@ -1085,28 +1212,53 @@ img {
 </section>
 
 
-<!-- ======================================================
+<!-- =======================================================
      APLICAÇÃO
-====================================================== -->
+======================================================= -->
 
 <div id="app">
+
 
 <header class="app-header">
 
     <div class="brand">
 
-        <div class="brand-mark">
+        <div class="brand-symbol">
 
-            <!-- Símbolo de presença/luz -->
-            <svg viewBox="0 0 64 64" fill="none">
+            <!-- chama / presença -->
+
+            <svg
+                viewBox="0 0 64 64"
+                fill="none"
+            >
+
                 <path
-                    d="M32 8
-                       C34 21 43 30 56 32
-                       C43 34 34 43 32 56
-                       C30 43 21 34 8 32
-                       C21 30 30 21 32 8Z"
-                    fill="currentColor"
+                    d="
+                    M32 57
+                    C19 57 13 48 17 38
+                    C19 32 25 29 27 20
+                    C28 15 28 11 27 7
+                    C38 14 44 24 42 32
+                    C46 29 48 26 48 22
+                    C54 31 54 42 49 49
+                    C45 55 39 57 32 57Z
+                    "
+                    stroke="currentColor"
+                    stroke-width="2"
                 />
+
+                <path
+                    d="
+                    M32 48
+                    C26 48 23 44 25 39
+                    C26 36 30 34 31 29
+                    C36 34 39 39 37 43
+                    C36 46 34 48 32 48Z
+                    "
+                    fill="currentColor"
+                    opacity=".7"
+                />
+
             </svg>
 
         </div>
@@ -1125,22 +1277,29 @@ img {
 
     </div>
 
+
     <button class="search-button">
 
-        <svg viewBox="0 0 24 24" fill="none">
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+        >
+
             <circle
-                cx="11"
-                cy="11"
-                r="6"
+                cx="10.8"
+                cy="10.8"
+                r="6.3"
                 stroke="currentColor"
-                stroke-width="2"
+                stroke-width="1.8"
             />
+
             <path
                 d="M16 16L21 21"
                 stroke="currentColor"
-                stroke-width="2"
+                stroke-width="1.8"
                 stroke-linecap="round"
             />
+
         </svg>
 
     </button>
@@ -1151,347 +1310,787 @@ img {
 <main class="container">
 
 
-<!-- ======================================================
+<!-- =======================================================
      HOME
-====================================================== -->
+======================================================= -->
 
-<section id="homeScreen" class="screen active">
+<section
+    id="homeScreen"
+    class="screen active"
+>
 
-    <div class="hero">
 
-        <div class="hero-content">
+    <div class="tabs">
 
-            <div class="eyebrow">
-                Uma jornada de presença
-            </div>
+        <button
+            class="tab active"
+            onclick="setTab(this,'journeyHome')"
+        >
+            Minha jornada
+        </button>
 
-            <h1 class="hero-title">
-                Aprenda a<br>
-                percebê-lo.
-            </h1>
-
-            <div class="hero-text">
-                Ele já está aqui.
-                Uma jornada de 365 dias para cultivar
-                intimidade com O Eterno através do
-                Doce Espírito Santo.
-            </div>
-
-            <button
-                class="primary-button"
-                onclick="openToday()"
-            >
-                CONTINUAR →
-            </button>
-
-        </div>
+        <button
+            class="tab"
+            onclick="setTab(this,'exploreHome')"
+        >
+            Explorar
+        </button>
 
     </div>
 
 
-    <div class="progress-card">
+    <!-- ===================================================
+         MINHA JORNADA
+    =================================================== -->
 
-        <div class="progress-top">
+    <div id="journeyHome">
 
-            <div class="progress-label">
-                Sua jornada
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    Presença
+                </div>
+
+                <h1 class="hero-title">
+                    Aprenda a<br>
+                    percebê-lo.
+                </h1>
+
+                <div class="hero-text">
+                    Ele já está aqui.
+                    Uma jornada de 365 dias para
+                    cultivar intimidade com O Eterno,
+                    através da oração, do jejum,
+                    da Palavra e da vivência.
+                </div>
+
+                <button
+                    class="primary-button"
+                    onclick="openToday()"
+                >
+                    CONTINUAR JORNADA →
+                </button>
+
             </div>
 
-            <div
-                class="progress-number"
-                id="progressText"
-            >
-                0 de 365
+        </section>
+
+
+        <!-- PROGRESSO -->
+
+        <div class="progress-card">
+
+            <div class="progress-top">
+
+                <span class="progress-label">
+                    Sua jornada
+                </span>
+
+                <span
+                    class="progress-number"
+                    id="progressText"
+                >
+                    0 de 365
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill"
+                ></div>
+
             </div>
 
         </div>
 
-        <div class="progress-bar">
+
+        <!-- =================================================
+             6 PILARES
+        ================================================= -->
+
+        <section class="section">
+
+            <div class="section-head">
+
+                <div class="section-kicker">
+                    O caminho
+                </div>
+
+                <h2 class="section-title">
+                    Uma vida de presença
+                </h2>
+
+                <div class="section-description">
+                    A jornada não é apenas ler.
+                    É perceber, conversar, renunciar,
+                    conhecer e viver.
+                </div>
+
+            </div>
+
+
+            <div class="pillars">
+
+
+                <!-- PRESENÇA -->
+
+                <article class="pillar">
+
+                    <div class="pillar-art glow">
+
+                        <svg
+                            viewBox="0 0 180 180"
+                            fill="none"
+                        >
+
+                            <circle
+                                cx="90"
+                                cy="90"
+                                r="60"
+                                stroke="#EFD19A"
+                                stroke-opacity=".15"
+                            />
+
+                            <circle
+                                cx="90"
+                                cy="90"
+                                r="38"
+                                stroke="#EFD19A"
+                                stroke-opacity=".22"
+                            />
+
+                            <path
+                                d="
+                                M90 23
+                                C94 53 113 73 143 90
+                                C113 107 94 127 90 157
+                                C86 127 67 107 37 90
+                                C67 73 86 53 90 23Z
+                                "
+                                fill="#EFD19A"
+                                fill-opacity=".12"
+                            />
+
+                            <circle
+                                cx="90"
+                                cy="90"
+                                r="7"
+                                fill="#EFD19A"
+                                fill-opacity=".7"
+                            />
+
+                        </svg>
+
+                    </div>
+
+                    <div class="pillar-content">
+
+                        <div class="pillar-number">
+                            01
+                        </div>
+
+                        <h3 class="pillar-title">
+                            Presença
+                        </h3>
+
+                        <div class="pillar-text">
+                            Aprenda a percebê-lo.
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ORAÇÃO -->
+
+                <article class="pillar">
+
+                    <div class="pillar-art">
+
+                        <svg
+                            viewBox="0 0 180 180"
+                            fill="none"
+                        >
+
+                            <path
+                                d="
+                                M45 118
+                                C60 91 72 72 90 47
+                                C108 72 120 91 135 118
+                                "
+                                stroke="#EFD19A"
+                                stroke-width="2"
+                                stroke-opacity=".6"
+                            />
+
+                            <path
+                                d="
+                                M60 116
+                                C69 103 79 94 90 88
+                                C101 94 111 103 120 116
+                                "
+                                stroke="#EFD19A"
+                                stroke-width="2"
+                                stroke-opacity=".4"
+                            />
+
+                            <circle
+                                cx="90"
+                                cy="48"
+                                r="17"
+                                fill="#EFD19A"
+                                fill-opacity=".10"
+                                stroke="#EFD19A"
+                                stroke-opacity=".35"
+                            />
+
+                            <path
+                                d="
+                                M90 31
+                                V65
+                                M73 48
+                                H107
+                                "
+                                stroke="#EFD19A"
+                                stroke-opacity=".45"
+                            />
+
+                        </svg>
+
+                    </div>
+
+                    <div class="pillar-content">
+
+                        <div class="pillar-number">
+                            02
+                        </div>
+
+                        <h3 class="pillar-title">
+                            Oração
+                        </h3>
+
+                        <div class="pillar-text">
+                            Converse com O Eterno.
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- JEJUM -->
+
+                <article class="pillar">
+
+                    <div class="pillar-art">
+
+                        <svg
+                            viewBox="0 0 180 180"
+                            fill="none"
+                        >
+
+                            <path
+                                d="
+                                M90 24
+                                C78 51 58 65 58 93
+                                C58 124 73 143 90 143
+                                C107 143 122 124 122 93
+                                C122 65 102 51 90 24Z
+                                "
+                                stroke="#EFD19A"
+                                stroke-width="2"
+                                stroke-opacity=".55"
+                            />
+
+                            <path
+                                d="
+                                M90 65
+                                C84 77 76 84 76 95
+                                C76 107 82 113 90 113
+                                C98 113 104 107 104 95
+                                C104 84 96 77 90 65Z
+                                "
+                                fill="#EFD19A"
+                                fill-opacity=".18"
+                            />
+
+                            <circle
+                                cx="90"
+                                cy="143"
+                                r="5"
+                                fill="#EFD19A"
+                                fill-opacity=".45"
+                            />
+
+                        </svg>
+
+                    </div>
+
+                    <div class="pillar-content">
+
+                        <div class="pillar-number">
+                            03
+                        </div>
+
+                        <h3 class="pillar-title">
+                            Jejum
+                        </h3>
+
+                        <div class="pillar-text">
+                            Aprenda a renunciar.
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PALAVRA -->
+
+                <article class="pillar">
+
+                    <div class="pillar-art">
+
+                        <svg
+                            viewBox="0 0 180 180"
+                            fill="none"
+                        >
+
+                            <path
+                                d="
+                                M30 42
+                                C51 34 70 38 90 52
+                                V139
+                                C70 125 51 122 30 130
+                                V42Z
+                                "
+                                stroke="#EFD19A"
+                                stroke-width="2"
+                                stroke-opacity=".55"
+                            />
+
+                            <path
+                                d="
+                                M150 42
+                                C129 34 110 38 90 52
+                                V139
+                                C110 125 129 122 150 130
+                                V42Z
+                                "
+                                stroke="#EFD19A"
+                                stroke-width="2"
+                                stroke-opacity=".55"
+                            />
+
+                            <path
+                                d="
+                                M90 52
+                                V139
+                                "
+                                stroke="#EFD19A"
+                                stroke-opacity=".4"
+                            />
+
+                            <path
+                                d="
+                                M48 64
+                                H72
+                                M48 78
+                                H74
+                                M108 64
+                                H132
+                                M106 78
+                                H132
+                                "
+                                stroke="#EFD19A"
+                                stroke-opacity=".28"
+                            />
+
+                        </svg>
+
+                    </div>
+
+                    <div class="pillar-content">
+
+                        <div class="pillar-number">
+                            04
+                        </div>
+
+                        <h3 class="pillar-title">
+                            Palavra
+                        </h3>
+
+                        <div class="pillar-text">
+                            Conheça para viver.
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- VIVÊNCIA -->
+
+                <article class="pillar">
+
+                    <div class="pillar-art">
+
+                        <svg
+                            viewBox="0 0 180 180"
+                            fill="none"
+                        >
+
+                            <path
+                                d="
+                                M90 148
+                                C90 113 94 81 112 48
+                                "
+                                stroke="#EFD19A"
+                                stroke-width="2"
+                                stroke-opacity=".6"
+                            />
+
+                            <path
+                                d="
+                                M91 109
+                                C75 99 61 88 52 70
+                                C70 72 84 80 94 94
+                                "
+                                stroke="#EFD19A"
+                                stroke-width="2"
+                                stroke-opacity=".5"
+                            />
+
+                            <path
+                                d="
+                                M97 87
+                                C111 74 127 67 145 68
+                                C136 84 120 94 101 94
+                                "
+                                stroke="#EFD19A"
+                                stroke-width="2"
+                                stroke-opacity=".5"
+                            />
+
+                            <path
+                                d="
+                                M91 127
+                                C75 120 65 112 59 101
+                                "
+                                stroke="#EFD19A"
+                                stroke-width="2"
+                                stroke-opacity=".35"
+                            />
+
+                        </svg>
+
+                    </div>
+
+                    <div class="pillar-content">
+
+                        <div class="pillar-number">
+                            05
+                        </div>
+
+                        <h3 class="pillar-title">
+                            Vivência
+                        </h3>
+
+                        <div class="pillar-text">
+                            Transforme Palavra em prática.
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- JORNADA -->
+
+                <article
+                    class="pillar"
+                    onclick="scrollToJourney()"
+                >
+
+                    <div class="pillar-art">
+
+                        <svg
+                            viewBox="0 0 180 180"
+                            fill="none"
+                        >
+
+                            <path
+                                d="
+                                M22 142
+                                C54 128 66 113 86 94
+                                C106 75 119 57 158 37
+                                "
+                                stroke="#EFD19A"
+                                stroke-width="2"
+                                stroke-opacity=".55"
+                            />
+
+                            <path
+                                d="
+                                M142 37
+                                H158
+                                V53
+                                "
+                                stroke="#EFD19A"
+                                stroke-width="2"
+                                stroke-opacity=".65"
+                            />
+
+                            <circle
+                                cx="31"
+                                cy="137"
+                                r="5"
+                                fill="#EFD19A"
+                                fill-opacity=".5"
+                            />
+
+                            <circle
+                                cx="87"
+                                cy="94"
+                                r="5"
+                                fill="#EFD19A"
+                                fill-opacity=".3"
+                            />
+
+                            <circle
+                                cx="139"
+                                cy="48"
+                                r="6"
+                                fill="#EFD19A"
+                                fill-opacity=".45"
+                            />
+
+                        </svg>
+
+                    </div>
+
+                    <div class="pillar-content">
+
+                        <div class="pillar-number">
+                            06
+                        </div>
+
+                        <h3 class="pillar-title">
+                            Jornada
+                        </h3>
+
+                        <div class="pillar-text">
+                            Um dia de cada vez.
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             12 ETAPAS
+        ================================================= -->
+
+        <section
+            class="section"
+            id="journeySection"
+        >
+
+            <div class="section-head">
+
+                <div class="section-kicker">
+                    365 dias
+                </div>
+
+                <h2 class="section-title">
+                    A jornada
+                </h2>
+
+                <div class="section-description">
+                    Do primeiro despertar da presença
+                    até uma vida que aprende a permanecer.
+                </div>
+
+            </div>
+
 
             <div
-                class="progress-fill"
-                id="progressFill"
+                class="journey-list"
+                id="journeyList"
             ></div>
 
-        </div>
+        </section>
 
     </div>
 
 
-    <!-- PRÁTICAS -->
+    <!-- ===================================================
+         EXPLORAR
+    =================================================== -->
 
-    <div class="section">
+    <div
+        id="exploreHome"
+        style="display:none;"
+    >
 
-        <div class="section-heading">
+        <section class="hero">
 
-            <h2 class="section-title">
-                Práticas de presença
-            </h2>
+            <div class="hero-content">
 
-        </div>
-
-
-        <div class="practice-row">
-
-
-            <!-- ORAÇÃO -->
-
-            <article class="practice-card">
-
-                <svg
-                    class="practice-art"
-                    viewBox="0 0 80 80"
-                    fill="none"
-                >
-                    <path
-                        d="M40 10
-                           C35 25 25 35 10 40
-                           C25 45 35 55 40 70
-                           C45 55 55 45 70 40
-                           C55 35 45 25 40 10Z"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    />
-
-                    <circle
-                        cx="40"
-                        cy="40"
-                        r="5"
-                        fill="currentColor"
-                    />
-                </svg>
-
-                <div class="practice-content">
-
-                    <h3 class="practice-title">
-                        Oração
-                    </h3>
-
-                    <div class="practice-description">
-                        Converse com O Eterno.
-                    </div>
-
+                <div class="eyebrow">
+                    Explore
                 </div>
 
-            </article>
+                <h1 class="hero-title">
+                    Caminhos de<br>
+                    intimidade.
+                </h1>
 
-
-            <!-- JEJUM -->
-
-            <article class="practice-card">
-
-                <svg
-                    class="practice-art"
-                    viewBox="0 0 80 80"
-                    fill="none"
-                >
-                    <path
-                        d="M40 8
-                           C32 23 20 30 20 46
-                           C20 61 29 70 40 70
-                           C51 70 60 61 60 46
-                           C60 30 48 23 40 8Z"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    />
-
-                    <path
-                        d="M40 27
-                           C36 35 31 40 31 47
-                           C31 54 35 58 40 58
-                           C45 58 49 54 49 47
-                           C49 40 44 35 40 27Z"
-                        fill="currentColor"
-                        opacity="0.65"
-                    />
-                </svg>
-
-                <div class="practice-content">
-
-                    <h3 class="practice-title">
-                        Jejum
-                    </h3>
-
-                    <div class="practice-description">
-                        Aprenda a renunciar.
-                    </div>
-
+                <div class="hero-text">
+                    Escolha uma prática e aprofunde
+                    sua caminhada com O Eterno.
                 </div>
 
-            </article>
-
-
-            <!-- PALAVRA -->
-
-            <article class="practice-card">
-
-                <svg
-                    class="practice-art"
-                    viewBox="0 0 80 80"
-                    fill="none"
-                >
-                    <path
-                        d="M15 18
-                           C27 13 35 16 40 22
-                           V65
-                           C34 59 25 57 15 60
-                           V18Z"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    />
-
-                    <path
-                        d="M65 18
-                           C53 13 45 16 40 22
-                           V65
-                           C46 59 55 57 65 60
-                           V18Z"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    />
-
-                    <path
-                        d="M40 22V65"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    />
-                </svg>
-
-                <div class="practice-content">
-
-                    <h3 class="practice-title">
-                        Palavra
-                    </h3>
-
-                    <div class="practice-description">
-                        Medite para viver.
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- VIVÊNCIA -->
-
-            <article class="practice-card">
-
-                <svg
-                    class="practice-art"
-                    viewBox="0 0 80 80"
-                    fill="none"
-                >
-                    <path
-                        d="M40 70
-                           C40 52 42 35 52 20"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                    />
-
-                    <path
-                        d="M40 53
-                           C31 49 24 42 21 33
-                           C31 34 38 39 42 46"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                    />
-
-                    <path
-                        d="M43 42
-                           C50 36 58 33 67 34
-                           C62 43 55 48 45 48"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                    />
-                </svg>
-
-                <div class="practice-content">
-
-                    <h3 class="practice-title">
-                        Vivência
-                    </h3>
-
-                    <div class="practice-description">
-                        Leve a Palavra para o cotidiano.
-                    </div>
-
-                </div>
-
-            </article>
-
-        </div>
-
-    </div>
-
-
-    <!-- JORNADA -->
-
-    <div class="section">
-
-        <div class="section-heading">
-
-            <h2 class="section-title">
-                Sua jornada
-            </h2>
-
-            <div class="section-link">
-                12 etapas
             </div>
 
-        </div>
+        </section>
 
-        <div
-            class="journey-list"
-            id="journeyList"
-        ></div>
+
+        <section class="section">
+
+            <div class="section-head">
+
+                <div class="section-kicker">
+                    Práticas
+                </div>
+
+                <h2 class="section-title">
+                    Comece por onde está.
+                </h2>
+
+            </div>
+
+            <div class="pillars">
+
+                <article class="pillar">
+                    <div class="pillar-content">
+                        <div class="pillar-number">01</div>
+                        <h3 class="pillar-title">Presença</h3>
+                        <div class="pillar-text">
+                            Aprenda a perceber.
+                        </div>
+                    </div>
+                </article>
+
+                <article class="pillar">
+                    <div class="pillar-content">
+                        <div class="pillar-number">02</div>
+                        <h3 class="pillar-title">Oração</h3>
+                        <div class="pillar-text">
+                            Converse com O Eterno.
+                        </div>
+                    </div>
+                </article>
+
+                <article class="pillar">
+                    <div class="pillar-content">
+                        <div class="pillar-number">03</div>
+                        <h3 class="pillar-title">Jejum</h3>
+                        <div class="pillar-text">
+                            Aprenda a renunciar.
+                        </div>
+                    </div>
+                </article>
+
+                <article class="pillar">
+                    <div class="pillar-content">
+                        <div class="pillar-number">04</div>
+                        <h3 class="pillar-title">Palavra</h3>
+                        <div class="pillar-text">
+                            Conheça para viver.
+                        </div>
+                    </div>
+                </article>
+
+                <article class="pillar">
+                    <div class="pillar-content">
+                        <div class="pillar-number">05</div>
+                        <h3 class="pillar-title">Vivência</h3>
+                        <div class="pillar-text">
+                            Transforme Palavra em prática.
+                        </div>
+                    </div>
+                </article>
+
+                <article class="pillar">
+                    <div class="pillar-content">
+                        <div class="pillar-number">06</div>
+                        <h3 class="pillar-title">Jornada</h3>
+                        <div class="pillar-text">
+                            Um dia de cada vez.
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
 
     </div>
 
 </section>
 
 
-<!-- ======================================================
+<!-- =======================================================
      DEVOCIONAL
-====================================================== -->
+======================================================= -->
 
 <section
     id="devotionalScreen"
     class="screen"
 >
 
-    <div class="devotional-header">
+    <button
+        class="back-button"
+        onclick="showHome()"
+    >
+        ← Voltar
+    </button>
 
-        <button
-            class="back-button"
-            onclick="showHome()"
-        >
-            ← Voltar
-        </button>
 
-        <div
-            class="devotional-day"
-            id="devotionalDay"
-        >
-            DIA 01
-        </div>
+    <div
+        class="devotional-day"
+        id="devotionalDay"
+    >
+        DIA 01
+    </div>
 
-        <h1
-            class="devotional-title"
-            id="devotionalTitle"
-        >
-            A Presença que já está aqui
-        </h1>
 
-        <div
-            class="devotional-reference"
-            id="devotionalReference"
-        >
-            João 14:16–17
-        </div>
+    <h1
+        class="devotional-title"
+        id="devotionalTitle"
+    >
+        A Presença que já está aqui
+    </h1>
 
+
+    <div
+        class="devotional-reference"
+        id="devotionalReference"
+    >
+        João 14:16–17
     </div>
 
 
@@ -1501,14 +2100,18 @@ img {
             Reflexão
         </h3>
 
-        <p id="devotionalReflection"></p>
+        <p
+            id="devotionalReflection"
+        ></p>
 
 
-        <h3 style="margin-top:35px;">
-            Hoje
+        <h3 style="margin-top:32px;">
+            Prática de hoje
         </h3>
 
-        <p id="devotionalPractice"></p>
+        <p
+            id="devotionalPractice"
+        ></p>
 
 
         <div class="question">
@@ -1517,40 +2120,44 @@ img {
                 Para refletir
             </strong>
 
-            <p id="devotionalQuestion"></p>
+            <p
+                id="devotionalQuestion"
+            ></p>
 
         </div>
 
 
-        <h3 style="margin-top:35px;">
+        <h3 style="margin-top:32px;">
             Oração
         </h3>
 
-        <p id="devotionalPrayer"></p>
+        <p
+            id="devotionalPrayer"
+        ></p>
 
 
-        <h3 style="margin-top:35px;">
+        <h3 style="margin-top:32px;">
             Seu diário
         </h3>
 
         <textarea
-            class="journal"
             id="journal"
-            placeholder="Escreva o que você percebeu hoje..."
+            class="journal"
+            placeholder="Escreva o que você percebeu, sentiu ou aprendeu hoje..."
         ></textarea>
 
 
-        <div class="devotional-actions">
+        <div class="actions">
 
             <button
-                class="action-button"
+                class="action"
                 onclick="saveJournal()"
             >
                 SALVAR
             </button>
 
             <button
-                class="action-button primary"
+                class="action primary"
                 onclick="completeDay()"
             >
                 CONCLUIR DIA
@@ -1566,9 +2173,9 @@ img {
 </main>
 
 
-<!-- ======================================================
+<!-- =======================================================
      NAVEGAÇÃO
-====================================================== -->
+======================================================= -->
 
 <nav class="bottom-nav">
 
@@ -1577,13 +2184,19 @@ img {
         onclick="showHome()"
     >
 
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+        <svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+        >
+
             <path
                 d="M4 10L12 3L20 10V20H4V10Z"
                 stroke="currentColor"
-                stroke-width="1.8"
+                stroke-width="1.7"
                 stroke-linejoin="round"
             />
+
         </svg>
 
         Início
@@ -1596,25 +2209,19 @@ img {
         onclick="scrollToJourney()"
     >
 
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+        <svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+        >
+
             <path
-                d="M5 6H19"
+                d="M5 6H19M5 12H19M5 18H19"
                 stroke="currentColor"
-                stroke-width="2"
+                stroke-width="1.7"
                 stroke-linecap="round"
             />
-            <path
-                d="M5 12H19"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-            <path
-                d="M5 18H19"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
+
         </svg>
 
         Jornada
@@ -1627,16 +2234,24 @@ img {
         onclick="openToday()"
     >
 
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+        <svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+        >
+
             <path
-                d="M12 2
-                   C13 7 17 10 22 12
-                   C17 13 13 17 12 22
-                   C11 17 7 13 2 12
-                   C7 10 11 7 12 2Z"
+                d="
+                M12 2
+                C13 7 17 10 22 12
+                C17 13 13 17 12 22
+                C11 17 7 13 2 12
+                C7 10 11 7 12 2Z
+                "
                 stroke="currentColor"
                 stroke-width="1.5"
             />
+
         </svg>
 
         Hoje
@@ -1646,21 +2261,29 @@ img {
 
     <button
         class="nav-item"
-        onclick="alert('Favoritos em breve.')"
+        onclick="alert('Favoritos será conectado na próxima etapa.')"
     >
 
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+        <svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+        >
+
             <path
-                d="M20.8 8.7
-                   C20.8 5.7 18.5 3.5 15.6 3.5
-                   C13.9 3.5 12.4 4.3 11.5 5.6
-                   C10.6 4.3 9.1 3.5 7.4 3.5
-                   C4.5 3.5 2.2 5.7 2.2 8.7
-                   C2.2 14.1 7.4 17.3 11.5 20.3
-                   C15.6 17.3 20.8 14.1 20.8 8.7Z"
+                d="
+                M20.5 8.5
+                C20.5 5.7 18.3 3.5 15.5 3.5
+                C13.9 3.5 12.5 4.2 11.5 5.5
+                C10.5 4.2 9.1 3.5 7.5 3.5
+                C4.7 3.5 2.5 5.7 2.5 8.5
+                C2.5 13.5 7.2 17 11.5 20
+                C15.8 17 20.5 13.5 20.5 8.5Z
+                "
                 stroke="currentColor"
-                stroke-width="1.7"
+                stroke-width="1.6"
             />
+
         </svg>
 
         Favoritos
@@ -1670,17 +2293,38 @@ img {
 
     <button
         class="nav-item"
-        onclick="alert('Perfil em breve.')"
+        onclick="alert('Perfil será conectado na próxima etapa.')"
     >
 
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+        <svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+        >
+
             <circle
                 cx="12"
                 cy="12"
-                r="9"
+                r="8.5"
                 stroke="currentColor"
-                stroke-width="1.7"
+                stroke-width="1.6"
             />
+
+            <circle
+                cx="12"
+                cy="9"
+                r="2.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+            />
+
+            <path
+                d="M7.5 17C8.7 14.5 10 13.5 12 13.5C14 13.5 15.3 14.5 16.5 17"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+            />
+
         </svg>
 
         Perfil
@@ -1688,6 +2332,7 @@ img {
     </button>
 
 </nav>
+
 
 </div>
 
@@ -1699,75 +2344,70 @@ img {
 ========================================================= */
 
 let devocionais = [];
+
 let currentDay = 1;
 
-const STORAGE_PROGRESS = "doce_espirito_progress";
-const STORAGE_JOURNAL = "doce_espirito_journal";
-const STORAGE_INTRO = "doce_espirito_intro_v2";
+const STORAGE_PROGRESS =
+    "doce_espirito_progress";
+
+const STORAGE_JOURNAL =
+    "doce_espirito_journal";
+
+const STORAGE_INTRO =
+    "doce_espirito_intro_v3";
 
 
 /* =========================================================
-   CAPA
+   ENTRAR NO APP
 ========================================================= */
 
 function enterApp() {
 
-    localStorage.setItem(STORAGE_INTRO, "true");
+    localStorage.setItem(
+        STORAGE_INTRO,
+        "true"
+    );
 
-    const cover = document.getElementById("coverScreen");
+    document
+        .getElementById("coverScreen")
+        .classList.add("hidden");
 
-    cover.classList.add("hidden");
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
 }
 
 
 /* =========================================================
-   CARREGAR DEVOCIONAIS
+   TABS
 ========================================================= */
 
-async function loadDevotionals() {
+function setTab(button, tab) {
 
-    try {
-
-        const response = await fetch(
-            "devocionais.json?v=12"
+    document
+        .querySelectorAll(".tab")
+        .forEach(
+            item => item.classList.remove("active")
         );
 
-        if (!response.ok) {
-            throw new Error("Erro ao carregar devocionais.");
-        }
+    button.classList.add("active");
 
-        devocionais = await response.json();
 
-        buildJourney();
-        updateProgress();
+    document.getElementById("journeyHome")
+        .style.display =
+        tab === "journeyHome"
+            ? "block"
+            : "none";
 
-    } catch (error) {
 
-        console.error(error);
+    document.getElementById("exploreHome")
+        .style.display =
+        tab === "exploreHome"
+            ? "block"
+            : "none";
 
-        document.getElementById("journeyList").innerHTML = `
-            <div class="journey-card">
-                <div class="journey-content">
-                    <div class="journey-title">
-                        Sua jornada está sendo preparada.
-                    </div>
-                    <div class="journey-description">
-                        Não foi possível carregar os devocionais agora.
-                    </div>
-                </div>
-            </div>
-        `;
-    }
 }
 
 
 /* =========================================================
-   ETAPAS
+   ETAPAS DOS 365 DIAS
 ========================================================= */
 
 const stages = [
@@ -1776,102 +2416,352 @@ const stages = [
         start: 1,
         end: 30,
         title: "Perceber",
-        description: "Aprender a reconhecer a presença."
+        description: "Aprender a reconhecer a presença.",
+        art: "presence"
     },
 
     {
         start: 31,
         end: 60,
         title: "Aprofundar",
-        description: "Intimidade e comunhão."
+        description: "Intimidade e comunhão.",
+        art: "depth"
     },
 
     {
         start: 61,
         end: 90,
-        title: "Ser transformado",
-        description: "Mente, emoções e caráter."
+        title: "Ser Transformado",
+        description: "Mente, emoções e caráter.",
+        art: "transform"
     },
 
     {
         start: 91,
         end: 120,
         title: "Orar",
-        description: "Aprender a conversar com O Eterno."
+        description: "Conversar com O Eterno.",
+        art: "prayer"
     },
 
     {
         start: 121,
         end: 150,
         title: "Jejuar",
-        description: "Renúncia, dependência e consagração."
+        description: "Renúncia, dependência e consagração.",
+        art: "fast"
     },
 
     {
         start: 151,
         end: 180,
         title: "Viver a Palavra",
-        description: "Conhecer para obedecer."
+        description: "Conhecer para obedecer.",
+        art: "word"
     },
 
     {
         start: 181,
         end: 220,
         title: "Viver os ensinamentos de Jesus",
-        description: "Transformar ensinamentos em prática."
+        description: "Transformar ensinamentos em prática.",
+        art: "jesus"
     },
 
     {
         start: 221,
         end: 250,
-        title: "Ser guiado",
-        description: "Direção, discernimento e sensibilidade."
+        title: "Ser Guiado",
+        description: "Direção, discernimento e sensibilidade.",
+        art: "guide"
     },
 
     {
         start: 251,
         end: 290,
-        title: "Dar fruto",
-        description: "Caráter, maturidade e fruto do Espírito."
+        title: "Dar Fruto",
+        description: "Caráter, maturidade e fruto do Espírito.",
+        art: "fruit"
     },
 
     {
         start: 291,
         end: 320,
         title: "Servir",
-        description: "Dons, serviço e comunidade."
+        description: "Dons, serviço e comunidade.",
+        art: "serve"
     },
 
     {
         start: 321,
         end: 345,
         title: "Testemunhar",
-        description: "Evangelho, missão e testemunho."
+        description: "Evangelho, missão e testemunho.",
+        art: "witness"
     },
 
     {
         start: 346,
         end: 365,
         title: "Permanecer",
-        description: "Maturidade, constância e continuidade."
+        description: "Maturidade, constância e continuidade.",
+        art: "remain"
     }
 
 ];
 
 
+/* =========================================================
+   ARTES DAS ETAPAS
+========================================================= */
+
+function stageArt(type) {
+
+    const color = "#EFD19A";
+
+    const arts = {
+
+        presence: `
+            <svg viewBox="0 0 180 170" fill="none">
+                <circle cx="110" cy="82" r="55"
+                    stroke="${color}" stroke-opacity=".16"/>
+                <circle cx="110" cy="82" r="33"
+                    stroke="${color}" stroke-opacity=".24"/>
+                <path d="M110 25
+                    C114 49 130 66 153 82
+                    C130 98 114 115 110 139
+                    C106 115 90 98 67 82
+                    C90 66 106 49 110 25Z"
+                    fill="${color}" fill-opacity=".12"/>
+                <circle cx="110" cy="82" r="6"
+                    fill="${color}" fill-opacity=".65"/>
+            </svg>
+        `,
+
+        depth: `
+            <svg viewBox="0 0 180 170" fill="none">
+                <path d="M15 91
+                    C48 72 75 72 108 91
+                    C139 109 157 109 175 99"
+                    stroke="${color}" stroke-opacity=".45"
+                    stroke-width="2"/>
+                <path d="M18 112
+                    C50 94 76 94 108 112
+                    C137 128 157 128 172 119"
+                    stroke="${color}" stroke-opacity=".22"
+                    stroke-width="2"/>
+                <circle cx="105" cy="54" r="23"
+                    fill="${color}" fill-opacity=".08"
+                    stroke="${color}" stroke-opacity=".3"/>
+                <path d="M105 31V77M82 54H128"
+                    stroke="${color}" stroke-opacity=".35"/>
+            </svg>
+        `,
+
+        transform: `
+            <svg viewBox="0 0 180 170" fill="none">
+                <circle cx="108" cy="78" r="50"
+                    stroke="${color}" stroke-opacity=".12"/>
+                <path d="M83 120
+                    C83 92 88 72 108 42"
+                    stroke="${color}" stroke-width="2"
+                    stroke-opacity=".55"/>
+                <path d="M108 42
+                    C120 60 126 75 128 92"
+                    stroke="${color}" stroke-width="2"
+                    stroke-opacity=".3"/>
+                <path d="M92 82
+                    C80 72 72 62 68 50"
+                    stroke="${color}" stroke-width="2"
+                    stroke-opacity=".35"/>
+            </svg>
+        `,
+
+        prayer: `
+            <svg viewBox="0 0 180 170" fill="none">
+                <path d="M58 130
+                    C66 105 79 83 103 52"
+                    stroke="${color}" stroke-width="2"
+                    stroke-opacity=".55"/>
+                <path d="M122 130
+                    C114 105 101 83 77 52"
+                    stroke="${color}" stroke-width="2"
+                    stroke-opacity=".35"/>
+                <circle cx="90" cy="44" r="20"
+                    fill="${color}" fill-opacity=".09"
+                    stroke="${color}" stroke-opacity=".3"/>
+                <path d="M90 24V64M70 44H110"
+                    stroke="${color}" stroke-opacity=".35"/>
+            </svg>
+        `,
+
+        fast: `
+            <svg viewBox="0 0 180 170" fill="none">
+                <path d="M30 137
+                    L62 107
+                    L88 120
+                    L116 83
+                    L151 49"
+                    stroke="${color}" stroke-width="2"
+                    stroke-opacity=".5"/>
+                <path d="M138 49H151V62"
+                    stroke="${color}" stroke-width="2"
+                    stroke-opacity=".6"/>
+                <circle cx="62" cy="107" r="4"
+                    fill="${color}" fill-opacity=".35"/>
+                <circle cx="116" cy="83" r="4"
+                    fill="${color}" fill-opacity=".35"/>
+            </svg>
+        `,
+
+        word: `
+            <svg viewBox="0 0 180 170" fill="none">
+                <path d="M32 42
+                    C53 35 72 39 90 52
+                    V139
+                    C72 126 53 122 32 130Z"
+                    stroke="${color}" stroke-width="2"
+                    stroke-opacity=".5"/>
+                <path d="M148 42
+                    C127 35 108 39 90 52
+                    V139
+                    C108 126 127 122 148 130Z"
+                    stroke="${color}" stroke-width="2"
+                    stroke-opacity=".5"/>
+                <path d="M90 52V139"
+                    stroke="${color}" stroke-opacity=".3"/>
+            </svg>
+        `,
+
+        jesus: `
+            <svg viewBox="0 0 180 170" fill="none">
+                <path d="M90 28
+                    V135"
+                    stroke="${color}" stroke-opacity=".5"
+                    stroke-width="2"/>
+                <path d="M48 65
+                    H132"
+                    stroke="${color}" stroke-opacity=".5"
+                    stroke-width="2"/>
+                <circle cx="90" cy="28" r="16"
+                    fill="${color}" fill-opacity=".08"
+                    stroke="${color}" stroke-opacity=".25"/>
+            </svg>
+        `,
+
+        guide: `
+            <svg viewBox="0 0 180 170" fill="none">
+                <path d="M24 142
+                    C57 130 67 108 88 89
+                    C109 70 124 51 157 31"
+                    stroke="${color}" stroke-opacity=".55"
+                    stroke-width="2"/>
+                <path d="M141 31H157V47"
+                    stroke="${color}" stroke-opacity=".6"
+                    stroke-width="2"/>
+                <circle cx="89" cy="89" r="5"
+                    fill="${color}" fill-opacity=".35"/>
+            </svg>
+        `,
+
+        fruit: `
+            <svg viewBox="0 0 180 170" fill="none">
+                <path d="M90 140
+                    C90 111 95 85 113 51"
+                    stroke="${color}" stroke-opacity=".55"
+                    stroke-width="2"/>
+                <path d="M91 102
+                    C72 93 59 78 52 60
+                    C72 63 86 73 96 88"
+                    stroke="${color}" stroke-opacity=".4"
+                    stroke-width="2"/>
+                <circle cx="115" cy="53" r="15"
+                    fill="${color}" fill-opacity=".12"
+                    stroke="${color}" stroke-opacity=".35"/>
+                <circle cx="68" cy="72" r="12"
+                    fill="${color}" fill-opacity=".10"
+                    stroke="${color}" stroke-opacity=".28"/>
+            </svg>
+        `,
+
+        serve: `
+            <svg viewBox="0 0 180 170" fill="none">
+                <path d="M35 111
+                    C53 94 70 87 90 91
+                    C110 95 128 108 146 126"
+                    stroke="${color}" stroke-opacity=".5"
+                    stroke-width="2"/>
+                <path d="M61 120
+                    C73 108 84 105 95 108"
+                    stroke="${color}" stroke-opacity=".3"
+                    stroke-width="2"/>
+                <circle cx="90" cy="65" r="23"
+                    fill="${color}" fill-opacity=".08"
+                    stroke="${color}" stroke-opacity=".28"/>
+            </svg>
+        `,
+
+        witness: `
+            <svg viewBox="0 0 180 170" fill="none">
+                <circle cx="90" cy="83" r="18"
+                    fill="${color}" fill-opacity=".15"/>
+                <circle cx="90" cy="83" r="42"
+                    stroke="${color}" stroke-opacity=".24"/>
+                <circle cx="90" cy="83" r="65"
+                    stroke="${color}" stroke-opacity=".10"/>
+                <path d="M90 61V105M68 83H112"
+                    stroke="${color}" stroke-opacity=".45"/>
+            </svg>
+        `,
+
+        remain: `
+            <svg viewBox="0 0 180 170" fill="none">
+                <path d="M90 35
+                    C77 59 62 72 62 99
+                    C62 125 75 140 90 140
+                    C105 140 118 125 118 99
+                    C118 72 103 59 90 35Z"
+                    stroke="${color}" stroke-opacity=".45"
+                    stroke-width="2"/>
+                <path d="M90 69
+                    C84 81 78 88 78 99
+                    C78 108 83 114 90 114
+                    C97 114 102 108 102 99
+                    C102 88 96 81 90 69Z"
+                    fill="${color}" fill-opacity=".16"/>
+            </svg>
+        `
+
+    };
+
+    return arts[type] || arts.presence;
+}
+
+
+/* =========================================================
+   CONSTRUIR JORNADA
+========================================================= */
+
 function buildJourney() {
 
-    const list = document.getElementById("journeyList");
+    const list =
+        document.getElementById("journeyList");
 
     list.innerHTML = "";
 
-    stages.forEach((stage, index) => {
+    stages.forEach(stage => {
 
-        const card = document.createElement("article");
+        const card =
+            document.createElement("article");
 
-        card.className = "journey-card";
+        card.className =
+            "journey-card";
 
         card.innerHTML = `
+
+            <div class="journey-art">
+                ${stageArt(stage.art)}
+            </div>
 
             <div class="journey-content">
 
@@ -1893,11 +2783,8 @@ function buildJourney() {
 
         `;
 
-        card.addEventListener("click", () => {
-
-            openDay(stage.start);
-
-        });
+        card.onclick =
+            () => openDay(stage.start);
 
         list.appendChild(card);
 
@@ -1907,31 +2794,79 @@ function buildJourney() {
 
 
 /* =========================================================
-   ABRIR DIA
+   CARREGAR DEVOCIONAIS
+========================================================= */
+
+async function loadDevotionals() {
+
+    try {
+
+        const response =
+            await fetch(
+                "devocionais.json?v=13"
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Não foi possível carregar os devocionais."
+            );
+        }
+
+        devocionais =
+            await response.json();
+
+        buildJourney();
+
+        updateProgress();
+
+    } catch (error) {
+
+        console.error(error);
+
+        buildJourney();
+
+    }
+
+}
+
+
+/* =========================================================
+   ABRIR HOJE
 ========================================================= */
 
 function openToday() {
 
-    const progress = parseInt(
-        localStorage.getItem(STORAGE_PROGRESS) || "0"
-    );
+    const progress =
+        parseInt(
+            localStorage.getItem(
+                STORAGE_PROGRESS
+            ) || "0"
+        );
 
-    const day = Math.min(
-        progress + 1,
-        365
-    );
+    const day =
+        Math.min(
+            progress + 1,
+            365
+        );
 
     openDay(day);
+
 }
 
+
+/* =========================================================
+   ABRIR DIA
+========================================================= */
 
 function openDay(day) {
 
     currentDay = day;
 
-    const item = devocionais.find(
-        d => Number(d.dia) === Number(day)
-    );
+    const item =
+        devocionais.find(
+            d =>
+                Number(d.dia) === Number(day)
+        );
 
     if (!item) {
 
@@ -1943,55 +2878,71 @@ function openDay(day) {
     }
 
 
-    document.getElementById("homeScreen")
+    document
+        .getElementById("homeScreen")
         .classList.remove("active");
 
-    document.getElementById("devotionalScreen")
+
+    document
+        .getElementById("devotionalScreen")
         .classList.add("active");
 
 
-    document.getElementById("devotionalDay")
+    document
+        .getElementById("devotionalDay")
         .textContent =
         "DIA " +
         String(item.dia).padStart(2,"0");
 
 
-    document.getElementById("devotionalTitle")
+    document
+        .getElementById("devotionalTitle")
         .textContent =
         item.titulo || "";
 
 
-    document.getElementById("devotionalReference")
+    document
+        .getElementById("devotionalReference")
         .textContent =
         item.referencia || "";
 
 
-    document.getElementById("devotionalReflection")
+    document
+        .getElementById("devotionalReflection")
         .textContent =
-        item.reflexao || item.introducao || "";
+        item.reflexao ||
+        item.introducao ||
+        "";
 
 
-    document.getElementById("devotionalPractice")
+    document
+        .getElementById("devotionalPractice")
         .textContent =
         item.pratica || "";
 
 
-    document.getElementById("devotionalQuestion")
+    document
+        .getElementById("devotionalQuestion")
         .textContent =
         item.pergunta || "";
 
 
-    document.getElementById("devotionalPrayer")
+    document
+        .getElementById("devotionalPrayer")
         .textContent =
         item.oracao || "";
 
 
     const journals =
         JSON.parse(
-            localStorage.getItem(STORAGE_JOURNAL) || "{}"
+            localStorage.getItem(
+                STORAGE_JOURNAL
+            ) || "{}"
         );
 
-    document.getElementById("journal")
+
+    document
+        .getElementById("journal")
         .value =
         journals[day] || "";
 
@@ -2005,16 +2956,20 @@ function openDay(day) {
 
 
 /* =========================================================
-   VOLTAR
+   VOLTAR PARA HOME
 ========================================================= */
 
 function showHome() {
 
-    document.getElementById("devotionalScreen")
+    document
+        .getElementById("devotionalScreen")
         .classList.remove("active");
 
-    document.getElementById("homeScreen")
+
+    document
+        .getElementById("homeScreen")
         .classList.add("active");
+
 
     window.scrollTo({
         top: 0,
@@ -2025,7 +2980,7 @@ function showHome() {
 
 
 /* =========================================================
-   JORNADA
+   IR PARA JORNADA
 ========================================================= */
 
 function scrollToJourney() {
@@ -2034,54 +2989,63 @@ function scrollToJourney() {
 
     setTimeout(() => {
 
-        const journey =
-            document.getElementById("journeyList");
+        document
+            .getElementById("journeySection")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
 
-        journey.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-
-    }, 150);
+    }, 120);
 
 }
 
 
 /* =========================================================
-   SALVAR DIÁRIO
+   DIÁRIO
 ========================================================= */
 
 function saveJournal() {
 
     const journals =
         JSON.parse(
-            localStorage.getItem(STORAGE_JOURNAL) || "{}"
+            localStorage.getItem(
+                STORAGE_JOURNAL
+            ) || "{}"
         );
 
+
     journals[currentDay] =
-        document.getElementById("journal").value;
+        document
+            .getElementById("journal")
+            .value;
+
 
     localStorage.setItem(
         STORAGE_JOURNAL,
         JSON.stringify(journals)
     );
 
-    alert("Seu registro foi salvo.");
 
+    alert(
+        "Seu registro foi salvo."
+    );
 
 }
 
 
 /* =========================================================
-   CONCLUIR DIA
+   CONCLUIR
 ========================================================= */
 
 function completeDay() {
 
     const previous =
         parseInt(
-            localStorage.getItem(STORAGE_PROGRESS) || "0"
+            localStorage.getItem(
+                STORAGE_PROGRESS
+            ) || "0"
         );
+
 
     if (currentDay > previous) {
 
@@ -2092,7 +3056,9 @@ function completeDay() {
 
     }
 
+
     updateProgress();
+
 
     alert(
         "Dia concluído. Continue permanecendo na presença."
@@ -2109,8 +3075,11 @@ function updateProgress() {
 
     const progress =
         parseInt(
-            localStorage.getItem(STORAGE_PROGRESS) || "0"
+            localStorage.getItem(
+                STORAGE_PROGRESS
+            ) || "0"
         );
+
 
     const percentage =
         Math.min(
@@ -2118,13 +3087,32 @@ function updateProgress() {
             100
         );
 
-    document.getElementById("progressText")
-        .textContent =
-        `${progress} de 365`;
 
-    document.getElementById("progressFill")
-        .style.width =
-        `${percentage}%`;
+    const text =
+        document.getElementById(
+            "progressText"
+        );
+
+    const fill =
+        document.getElementById(
+            "progressFill"
+        );
+
+
+    if (text) {
+
+        text.textContent =
+            `${progress} de 365`;
+
+    }
+
+
+    if (fill) {
+
+        fill.style.width =
+            `${percentage}%`;
+
+    }
 
 }
 
@@ -2141,20 +3129,19 @@ document.addEventListener(
 
         updateProgress();
 
-        /*
-         * A capa aparece na primeira entrada.
-         * Depois que o usuário clicar em COMEÇAR,
-         * não precisa reaparecer.
-         */
 
         const alreadyEntered =
-            localStorage.getItem(STORAGE_INTRO);
+            localStorage.getItem(
+                STORAGE_INTRO
+            );
+
 
         if (alreadyEntered) {
 
             document
                 .getElementById("coverScreen")
-                .classList.add("hidden");
+                .classList
+                .add("hidden");
 
         }
 
