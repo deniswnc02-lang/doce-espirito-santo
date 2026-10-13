@@ -1,74 +1,73 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0D0A08">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-<title>Doce Espírito Santo — Um Amigo Íntimo</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,
+    initial-scale=1.0,
+    maximum-scale=1.0,
+    user-scalable=no,
+    viewport-fit=cover"
+>
+
+<meta
+    name="theme-color"
+    content="#110904"
+>
+
+<meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+>
+
+<meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent"
+>
+
+<title>
+Doce Espírito Santo — Um Amigo Íntimo
+</title>
+
 
 <style>
 
 /* =========================================================
-   BASE
+   RESET
 ========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
-
-:root {
-    --bg: #0d0a08;
-    --bg-soft: #15100c;
-    --card: #1c1510;
-    --card-light: #241b14;
-
-    --gold: #d5a64d;
-    --gold-light: #efd19a;
-    --cream: #f5eee5;
-    --text: #e9dfd3;
-    --muted: #9f958b;
-
-    --line: rgba(239, 209, 154, 0.16);
-
-    --serif: "Cormorant Garamond", Georgia, serif;
-    --sans: "Inter", Arial, sans-serif;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
 }
 
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+html,
+body{
+
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
+
+    background:#110904;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        sans-serif;
+
 }
 
-html {
-    background: var(--bg);
-    scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
-    background:
-        radial-gradient(
-            circle at 85% 0%,
-            rgba(211, 165, 73, 0.08),
-            transparent 30%
-        ),
-        var(--bg);
-
-    color: var(--text);
-    font-family: var(--sans);
-
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-button {
-    font-family: inherit;
-    cursor: pointer;
-}
-
-button:active {
-    transform: scale(0.98);
+button{
+    font-family:inherit;
 }
 
 
@@ -76,238 +75,305 @@ button:active {
    CAPA
 ========================================================= */
 
-#coverScreen {
-    position: fixed;
-    inset: 0;
+#introScreen{
 
-    z-index: 9999;
+    position:fixed;
 
-    display: flex;
-    align-items: flex-end;
+    inset:0;
 
-    padding:
-        40px 26px
-        calc(32px + env(safe-area-inset-bottom));
+    z-index:9999;
 
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(8, 5, 3, 0.03) 10%,
-            rgba(8, 5, 3, 0.16) 42%,
-            rgba(8, 5, 3, 0.82) 82%,
-            rgba(8, 5, 3, 0.98) 100%
-        ),
-        url("capa.jpeg") center center / cover no-repeat;
+    background:#110904;
+
+    overflow:hidden;
 
     transition:
         opacity .7s ease,
         visibility .7s ease;
-}
 
-#coverScreen.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.cover-content {
-    position: relative;
-    z-index: 2;
-
-    width: 100%;
-    max-width: 620px;
-    margin: auto auto 0;
-}
-
-.cover-kicker {
-    color: var(--gold-light);
-
-    text-transform: uppercase;
-    letter-spacing: 5px;
-
-    font-size: 10px;
-    font-weight: 600;
-
-    margin-bottom: 16px;
-}
-
-.cover-title {
-    margin: 0;
-
-    font-family: var(--serif);
-
-    font-size: clamp(54px, 15vw, 92px);
-    line-height: .84;
-
-    font-weight: 500;
-
-    color: #fff8ef;
-}
-
-.cover-subtitle {
-    margin-top: 20px;
-
-    font-family: var(--serif);
-
-    font-size: 28px;
-
-    color: var(--gold-light);
-}
-
-.cover-text {
-    max-width: 500px;
-
-    margin: 20px 0 27px;
-
-    color: rgba(247, 240, 231, .78);
-
-    font-size: 14px;
-    line-height: 1.7;
-}
-
-.cover-button {
-    width: 100%;
-    max-width: 360px;
-
-    border: 0;
-    border-radius: 17px;
-
-    padding: 18px 22px;
-
-    background: var(--gold);
-    color: #21170d;
-
-    font-weight: 700;
-    letter-spacing: .5px;
-
-    box-shadow:
-        0 12px 40px rgba(0,0,0,.30);
 }
 
 
-/* =========================================================
-   APP HEADER
-========================================================= */
+#introScreen.hidden{
 
-#app {
-    min-height: 100vh;
-    padding-bottom: 105px;
+    opacity:0;
+
+    visibility:hidden;
+
+    pointer-events:none;
+
 }
 
-.app-header {
-    position: sticky;
-    top: 0;
 
-    z-index: 500;
+/*
+   A CAPA ORIGINAL.
+   Nenhum texto é colocado dentro da imagem.
+*/
 
-    min-height: 108px;
+.coverImage{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    object-position:center center;
+
+}
+
+
+/*
+   Área inferior da capa.
+   É transparente para não esconder a arte.
+*/
+
+.coverAction{
+
+    position:absolute;
+
+    left:0;
+    right:0;
+
+    bottom:6%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:5;
 
     padding:
-        calc(18px + env(safe-area-inset-top))
-        24px 16px;
+        0 28px
+        env(safe-area-inset-bottom);
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    background:
-        rgba(13, 10, 8, .92);
-
-    border-bottom:
-        1px solid rgba(255,255,255,.045);
-
-    backdrop-filter: blur(20px);
 }
 
-.brand {
-    display: flex;
-    align-items: center;
 
-    gap: 14px;
+/*
+   FRASE CRIADA PELO CÓDIGO
+*/
+
+.coverPhrase{
+
+    max-width:330px;
+
+    margin-bottom:18px;
+
+    text-align:center;
+
+    color:#f6e6ca;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:15px;
+
+    line-height:1.45;
+
+    text-shadow:
+        0 2px 12px rgba(0,0,0,.85);
+
 }
 
-.brand-symbol {
-    width: 52px;
-    height: 52px;
 
-    flex-shrink: 0;
+/*
+   BOTÃO REAL
+*/
 
-    border-radius: 18px;
+.startButton{
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width:min(330px, 86vw);
+
+    height:58px;
+
+    border:none;
+
+    border-radius:40px;
+
+    cursor:pointer;
+
+    color:#241508;
 
     background:
-        radial-gradient(
-            circle,
-            rgba(239,209,154,.18),
-            rgba(239,209,154,.02) 70%
+        linear-gradient(
+            135deg,
+            #e7b967,
+            #f5d18c,
+            #d69a42
         );
 
-    border:
-        1px solid rgba(239,209,154,.22);
+    font-size:15px;
+
+    font-weight:800;
+
+    letter-spacing:.7px;
+
+    box-shadow:
+        0 10px 35px
+        rgba(0,0,0,.45),
+
+        0 0 30px
+        rgba(221,169,83,.22);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+
 }
 
-.brand-symbol svg {
-    width: 30px;
-    height: 30px;
-}
 
-.brand-title {
-    font-family: var(--serif);
+.startButton:active{
 
-    color: var(--cream);
+    transform:scale(.96);
 
-    font-size: 23px;
-    line-height: .95;
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.5);
 
-    font-weight: 600;
-}
-
-.brand-subtitle {
-    margin-top: 6px;
-
-    color: var(--muted);
-
-    font-size: 12px;
-}
-
-.search-button {
-    width: 48px;
-    height: 48px;
-
-    border-radius: 50%;
-
-    border:
-        1px solid rgba(255,255,255,.07);
-
-    background:
-        rgba(255,255,255,.02);
-
-    color: var(--cream);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.search-button svg {
-    width: 20px;
 }
 
 
 /* =========================================================
-   CONTAINER
+   APP
 ========================================================= */
 
-.container {
-    width: min(100%, 1000px);
+#app{
 
-    margin: 0 auto;
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    flex-direction:column;
+
+    color:#fff;
+
+    background:
+
+        radial-gradient(
+            circle at 50% -20%,
+            rgba(173,113,50,.20),
+            transparent 45%
+        ),
+
+        #15110d;
+
+    overflow:hidden;
+
+}
+
+
+#app.visible{
+
+    display:flex;
+
+}
+
+
+/* =========================================================
+   ÁREA DE CONTEÚDO
+========================================================= */
+
+.appContent{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
 
     padding:
-        28px 24px 40px;
+
+        max(28px, env(safe-area-inset-top))
+        18px
+        110px;
+
+    scroll-behavior:smooth;
+
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.topHeader{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:20px;
+
+}
+
+
+.brandSmall{
+
+    display:block;
+
+    margin-bottom:5px;
+
+    color:#c8a263;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+}
+
+
+.brandTitle{
+
+    display:block;
+
+    color:#f4e5cd;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:25px;
+
+    line-height:1;
+
+}
+
+
+.searchButton{
+
+    width:42px;
+
+    height:42px;
+
+    border:1px solid
+        rgba(255,255,255,.10);
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.06);
+
+    color:#eee;
+
+    font-size:20px;
+
 }
 
 
@@ -315,151 +381,140 @@ button:active {
    TABS
 ========================================================= */
 
-.tabs {
-    display: flex;
+.tabs{
 
-    width: 100%;
+    display:flex;
 
-    padding: 4px;
+    gap:6px;
 
-    margin-bottom: 28px;
+    padding:5px;
+
+    margin-bottom:25px;
+
+    border-radius:18px;
 
     background:
-        rgba(255,255,255,.035);
+        rgba(255,255,255,.06);
 
-    border:
-        1px solid rgba(255,255,255,.05);
-
-    border-radius: 15px;
 }
 
-.tab {
-    flex: 1;
 
-    border: 0;
+.tab{
 
-    border-radius: 11px;
+    flex:1;
 
-    padding: 12px;
+    height:42px;
 
-    background: transparent;
+    border:0;
 
-    color: var(--muted);
+    border-radius:14px;
 
-    font-size: 13px;
+    background:transparent;
+
+    color:#aaa;
+
+    font-size:14px;
+
+    font-weight:600;
+
 }
 
-.tab.active {
-    background: rgba(213,166,77,.13);
 
-    color: var(--gold-light);
+.tab.active{
+
+    background:#f1ede7;
+
+    color:#26170d;
+
 }
 
 
 /* =========================================================
-   HOME HERO
+   HERO
 ========================================================= */
 
-.hero {
-    position: relative;
+.hero{
 
-    min-height: 455px;
+    position:relative;
 
-    overflow: hidden;
+    height:250px;
 
-    border-radius: 34px;
+    overflow:hidden;
 
-    border:
-        1px solid rgba(239,209,154,.17);
+    margin-bottom:30px;
 
-    display: flex;
-    align-items: flex-end;
+    border-radius:25px;
 
-    padding: 34px;
+    background-image:
 
-    background:
         linear-gradient(
-            90deg,
-            rgba(16,10,6,.95) 0%,
-            rgba(16,10,6,.76) 47%,
-            rgba(16,10,6,.25) 100%
+            180deg,
+            transparent 20%,
+            rgba(0,0,0,.88) 100%
         ),
-        url("capa.jpeg") center / cover no-repeat;
+
+        url("capa.jpeg");
+
+    background-size:cover;
+
+    background-position:center;
+
 }
 
-.hero::after {
-    content: "";
 
-    position: absolute;
-    inset: 0;
+.heroContent{
 
-    background:
-        radial-gradient(
-            circle at 76% 18%,
-            rgba(239,209,154,.18),
-            transparent 25%
-        );
+    position:absolute;
 
-    pointer-events: none;
+    left:20px;
+    right:20px;
+
+    bottom:20px;
+
 }
 
-.hero-content {
-    position: relative;
-    z-index: 2;
 
-    max-width: 610px;
+.heroLabel{
+
+    margin-bottom:7px;
+
+    color:#e0b76d;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
 }
 
-.eyebrow {
-    color: var(--gold-light);
 
-    font-size: 10px;
+.heroTitle{
 
-    text-transform: uppercase;
+    margin-bottom:8px;
 
-    letter-spacing: 4px;
+    color:#fff;
 
-    font-weight: 600;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:29px;
+
+    line-height:1.05;
+
 }
 
-.hero-title {
-    margin: 16px 0 15px;
 
-    font-family: var(--serif);
+.heroText{
 
-    font-size: clamp(53px, 13vw, 84px);
+    color:#ddd;
 
-    line-height: .84;
+    font-size:13px;
 
-    font-weight: 500;
+    line-height:1.45;
 
-    color: #fff8ef;
-}
-
-.hero-text {
-    max-width: 570px;
-
-    color: rgba(247,240,231,.77);
-
-    font-size: 15px;
-
-    line-height: 1.7;
-}
-
-.primary-button {
-    margin-top: 25px;
-
-    border: 0;
-
-    border-radius: 15px;
-
-    padding: 16px 22px;
-
-    background: var(--gold);
-
-    color: #21170d;
-
-    font-weight: 700;
 }
 
 
@@ -467,336 +522,483 @@ button:active {
    PROGRESSO
 ========================================================= */
 
-.progress-card {
-    margin-top: 18px;
+.progressCard{
 
-    padding: 23px;
+    padding:18px;
 
-    border-radius: 25px;
+    margin-bottom:31px;
+
+    border:1px solid
+        rgba(255,255,255,.07);
+
+    border-radius:21px;
 
     background:
         linear-gradient(
-            145deg,
-            rgba(255,255,255,.035),
-            rgba(255,255,255,.012)
+            135deg,
+            rgba(145,93,40,.22),
+            rgba(255,255,255,.035)
         );
 
-    border:
-        1px solid rgba(255,255,255,.055);
 }
 
-.progress-top {
-    display: flex;
 
-    justify-content: space-between;
+.progressTop{
 
-    margin-bottom: 14px;
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:12px;
+
 }
 
-.progress-label {
-    color: var(--muted);
 
-    font-size: 13px;
+.progressTitle{
+
+    font-size:14px;
+
+    font-weight:700;
+
 }
 
-.progress-number {
-    color: var(--gold-light);
 
-    font-size: 13px;
+.progressNumber{
 
-    font-weight: 600;
+    color:#d7b36c;
+
+    font-size:12px;
+
 }
 
-.progress-bar {
-    height: 6px;
 
-    overflow: hidden;
+.progressBar{
 
-    border-radius: 50px;
+    width:100%;
 
-    background: rgba(255,255,255,.06);
+    height:7px;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,.10);
+
 }
 
-.progress-fill {
-    width: 0;
-    height: 100%;
 
-    border-radius: inherit;
+.progressFill{
+
+    width:0%;
+
+    height:100%;
+
+    border-radius:20px;
 
     background:
         linear-gradient(
             90deg,
-            #9b6d29,
-            #ebc979
+            #96622d,
+            #e2b866
         );
 
-    transition: width .5s ease;
+    transition:width .5s ease;
+
 }
 
 
 /* =========================================================
-   SEÇÕES
+   TÍTULOS
 ========================================================= */
 
-.section {
-    margin-top: 55px;
+.sectionHeader{
+
+    display:flex;
+
+    align-items:end;
+
+    justify-content:space-between;
+
+    margin-bottom:14px;
+
 }
 
-.section-head {
-    margin-bottom: 20px;
+
+.sectionTitle{
+
+    color:#f3e5ce;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:24px;
+
 }
 
-.section-kicker {
-    color: var(--gold);
 
-    text-transform: uppercase;
+.sectionMore{
 
-    letter-spacing: 3px;
+    color:#b89962;
 
-    font-size: 9px;
+    font-size:11px;
 
-    font-weight: 700;
-
-    margin-bottom: 7px;
-}
-
-.section-title {
-    margin: 0;
-
-    color: var(--cream);
-
-    font-family: var(--serif);
-
-    font-size: 42px;
-
-    line-height: .95;
-
-    font-weight: 500;
-}
-
-.section-description {
-    margin-top: 8px;
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-    line-height: 1.6;
 }
 
 
 /* =========================================================
-   PILARES
+   CARDS FOTOGRÁFICOS
 ========================================================= */
 
-.pillars {
-    display: grid;
+.photoGrid{
+
+    display:grid;
 
     grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+        repeat(2, minmax(0,1fr));
 
-    gap: 14px;
+    gap:12px;
+
+    margin-bottom:34px;
+
 }
 
-.pillar {
-    position: relative;
 
-    min-height: 225px;
+.photoCard{
 
-    overflow: hidden;
+    position:relative;
 
-    border-radius: 27px;
+    height:190px;
 
-    border:
-        1px solid rgba(255,255,255,.07);
+    overflow:hidden;
 
-    padding: 22px;
+    border-radius:21px;
 
-    display: flex;
-    align-items: flex-end;
+    cursor:pointer;
+
+    isolation:isolate;
+
+    background:#302217;
+
+}
+
+
+/*
+   FOTOGRAFIA
+*/
+
+.photoCard::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+        var(--image);
+
+    background-size:cover;
+
+    background-position:center;
+
+    z-index:-2;
+
+    transition:
+        transform .5s ease;
+
+}
+
+
+.photoCard::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:-1;
 
     background:
+
         linear-gradient(
-            to top,
-            rgba(12,8,5,.96) 0%,
-            rgba(12,8,5,.67) 48%,
-            rgba(12,8,5,.15) 100%
+            180deg,
+            rgba(0,0,0,.02) 20%,
+            rgba(0,0,0,.82) 100%
         );
+
 }
 
-.pillar::before {
-    content: "";
 
-    position: absolute;
-    inset: 0;
+.photoCard:active::before{
 
-    opacity: .88;
+    transform:scale(1.06);
 
-    background:
-        radial-gradient(
-            circle at 72% 23%,
-            rgba(239,209,154,.20),
-            transparent 25%
-        );
 }
 
-.pillar-art {
-    position: absolute;
 
-    inset: 0;
+.photoContent{
 
-    display: flex;
+    position:absolute;
 
-    align-items: center;
-    justify-content: center;
+    left:15px;
+    right:15px;
 
-    opacity: .72;
+    bottom:15px;
 
-    pointer-events: none;
 }
 
-.pillar-art svg {
-    width: 125px;
-    height: 125px;
+
+.photoLabel{
+
+    margin-bottom:5px;
+
+    color:#e4bb70;
+
+    font-size:9px;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+
 }
 
-.pillar-content {
-    position: relative;
-    z-index: 2;
+
+.photoTitle{
+
+    margin-bottom:5px;
+
+    color:#fff;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:21px;
+
+    line-height:1.05;
+
 }
 
-.pillar-number {
-    color: var(--gold);
 
-    font-size: 9px;
+.photoDescription{
 
-    letter-spacing: 3px;
+    color:#e0e0e0;
 
-    font-weight: 700;
+    font-size:10px;
 
-    margin-bottom: 6px;
-}
+    line-height:1.35;
 
-.pillar-title {
-    margin: 0;
-
-    font-family: var(--serif);
-
-    color: var(--cream);
-
-    font-size: 31px;
-
-    font-weight: 500;
-}
-
-.pillar-text {
-    margin-top: 4px;
-
-    color: rgba(232,223,211,.68);
-
-    font-size: 12px;
-
-    line-height: 1.5;
 }
 
 
 /* =========================================================
-   JORNADA
+   JORNADA HORIZONTAL
 ========================================================= */
 
-.journey-list {
-    display: flex;
+.journeyList{
 
-    flex-direction: column;
+    display:flex;
 
-    gap: 13px;
+    gap:12px;
+
+    overflow-x:auto;
+
+    padding-bottom:10px;
+
+    margin-bottom:30px;
+
+    scrollbar-width:none;
+
 }
 
-.journey-card {
-    position: relative;
 
-    min-height: 170px;
+.journeyList::-webkit-scrollbar{
 
-    overflow: hidden;
+    display:none;
 
-    border-radius: 28px;
+}
 
-    border:
-        1px solid rgba(255,255,255,.065);
 
-    padding: 25px;
+.journeyCard{
 
-    display: flex;
+    position:relative;
 
-    align-items: flex-end;
+    flex:0 0 275px;
+
+    height:175px;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    background:#2a1c12;
+
+}
+
+
+.journeyCard::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+        var(--image);
+
+    background-size:cover;
+
+    background-position:center;
+
+    z-index:-2;
+
+}
+
+
+.journeyCard::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:-1;
 
     background:
         linear-gradient(
-            90deg,
-            rgba(19,12,8,.96),
-            rgba(19,12,8,.65)
+            180deg,
+            transparent 15%,
+            rgba(0,0,0,.86) 100%
         );
+
 }
 
-.journey-art {
-    position: absolute;
 
-    right: 15px;
-    top: 0;
+.journeyContent{
 
-    width: 180px;
-    height: 100%;
+    position:absolute;
 
-    opacity: .65;
+    left:17px;
+    right:17px;
+
+    bottom:16px;
+
 }
 
-.journey-art svg {
-    width: 100%;
-    height: 100%;
+
+.journeyNumber{
+
+    margin-bottom:5px;
+
+    color:#dfb76b;
+
+    font-size:9px;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+
 }
 
-.journey-content {
-    position: relative;
 
-    z-index: 2;
+.journeyTitle{
 
-    max-width: 72%;
+    margin-bottom:5px;
+
+    color:#fff;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:23px;
+
 }
 
-.journey-days {
-    color: var(--gold);
 
-    font-size: 9px;
+.journeyDescription{
 
-    letter-spacing: 3px;
+    color:#ddd;
 
-    font-weight: 700;
+    font-size:11px;
 
-    margin-bottom: 7px;
 }
 
-.journey-title {
-    margin: 0;
 
-    font-family: var(--serif);
+/* =========================================================
+   NAVEGAÇÃO
+========================================================= */
 
-    font-size: 35px;
+.bottomNav{
 
-    line-height: .95;
+    position:fixed;
 
-    color: var(--cream);
+    left:0;
+    right:0;
+    bottom:0;
 
-    font-weight: 500;
+    z-index:100;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    height:
+        calc(72px + env(safe-area-inset-bottom));
+
+    padding:
+        7px
+        8px
+        env(safe-area-inset-bottom);
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.08);
+
+    background:
+        rgba(27,21,16,.96);
+
+    backdrop-filter:blur(20px);
+
 }
 
-.journey-description {
-    margin-top: 6px;
 
-    color: var(--muted);
+.navItem{
 
-    font-size: 12px;
+    display:flex;
 
-    line-height: 1.5;
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+
+    border:0;
+
+    background:transparent;
+
+    color:#8f8b87;
+
+    font-size:10px;
+
+}
+
+
+.navItem.active{
+
+    color:#e0b567;
+
 }
 
 
@@ -804,276 +1006,245 @@ button:active {
    DEVOCIONAL
 ========================================================= */
 
-.screen {
-    display: none;
-}
+#devotionalScreen{
 
-.screen.active {
-    display: block;
-}
+    position:fixed;
 
-.back-button {
-    border: 0;
+    inset:0;
 
-    background: none;
+    z-index:500;
 
-    color: var(--gold);
+    display:none;
 
-    padding: 5px 0;
+    flex-direction:column;
 
-    font-size: 13px;
+    background:#f5efe5;
 
-    margin-bottom: 28px;
-}
+    color:#23170e;
 
-.devotional-day {
-    color: var(--gold);
-
-    font-size: 10px;
-
-    letter-spacing: 3px;
-
-    font-weight: 700;
-}
-
-.devotional-title {
-    margin: 13px 0 8px;
-
-    font-family: var(--serif);
-
-    color: var(--cream);
-
-    font-size: clamp(46px, 11vw, 74px);
-
-    line-height: .88;
-
-    font-weight: 500;
-}
-
-.devotional-reference {
-    color: var(--gold-light);
-
-    font-size: 13px;
-}
-
-.devotional-card {
-    position: relative;
-
-    overflow: hidden;
-
-    margin-top: 28px;
-
-    padding: 28px;
-
-    border-radius: 29px;
-
-    border:
-        1px solid rgba(239,209,154,.13);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(30,21,14,.96),
-            rgba(22,15,10,.94)
-        );
-}
-
-.devotional-card::after {
-    content: "";
-
-    position: absolute;
-
-    width: 250px;
-    height: 250px;
-
-    right: -100px;
-    top: -100px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(239,209,154,.13),
-            transparent 70%
-        );
-
-    pointer-events: none;
-}
-
-.devotional-card h3 {
-    position: relative;
-    z-index: 2;
-
-    margin: 0 0 10px;
-
-    font-family: var(--serif);
-
-    font-size: 30px;
-
-    color: var(--cream);
-
-    font-weight: 500;
-}
-
-.devotional-card p {
-    position: relative;
-    z-index: 2;
-
-    color: var(--text);
-
-    font-size: 15px;
-
-    line-height: 1.8;
-}
-
-.question {
-    position: relative;
-    z-index: 2;
-
-    margin-top: 27px;
-
-    padding: 20px;
-
-    border-left:
-        2px solid var(--gold);
-
-    border-radius: 0 18px 18px 0;
-
-    background:
-        rgba(255,255,255,.025);
-}
-
-.question strong {
-    color: var(--gold-light);
-}
-
-.journal {
-    position: relative;
-    z-index: 2;
-
-    width: 100%;
-
-    min-height: 170px;
-
-    resize: vertical;
-
-    border-radius: 17px;
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    background:
-        rgba(0,0,0,.22);
-
-    color: var(--cream);
-
-    padding: 16px;
-
-    font-family: var(--sans);
-
-    outline: none;
-}
-
-.actions {
-    position: relative;
-    z-index: 2;
-
-    display: flex;
-
-    gap: 10px;
-
-    flex-wrap: wrap;
-
-    margin-top: 20px;
-}
-
-.action {
-    border-radius: 14px;
-
-    padding: 14px 18px;
-
-    border:
-        1px solid rgba(239,209,154,.18);
-
-    background:
-        rgba(239,209,154,.07);
-
-    color: var(--gold-light);
-
-    font-size: 12px;
-
-    font-weight: 600;
-}
-
-.action.primary {
-    background: var(--gold);
-
-    color: #21170d;
-
-    border-color: transparent;
 }
 
 
-/* =========================================================
-   BOTTOM NAV
-========================================================= */
+#devotionalScreen.open{
 
-.bottom-nav {
-    position: fixed;
+    display:flex;
 
-    left: 0;
-    right: 0;
-    bottom: 0;
+}
 
-    z-index: 800;
 
-    height:
-        calc(76px + env(safe-area-inset-bottom));
+.devotionalTop{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
 
     padding:
-        8px 10px
-        calc(8px + env(safe-area-inset-bottom));
+        max(17px, env(safe-area-inset-top))
+        18px
+        12px;
 
-    display: flex;
-
-    background:
-        rgba(12,9,7,.96);
-
-    border-top:
-        1px solid rgba(255,255,255,.05);
-
-    backdrop-filter: blur(22px);
 }
 
-.nav-item {
-    flex: 1;
 
-    border: 0;
+.backButton{
 
-    background: transparent;
+    width:42px;
 
-    color: #81776e;
+    height:42px;
 
-    display: flex;
+    border:0;
 
-    flex-direction: column;
+    border-radius:50%;
 
-    align-items: center;
-    justify-content: center;
+    background:#e8ddcf;
 
-    gap: 5px;
+    color:#352519;
 
-    font-size: 9px;
+    font-size:20px;
+
 }
 
-.nav-item.active {
-    color: var(--gold-light);
+
+.dayBadge{
+
+    color:#96723e;
+
+    font-size:11px;
+
+    font-weight:800;
+
 }
 
-.nav-icon {
-    width: 21px;
-    height: 21px;
+
+.devotionalScroll{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:
+        0 20px 50px;
+
+}
+
+
+.devotionalTitle{
+
+    margin:
+        10px 0 12px;
+
+    color:#26170e;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:34px;
+
+    line-height:1.08;
+
+}
+
+
+.reference{
+
+    margin-bottom:25px;
+
+    color:#997442;
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+
+.block{
+
+    margin-bottom:25px;
+
+}
+
+
+.blockTitle{
+
+    margin-bottom:8px;
+
+    color:#997442;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:1.4px;
+
+    text-transform:uppercase;
+
+}
+
+
+.blockText{
+
+    color:#3a2b20;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:17px;
+
+    line-height:1.65;
+
+}
+
+
+.practice{
+
+    padding:18px;
+
+    margin-bottom:20px;
+
+    border-radius:20px;
+
+    background:#eadecc;
+
+}
+
+
+.question{
+
+    padding:18px;
+
+    border-radius:20px;
+
+    background:#302015;
+
+}
+
+
+.question .blockTitle{
+
+    color:#ddb467;
+
+}
+
+
+.question .blockText{
+
+    color:#f5eadb;
+
+}
+
+
+textarea{
+
+    width:100%;
+
+    min-height:120px;
+
+    margin-top:15px;
+
+    padding:14px;
+
+    border:0;
+
+    outline:none;
+
+    resize:none;
+
+    border-radius:14px;
+
+    background:#fffaf3;
+
+    color:#291a10;
+
+    font-size:15px;
+
+}
+
+
+.saveButton{
+
+    width:100%;
+
+    height:50px;
+
+    margin-top:10px;
+
+    border:0;
+
+    border-radius:15px;
+
+    background:#98672f;
+
+    color:#fff;
+
+    font-weight:700;
+
 }
 
 
@@ -1081,61 +1252,22 @@ button:active {
    DESKTOP
 ========================================================= */
 
-@media (min-width: 700px) {
+@media(min-width:700px){
 
-    .container {
-        padding-top: 40px;
+    .appContent{
+
+        width:100%;
+
+        max-width:650px;
+
+        margin:auto;
+
     }
 
-    .pillars {
-        grid-template-columns:
-            repeat(3, minmax(0, 1fr));
-    }
+    .coverAction{
 
-    .pillar {
-        min-height: 245px;
-    }
+        bottom:5%;
 
-}
-
-
-/* =========================================================
-   CELULAR PEQUENO
-========================================================= */
-
-@media (max-width: 390px) {
-
-    .container {
-        padding-left: 18px;
-        padding-right: 18px;
-    }
-
-    .hero {
-        min-height: 430px;
-        padding: 27px;
-    }
-
-    .hero-title {
-        font-size: 51px;
-    }
-
-    .pillars {
-        gap: 10px;
-    }
-
-    .pillar {
-        min-height: 205px;
-
-        padding: 17px;
-    }
-
-    .pillar-title {
-        font-size: 27px;
-    }
-
-    .pillar-art svg {
-        width: 105px;
-        height: 105px;
     }
 
 }
@@ -1145,26 +1277,36 @@ button:active {
    ANIMAÇÃO
 ========================================================= */
 
-@keyframes gentleGlow {
+.fade{
 
-    0%, 100% {
-        opacity: .45;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: .75;
-        transform: scale(1.04);
-    }
+    animation:
+        fade .7s ease both;
 
 }
 
-.glow {
-    animation:
-        gentleGlow 5s ease-in-out infinite;
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
 }
 
 </style>
+
 </head>
 
 
@@ -1175,1166 +1317,727 @@ button:active {
      CAPA
 ======================================================= -->
 
-<section id="coverScreen">
+<section id="introScreen">
 
-    <div class="cover-content">
 
-        <div class="cover-kicker">
-            Devocional • 365 dias
-        </div>
+    <!-- SUA CAPA ORIGINAL -->
 
-        <h1 class="cover-title">
-            Doce<br>
-            Espírito<br>
-            Santo
-        </h1>
+    <img
+        src="capa.jpeg"
+        class="coverImage"
+        alt="Doce Espírito Santo — Um Amigo Íntimo"
+    >
 
-        <div class="cover-subtitle">
-            Um Amigo Íntimo
-        </div>
 
-        <p class="cover-text">
-            Uma jornada para aprender a perceber
-            a presença do Doce Espírito Santo,
-            aprofundar a intimidade com O Eterno
-            e transformar a Palavra em vida.
+    <!--
+       ELEMENTOS CRIADOS PELO CÓDIGO.
+       NÃO FAZEM PARTE DA IMAGEM.
+    -->
+
+    <div class="coverAction">
+
+
+        <p class="coverPhrase">
+
+            Uma jornada para perceber a Presença,
+            aprofundar a intimidade e viver
+            uma fé que transforma.
+
         </p>
 
+
         <button
-            class="cover-button"
-            onclick="enterApp()"
-        >
-            COMEÇAR A JORNADA
+            id="startButton"
+            class="startButton">
+
+            COMEÇAR A JORNADA&nbsp;&nbsp; →
+
         </button>
+
 
     </div>
 
+
 </section>
+
 
 
 <!-- =======================================================
      APLICAÇÃO
 ======================================================= -->
 
-<div id="app">
+<main id="app">
 
 
-<header class="app-header">
+    <div class="appContent">
 
-    <div class="brand">
 
-        <div class="brand-symbol">
+        <!-- CABEÇALHO -->
 
-            <!-- chama / presença -->
+        <header class="topHeader">
 
-            <svg
-                viewBox="0 0 64 64"
-                fill="none"
-            >
+            <div>
 
-                <path
-                    d="
-                    M32 57
-                    C19 57 13 48 17 38
-                    C19 32 25 29 27 20
-                    C28 15 28 11 27 7
-                    C38 14 44 24 42 32
-                    C46 29 48 26 48 22
-                    C54 31 54 42 49 49
-                    C45 55 39 57 32 57Z
-                    "
-                    stroke="currentColor"
-                    stroke-width="2"
-                />
+                <span class="brandSmall">
+                    365 dias da Presença
+                </span>
 
-                <path
-                    d="
-                    M32 48
-                    C26 48 23 44 25 39
-                    C26 36 30 34 31 29
-                    C36 34 39 39 37 43
-                    C36 46 34 48 32 48Z
-                    "
-                    fill="currentColor"
-                    opacity=".7"
-                />
+                <span class="brandTitle">
+                    Doce Espírito Santo
+                </span>
 
-            </svg>
+            </div>
+
+
+            <button
+                class="searchButton"
+                onclick="showMessage('A busca pelos devocionais estará disponível em breve.')">
+
+                Buscar
+
+            </button>
+
+        </header>
+
+
+
+        <!-- ABAS -->
+
+        <div class="tabs">
+
+            <button
+                class="tab active"
+                onclick="activateTab(this)">
+
+                Minha jornada
+
+            </button>
+
+
+            <button
+                class="tab"
+                onclick="activateTab(this)">
+
+                Explorar
+
+            </button>
 
         </div>
 
-        <div>
-
-            <div class="brand-title">
-                Doce Espírito Santo
-            </div>
-
-            <div class="brand-subtitle">
-                Um Amigo Íntimo
-            </div>
-
-        </div>
-
-    </div>
 
 
-    <button class="search-button">
-
-        <svg
-            viewBox="0 0 24 24"
-            fill="none"
-        >
-
-            <circle
-                cx="10.8"
-                cy="10.8"
-                r="6.3"
-                stroke="currentColor"
-                stroke-width="1.8"
-            />
-
-            <path
-                d="M16 16L21 21"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-            />
-
-        </svg>
-
-    </button>
-
-</header>
-
-
-<main class="container">
-
-
-<!-- =======================================================
-     HOME
-======================================================= -->
-
-<section
-    id="homeScreen"
-    class="screen active"
->
-
-
-    <div class="tabs">
-
-        <button
-            class="tab active"
-            onclick="setTab(this,'journeyHome')"
-        >
-            Minha jornada
-        </button>
-
-        <button
-            class="tab"
-            onclick="setTab(this,'exploreHome')"
-        >
-            Explorar
-        </button>
-
-    </div>
-
-
-    <!-- ===================================================
-         MINHA JORNADA
-    =================================================== -->
-
-    <div id="journeyHome">
-
+        <!-- HERO -->
 
         <section class="hero">
 
-            <div class="hero-content">
+            <div class="heroContent">
 
-                <div class="eyebrow">
-                    Presença
+                <div class="heroLabel">
+                    O começo de tudo
                 </div>
 
-                <h1 class="hero-title">
-                    Aprenda a<br>
-                    percebê-lo.
+                <h1 class="heroTitle">
+                    Aprenda a percebê-lo.
                 </h1>
 
-                <div class="hero-text">
+                <p class="heroText">
                     Ele já está aqui.
-                    Uma jornada de 365 dias para
-                    cultivar intimidade com O Eterno,
-                    através da oração, do jejum,
-                    da Palavra e da vivência.
-                </div>
-
-                <button
-                    class="primary-button"
-                    onclick="openToday()"
-                >
-                    CONTINUAR JORNADA →
-                </button>
+                    Caminhe um dia de cada vez
+                    e aprenda a reconhecer Sua presença.
+                </p>
 
             </div>
 
         </section>
+
 
 
         <!-- PROGRESSO -->
 
-        <div class="progress-card">
+        <section class="progressCard">
 
-            <div class="progress-top">
+            <div class="progressTop">
 
-                <span class="progress-label">
-                    Sua jornada
+                <span class="progressTitle">
+                    Minha jornada
                 </span>
 
                 <span
-                    class="progress-number"
-                    id="progressText"
-                >
-                    0 de 365
+                    id="progressNumber"
+                    class="progressNumber">
+
+                    Dia 1 de 365
+
                 </span>
 
             </div>
 
-            <div class="progress-bar">
+
+            <div class="progressBar">
 
                 <div
-                    class="progress-fill"
                     id="progressFill"
-                ></div>
+                    class="progressFill">
+                </div>
 
             </div>
 
-        </div>
+        </section>
+
 
 
         <!-- =================================================
-             6 PILARES
-        ================================================= -->
+             CAMINHOS
+        ================================================== -->
 
-        <section class="section">
+        <div class="sectionHeader">
 
-            <div class="section-head">
+            <h2 class="sectionTitle">
+                Caminhos da presença
+            </h2>
 
-                <div class="section-kicker">
-                    O caminho
+            <span class="sectionMore">
+                6 caminhos
+            </span>
+
+        </div>
+
+
+        <section class="photoGrid">
+
+
+            <!-- PRESENÇA -->
+
+            <article
+                class="photoCard"
+                style="
+                    --image:url(
+                        'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85'
+                    );
+                "
+                onclick="openPath('Presença')"
+            >
+
+                <div class="photoContent">
+
+                    <div class="photoLabel">
+                        Primeiro caminho
+                    </div>
+
+                    <h3 class="photoTitle">
+                        Presença
+                    </h3>
+
+                    <p class="photoDescription">
+                        Aprender a perceber o
+                        Doce Espírito Santo.
+                    </p>
+
                 </div>
 
-                <h2 class="section-title">
-                    Uma vida de presença
-                </h2>
+            </article>
 
-                <div class="section-description">
-                    A jornada não é apenas ler.
-                    É perceber, conversar, renunciar,
-                    conhecer e viver.
+
+
+            <!-- ORAÇÃO -->
+
+            <article
+                class="photoCard"
+                style="
+                    --image:url(
+                        'https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=900&q=85'
+                    );
+                "
+                onclick="openPath('Oração')"
+            >
+
+                <div class="photoContent">
+
+                    <div class="photoLabel">
+                        Segundo caminho
+                    </div>
+
+                    <h3 class="photoTitle">
+                        Oração
+                    </h3>
+
+                    <p class="photoDescription">
+                        Conversar com O Eterno
+                        e aprender a escutar.
+                    </p>
+
                 </div>
 
-            </div>
+            </article>
 
 
-            <div class="pillars">
 
+            <!-- JEJUM -->
 
-                <!-- PRESENÇA -->
+            <article
+                class="photoCard"
+                style="
+                    --image:url(
+                        'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=85'
+                    );
+                "
+                onclick="openPath('Jejum')"
+            >
 
-                <article class="pillar">
+                <div class="photoContent">
 
-                    <div class="pillar-art glow">
-
-                        <svg
-                            viewBox="0 0 180 180"
-                            fill="none"
-                        >
-
-                            <circle
-                                cx="90"
-                                cy="90"
-                                r="60"
-                                stroke="#EFD19A"
-                                stroke-opacity=".15"
-                            />
-
-                            <circle
-                                cx="90"
-                                cy="90"
-                                r="38"
-                                stroke="#EFD19A"
-                                stroke-opacity=".22"
-                            />
-
-                            <path
-                                d="
-                                M90 23
-                                C94 53 113 73 143 90
-                                C113 107 94 127 90 157
-                                C86 127 67 107 37 90
-                                C67 73 86 53 90 23Z
-                                "
-                                fill="#EFD19A"
-                                fill-opacity=".12"
-                            />
-
-                            <circle
-                                cx="90"
-                                cy="90"
-                                r="7"
-                                fill="#EFD19A"
-                                fill-opacity=".7"
-                            />
-
-                        </svg>
-
+                    <div class="photoLabel">
+                        Terceiro caminho
                     </div>
 
-                    <div class="pillar-content">
+                    <h3 class="photoTitle">
+                        Jejum
+                    </h3>
 
-                        <div class="pillar-number">
-                            01
-                        </div>
+                    <p class="photoDescription">
+                        Aprender a renunciar
+                        para aprofundar a busca.
+                    </p>
 
-                        <h3 class="pillar-title">
-                            Presença
-                        </h3>
+                </div>
 
-                        <div class="pillar-text">
-                            Aprenda a percebê-lo.
-                        </div>
+            </article>
 
+
+
+            <!-- PALAVRA -->
+
+            <article
+                class="photoCard"
+                style="
+                    --image:url(
+                        'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=900&q=85'
+                    );
+                "
+                onclick="openPath('Palavra')"
+            >
+
+                <div class="photoContent">
+
+                    <div class="photoLabel">
+                        Quarto caminho
                     </div>
 
-                </article>
+                    <h3 class="photoTitle">
+                        Palavra
+                    </h3>
+
+                    <p class="photoDescription">
+                        Conhecer para viver.
+                    </p>
+
+                </div>
+
+            </article>
 
 
-                <!-- ORAÇÃO -->
 
-                <article class="pillar">
+            <!-- VIVÊNCIA -->
 
-                    <div class="pillar-art">
+            <article
+                class="photoCard"
+                style="
+                    --image:url(
+                        'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=85'
+                    );
+                "
+                onclick="openPath('Vivência')"
+            >
 
-                        <svg
-                            viewBox="0 0 180 180"
-                            fill="none"
-                        >
+                <div class="photoContent">
 
-                            <path
-                                d="
-                                M45 118
-                                C60 91 72 72 90 47
-                                C108 72 120 91 135 118
-                                "
-                                stroke="#EFD19A"
-                                stroke-width="2"
-                                stroke-opacity=".6"
-                            />
-
-                            <path
-                                d="
-                                M60 116
-                                C69 103 79 94 90 88
-                                C101 94 111 103 120 116
-                                "
-                                stroke="#EFD19A"
-                                stroke-width="2"
-                                stroke-opacity=".4"
-                            />
-
-                            <circle
-                                cx="90"
-                                cy="48"
-                                r="17"
-                                fill="#EFD19A"
-                                fill-opacity=".10"
-                                stroke="#EFD19A"
-                                stroke-opacity=".35"
-                            />
-
-                            <path
-                                d="
-                                M90 31
-                                V65
-                                M73 48
-                                H107
-                                "
-                                stroke="#EFD19A"
-                                stroke-opacity=".45"
-                            />
-
-                        </svg>
-
+                    <div class="photoLabel">
+                        Quinto caminho
                     </div>
 
-                    <div class="pillar-content">
+                    <h3 class="photoTitle">
+                        Vivência
+                    </h3>
 
-                        <div class="pillar-number">
-                            02
-                        </div>
+                    <p class="photoDescription">
+                        Transformar a Palavra
+                        em prática.
+                    </p>
 
-                        <h3 class="pillar-title">
-                            Oração
-                        </h3>
+                </div>
 
-                        <div class="pillar-text">
-                            Converse com O Eterno.
-                        </div>
+            </article>
 
+
+
+            <!-- JORNADA -->
+
+            <article
+                class="photoCard"
+                style="
+                    --image:url(
+                        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85'
+                    );
+                "
+                onclick="openPath('Jornada')"
+            >
+
+                <div class="photoContent">
+
+                    <div class="photoLabel">
+                        Sexto caminho
                     </div>
 
-                </article>
+                    <h3 class="photoTitle">
+                        Jornada
+                    </h3>
 
+                    <p class="photoDescription">
+                        Caminhar dia após dia.
+                    </p>
 
-                <!-- JEJUM -->
+                </div>
 
-                <article class="pillar">
+            </article>
 
-                    <div class="pillar-art">
-
-                        <svg
-                            viewBox="0 0 180 180"
-                            fill="none"
-                        >
-
-                            <path
-                                d="
-                                M90 24
-                                C78 51 58 65 58 93
-                                C58 124 73 143 90 143
-                                C107 143 122 124 122 93
-                                C122 65 102 51 90 24Z
-                                "
-                                stroke="#EFD19A"
-                                stroke-width="2"
-                                stroke-opacity=".55"
-                            />
-
-                            <path
-                                d="
-                                M90 65
-                                C84 77 76 84 76 95
-                                C76 107 82 113 90 113
-                                C98 113 104 107 104 95
-                                C104 84 96 77 90 65Z
-                                "
-                                fill="#EFD19A"
-                                fill-opacity=".18"
-                            />
-
-                            <circle
-                                cx="90"
-                                cy="143"
-                                r="5"
-                                fill="#EFD19A"
-                                fill-opacity=".45"
-                            />
-
-                        </svg>
-
-                    </div>
-
-                    <div class="pillar-content">
-
-                        <div class="pillar-number">
-                            03
-                        </div>
-
-                        <h3 class="pillar-title">
-                            Jejum
-                        </h3>
-
-                        <div class="pillar-text">
-                            Aprenda a renunciar.
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- PALAVRA -->
-
-                <article class="pillar">
-
-                    <div class="pillar-art">
-
-                        <svg
-                            viewBox="0 0 180 180"
-                            fill="none"
-                        >
-
-                            <path
-                                d="
-                                M30 42
-                                C51 34 70 38 90 52
-                                V139
-                                C70 125 51 122 30 130
-                                V42Z
-                                "
-                                stroke="#EFD19A"
-                                stroke-width="2"
-                                stroke-opacity=".55"
-                            />
-
-                            <path
-                                d="
-                                M150 42
-                                C129 34 110 38 90 52
-                                V139
-                                C110 125 129 122 150 130
-                                V42Z
-                                "
-                                stroke="#EFD19A"
-                                stroke-width="2"
-                                stroke-opacity=".55"
-                            />
-
-                            <path
-                                d="
-                                M90 52
-                                V139
-                                "
-                                stroke="#EFD19A"
-                                stroke-opacity=".4"
-                            />
-
-                            <path
-                                d="
-                                M48 64
-                                H72
-                                M48 78
-                                H74
-                                M108 64
-                                H132
-                                M106 78
-                                H132
-                                "
-                                stroke="#EFD19A"
-                                stroke-opacity=".28"
-                            />
-
-                        </svg>
-
-                    </div>
-
-                    <div class="pillar-content">
-
-                        <div class="pillar-number">
-                            04
-                        </div>
-
-                        <h3 class="pillar-title">
-                            Palavra
-                        </h3>
-
-                        <div class="pillar-text">
-                            Conheça para viver.
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- VIVÊNCIA -->
-
-                <article class="pillar">
-
-                    <div class="pillar-art">
-
-                        <svg
-                            viewBox="0 0 180 180"
-                            fill="none"
-                        >
-
-                            <path
-                                d="
-                                M90 148
-                                C90 113 94 81 112 48
-                                "
-                                stroke="#EFD19A"
-                                stroke-width="2"
-                                stroke-opacity=".6"
-                            />
-
-                            <path
-                                d="
-                                M91 109
-                                C75 99 61 88 52 70
-                                C70 72 84 80 94 94
-                                "
-                                stroke="#EFD19A"
-                                stroke-width="2"
-                                stroke-opacity=".5"
-                            />
-
-                            <path
-                                d="
-                                M97 87
-                                C111 74 127 67 145 68
-                                C136 84 120 94 101 94
-                                "
-                                stroke="#EFD19A"
-                                stroke-width="2"
-                                stroke-opacity=".5"
-                            />
-
-                            <path
-                                d="
-                                M91 127
-                                C75 120 65 112 59 101
-                                "
-                                stroke="#EFD19A"
-                                stroke-width="2"
-                                stroke-opacity=".35"
-                            />
-
-                        </svg>
-
-                    </div>
-
-                    <div class="pillar-content">
-
-                        <div class="pillar-number">
-                            05
-                        </div>
-
-                        <h3 class="pillar-title">
-                            Vivência
-                        </h3>
-
-                        <div class="pillar-text">
-                            Transforme Palavra em prática.
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- JORNADA -->
-
-                <article
-                    class="pillar"
-                    onclick="scrollToJourney()"
-                >
-
-                    <div class="pillar-art">
-
-                        <svg
-                            viewBox="0 0 180 180"
-                            fill="none"
-                        >
-
-                            <path
-                                d="
-                                M22 142
-                                C54 128 66 113 86 94
-                                C106 75 119 57 158 37
-                                "
-                                stroke="#EFD19A"
-                                stroke-width="2"
-                                stroke-opacity=".55"
-                            />
-
-                            <path
-                                d="
-                                M142 37
-                                H158
-                                V53
-                                "
-                                stroke="#EFD19A"
-                                stroke-width="2"
-                                stroke-opacity=".65"
-                            />
-
-                            <circle
-                                cx="31"
-                                cy="137"
-                                r="5"
-                                fill="#EFD19A"
-                                fill-opacity=".5"
-                            />
-
-                            <circle
-                                cx="87"
-                                cy="94"
-                                r="5"
-                                fill="#EFD19A"
-                                fill-opacity=".3"
-                            />
-
-                            <circle
-                                cx="139"
-                                cy="48"
-                                r="6"
-                                fill="#EFD19A"
-                                fill-opacity=".45"
-                            />
-
-                        </svg>
-
-                    </div>
-
-                    <div class="pillar-content">
-
-                        <div class="pillar-number">
-                            06
-                        </div>
-
-                        <h3 class="pillar-title">
-                            Jornada
-                        </h3>
-
-                        <div class="pillar-text">
-                            Um dia de cada vez.
-                        </div>
-
-                    </div>
-
-                </article>
-
-            </div>
 
         </section>
+
 
 
         <!-- =================================================
-             12 ETAPAS
-        ================================================= -->
+             ETAPAS
+        ================================================== -->
 
-        <section
-            class="section"
-            id="journeySection"
-        >
+        <div class="sectionHeader">
 
-            <div class="section-head">
+            <h2 class="sectionTitle">
+                Sua jornada
+            </h2>
 
-                <div class="section-kicker">
-                    365 dias
-                </div>
-
-                <h2 class="section-title">
-                    A jornada
-                </h2>
-
-                <div class="section-description">
-                    Do primeiro despertar da presença
-                    até uma vida que aprende a permanecer.
-                </div>
-
-            </div>
-
-
-            <div
-                class="journey-list"
-                id="journeyList"
-            ></div>
-
-        </section>
-
-    </div>
-
-
-    <!-- ===================================================
-         EXPLORAR
-    =================================================== -->
-
-    <div
-        id="exploreHome"
-        style="display:none;"
-    >
-
-        <section class="hero">
-
-            <div class="hero-content">
-
-                <div class="eyebrow">
-                    Explore
-                </div>
-
-                <h1 class="hero-title">
-                    Caminhos de<br>
-                    intimidade.
-                </h1>
-
-                <div class="hero-text">
-                    Escolha uma prática e aprofunde
-                    sua caminhada com O Eterno.
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section class="section">
-
-            <div class="section-head">
-
-                <div class="section-kicker">
-                    Práticas
-                </div>
-
-                <h2 class="section-title">
-                    Comece por onde está.
-                </h2>
-
-            </div>
-
-            <div class="pillars">
-
-                <article class="pillar">
-                    <div class="pillar-content">
-                        <div class="pillar-number">01</div>
-                        <h3 class="pillar-title">Presença</h3>
-                        <div class="pillar-text">
-                            Aprenda a perceber.
-                        </div>
-                    </div>
-                </article>
-
-                <article class="pillar">
-                    <div class="pillar-content">
-                        <div class="pillar-number">02</div>
-                        <h3 class="pillar-title">Oração</h3>
-                        <div class="pillar-text">
-                            Converse com O Eterno.
-                        </div>
-                    </div>
-                </article>
-
-                <article class="pillar">
-                    <div class="pillar-content">
-                        <div class="pillar-number">03</div>
-                        <h3 class="pillar-title">Jejum</h3>
-                        <div class="pillar-text">
-                            Aprenda a renunciar.
-                        </div>
-                    </div>
-                </article>
-
-                <article class="pillar">
-                    <div class="pillar-content">
-                        <div class="pillar-number">04</div>
-                        <h3 class="pillar-title">Palavra</h3>
-                        <div class="pillar-text">
-                            Conheça para viver.
-                        </div>
-                    </div>
-                </article>
-
-                <article class="pillar">
-                    <div class="pillar-content">
-                        <div class="pillar-number">05</div>
-                        <h3 class="pillar-title">Vivência</h3>
-                        <div class="pillar-text">
-                            Transforme Palavra em prática.
-                        </div>
-                    </div>
-                </article>
-
-                <article class="pillar">
-                    <div class="pillar-content">
-                        <div class="pillar-number">06</div>
-                        <h3 class="pillar-title">Jornada</h3>
-                        <div class="pillar-text">
-                            Um dia de cada vez.
-                        </div>
-                    </div>
-                </article>
-
-            </div>
-
-        </section>
-
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     DEVOCIONAL
-======================================================= -->
-
-<section
-    id="devotionalScreen"
-    class="screen"
->
-
-    <button
-        class="back-button"
-        onclick="showHome()"
-    >
-        ← Voltar
-    </button>
-
-
-    <div
-        class="devotional-day"
-        id="devotionalDay"
-    >
-        DIA 01
-    </div>
-
-
-    <h1
-        class="devotional-title"
-        id="devotionalTitle"
-    >
-        A Presença que já está aqui
-    </h1>
-
-
-    <div
-        class="devotional-reference"
-        id="devotionalReference"
-    >
-        João 14:16–17
-    </div>
-
-
-    <article class="devotional-card">
-
-        <h3>
-            Reflexão
-        </h3>
-
-        <p
-            id="devotionalReflection"
-        ></p>
-
-
-        <h3 style="margin-top:32px;">
-            Prática de hoje
-        </h3>
-
-        <p
-            id="devotionalPractice"
-        ></p>
-
-
-        <div class="question">
-
-            <strong>
-                Para refletir
-            </strong>
-
-            <p
-                id="devotionalQuestion"
-            ></p>
+            <span class="sectionMore">
+                12 etapas
+            </span>
 
         </div>
 
 
-        <h3 style="margin-top:32px;">
-            Oração
-        </h3>
-
-        <p
-            id="devotionalPrayer"
-        ></p>
+        <section class="journeyList">
 
 
-        <h3 style="margin-top:32px;">
-            Seu diário
-        </h3>
-
-        <textarea
-            id="journal"
-            class="journal"
-            placeholder="Escreva o que você percebeu, sentiu ou aprendeu hoje..."
-        ></textarea>
-
-
-        <div class="actions">
-
-            <button
-                class="action"
-                onclick="saveJournal()"
+            <article
+                class="journeyCard"
+                style="
+                    --image:url(
+                        'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85'
+                    );
+                "
             >
-                SALVAR
-            </button>
 
-            <button
-                class="action primary"
-                onclick="completeDay()"
+                <div class="journeyContent">
+
+                    <div class="journeyNumber">
+                        Dias 1–30
+                    </div>
+
+                    <h3 class="journeyTitle">
+                        Perceber
+                    </h3>
+
+                    <p class="journeyDescription">
+                        Reconhecer a presença.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+
+            <article
+                class="journeyCard"
+                style="
+                    --image:url(
+                        'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=85'
+                    );
+                "
             >
-                CONCLUIR DIA
-            </button>
 
-        </div>
+                <div class="journeyContent">
 
-    </article>
+                    <div class="journeyNumber">
+                        Dias 31–60
+                    </div>
 
-</section>
+                    <h3 class="journeyTitle">
+                        Aprofundar
+                    </h3>
+
+                    <p class="journeyDescription">
+                        Ir além da superfície.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+
+            <article
+                class="journeyCard"
+                style="
+                    --image:url(
+                        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=85'
+                    );
+                "
+            >
+
+                <div class="journeyContent">
+
+                    <div class="journeyNumber">
+                        Dias 61–90
+                    </div>
+
+                    <h3 class="journeyTitle">
+                        Ser transformado
+                    </h3>
+
+                    <p class="journeyDescription">
+                        Permitir que a presença transforme.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+
+            <article
+                class="journeyCard"
+                style="
+                    --image:url(
+                        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=85'
+                    );
+                "
+            >
+
+                <div class="journeyContent">
+
+                    <div class="journeyNumber">
+                        Dias 91–120
+                    </div>
+
+                    <h3 class="journeyTitle">
+                        Orar
+                    </h3>
+
+                    <p class="journeyDescription">
+                        Transformar oração em relacionamento.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+        </section>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         NAVEGAÇÃO INFERIOR
+    ====================================================== -->
+
+    <nav class="bottomNav">
+
+
+        <button
+            class="navItem active"
+            onclick="goHome()">
+
+            <span>Início</span>
+
+        </button>
+
+
+        <button
+            class="navItem"
+            onclick="showMessage('Sua jornada de 365 dias.')">
+
+            <span>Jornada</span>
+
+        </button>
+
+
+        <button
+            class="navItem"
+            onclick="openToday()">
+
+            <span>Hoje</span>
+
+        </button>
+
+
+        <button
+            class="navItem"
+            onclick="showMessage('Seus favoritos aparecerão aqui.')">
+
+            <span>Favoritos</span>
+
+        </button>
+
+
+        <button
+            class="navItem"
+            onclick="showMessage('Seu perfil estará disponível em breve.')">
+
+            <span>Perfil</span>
+
+        </button>
+
+
+    </nav>
 
 
 </main>
 
 
+
 <!-- =======================================================
-     NAVEGAÇÃO
+     TELA DO DEVOCIONAL
 ======================================================= -->
 
-<nav class="bottom-nav">
-
-    <button
-        class="nav-item active"
-        onclick="showHome()"
-    >
-
-        <svg
-            class="nav-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-        >
-
-            <path
-                d="M4 10L12 3L20 10V20H4V10Z"
-                stroke="currentColor"
-                stroke-width="1.7"
-                stroke-linejoin="round"
-            />
-
-        </svg>
-
-        Início
-
-    </button>
+<section id="devotionalScreen">
 
 
-    <button
-        class="nav-item"
-        onclick="scrollToJourney()"
-    >
+    <header class="devotionalTop">
 
-        <svg
-            class="nav-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-        >
+        <button
+            class="backButton"
+            onclick="closeDevotional()">
 
-            <path
-                d="M5 6H19M5 12H19M5 18H19"
-                stroke="currentColor"
-                stroke-width="1.7"
-                stroke-linecap="round"
-            />
+            ←
 
-        </svg>
-
-        Jornada
-
-    </button>
+        </button>
 
 
-    <button
-        class="nav-item"
-        onclick="openToday()"
-    >
+        <span
+            id="devotionalDay"
+            class="dayBadge">
 
-        <svg
-            class="nav-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-        >
+            DIA 1
 
-            <path
-                d="
-                M12 2
-                C13 7 17 10 22 12
-                C17 13 13 17 12 22
-                C11 17 7 13 2 12
-                C7 10 11 7 12 2Z
-                "
-                stroke="currentColor"
-                stroke-width="1.5"
-            />
-
-        </svg>
-
-        Hoje
-
-    </button>
+        </span>
 
 
-    <button
-        class="nav-item"
-        onclick="alert('Favoritos será conectado na próxima etapa.')"
-    >
+        <div style="width:42px;"></div>
 
-        <svg
-            class="nav-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-        >
-
-            <path
-                d="
-                M20.5 8.5
-                C20.5 5.7 18.3 3.5 15.5 3.5
-                C13.9 3.5 12.5 4.2 11.5 5.5
-                C10.5 4.2 9.1 3.5 7.5 3.5
-                C4.7 3.5 2.5 5.7 2.5 8.5
-                C2.5 13.5 7.2 17 11.5 20
-                C15.8 17 20.5 13.5 20.5 8.5Z
-                "
-                stroke="currentColor"
-                stroke-width="1.6"
-            />
-
-        </svg>
-
-        Favoritos
-
-    </button>
+    </header>
 
 
-    <button
-        class="nav-item"
-        onclick="alert('Perfil será conectado na próxima etapa.')"
-    >
 
-        <svg
-            class="nav-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-        >
-
-            <circle
-                cx="12"
-                cy="12"
-                r="8.5"
-                stroke="currentColor"
-                stroke-width="1.6"
-            />
-
-            <circle
-                cx="12"
-                cy="9"
-                r="2.5"
-                stroke="currentColor"
-                stroke-width="1.5"
-            />
-
-            <path
-                d="M7.5 17C8.7 14.5 10 13.5 12 13.5C14 13.5 15.3 14.5 16.5 17"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-            />
-
-        </svg>
-
-        Perfil
-
-    </button>
-
-</nav>
+    <div class="devotionalScroll">
 
 
-</div>
+        <h1
+            id="devotionalTitle"
+            class="devotionalTitle">
+
+            Carregando...
+
+        </h1>
+
+
+        <div
+            id="devotionalReference"
+            class="reference">
+        </div>
+
+
+
+        <div class="block">
+
+            <div class="blockTitle">
+                Reflexão
+            </div>
+
+            <div
+                id="devotionalReflection"
+                class="blockText">
+            </div>
+
+        </div>
+
+
+
+        <div class="practice">
+
+            <div class="blockTitle">
+                Prática
+            </div>
+
+            <div
+                id="devotionalPractice"
+                class="blockText">
+            </div>
+
+        </div>
+
+
+
+        <div class="question">
+
+            <div class="blockTitle">
+                Para hoje
+            </div>
+
+            <div
+                id="devotionalQuestion"
+                class="blockText">
+            </div>
+
+
+            <textarea
+                id="journal"
+                placeholder="Escreva aqui o que você percebeu hoje..."
+            ></textarea>
+
+
+            <button
+                class="saveButton"
+                onclick="saveJournal()">
+
+                Guardar minha reflexão
+
+            </button>
+
+        </div>
+
+
+
+        <div
+            class="block"
+            style="margin-top:28px;">
+
+            <div class="blockTitle">
+                Oração
+            </div>
+
+            <div
+                id="devotionalPrayer"
+                class="blockText">
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
 
 
 <script>
@@ -2343,726 +2046,144 @@ button:active {
    CONFIGURAÇÃO
 ========================================================= */
 
-let devocionais = [];
+const INTRO_KEY =
+    "doce_espirito_intro_v6";
 
 let currentDay = 1;
 
-const STORAGE_PROGRESS =
-    "doce_espirito_progress";
+let devotionals = [];
 
-const STORAGE_JOURNAL =
-    "doce_espirito_journal";
 
-const STORAGE_INTRO =
-    "doce_espirito_intro_v3";
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const introScreen =
+    document.getElementById(
+        "introScreen"
+    );
+
+
+const app =
+    document.getElementById(
+        "app"
+    );
+
+
+const startButton =
+    document.getElementById(
+        "startButton"
+    );
+
+
+const devotionalScreen =
+    document.getElementById(
+        "devotionalScreen"
+    );
 
 
 /* =========================================================
    ENTRAR NO APP
 ========================================================= */
 
-function enterApp() {
+function enterApp(){
+
+    introScreen.classList.add(
+        "hidden"
+    );
+
+    app.classList.add(
+        "visible"
+    );
 
     localStorage.setItem(
-        STORAGE_INTRO,
+        INTRO_KEY,
         "true"
     );
 
-    document
-        .getElementById("coverScreen")
-        .classList.add("hidden");
+    updateProgress();
 
 }
 
 
 /* =========================================================
-   TABS
+   BOTÃO REAL DA CAPA
 ========================================================= */
 
-function setTab(button, tab) {
-
-    document
-        .querySelectorAll(".tab")
-        .forEach(
-            item => item.classList.remove("active")
-        );
-
-    button.classList.add("active");
-
-
-    document.getElementById("journeyHome")
-        .style.display =
-        tab === "journeyHome"
-            ? "block"
-            : "none";
-
-
-    document.getElementById("exploreHome")
-        .style.display =
-        tab === "exploreHome"
-            ? "block"
-            : "none";
-
-}
+startButton.addEventListener(
+    "click",
+    enterApp
+);
 
 
 /* =========================================================
-   ETAPAS DOS 365 DIAS
+   INICIALIZAÇÃO
 ========================================================= */
 
-const stages = [
+window.addEventListener(
+    "load",
+    () => {
 
-    {
-        start: 1,
-        end: 30,
-        title: "Perceber",
-        description: "Aprender a reconhecer a presença.",
-        art: "presence"
-    },
-
-    {
-        start: 31,
-        end: 60,
-        title: "Aprofundar",
-        description: "Intimidade e comunhão.",
-        art: "depth"
-    },
-
-    {
-        start: 61,
-        end: 90,
-        title: "Ser Transformado",
-        description: "Mente, emoções e caráter.",
-        art: "transform"
-    },
-
-    {
-        start: 91,
-        end: 120,
-        title: "Orar",
-        description: "Conversar com O Eterno.",
-        art: "prayer"
-    },
-
-    {
-        start: 121,
-        end: 150,
-        title: "Jejuar",
-        description: "Renúncia, dependência e consagração.",
-        art: "fast"
-    },
-
-    {
-        start: 151,
-        end: 180,
-        title: "Viver a Palavra",
-        description: "Conhecer para obedecer.",
-        art: "word"
-    },
-
-    {
-        start: 181,
-        end: 220,
-        title: "Viver os ensinamentos de Jesus",
-        description: "Transformar ensinamentos em prática.",
-        art: "jesus"
-    },
-
-    {
-        start: 221,
-        end: 250,
-        title: "Ser Guiado",
-        description: "Direção, discernimento e sensibilidade.",
-        art: "guide"
-    },
-
-    {
-        start: 251,
-        end: 290,
-        title: "Dar Fruto",
-        description: "Caráter, maturidade e fruto do Espírito.",
-        art: "fruit"
-    },
-
-    {
-        start: 291,
-        end: 320,
-        title: "Servir",
-        description: "Dons, serviço e comunidade.",
-        art: "serve"
-    },
-
-    {
-        start: 321,
-        end: 345,
-        title: "Testemunhar",
-        description: "Evangelho, missão e testemunho.",
-        art: "witness"
-    },
-
-    {
-        start: 346,
-        end: 365,
-        title: "Permanecer",
-        description: "Maturidade, constância e continuidade.",
-        art: "remain"
-    }
-
-];
-
-
-/* =========================================================
-   ARTES DAS ETAPAS
-========================================================= */
-
-function stageArt(type) {
-
-    const color = "#EFD19A";
-
-    const arts = {
-
-        presence: `
-            <svg viewBox="0 0 180 170" fill="none">
-                <circle cx="110" cy="82" r="55"
-                    stroke="${color}" stroke-opacity=".16"/>
-                <circle cx="110" cy="82" r="33"
-                    stroke="${color}" stroke-opacity=".24"/>
-                <path d="M110 25
-                    C114 49 130 66 153 82
-                    C130 98 114 115 110 139
-                    C106 115 90 98 67 82
-                    C90 66 106 49 110 25Z"
-                    fill="${color}" fill-opacity=".12"/>
-                <circle cx="110" cy="82" r="6"
-                    fill="${color}" fill-opacity=".65"/>
-            </svg>
-        `,
-
-        depth: `
-            <svg viewBox="0 0 180 170" fill="none">
-                <path d="M15 91
-                    C48 72 75 72 108 91
-                    C139 109 157 109 175 99"
-                    stroke="${color}" stroke-opacity=".45"
-                    stroke-width="2"/>
-                <path d="M18 112
-                    C50 94 76 94 108 112
-                    C137 128 157 128 172 119"
-                    stroke="${color}" stroke-opacity=".22"
-                    stroke-width="2"/>
-                <circle cx="105" cy="54" r="23"
-                    fill="${color}" fill-opacity=".08"
-                    stroke="${color}" stroke-opacity=".3"/>
-                <path d="M105 31V77M82 54H128"
-                    stroke="${color}" stroke-opacity=".35"/>
-            </svg>
-        `,
-
-        transform: `
-            <svg viewBox="0 0 180 170" fill="none">
-                <circle cx="108" cy="78" r="50"
-                    stroke="${color}" stroke-opacity=".12"/>
-                <path d="M83 120
-                    C83 92 88 72 108 42"
-                    stroke="${color}" stroke-width="2"
-                    stroke-opacity=".55"/>
-                <path d="M108 42
-                    C120 60 126 75 128 92"
-                    stroke="${color}" stroke-width="2"
-                    stroke-opacity=".3"/>
-                <path d="M92 82
-                    C80 72 72 62 68 50"
-                    stroke="${color}" stroke-width="2"
-                    stroke-opacity=".35"/>
-            </svg>
-        `,
-
-        prayer: `
-            <svg viewBox="0 0 180 170" fill="none">
-                <path d="M58 130
-                    C66 105 79 83 103 52"
-                    stroke="${color}" stroke-width="2"
-                    stroke-opacity=".55"/>
-                <path d="M122 130
-                    C114 105 101 83 77 52"
-                    stroke="${color}" stroke-width="2"
-                    stroke-opacity=".35"/>
-                <circle cx="90" cy="44" r="20"
-                    fill="${color}" fill-opacity=".09"
-                    stroke="${color}" stroke-opacity=".3"/>
-                <path d="M90 24V64M70 44H110"
-                    stroke="${color}" stroke-opacity=".35"/>
-            </svg>
-        `,
-
-        fast: `
-            <svg viewBox="0 0 180 170" fill="none">
-                <path d="M30 137
-                    L62 107
-                    L88 120
-                    L116 83
-                    L151 49"
-                    stroke="${color}" stroke-width="2"
-                    stroke-opacity=".5"/>
-                <path d="M138 49H151V62"
-                    stroke="${color}" stroke-width="2"
-                    stroke-opacity=".6"/>
-                <circle cx="62" cy="107" r="4"
-                    fill="${color}" fill-opacity=".35"/>
-                <circle cx="116" cy="83" r="4"
-                    fill="${color}" fill-opacity=".35"/>
-            </svg>
-        `,
-
-        word: `
-            <svg viewBox="0 0 180 170" fill="none">
-                <path d="M32 42
-                    C53 35 72 39 90 52
-                    V139
-                    C72 126 53 122 32 130Z"
-                    stroke="${color}" stroke-width="2"
-                    stroke-opacity=".5"/>
-                <path d="M148 42
-                    C127 35 108 39 90 52
-                    V139
-                    C108 126 127 122 148 130Z"
-                    stroke="${color}" stroke-width="2"
-                    stroke-opacity=".5"/>
-                <path d="M90 52V139"
-                    stroke="${color}" stroke-opacity=".3"/>
-            </svg>
-        `,
-
-        jesus: `
-            <svg viewBox="0 0 180 170" fill="none">
-                <path d="M90 28
-                    V135"
-                    stroke="${color}" stroke-opacity=".5"
-                    stroke-width="2"/>
-                <path d="M48 65
-                    H132"
-                    stroke="${color}" stroke-opacity=".5"
-                    stroke-width="2"/>
-                <circle cx="90" cy="28" r="16"
-                    fill="${color}" fill-opacity=".08"
-                    stroke="${color}" stroke-opacity=".25"/>
-            </svg>
-        `,
-
-        guide: `
-            <svg viewBox="0 0 180 170" fill="none">
-                <path d="M24 142
-                    C57 130 67 108 88 89
-                    C109 70 124 51 157 31"
-                    stroke="${color}" stroke-opacity=".55"
-                    stroke-width="2"/>
-                <path d="M141 31H157V47"
-                    stroke="${color}" stroke-opacity=".6"
-                    stroke-width="2"/>
-                <circle cx="89" cy="89" r="5"
-                    fill="${color}" fill-opacity=".35"/>
-            </svg>
-        `,
-
-        fruit: `
-            <svg viewBox="0 0 180 170" fill="none">
-                <path d="M90 140
-                    C90 111 95 85 113 51"
-                    stroke="${color}" stroke-opacity=".55"
-                    stroke-width="2"/>
-                <path d="M91 102
-                    C72 93 59 78 52 60
-                    C72 63 86 73 96 88"
-                    stroke="${color}" stroke-opacity=".4"
-                    stroke-width="2"/>
-                <circle cx="115" cy="53" r="15"
-                    fill="${color}" fill-opacity=".12"
-                    stroke="${color}" stroke-opacity=".35"/>
-                <circle cx="68" cy="72" r="12"
-                    fill="${color}" fill-opacity=".10"
-                    stroke="${color}" stroke-opacity=".28"/>
-            </svg>
-        `,
-
-        serve: `
-            <svg viewBox="0 0 180 170" fill="none">
-                <path d="M35 111
-                    C53 94 70 87 90 91
-                    C110 95 128 108 146 126"
-                    stroke="${color}" stroke-opacity=".5"
-                    stroke-width="2"/>
-                <path d="M61 120
-                    C73 108 84 105 95 108"
-                    stroke="${color}" stroke-opacity=".3"
-                    stroke-width="2"/>
-                <circle cx="90" cy="65" r="23"
-                    fill="${color}" fill-opacity=".08"
-                    stroke="${color}" stroke-opacity=".28"/>
-            </svg>
-        `,
-
-        witness: `
-            <svg viewBox="0 0 180 170" fill="none">
-                <circle cx="90" cy="83" r="18"
-                    fill="${color}" fill-opacity=".15"/>
-                <circle cx="90" cy="83" r="42"
-                    stroke="${color}" stroke-opacity=".24"/>
-                <circle cx="90" cy="83" r="65"
-                    stroke="${color}" stroke-opacity=".10"/>
-                <path d="M90 61V105M68 83H112"
-                    stroke="${color}" stroke-opacity=".45"/>
-            </svg>
-        `,
-
-        remain: `
-            <svg viewBox="0 0 180 170" fill="none">
-                <path d="M90 35
-                    C77 59 62 72 62 99
-                    C62 125 75 140 90 140
-                    C105 140 118 125 118 99
-                    C118 72 103 59 90 35Z"
-                    stroke="${color}" stroke-opacity=".45"
-                    stroke-width="2"/>
-                <path d="M90 69
-                    C84 81 78 88 78 99
-                    C78 108 83 114 90 114
-                    C97 114 102 108 102 99
-                    C102 88 96 81 90 69Z"
-                    fill="${color}" fill-opacity=".16"/>
-            </svg>
-        `
-
-    };
-
-    return arts[type] || arts.presence;
-}
-
-
-/* =========================================================
-   CONSTRUIR JORNADA
-========================================================= */
-
-function buildJourney() {
-
-    const list =
-        document.getElementById("journeyList");
-
-    list.innerHTML = "";
-
-    stages.forEach(stage => {
-
-        const card =
-            document.createElement("article");
-
-        card.className =
-            "journey-card";
-
-        card.innerHTML = `
-
-            <div class="journey-art">
-                ${stageArt(stage.art)}
-            </div>
-
-            <div class="journey-content">
-
-                <div class="journey-days">
-                    DIAS ${String(stage.start).padStart(2,"0")}
-                    —
-                    ${String(stage.end).padStart(2,"0")}
-                </div>
-
-                <h3 class="journey-title">
-                    ${stage.title}
-                </h3>
-
-                <div class="journey-description">
-                    ${stage.description}
-                </div>
-
-            </div>
-
-        `;
-
-        card.onclick =
-            () => openDay(stage.start);
-
-        list.appendChild(card);
-
-    });
-
-}
-
-
-/* =========================================================
-   CARREGAR DEVOCIONAIS
-========================================================= */
-
-async function loadDevotionals() {
-
-    try {
-
-        const response =
-            await fetch(
-                "devocionais.json?v=13"
+        const alreadyEntered =
+            localStorage.getItem(
+                INTRO_KEY
             );
 
-        if (!response.ok) {
-            throw new Error(
-                "Não foi possível carregar os devocionais."
+
+        if(alreadyEntered === "true"){
+
+            introScreen.classList.add(
+                "hidden"
             );
+
+            app.classList.add(
+                "visible"
+            );
+
         }
 
-        devocionais =
-            await response.json();
-
-        buildJourney();
 
         updateProgress();
 
-    } catch (error) {
+        loadDevotionals();
+
+    }
+);
+
+
+/* =========================================================
+   DEVOCIONAIS
+========================================================= */
+
+async function loadDevotionals(){
+
+    try{
+
+        const response =
+            await fetch(
+                "devocionais.json?v=15"
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Erro ao carregar devocionais."
+            );
+
+        }
+
+
+        devotionals =
+            await response.json();
+
+    }
+
+    catch(error){
 
         console.error(error);
 
-        buildJourney();
-
     }
-
-}
-
-
-/* =========================================================
-   ABRIR HOJE
-========================================================= */
-
-function openToday() {
-
-    const progress =
-        parseInt(
-            localStorage.getItem(
-                STORAGE_PROGRESS
-            ) || "0"
-        );
-
-    const day =
-        Math.min(
-            progress + 1,
-            365
-        );
-
-    openDay(day);
-
-}
-
-
-/* =========================================================
-   ABRIR DIA
-========================================================= */
-
-function openDay(day) {
-
-    currentDay = day;
-
-    const item =
-        devocionais.find(
-            d =>
-                Number(d.dia) === Number(day)
-        );
-
-    if (!item) {
-
-        alert(
-            "Este dia ainda está sendo preparado."
-        );
-
-        return;
-    }
-
-
-    document
-        .getElementById("homeScreen")
-        .classList.remove("active");
-
-
-    document
-        .getElementById("devotionalScreen")
-        .classList.add("active");
-
-
-    document
-        .getElementById("devotionalDay")
-        .textContent =
-        "DIA " +
-        String(item.dia).padStart(2,"0");
-
-
-    document
-        .getElementById("devotionalTitle")
-        .textContent =
-        item.titulo || "";
-
-
-    document
-        .getElementById("devotionalReference")
-        .textContent =
-        item.referencia || "";
-
-
-    document
-        .getElementById("devotionalReflection")
-        .textContent =
-        item.reflexao ||
-        item.introducao ||
-        "";
-
-
-    document
-        .getElementById("devotionalPractice")
-        .textContent =
-        item.pratica || "";
-
-
-    document
-        .getElementById("devotionalQuestion")
-        .textContent =
-        item.pergunta || "";
-
-
-    document
-        .getElementById("devotionalPrayer")
-        .textContent =
-        item.oracao || "";
-
-
-    const journals =
-        JSON.parse(
-            localStorage.getItem(
-                STORAGE_JOURNAL
-            ) || "{}"
-        );
-
-
-    document
-        .getElementById("journal")
-        .value =
-        journals[day] || "";
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-}
-
-
-/* =========================================================
-   VOLTAR PARA HOME
-========================================================= */
-
-function showHome() {
-
-    document
-        .getElementById("devotionalScreen")
-        .classList.remove("active");
-
-
-    document
-        .getElementById("homeScreen")
-        .classList.add("active");
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-}
-
-
-/* =========================================================
-   IR PARA JORNADA
-========================================================= */
-
-function scrollToJourney() {
-
-    showHome();
-
-    setTimeout(() => {
-
-        document
-            .getElementById("journeySection")
-            .scrollIntoView({
-                behavior: "smooth"
-            });
-
-    }, 120);
-
-}
-
-
-/* =========================================================
-   DIÁRIO
-========================================================= */
-
-function saveJournal() {
-
-    const journals =
-        JSON.parse(
-            localStorage.getItem(
-                STORAGE_JOURNAL
-            ) || "{}"
-        );
-
-
-    journals[currentDay] =
-        document
-            .getElementById("journal")
-            .value;
-
-
-    localStorage.setItem(
-        STORAGE_JOURNAL,
-        JSON.stringify(journals)
-    );
-
-
-    alert(
-        "Seu registro foi salvo."
-    );
-
-}
-
-
-/* =========================================================
-   CONCLUIR
-========================================================= */
-
-function completeDay() {
-
-    const previous =
-        parseInt(
-            localStorage.getItem(
-                STORAGE_PROGRESS
-            ) || "0"
-        );
-
-
-    if (currentDay > previous) {
-
-        localStorage.setItem(
-            STORAGE_PROGRESS,
-            String(currentDay)
-        );
-
-    }
-
-
-    updateProgress();
-
-
-    alert(
-        "Dia concluído. Continue permanecendo na presença."
-    );
 
 }
 
@@ -3071,84 +2192,263 @@ function completeDay() {
    PROGRESSO
 ========================================================= */
 
-function updateProgress() {
+function updateProgress(){
 
-    const progress =
+    const saved =
         parseInt(
             localStorage.getItem(
-                STORAGE_PROGRESS
-            ) || "0"
+                "doce_current_day"
+            ) || "1"
         );
+
+
+    currentDay = saved;
 
 
     const percentage =
         Math.min(
-            (progress / 365) * 100,
+            (saved / 365) * 100,
             100
         );
 
 
-    const text =
-        document.getElementById(
-            "progressText"
-        );
-
-    const fill =
-        document.getElementById(
-            "progressFill"
-        );
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percentage + "%";
 
 
-    if (text) {
-
-        text.textContent =
-            `${progress} de 365`;
-
-    }
-
-
-    if (fill) {
-
-        fill.style.width =
-            `${percentage}%`;
-
-    }
+    document.getElementById(
+        "progressNumber"
+    ).textContent =
+        `Dia ${saved} de 365`;
 
 }
 
 
 /* =========================================================
-   INICIALIZAÇÃO
+   ABRIR DEVOCIONAL
 ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+function openDevotional(day){
 
-        loadDevotionals();
-
-        updateProgress();
+    currentDay =
+        Number(day);
 
 
-        const alreadyEntered =
-            localStorage.getItem(
-                STORAGE_INTRO
-            );
+    const devotion =
+        devotionals.find(
+            item =>
+                Number(item.dia)
+                === currentDay
+        );
 
 
-        if (alreadyEntered) {
+    if(!devotion){
 
-            document
-                .getElementById("coverScreen")
-                .classList
-                .add("hidden");
+        showMessage(
+            "Este dia ainda está sendo preparado."
+        );
 
-        }
+        return;
 
     }
-);
+
+
+    document.getElementById(
+        "devotionalDay"
+    ).textContent =
+        `DIA ${devotion.dia}`;
+
+
+    document.getElementById(
+        "devotionalTitle"
+    ).textContent =
+        devotion.titulo || "";
+
+
+    document.getElementById(
+        "devotionalReference"
+    ).textContent =
+        devotion.referencia || "";
+
+
+    document.getElementById(
+        "devotionalReflection"
+    ).textContent =
+        devotion.reflexao ||
+        devotion.introducao ||
+        "";
+
+
+    document.getElementById(
+        "devotionalPractice"
+    ).textContent =
+        devotion.pratica || "";
+
+
+    document.getElementById(
+        "devotionalQuestion"
+    ).textContent =
+        devotion.pergunta || "";
+
+
+    document.getElementById(
+        "devotionalPrayer"
+    ).textContent =
+        devotion.oracao || "";
+
+
+    document.getElementById(
+        "journal"
+    ).value =
+        localStorage.getItem(
+            `doce_journal_${currentDay}`
+        ) || "";
+
+
+    devotionalScreen.classList.add(
+        "open"
+    );
+
+}
+
+
+/* =========================================================
+   HOJE
+========================================================= */
+
+function openToday(){
+
+    openDevotional(
+        currentDay
+    );
+
+}
+
+
+/* =========================================================
+   FECHAR DEVOCIONAL
+========================================================= */
+
+function closeDevotional(){
+
+    devotionalScreen.classList.remove(
+        "open"
+    );
+
+}
+
+
+/* =========================================================
+   SALVAR REFLEXÃO
+========================================================= */
+
+function saveJournal(){
+
+    const text =
+        document.getElementById(
+            "journal"
+        ).value;
+
+
+    localStorage.setItem(
+        `doce_journal_${currentDay}`,
+        text
+    );
+
+
+    localStorage.setItem(
+        "doce_current_day",
+        String(
+            Math.min(
+                currentDay + 1,
+                365
+            )
+        )
+    );
+
+
+    updateProgress();
+
+
+    showMessage(
+        "Sua reflexão foi guardada."
+    );
+
+}
+
+
+/* =========================================================
+   ABAS
+========================================================= */
+
+function activateTab(button){
+
+    document
+        .querySelectorAll(".tab")
+        .forEach(
+            tab =>
+                tab.classList.remove(
+                    "active"
+                )
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+}
+
+
+/* =========================================================
+   CAMINHOS
+========================================================= */
+
+function openPath(path){
+
+    showMessage(
+        `${path} será desenvolvido como uma parte da sua jornada.`
+    );
+
+}
+
+
+/* =========================================================
+   INÍCIO
+========================================================= */
+
+function goHome(){
+
+    devotionalScreen.classList.remove(
+        "open"
+    );
+
+
+    document
+        .querySelector(".appContent")
+        .scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+}
+
+
+/* =========================================================
+   MENSAGENS
+========================================================= */
+
+function showMessage(message){
+
+    alert(message);
+
+}
 
 </script>
 
+
 </body>
+
 </html>
