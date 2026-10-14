@@ -1,1 +1,216 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
 
+    <!-- Fundo principal -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="900">
+      <stop offset="0%" stop-color="#090806"/>
+      <stop offset="45%" stop-color="#17100B"/>
+      <stop offset="75%" stop-color="#24160D"/>
+      <stop offset="100%" stop-color="#050403"/>
+    </linearGradient>
+
+    <!-- Luz central -->
+    <radialGradient id="light" cx="0" cy="0" r="1"
+      gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(1050 380) rotate(110) scale(480 620)">
+      <stop offset="0%" stop-color="#F6D6A1" stop-opacity="0.42"/>
+      <stop offset="25%" stop-color="#C9904C" stop-opacity="0.20"/>
+      <stop offset="55%" stop-color="#7A4A25" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Luz superior -->
+    <radialGradient id="glowTop" cx="0" cy="0" r="1"
+      gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(1250 40) rotate(90) scale(280 450)">
+      <stop offset="0%" stop-color="#FFE7BE" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#FFE7BE" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Brilho da presença -->
+    <radialGradient id="presence" cx="0" cy="0" r="1"
+      gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(1050 350) scale(180)">
+      <stop offset="0%" stop-color="#FFF4DC" stop-opacity="0.9"/>
+      <stop offset="15%" stop-color="#EFCB91" stop-opacity="0.42"/>
+      <stop offset="45%" stop-color="#C17D3E" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#C17D3E" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Névoa -->
+    <linearGradient id="mist" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="45%" stop-color="#E7C18C" stop-opacity="0.09"/>
+      <stop offset="70%" stop-color="#D19A5E" stop-opacity="0.13"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Pluma -->
+    <linearGradient id="feather" x1="930" y1="170" x2="1200" y2="690">
+      <stop offset="0%" stop-color="#FFF1D4" stop-opacity="0.72"/>
+      <stop offset="25%" stop-color="#D9A76A" stop-opacity="0.42"/>
+      <stop offset="65%" stop-color="#8E592F" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#4A2A18" stop-opacity="0"/>
+    </linearGradient>
+
+    <filter id="blur80" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="80"/>
+    </filter>
+
+    <filter id="blur35" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="35"/>
+    </filter>
+
+    <filter id="blur12" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+
+  </defs>
+
+  <!-- BASE -->
+  <rect width="1600" height="900" fill="url(#bg)"/>
+
+  <!-- LUZES -->
+  <rect width="1600" height="900" fill="url(#light)"/>
+  <rect width="1600" height="900" fill="url(#glowTop)"/>
+
+  <!-- Mancha de luz difusa -->
+  <ellipse
+    cx="1050"
+    cy="390"
+    rx="260"
+    ry="330"
+    fill="#D39A5A"
+    opacity="0.10"
+    filter="url(#blur80)"
+  />
+
+  <!-- Atmosfera lateral -->
+  <ellipse
+    cx="1400"
+    cy="540"
+    rx="300"
+    ry="460"
+    fill="#B16D35"
+    opacity="0.08"
+    filter="url(#blur80)"
+  />
+
+  <!-- Névoa horizontal -->
+  <path
+    d="M250 610C540 490 850 500 1320 590C1450 615 1530 650 1600 700V820H0V710C80 680 170 650 250 610Z"
+    fill="url(#mist)"
+    filter="url(#blur35)"
+  />
+
+  <!-- PLUMA / PRESENÇA -->
+  <g opacity="0.72">
+
+    <path
+      d="M1060 130
+         C1160 190 1240 285 1260 385
+         C1280 490 1220 610 1100 720
+         C1150 610 1160 510 1135 420
+         C1110 325 1070 230 1015 165
+         C1030 150 1045 138 1060 130Z"
+      fill="url(#feather)"
+      filter="url(#blur12)"
+    />
+
+    <path
+      d="M1050 145
+         C1115 220 1150 300 1160 390
+         C1170 490 1130 590 1070 670"
+      stroke="#F6D8A7"
+      stroke-opacity="0.22"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+
+    <path
+      d="M1030 190C1080 270 1095 350 1090 430C1085 515 1060 590 1015 650"
+      stroke="#E0B274"
+      stroke-opacity="0.16"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+
+  </g>
+
+  <!-- NÚCLEO DA PRESENÇA -->
+  <circle
+    cx="1050"
+    cy="350"
+    r="170"
+    fill="url(#presence)"
+  />
+
+  <circle
+    cx="1050"
+    cy="350"
+    r="4"
+    fill="#FFF4DC"
+    opacity="0.9"
+  />
+
+  <circle
+    cx="1050"
+    cy="350"
+    r="15"
+    stroke="#F1D09C"
+    stroke-opacity="0.20"
+    stroke-width="1"
+  />
+
+  <circle
+    cx="1050"
+    cy="350"
+    r="42"
+    stroke="#D9A66A"
+    stroke-opacity="0.10"
+    stroke-width="1"
+  />
+
+  <!-- PARTICULAS -->
+  <g fill="#F7DFC0">
+
+    <circle cx="890" cy="240" r="2" opacity="0.35"/>
+    <circle cx="960" cy="180" r="1.5" opacity="0.30"/>
+    <circle cx="1170" cy="225" r="2" opacity="0.35"/>
+    <circle cx="1220" cy="315" r="1.5" opacity="0.30"/>
+    <circle cx="930" cy="430" r="1.5" opacity="0.24"/>
+    <circle cx="1190" cy="470" r="2" opacity="0.28"/>
+    <circle cx="1090" cy="580" r="1.5" opacity="0.25"/>
+    <circle cx="1280" cy="550" r="1.5" opacity="0.18"/>
+
+  </g>
+
+  <!-- LINHAS ATMOSFÉRICAS -->
+  <path
+    d="M610 770C800 670 1000 670 1280 760"
+    stroke="#D9A66A"
+    stroke-opacity="0.08"
+    stroke-width="1"
+  />
+
+  <path
+    d="M520 820C790 700 1100 720 1430 810"
+    stroke="#E4BB82"
+    stroke-opacity="0.05"
+    stroke-width="1"
+  />
+
+  <!-- VINHETA -->
+  <rect width="1600" height="900" fill="url(#bg)" opacity="0.18"/>
+
+  <rect
+    x="0"
+    y="0"
+    width="1600"
+    height="900"
+    fill="none"
+    stroke="#C99355"
+    stroke-opacity="0.05"
+  />
+
+</svg>
