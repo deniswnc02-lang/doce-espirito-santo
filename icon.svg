@@ -1,35 +1,375 @@
 <svg
-xmlns="http://www.w3.org/2000/svg"
-viewBox="0 0 512 512"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 512 512"
+  role="img"
+  aria-labelledby="title desc"
 >
+  <title id="title">Doce Espírito Santo — Um Amigo Íntimo</title>
+  <desc id="desc">
+    Símbolo luminoso representando a presença do Doce Espírito Santo.
+  </desc>
 
-<rect
-width="512"
-height="512"
-rx="112"
-fill="#120b08"
-/>
+  <defs>
 
-<circle
-cx="256"
-cy="256"
-r="145"
-fill="none"
-stroke="#e8b66e"
-stroke-width="3"
-opacity=".35"
-/>
+    <!-- Fundo profundo -->
+    <radialGradient
+      id="background"
+      cx="50%"
+      cy="42%"
+      r="72%"
+    >
+      <stop
+        offset="0%"
+        stop-color="#21180F"
+      />
 
-<path
-d="M256 116l22 112 112 28-112 22-22 118-22-118-112-22 112-28z"
-fill="#e8b66e"
-/>
+      <stop
+        offset="48%"
+        stop-color="#0E0B08"
+      />
 
-<circle
-cx="256"
-cy="256"
-r="14"
-fill="#fff1d5"
-/>
+      <stop
+        offset="100%"
+        stop-color="#050403"
+      />
+    </radialGradient>
+
+    <!-- Luz central -->
+    <radialGradient
+      id="light"
+      cx="50%"
+      cy="50%"
+      r="50%"
+    >
+      <stop
+        offset="0%"
+        stop-color="#FFF5D8"
+        stop-opacity="1"
+      />
+
+      <stop
+        offset="28%"
+        stop-color="#E8C98A"
+        stop-opacity=".78"
+      />
+
+      <stop
+        offset="65%"
+        stop-color="#B8894C"
+        stop-opacity=".18"
+      />
+
+      <stop
+        offset="100%"
+        stop-color="#B8894C"
+        stop-opacity="0"
+      />
+    </radialGradient>
+
+    <!-- Dourado -->
+    <linearGradient
+      id="gold"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="100%"
+    >
+      <stop
+        offset="0%"
+        stop-color="#FFF1C8"
+      />
+
+      <stop
+        offset="28%"
+        stop-color="#D9B36B"
+      />
+
+      <stop
+        offset="62%"
+        stop-color="#A9793E"
+      />
+
+      <stop
+        offset="100%"
+        stop-color="#F0D18D"
+      />
+    </linearGradient>
+
+    <!-- Brilho -->
+    <filter
+      id="glow"
+      x="-100%"
+      y="-100%"
+      width="300%"
+      height="300%"
+    >
+      <feGaussianBlur
+        stdDeviation="12"
+        result="blur"
+      />
+
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter
+      id="softGlow"
+      x="-100%"
+      y="-100%"
+      width="300%"
+      height="300%"
+    >
+      <feGaussianBlur
+        stdDeviation="25"
+      />
+    </filter>
+
+  </defs>
+
+
+  <!-- =====================================================
+       FUNDO
+       ===================================================== -->
+
+  <rect
+    width="512"
+    height="512"
+    rx="112"
+    fill="url(#background)"
+  />
+
+
+  <!-- =====================================================
+       AURA
+       ===================================================== -->
+
+  <circle
+    cx="256"
+    cy="235"
+    r="145"
+    fill="url(#light)"
+    filter="url(#softGlow)"
+  />
+
+  <circle
+    cx="256"
+    cy="235"
+    r="105"
+    fill="url(#light)"
+    opacity=".55"
+  />
+
+
+  <!-- =====================================================
+       ANEL EXTERNO
+       ===================================================== -->
+
+  <circle
+    cx="256"
+    cy="256"
+    r="178"
+    fill="none"
+    stroke="url(#gold)"
+    stroke-width="2"
+    opacity=".22"
+  />
+
+  <circle
+    cx="256"
+    cy="256"
+    r="162"
+    fill="none"
+    stroke="url(#gold)"
+    stroke-width="1"
+    opacity=".12"
+  />
+
+
+  <!-- =====================================================
+       PLUMA / PRESENÇA
+       ===================================================== -->
+
+  <g
+    transform="translate(256 242)"
+    fill="none"
+    stroke="url(#gold)"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+
+    <!-- eixo central -->
+    <path
+      d="M0-105
+         C-4-76 -5-45 -2-10
+         C0 22 1 53 0 92"
+      stroke-width="5"
+      opacity=".92"
+      filter="url(#glow)"
+    />
+
+    <!-- lado esquerdo -->
+    <path
+      d="M-5-91
+         C-33-82 -57-62 -72-38
+         C-87-14 -91 13 -84 36
+         C-76 61 -57 76 -34 82"
+      stroke-width="4"
+      opacity=".82"
+    />
+
+    <path
+      d="M-13-69
+         C-37-59 -53-44 -62-26"
+      stroke-width="3"
+      opacity=".62"
+    />
+
+    <path
+      d="M-17-40
+         C-39-33 -53-22 -61-7"
+      stroke-width="3"
+      opacity=".58"
+    />
+
+    <path
+      d="M-18-9
+         C-38-4 -49 4 -55 16"
+      stroke-width="3"
+      opacity=".52"
+    />
+
+    <path
+      d="M-15 23
+         C-32 27 -42 34 -47 43"
+      stroke-width="3"
+      opacity=".46"
+    />
+
+    <!-- lado direito -->
+    <path
+      d="M5-91
+         C33-82 57-62 72-38
+         C87-14 91 13 84 36
+         C76 61 57 76 34 82"
+      stroke-width="4"
+      opacity=".82"
+    />
+
+    <path
+      d="M13-69
+         C37-59 53-44 62-26"
+      stroke-width="3"
+      opacity=".62"
+    />
+
+    <path
+      d="M17-40
+         C39-33 53-22 61-7"
+      stroke-width="3"
+      opacity=".58"
+    />
+
+    <path
+      d="M18-9
+         C38-4 49 4 55 16"
+      stroke-width="3"
+      opacity=".52"
+    />
+
+    <path
+      d="M15 23
+         C32 27 42 34 47 43"
+      stroke-width="3"
+      opacity=".46"
+    />
+
+  </g>
+
+
+  <!-- =====================================================
+       PONTO DE LUZ
+       ===================================================== -->
+
+  <circle
+    cx="256"
+    cy="137"
+    r="7"
+    fill="#FFF4D0"
+    filter="url(#glow)"
+  />
+
+  <circle
+    cx="256"
+    cy="137"
+    r="3"
+    fill="#FFFFFF"
+  />
+
+
+  <!-- =====================================================
+       PEQUENOS FRAGMENTOS DE LUZ
+       ===================================================== -->
+
+  <g
+    fill="#E5C27D"
+    opacity=".65"
+  >
+
+    <circle
+      cx="173"
+      cy="185"
+      r="2"
+    />
+
+    <circle
+      cx="338"
+      cy="173"
+      r="2"
+    />
+
+    <circle
+      cx="157"
+      cy="274"
+      r="1.8"
+    />
+
+    <circle
+      cx="355"
+      cy="287"
+      r="1.8"
+    />
+
+    <circle
+      cx="199"
+      cy="349"
+      r="1.6"
+    />
+
+    <circle
+      cx="315"
+      cy="351"
+      r="1.6"
+    />
+
+  </g>
+
+
+  <!-- =====================================================
+       BORDA INTERNA
+       ===================================================== -->
+
+  <rect
+    x="15"
+    y="15"
+    width="482"
+    height="482"
+    rx="100"
+    fill="none"
+    stroke="#E4C27C"
+    stroke-width="1"
+    opacity=".12"
+  />
 
 </svg>
