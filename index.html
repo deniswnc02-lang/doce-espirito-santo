@@ -1,371 +1,2878 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  >
+<meta charset="UTF-8">
 
-  <meta
-    name="theme-color"
-    content="#080907"
-  >
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+>
 
-  <meta
-    name="apple-mobile-web-app-capable"
-    content="yes"
-  >
+<meta
+  name="theme-color"
+  content="#080907"
+>
 
-  <meta
-    name="apple-mobile-web-app-status-bar-style"
-    content="black-translucent"
-  >
+<meta
+  name="apple-mobile-web-app-capable"
+  content="yes"
+>
 
-  <meta
-    name="apple-mobile-web-app-title"
-    content="Doce Espírito Santo"
-  >
+<meta
+  name="apple-mobile-web-app-status-bar-style"
+  content="black-translucent"
+>
 
-  <meta
-    name="description"
-    content="Doce Espírito Santo — Um Amigo Íntimo. Uma jornada de 365 dias de intimidade, presença, Palavra e comunhão com o Doce Espírito Santo."
-  >
+<meta
+  name="apple-mobile-web-app-title"
+  content="Doce Espírito Santo"
+>
 
-  <meta
-    name="mobile-web-app-capable"
-    content="yes"
-  >
+<meta
+  name="description"
+  content="Doce Espírito Santo — Um Amigo Íntimo. Uma jornada de 365 dias de intimidade com o Doce Espírito Santo."
+>
 
-  <title>
-    Doce Espírito Santo — Um Amigo Íntimo
-  </title>
+<link
+  rel="manifest"
+  href="manifest.json"
+>
 
-  <!-- =====================================================
-       PWA
-       ===================================================== -->
+<link
+  rel="icon"
+  href="icon.svg"
+>
 
-  <link
-    rel="manifest"
-    href="manifest.json"
-  >
+<title>
+Doce Espírito Santo — Um Amigo Íntimo
+</title>
 
-  <!-- =====================================================
-       ÍCONE
-       ===================================================== -->
 
-  <link
-    rel="icon"
-    type="image/svg+xml"
-    href="icon.svg"
-  >
+<style>
 
-  <link
-    rel="apple-touch-icon"
-    href="icon.svg"
-  >
+/* =========================================================
+   BASE
+   ========================================================= */
 
-  <!-- =====================================================
-       FONTES
-       ===================================================== -->
+:root{
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
+  --black:#070806;
+  --black2:#0c0e0b;
+  --green:#151a13;
 
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
+  --gold:#c9a45a;
+  --gold2:#e2c47e;
+  --cream:#f4ead3;
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  >
+  --text:#f3eee4;
+  --muted:#9b968b;
 
-  <!-- =====================================================
-       ESTILOS
-       ===================================================== -->
+  --line:rgba(226,196,126,.14);
 
-  <link
-    rel="stylesheet"
-    href="styles.css"
-  >
+}
 
-  <style>
-    /*
-     * Tela inicial enquanto o aplicativo carrega.
-     * O app.js assume o controle depois.
-     */
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    #app-loading {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
+html{
+  background:var(--black);
+  scroll-behavior:smooth;
+}
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+body{
 
-      background:
-        radial-gradient(
-          circle at 50% 35%,
-          rgba(201,164,90,.12),
-          transparent 35%
-        ),
-        #080907;
+  min-height:100vh;
 
-      transition:
-        opacity .4s ease,
-        visibility .4s ease;
-    }
+  color:var(--text);
 
-    #app-loading.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
+  background:
+    radial-gradient(
+      circle at 20% 5%,
+      rgba(181,143,62,.12),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 30%,
+      rgba(59,82,57,.12),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #060705,
+      #11140f 48%,
+      #080907
+    );
 
-    .loading-inner {
-      text-align: center;
-      padding: 30px;
-    }
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    Inter,
+    Arial,
+    sans-serif;
 
-    .loading-logo {
-      width: 72px;
-      height: 72px;
+  overflow-x:hidden;
 
-      margin: 0 auto 22px;
+  -webkit-font-smoothing:antialiased;
+}
 
-      object-fit: contain;
+button{
+  font:inherit;
+  border:0;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
 
-      filter:
-        drop-shadow(
-          0 0 25px rgba(201,164,90,.18)
-        );
-    }
+img{
+  display:block;
+  max-width:100%;
+}
 
-    .loading-title {
-      color: #f1dfb2;
+.hidden{
+  display:none!important;
+}
 
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
 
-      font-size: 25px;
-      font-weight: 400;
+/* =========================================================
+   LOADING
+   ========================================================= */
 
-      letter-spacing: -.02em;
-    }
+#loading{
 
-    .loading-subtitle {
-      margin-top: 8px;
+  position:fixed;
+  inset:0;
 
-      color: #8f8a80;
+  z-index:99999;
 
-      font-size: 11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(201,164,90,.12),
+      transparent 35%
+    ),
+    #070806;
 
-    .loading-line {
-      width: 80px;
-      height: 2px;
+  transition:
+    opacity .45s ease,
+    visibility .45s ease;
 
-      margin: 24px auto 0;
+}
 
-      overflow: hidden;
+#loading.hide{
 
-      background: rgba(255,255,255,.08);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
 
-      border-radius: 999px;
-    }
+}
 
-    .loading-line::after {
-      content: "";
+.loading-content{
+  text-align:center;
+}
 
-      display: block;
+.loading-icon{
 
-      width: 40%;
-      height: 100%;
+  width:90px;
+  height:90px;
 
-      background: #c9a45a;
+  margin:0 auto 24px;
 
-      animation:
-        loading 1.2s ease-in-out infinite;
-    }
+  object-fit:contain;
 
-    @keyframes loading {
-      0% {
-        transform: translateX(-120%);
-      }
+  filter:
+    drop-shadow(
+      0 0 30px
+      rgba(201,164,90,.22)
+    );
 
-      50% {
-        transform: translateX(180%);
-      }
+}
 
-      100% {
-        transform: translateX(180%);
-      }
-    }
-  </style>
+.loading-title{
+
+  color:var(--gold2);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:27px;
+
+}
+
+.loading-subtitle{
+
+  margin-top:8px;
+
+  color:#8e8a82;
+
+  font-size:11px;
+
+  letter-spacing:.22em;
+
+  text-transform:uppercase;
+
+}
+
+.loading-bar{
+
+  width:90px;
+  height:3px;
+
+  margin:25px auto 0;
+
+  background:
+    rgba(255,255,255,.08);
+
+  overflow:hidden;
+
+  border-radius:99px;
+
+}
+
+.loading-bar span{
+
+  display:block;
+
+  width:35%;
+  height:100%;
+
+  background:var(--gold);
+
+  animation:
+    load 1.2s infinite ease-in-out;
+
+}
+
+@keyframes load{
+
+  0%{
+    transform:translateX(-120%);
+  }
+
+  50%{
+    transform:translateX(180%);
+  }
+
+  100%{
+    transform:translateX(180%);
+  }
+
+}
+
+
+/* =========================================================
+   APP
+   ========================================================= */
+
+#app{
+
+  min-height:100vh;
+
+  padding-bottom:105px;
+
+}
+
+
+/* =========================================================
+   TOPO
+   ========================================================= */
+
+.top{
+
+  position:sticky;
+
+  top:0;
+
+  z-index:100;
+
+  height:72px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:
+    0 18px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(7,8,6,.96),
+      rgba(7,8,6,.80),
+      rgba(7,8,6,0)
+    );
+
+  backdrop-filter:blur(18px);
+
+  -webkit-backdrop-filter:blur(18px);
+
+}
+
+.brand{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+}
+
+.brand img{
+
+  width:37px;
+  height:37px;
+
+  object-fit:contain;
+
+}
+
+.brand-text{
+
+  color:#ead9ae;
+
+  font-size:13px;
+
+  font-weight:600;
+
+}
+
+.search{
+
+  width:43px;
+  height:43px;
+
+  display:grid;
+
+  place-items:center;
+
+  border-radius:50%;
+
+  color:var(--gold2);
+
+  background:
+    rgba(255,255,255,.045);
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  font-size:21px;
+
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.container{
+
+  width:100%;
+
+  max-width:1180px;
+
+  margin:auto;
+
+  padding:0 18px;
+
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero{
+
+  position:relative;
+
+  min-height:650px;
+
+  margin:
+    0 -18px;
+
+  overflow:hidden;
+
+  display:flex;
+
+  align-items:flex-end;
+
+  border-radius:
+    0 0 34px 34px;
+
+  background:#11140f;
+
+}
+
+.hero-image{
+
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+}
+
+.hero::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:1;
+
+  background:
+
+    radial-gradient(
+      circle at 75% 20%,
+      rgba(229,193,109,.18),
+      transparent 30%
+    ),
+
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.05),
+      rgba(0,0,0,.18) 40%,
+      rgba(4,5,4,.97) 100%
+    );
+
+}
+
+.hero-content{
+
+  position:relative;
+
+  z-index:2;
+
+  width:100%;
+
+  padding:
+    55px 27px 42px;
+
+}
+
+.eyebrow{
+
+  color:var(--gold2);
+
+  font-size:10px;
+
+  font-weight:800;
+
+  letter-spacing:.20em;
+
+  text-transform:uppercase;
+
+}
+
+.hero-title{
+
+  margin-top:13px;
+
+  color:#f6edd9;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(43px,10vw,76px);
+
+  line-height:.96;
+
+  font-weight:400;
+
+  letter-spacing:-.035em;
+
+}
+
+.hero-subtitle{
+
+  margin-top:17px;
+
+  max-width:570px;
+
+  color:#ddd1b7;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(19px,4vw,27px);
+
+  line-height:1.3;
+
+}
+
+.hero-button{
+
+  margin-top:27px;
+
+  min-height:52px;
+
+  padding:
+    0 24px;
+
+  border-radius:999px;
+
+  color:#16120a;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ebd59b,
+      #b68b42
+    );
+
+  font-size:13px;
+
+  font-weight:800;
+
+  box-shadow:
+    0 14px 40px
+    rgba(190,150,65,.20);
+
+}
+
+
+/* =========================================================
+   SEÇÕES
+   ========================================================= */
+
+.section{
+
+  padding-top:60px;
+
+}
+
+.section-label{
+
+  color:var(--gold);
+
+  font-size:10px;
+
+  font-weight:800;
+
+  letter-spacing:.20em;
+
+  text-transform:uppercase;
+
+}
+
+.section-title{
+
+  margin-top:8px;
+
+  color:var(--cream);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(29px,7vw,44px);
+
+  font-weight:400;
+
+  line-height:1.05;
+
+}
+
+.section-text{
+
+  margin-top:11px;
+
+  color:var(--muted);
+
+  font-size:14px;
+
+  line-height:1.7;
+
+}
+
+
+/* =========================================================
+   DEVOCIONAL
+   ========================================================= */
+
+.devotional{
+
+  position:relative;
+
+  min-height:390px;
+
+  margin-top:22px;
+
+  overflow:hidden;
+
+  border-radius:27px;
+
+  border:
+    1px solid rgba(255,255,255,.09);
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.42);
+
+  background:#11130f;
+
+}
+
+.devotional img{
+
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  opacity:.50;
+
+}
+
+.devotional::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(4,5,4,.98),
+      rgba(4,5,4,.38) 62%,
+      rgba(4,5,4,.04)
+    );
+
+}
+
+.devotional-content{
+
+  position:relative;
+
+  z-index:2;
+
+  min-height:390px;
+
+  padding:28px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:flex-end;
+
+}
+
+.day{
+
+  color:#e0c27b;
+
+  font-size:10px;
+
+  font-weight:800;
+
+  letter-spacing:.17em;
+
+  text-transform:uppercase;
+
+}
+
+.devotional-title{
+
+  margin-top:9px;
+
+  color:#f4ead4;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(29px,7vw,45px);
+
+  line-height:1.03;
+
+  font-weight:400;
+
+}
+
+.devotional-description{
+
+  margin-top:12px;
+
+  color:
+    rgba(245,240,230,.72);
+
+  font-size:14px;
+
+  line-height:1.7;
+
+}
+
+.listen{
+
+  margin-top:18px;
+
+  padding:14px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  border-radius:18px;
+
+  background:
+    rgba(20,21,18,.72);
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(16px);
+
+}
+
+.play{
+
+  width:44px;
+  height:44px;
+
+  flex:0 0 44px;
+
+  display:grid;
+
+  place-items:center;
+
+  border-radius:50%;
+
+  color:#17130b;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e7cf92,
+      #b88e45
+    );
+
+}
+
+.listen-title{
+
+  color:#eee6d5;
+
+  font-size:12px;
+
+  font-weight:700;
+
+}
+
+.listen-meta{
+
+  margin-top:4px;
+
+  color:#89857d;
+
+  font-size:10px;
+
+}
+
+
+/* =========================================================
+   CARDS COM IMAGEM
+   ========================================================= */
+
+.grid{
+
+  margin-top:22px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:13px;
+
+}
+
+.image-card{
+
+  position:relative;
+
+  min-height:235px;
+
+  overflow:hidden;
+
+  border-radius:21px;
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  background:#151711;
+
+}
+
+.image-card img{
+
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  opacity:.70;
+
+}
+
+.image-card::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(4,5,4,.96),
+      rgba(4,5,4,.05)
+    );
+
+}
+
+.card-content{
+
+  position:absolute;
+
+  z-index:2;
+
+  left:17px;
+
+  right:17px;
+
+  bottom:17px;
+
+}
+
+.card-title{
+
+  color:#f4ead5;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:22px;
+
+  line-height:1.05;
+
+}
+
+.card-text{
+
+  margin-top:7px;
+
+  color:
+    rgba(245,240,230,.66);
+
+  font-size:11px;
+
+  line-height:1.5;
+
+}
+
+
+/* =========================================================
+   365
+   ========================================================= */
+
+.journey{
+
+  position:relative;
+
+  margin-top:22px;
+
+  min-height:290px;
+
+  padding:30px;
+
+  overflow:hidden;
+
+  border-radius:27px;
+
+  border:
+    1px solid rgba(208,174,97,.18);
+
+  background:
+
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(211,172,87,.15),
+      transparent 35%
+    ),
+
+    linear-gradient(
+      135deg,
+      #151712,
+      #0b0d0a
+    );
+
+}
+
+.number{
+
+  color:
+    rgba(210,174,93,.18);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:112px;
+
+  line-height:.72;
+
+}
+
+.journey-title{
+
+  margin-top:26px;
+
+  color:#f2e7ca;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:39px;
+
+}
+
+.journey-text{
+
+  margin-top:10px;
+
+  color:#999388;
+
+  font-size:13px;
+
+  line-height:1.7;
+
+}
+
+.progress{
+
+  height:4px;
+
+  margin-top:20px;
+
+  overflow:hidden;
+
+  border-radius:99px;
+
+  background:
+    rgba(255,255,255,.08);
+
+}
+
+.progress span{
+
+  display:block;
+
+  width:0%;
+
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #a47e39,
+      #e4c77d
+    );
+
+}
+
+
+/* =========================================================
+   ESTUDOS
+   ========================================================= */
+
+.study{
+
+  position:relative;
+
+  min-height:310px;
+
+  margin-top:22px;
+
+  overflow:hidden;
+
+  border-radius:27px;
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+}
+
+.study img{
+
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+}
+
+.study::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(5,6,5,.97),
+      rgba(5,6,5,.10)
+    );
+
+}
+
+.study-content{
+
+  position:absolute;
+
+  z-index:2;
+
+  left:25px;
+
+  right:25px;
+
+  bottom:25px;
+
+}
+
+.study-title{
+
+  color:#f2e6ca;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:36px;
+
+}
+
+.study-text{
+
+  margin-top:8px;
+
+  color:
+    rgba(255,248,233,.68);
+
+  font-size:13px;
+
+  line-height:1.6;
+
+}
+
+
+/* =========================================================
+   FINAL
+   ========================================================= */
+
+.final{
+
+  padding:
+    100px 20px 70px;
+
+  text-align:center;
+
+}
+
+.final-title{
+
+  margin-top:17px;
+
+  color:#f4ead3;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(32px,8vw,54px);
+
+  font-weight:400;
+
+}
+
+.final-text{
+
+  max-width:550px;
+
+  margin:
+    17px auto 0;
+
+  color:#928d82;
+
+  font-size:14px;
+
+  line-height:1.8;
+
+}
+
+
+/* =========================================================
+   NAVEGAÇÃO
+   ========================================================= */
+
+.bottom{
+
+  position:fixed;
+
+  z-index:500;
+
+  left:50%;
+
+  bottom:
+    calc(15px + env(safe-area-inset-bottom));
+
+  transform:
+    translateX(-50%);
+
+  width:
+    min(
+      calc(100% - 28px),
+      600px
+    );
+
+  min-height:66px;
+
+  padding:7px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-around;
+
+  border-radius:23px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  background:
+    rgba(18,20,16,.78);
+
+  box-shadow:
+    0 20px 70px rgba(0,0,0,.50);
+
+  backdrop-filter:
+    blur(25px);
+
+  -webkit-backdrop-filter:
+    blur(25px);
+
+}
+
+.nav-button{
+
+  min-width:55px;
+
+  height:51px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:3px;
+
+  border-radius:16px;
+
+  background:transparent;
+
+  color:#77756d;
+
+  font-size:9px;
+
+}
+
+.nav-button.active{
+
+  color:#e2c47e;
+
+  background:
+    rgba(207,168,87,.08);
+
+}
+
+.nav-icon{
+
+  font-size:17px;
+
+}
+
+
+/* =========================================================
+   MODAL DEVOCIONAL
+   ========================================================= */
+
+.modal{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:1000;
+
+  display:none;
+
+  overflow-y:auto;
+
+  background:
+    rgba(4,5,4,.98);
+
+}
+
+.modal.open{
+
+  display:block;
+
+}
+
+.modal-inner{
+
+  width:
+    min(100%,850px);
+
+  margin:auto;
+
+  padding:
+    25px 20px 120px;
+
+}
+
+.close{
+
+  width:44px;
+  height:44px;
+
+  margin-left:auto;
+
+  display:grid;
+
+  place-items:center;
+
+  border-radius:50%;
+
+  color:white;
+
+  background:
+    rgba(255,255,255,.07);
+
+  font-size:22px;
+
+}
+
+.reading{
+
+  margin-top:27px;
+
+  color:#ded7ca;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:18px;
+
+  line-height:1.85;
+
+}
+
+.reading p{
+
+  margin-bottom:1.3em;
+
+}
+
+.verse{
+
+  padding:20px;
+
+  border-left:
+    2px solid var(--gold);
+
+  color:#e1c47d;
+
+  background:
+    rgba(201,164,90,.05);
+
+}
+
+
+/* =========================================================
+   BUSCA
+   ========================================================= */
+
+.search-modal{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:900;
+
+  display:none;
+
+  padding:
+    85px 20px 40px;
+
+  background:
+    rgba(4,5,4,.98);
+
+}
+
+.search-modal.open{
+
+  display:block;
+
+}
+
+.search-inner{
+
+  width:
+    min(100%,700px);
+
+  margin:auto;
+
+}
+
+.search-input{
+
+  width:100%;
+
+  height:57px;
+
+  padding:
+    0 18px;
+
+  margin-top:20px;
+
+  border-radius:17px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  outline:none;
+
+  color:white;
+
+  background:
+    rgba(255,255,255,.06);
+
+  font-size:16px;
+
+}
+
+.results{
+
+  margin-top:20px;
+
+  display:grid;
+
+  gap:10px;
+
+}
+
+.result{
+
+  padding:17px;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  background:
+    rgba(255,255,255,.04);
+
+}
+
+.result strong{
+
+  color:#eee5d2;
+
+}
+
+.result small{
+
+  display:block;
+
+  margin-top:5px;
+
+  color:#8f8a80;
+
+}
+
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media(min-width:760px){
+
+  .container{
+
+    padding:
+      0 32px;
+
+  }
+
+  .hero{
+
+    margin:
+      0 -32px;
+
+    min-height:760px;
+
+  }
+
+  .hero-content{
+
+    padding:
+      80px 60px 60px;
+
+  }
+
+  .grid{
+
+    grid-template-columns:
+      repeat(4,minmax(0,1fr));
+
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-  <!-- =====================================================
-       LOADING
-       ===================================================== -->
 
-  <div id="app-loading">
+<!-- =======================================================
+     LOADING
+     ======================================================= -->
 
-    <div class="loading-inner">
+<div id="loading">
 
-      <img
-        class="loading-logo"
-        src="icon.svg"
-        alt="Doce Espírito Santo"
+  <div class="loading-content">
+
+    <img
+      class="loading-icon"
+      src="icon.svg"
+      alt=""
+    >
+
+    <div class="loading-title">
+      Doce Espírito Santo
+    </div>
+
+    <div class="loading-subtitle">
+      Um Amigo Íntimo
+    </div>
+
+    <div class="loading-bar">
+      <span></span>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =======================================================
+     APP
+     ======================================================= -->
+
+<div id="app">
+
+
+<header class="top">
+
+  <div class="brand">
+
+    <img
+      src="icon.svg"
+      alt=""
+    >
+
+    <div class="brand-text">
+      Doce Espírito Santo
+    </div>
+
+  </div>
+
+  <button
+    class="search"
+    id="searchButton"
+  >
+    ⌕
+  </button>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- =======================================================
+     HERO
+     ======================================================= -->
+
+<section class="hero">
+
+  <img
+    class="hero-image"
+    src="capa.jpeg"
+    alt="Doce Espírito Santo"
+  >
+
+  <div class="hero-content">
+
+    <div class="eyebrow">
+      UM AMIGO ÍNTIMO
+    </div>
+
+    <h1 class="hero-title">
+      Doce Espírito Santo
+    </h1>
+
+    <div class="hero-subtitle">
+      Ele já está aqui.<br>
+      Aprenda a percebê-lo.
+    </div>
+
+    <button
+      class="hero-button"
+      id="startButton"
+    >
+      Começar minha jornada
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     DEVOCIONAL
+     ======================================================= -->
+
+<section class="section">
+
+  <div class="section-label">
+    Hoje
+  </div>
+
+  <h2 class="section-title">
+    Seu encontro de hoje
+  </h2>
+
+  <div class="devotional">
+
+    <img
+      src="capa.jpeg"
+      alt=""
+    >
+
+    <div class="devotional-content">
+
+      <div
+        class="day"
+        id="todayDay"
       >
-
-      <div class="loading-title">
-        Doce Espírito Santo
+        DIA 1 DE 365
       </div>
 
-      <div class="loading-subtitle">
-        Um Amigo Íntimo
-      </div>
+      <h3
+        class="devotional-title"
+        id="todayTitle"
+      >
+        A Presença que já está aqui
+      </h3>
 
-      <div class="loading-line"></div>
+      <p
+        class="devotional-description"
+        id="todayDescription"
+      >
+        Um momento de intimidade, Palavra,
+        reflexão e oração.
+      </p>
+
+      <div class="listen">
+
+        <button
+          class="play"
+          id="listenButton"
+        >
+          ▶
+        </button>
+
+        <div>
+
+          <div class="listen-title">
+            Ouvir devocional completo
+          </div>
+
+          <div class="listen-meta">
+            Palavra • reflexão • contemplação
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 
   </div>
 
-
-  <!-- =====================================================
-       APLICAÇÃO
-       O app.js constrói a interface principal aqui.
-       ===================================================== -->
-
-  <main id="app">
-  </main>
+</section>
 
 
-  <!-- =====================================================
-       FALLBACK SEM JAVASCRIPT
-       ===================================================== -->
+<!-- =======================================================
+     PRESENÇA
+     ======================================================= -->
 
-  <noscript>
+<section class="section">
+
+  <div class="section-label">
+    Presença
+  </div>
+
+  <h2 class="section-title">
+    Aprenda a percebê-lo
+  </h2>
+
+  <p class="section-text">
+    A jornada não é apenas conhecer sobre o
+    Doce Espírito Santo, mas desenvolver
+    sensibilidade para perceber Sua presença.
+  </p>
+
+
+  <div class="grid">
+
+
+    <article class="image-card">
+
+      <img src="capa.jpeg" alt="">
+
+      <div class="card-content">
+
+        <div class="card-title">
+          Tempo com Ele
+        </div>
+
+        <div class="card-text">
+          Um espaço diário para permanecer.
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article class="image-card">
+
+      <img src="capa.jpeg" alt="">
+
+      <div class="card-content">
+
+        <div class="card-title">
+          Escuta
+        </div>
+
+        <div class="card-text">
+          Silenciar para perceber.
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article class="image-card">
+
+      <img src="capa.jpeg" alt="">
+
+      <div class="card-content">
+
+        <div class="card-title">
+          Contemplação
+        </div>
+
+        <div class="card-text">
+          Permanecer diante da presença.
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article class="image-card">
+
+      <img src="capa.jpeg" alt="">
+
+      <div class="card-content">
+
+        <div class="card-title">
+          Vida diária
+        </div>
+
+        <div class="card-text">
+          Percebê-lo também no ordinário.
+        </div>
+
+      </div>
+
+    </article>
+
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     365 DIAS
+     ======================================================= -->
+
+<section class="section">
+
+  <div class="section-label">
+    A jornada
+  </div>
+
+  <div class="journey">
+
+    <div class="number">
+      365
+    </div>
+
+    <div class="journey-title">
+      Um ano de intimidade
+    </div>
+
+    <div class="journey-text">
+      Uma jornada construída dia após dia,
+      conduzindo você para uma vida mais
+      consciente da presença do Doce Espírito Santo.
+    </div>
+
+    <div class="progress">
+      <span id="progress"></span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     ESTUDOS
+     ======================================================= -->
+
+<section class="section">
+
+  <div class="section-label">
+    Aprofundamento
+  </div>
+
+  <h2 class="section-title">
+    Estudos teológicos
+  </h2>
+
+  <div class="study">
+
+    <img
+      src="capa.jpeg"
+      alt=""
+    >
+
+    <div class="study-content">
+
+      <div class="study-title">
+        Quem é o Doce Espírito Santo?
+      </div>
+
+      <div class="study-text">
+        Uma jornada de aprofundamento bíblico,
+        teológico e contemplativo sobre a pessoa,
+        presença e obra do Espírito Santo.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     BÍBLIA
+     ======================================================= -->
+
+<section class="section">
+
+  <div class="section-label">
+    Palavra
+  </div>
+
+  <h2 class="section-title">
+    A Bíblia dentro da jornada
+  </h2>
+
+  <p class="section-text">
+    A Palavra é o fundamento da nossa caminhada:
+    estudo, contemplação, mapas e planos de leitura.
+  </p>
+
+  <div class="grid">
+
+
+    <article class="image-card">
+
+      <img src="capa.jpeg" alt="">
+
+      <div class="card-content">
+
+        <div class="card-title">
+          Bíblia
+        </div>
+
+        <div class="card-text">
+          Leia e medite na Palavra.
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article class="image-card">
+
+      <img src="capa.jpeg" alt="">
+
+      <div class="card-content">
+
+        <div class="card-title">
+          Mapas
+        </div>
+
+        <div class="card-text">
+          Organize sua compreensão.
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article class="image-card">
+
+      <img src="capa.jpeg" alt="">
+
+      <div class="card-content">
+
+        <div class="card-title">
+          Planos
+        </div>
+
+        <div class="card-text">
+          Caminhos de leitura e estudo.
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article class="image-card">
+
+      <img src="capa.jpeg" alt="">
+
+      <div class="card-content">
+
+        <div class="card-title">
+          Práticas
+        </div>
+
+        <div class="card-text">
+          Transforme conhecimento em experiência.
+        </div>
+
+      </div>
+
+    </article>
+
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     FINAL
+     ======================================================= -->
+
+<section class="final">
+
+  <div class="section-label">
+    Permaneça
+  </div>
+
+  <div class="final-title">
+    Ele já está aqui.
+  </div>
+
+  <div class="final-text">
+    Talvez a jornada não seja encontrar
+    o Doce Espírito Santo, mas aprender
+    a perceber que Ele nunca esteve longe.
+  </div>
+
+</section>
+
+
+</div>
+
+
+<!-- =======================================================
+     NAVEGAÇÃO
+     ======================================================= -->
+
+<nav class="bottom">
+
+  <button
+    class="nav-button active"
+    id="navHome"
+  >
+    <span class="nav-icon">⌂</span>
+    Início
+  </button>
+
+  <button
+    class="nav-button"
+    id="navJourney"
+  >
+    <span class="nav-icon">✦</span>
+    Jornada
+  </button>
+
+  <button
+    class="nav-button"
+    id="navBible"
+  >
+    <span class="nav-icon">▤</span>
+    Bíblia
+  </button>
+
+  <button
+    class="nav-button"
+    id="navStudies"
+  >
+    <span class="nav-icon">◇</span>
+    Estudos
+  </button>
+
+  <button
+    class="nav-button"
+    id="navSearch"
+  >
+    <span class="nav-icon">⌕</span>
+    Buscar
+  </button>
+
+</nav>
+
+
+<!-- =======================================================
+     MODAL DEVOCIONAL
+     ======================================================= -->
+
+<div
+  class="modal"
+  id="devotionalModal"
+>
+
+  <div class="modal-inner">
+
+    <button
+      class="close"
+      id="closeModal"
+    >
+      ×
+    </button>
 
     <div
-      style="
-        min-height:100vh;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        padding:30px;
-        background:#080907;
-        color:#f5f0e6;
-        text-align:center;
-        font-family:Arial,sans-serif;
-      "
+      class="section-label"
+      id="modalDay"
     >
+      DIA 1 DE 365
+    </div>
+
+    <h1
+      class="section-title"
+      id="modalTitle"
+    >
+      A Presença que já está aqui
+    </h1>
+
+    <div
+      class="reading"
+      id="modalText"
+    >
+
+      <p>
+        Antes de procurar sinais extraordinários,
+        aprenda a perceber a presença do Doce
+        Espírito Santo naquilo que já está acontecendo
+        dentro e ao redor de você.
+      </p>
+
+      <div class="verse">
+        “E eu pedirei ao Pai, e ele lhes dará outro
+        Consolador, para que esteja com vocês para sempre.”
+        — João 14:16
+      </div>
+
+      <p>
+        Permaneça por alguns instantes em silêncio.
+        Não tenha pressa. Apenas perceba.
+      </p>
+
+    </div>
+
+    <div class="listen">
+
+      <button
+        class="play"
+        id="prayerButton"
+      >
+        ▶
+      </button>
 
       <div>
 
-        <h1
-          style="
-            font-family:Georgia,serif;
-            font-weight:400;
-            margin-bottom:12px;
-          "
-        >
-          Doce Espírito Santo
-        </h1>
+        <div class="listen-title">
+          Ouvir oração
+        </div>
 
-        <p
-          style="
-            color:#aaa49a;
-            line-height:1.6;
-          "
-        >
-          Este aplicativo precisa do JavaScript
-          ativado para funcionar.
-        </p>
+        <div class="listen-meta">
+          Permaneça em oração e contemplação
+        </div>
 
       </div>
 
     </div>
 
-  </noscript>
+  </div>
+
+</div>
 
 
-  <!-- =====================================================
-       JAVASCRIPT PRINCIPAL
-       ===================================================== -->
+<!-- =======================================================
+     BUSCA
+     ======================================================= -->
 
-  <script
-    src="app.js"
-    defer
-  ></script>
+<div
+  class="search-modal"
+  id="searchModal"
+>
+
+  <div class="search-inner">
+
+    <button
+      class="close"
+      id="closeSearch"
+    >
+      ×
+    </button>
+
+    <input
+      class="search-input"
+      id="searchInput"
+      type="search"
+      placeholder="Buscar na sua jornada..."
+    >
+
+    <div
+      class="results"
+      id="results"
+    ></div>
+
+  </div>
+
+</div>
 
 
-  <!-- =====================================================
-       SERVICE WORKER / PWA
-       ===================================================== -->
+</div>
 
-  <script>
-    /*
-     * Registra o Service Worker somente quando
-     * o navegador oferecer suporte.
-     */
 
-    if ("serviceWorker" in navigator) {
+<script>
 
-      window.addEventListener("load", function () {
+/* ==========================================================
+   ESTADO
+   ========================================================== */
 
-        navigator.serviceWorker
-          .register("sw.js")
-          .catch(function (error) {
+let devotionals = [];
 
-            console.warn(
-              "Service Worker não pôde ser registrado:",
-              error
-            );
+let currentDay =
+  Number(
+    localStorage.getItem("doce-current-day")
+  ) || 1;
 
-          });
 
-      });
+/* ==========================================================
+   ELEMENTOS
+   ========================================================== */
+
+const loading =
+  document.getElementById("loading");
+
+const modal =
+  document.getElementById("devotionalModal");
+
+const searchModal =
+  document.getElementById("searchModal");
+
+
+/* ==========================================================
+   FALLBACK
+   ========================================================== */
+
+const fallback = {
+
+  dia:1,
+
+  titulo:
+    "A Presença que já está aqui",
+
+  introducao:
+    "Um momento de intimidade, Palavra, reflexão e oração.",
+
+  referencia:
+    "João 14:16",
+
+  reflexao:
+    "Antes de procurar sinais extraordinários, aprenda a perceber a presença do Doce Espírito Santo naquilo que já está acontecendo dentro e ao redor de você.",
+
+  pergunta:
+    "Onde você percebeu a presença do Doce Espírito Santo hoje?",
+
+  pratica:
+    "Separe alguns minutos em silêncio e simplesmente permaneça consciente da presença dEle.",
+
+  oracao:
+    "Doce Espírito Santo, ensina-me a perceber Tua presença."
+
+
+};
+
+
+/* ==========================================================
+   ESCONDER LOADING
+   ========================================================== */
+
+function hideLoading(){
+
+  loading.classList.add("hide");
+
+}
+
+
+/* ==========================================================
+   CARREGAR DEVOCIONAIS
+   ========================================================== */
+
+async function loadDevotionals(){
+
+  try{
+
+    const response =
+      await fetch(
+        "devocionais.json?v=10",
+        {
+          cache:"no-store"
+        }
+      );
+
+    if(!response.ok){
+
+      throw new Error(
+        "Não foi possível carregar devocionais.json"
+      );
 
     }
 
+    const data =
+      await response.json();
 
-    /*
-     * Remove a tela de carregamento depois que
-     * a aplicação terminar de carregar.
-     */
+    if(!Array.isArray(data)){
 
-    window.addEventListener("load", function () {
+      throw new Error(
+        "Formato inválido"
+      );
 
-      setTimeout(function () {
+    }
 
-        const loading =
-          document.getElementById("app-loading");
+    devotionals = data;
 
-        if (loading) {
-          loading.classList.add("hidden");
+  }catch(error){
+
+    console.error(error);
+
+    devotionals = [fallback];
+
+  }
+
+  updateToday();
+
+  hideLoading();
+
+}
+
+
+/* ==========================================================
+   ENCONTRAR DIA
+   ========================================================== */
+
+function getDay(day){
+
+  return devotionals.find(
+    item =>
+      Number(item.dia) === Number(day)
+  ) || fallback;
+
+}
+
+
+/* ==========================================================
+   ATUALIZAR HOME
+   ========================================================== */
+
+function updateToday(){
+
+  const data =
+    getDay(currentDay);
+
+  document.getElementById(
+    "todayDay"
+  ).textContent =
+    "DIA " +
+    currentDay +
+    " DE 365";
+
+  document.getElementById(
+    "todayTitle"
+  ).textContent =
+    data.titulo ||
+    fallback.titulo;
+
+  document.getElementById(
+    "todayDescription"
+  ).textContent =
+    data.introducao ||
+    fallback.introducao;
+
+  document.getElementById(
+    "modalDay"
+  ).textContent =
+    "DIA " +
+    currentDay +
+    " DE 365;
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent =
+    data.titulo ||
+    fallback.titulo;
+
+  renderProgress();
+
+}
+
+
+/* ==========================================================
+   PROGRESSO
+   ========================================================== */
+
+function renderProgress(){
+
+  let completed = 0;
+
+  for(
+    let i=1;
+    i<=365;
+    i++
+  ){
+
+    if(
+      localStorage.getItem(
+        "day-"+i+"-done"
+      ) === "true"
+    ){
+
+      completed++;
+
+    }
+
+  }
+
+  const percent =
+    (completed / 365) * 100;
+
+  document.getElementById(
+    "progress"
+  ).style.width =
+    percent + "%";
+
+}
+
+
+/* ==========================================================
+   ABRIR DEVOCIONAL
+   ========================================================== */
+
+function openDevotional(){
+
+  const data =
+    getDay(currentDay);
+
+  document.getElementById(
+    "modalDay"
+  ).textContent =
+    "DIA " +
+    currentDay +
+    " DE 365";
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent =
+    data.titulo ||
+    fallback.titulo;
+
+
+  let html = "";
+
+  if(data.introducao){
+
+    html +=
+      "<p>" +
+      escapeHTML(data.introducao) +
+      "</p>";
+
+  }
+
+
+  if(data.referencia){
+
+    html +=
+      '<div class="verse">' +
+      escapeHTML(data.referencia) +
+      "</div>";
+
+  }
+
+
+  if(data.reflexao){
+
+    if(Array.isArray(data.reflexao)){
+
+      data.reflexao.forEach(
+        paragraph => {
+
+          html +=
+            "<p>" +
+            escapeHTML(paragraph) +
+            "</p>";
+
         }
+      );
 
-      }, 350);
+    }else{
 
-    });
+      String(data.reflexao)
+        .split(/\n+/)
+        .filter(Boolean)
+        .forEach(
+          paragraph => {
 
-  </script>
+            html +=
+              "<p>" +
+              escapeHTML(paragraph) +
+              "</p>";
+
+          }
+        );
+
+    }
+
+  }
+
+
+  if(data.pergunta){
+
+    html +=
+      '<div class="verse">' +
+      "<strong>Pergunta para o coração</strong><br><br>" +
+      escapeHTML(data.pergunta) +
+      "</div>";
+
+  }
+
+
+  if(data.pratica){
+
+    html +=
+      "<p><strong>Prática do dia</strong><br><br>" +
+      escapeHTML(data.pratica) +
+      "</p>";
+
+  }
+
+
+  if(data.oracao){
+
+    html +=
+      "<p><strong>Oração</strong><br><br>" +
+      escapeHTML(data.oracao) +
+      "</p>";
+
+  }
+
+
+  document.getElementById(
+    "modalText"
+  ).innerHTML =
+    html;
+
+
+  modal.classList.add("open");
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+
+/* ==========================================================
+   FECHAR DEVOCIONAL
+   ========================================================== */
+
+function closeDevotional(){
+
+  modal.classList.remove("open");
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* ==========================================================
+   PESQUISA
+   ========================================================== */
+
+function openSearch(){
+
+  searchModal.classList.add("open");
+
+  setTimeout(
+    () =>
+      document
+        .getElementById("searchInput")
+        .focus(),
+    100
+  );
+
+}
+
+
+function closeSearch(){
+
+  searchModal.classList.remove("open");
+
+}
+
+
+/* ==========================================================
+   RESULTADOS
+   ========================================================== */
+
+function search(text){
+
+  const results =
+    document.getElementById(
+      "results"
+    );
+
+  const term =
+    text
+      .trim()
+      .toLowerCase();
+
+
+  if(!term){
+
+    results.innerHTML =
+      "";
+
+    return;
+
+  }
+
+
+  const found =
+    devotionals
+      .filter(item => {
+
+        const content =
+          [
+            item.titulo,
+            item.introducao,
+            item.reflexao,
+            item.pergunta,
+            item.pratica,
+            item.oracao,
+            item.referencia
+          ]
+          .join(" ")
+          .toLowerCase();
+
+        return content.includes(term);
+
+      })
+      .slice(0,20);
+
+
+  if(!found.length){
+
+    results.innerHTML =
+      `
+      <div class="result">
+        Nenhum resultado encontrado.
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  results.innerHTML =
+    found
+      .map(item => `
+
+        <button
+          class="result"
+          style="
+            text-align:left;
+            color:white;
+            width:100%;
+          "
+          onclick="openSearchResult(${Number(item.dia)})"
+        >
+
+          <strong>
+            Dia ${Number(item.dia)}
+          </strong>
+
+          <small>
+            ${escapeHTML(item.titulo || "")}
+          </small>
+
+        </button>
+
+      `)
+      .join("");
+
+}
+
+
+function openSearchResult(day){
+
+  currentDay =
+    Number(day);
+
+  localStorage.setItem(
+    "doce-current-day",
+    currentDay
+  );
+
+  closeSearch();
+
+  openDevotional();
+
+}
+
+
+/* ==========================================================
+   ESCAPAR HTML
+   ========================================================== */
+
+function escapeHTML(text){
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    String(text || "");
+
+  return div.innerHTML;
+
+}
+
+
+/* ==========================================================
+   EVENTOS
+   ========================================================== */
+
+document
+  .getElementById("startButton")
+  .addEventListener(
+    "click",
+    openDevotional
+  );
+
+
+document
+  .getElementById("listenButton")
+  .addEventListener(
+    "click",
+    openDevotional
+  );
+
+
+document
+  .getElementById("closeModal")
+  .addEventListener(
+    "click",
+    closeDevotional
+  );
+
+
+document
+  .getElementById("searchButton")
+  .addEventListener(
+    "click",
+    openSearch
+  );
+
+
+document
+  .getElementById("navSearch")
+  .addEventListener(
+    "click",
+    openSearch
+  );
+
+
+document
+  .getElementById("closeSearch")
+  .addEventListener(
+    "click",
+    closeSearch
+  );
+
+
+document
+  .getElementById("searchInput")
+  .addEventListener(
+    "input",
+    event =>
+      search(event.target.value)
+  );
+
+
+document
+  .getElementById("prayerButton")
+  .addEventListener(
+    "click",
+    function(){
+
+      const data =
+        getDay(currentDay);
+
+      if(
+        "speechSynthesis"
+        in window
+      ){
+
+        speechSynthesis.cancel();
+
+        const voice =
+          new SpeechSynthesisUtterance(
+            data.oracao ||
+            fallback.oracao
+          );
+
+        voice.lang =
+          "pt-BR";
+
+        voice.rate =
+          .82;
+
+        voice.pitch =
+          .95;
+
+        speechSynthesis.speak(
+          voice
+        );
+
+      }
+
+    }
+  );
+
+
+/* ==========================================================
+   NAVEGAÇÃO
+   ========================================================== */
+
+document
+  .getElementById("navHome")
+  .addEventListener(
+    "click",
+    () =>
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      })
+  );
+
+
+document
+  .getElementById("navJourney")
+  .addEventListener(
+    "click",
+    () =>
+      document
+        .querySelector(".journey")
+        .scrollIntoView({
+          behavior:"smooth"
+        })
+  );
+
+
+document
+  .getElementById("navBible")
+  .addEventListener(
+    "click",
+    () =>
+      document
+        .querySelector(".section:nth-of-type(5)")
+        ?.scrollIntoView({
+          behavior:"smooth"
+        })
+  );
+
+
+document
+  .getElementById("navStudies")
+  .addEventListener(
+    "click",
+    () =>
+      document
+        .querySelector(".study")
+        .scrollIntoView({
+          behavior:"smooth"
+        })
+  );
+
+
+/* ==========================================================
+   ESC
+   ========================================================== */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if(event.key === "Escape"){
+
+      closeDevotional();
+
+      closeSearch();
+
+    }
+
+  }
+);
+
+
+/* ==========================================================
+   INICIAR
+   ========================================================== */
+
+loadDevotionals();
+
+</script>
+
 
 </body>
 </html>
