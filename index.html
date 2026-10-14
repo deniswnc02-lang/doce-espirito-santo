@@ -1,1931 +1,1032 @@
-/* =========================================================
-   DOCE ESPÍRITO SANTO — UM AMIGO ÍNTIMO
-   APP ENGINE
-========================================================= */
-
-"use strict";
-
-
-/* =========================================================
-   ESTADO
-========================================================= */
-
-let devotionals = [];
-let studies = [];
-
-let currentDay = 1;
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-const $ = selector =>
-  document.querySelector(selector);
-
-const $$ = selector =>
-  [...document.querySelectorAll(selector)];
-
-
-function escapeHTML(value) {
-
-  return String(value ?? "")
-    .replace(/[&<>"']/g, char => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-    }[char]));
-
-}
-
-
-function getDay(day) {
-
-  return devotionals.find(
-    item => Number(item.dia) === Number(day)
-  );
-
-}
-
-
-function getStudyByDay(day) {
-
-  return studies.find(
-    item => Number(item.dia) === Number(day)
-  );
-
-}
-
-
-/* =========================================================
-   STORAGE
-========================================================= */
-
-function doneKey(day) {
-
-  return `doce-dia-${day}-concluido`;
-
-}
-
-
-function favoriteKey(day) {
-
-  return `doce-dia-${day}-favorito`;
-
-}
-
-
-function isDone(day) {
-
-  return localStorage.getItem(
-    doneKey(day)
-  ) === "true";
-
-}
-
-
-function isFavorite(day) {
-
-  return localStorage.getItem(
-    favoriteKey(day)
-  ) === "true";
-
-}
-
-
-function toggleDone(day) {
-
-  localStorage.setItem(
-    doneKey(day),
-    String(!isDone(day))
-  );
-
-}
-
-
-function toggleFavorite(day) {
-
-  localStorage.setItem(
-    favoriteKey(day),
-    String(!isFavorite(day))
-  );
-
-}
-
-
-function countCompleted() {
-
-  let count = 0;
-
-  for (let i = 1; i <= 365; i++) {
-
-    if (isDone(i)) count++;
-
-  }
-
-  return count;
-
-}
-
-
-function countFavorites() {
-
-  let count = 0;
-
-  for (let i = 1; i <= 365; i++) {
-
-    if (isFavorite(i)) count++;
-
-  }
-
-  return count;
-
-}
-
-
-/* =========================================================
-   SPLASH
-========================================================= */
-
-function hideSplash() {
-
-  const splash =
-    document.getElementById("splash");
-
-  if (!splash) return;
-
-  splash.classList.add("is-hidden");
-
-  document.body.classList.add(
-    "app-ready"
-  );
-
-  setTimeout(() => {
-
-    splash.style.display = "none";
-
-  }, 750);
-
-}
-
-
-/* =========================================================
-   CARREGAR JSON
-========================================================= */
-
-async function loadJSON(file) {
-
-  const response =
-    await fetch(
-      `${file}?v=${Date.now()}`,
-      {
-        cache: "no-store"
-      }
-    );
-
-  if (!response.ok) {
-
-    throw new Error(
-      `${file} não encontrado`
-    );
-
-  }
-
-  return response.json();
-
-}
-
-
-/* =========================================================
-   CARREGAR CONTEÚDO
-========================================================= */
-
-async function loadContent() {
-
-  try {
-
-    const [
-      devotionalData,
-      studyData
-    ] = await Promise.all([
-
-      loadJSON("devocionais.json"),
-
-      loadJSON("estudos.json")
-
-    ]);
-
-
-    /* DEVOCIONAIS */
-
-    if (Array.isArray(devotionalData)) {
-
-      devotionals =
-        devotionalData;
-
-    } else {
-
-      devotionals =
-        devotionalData.devocionais || [];
-
-    }
-
-
-    /* ESTUDOS */
-
-    if (Array.isArray(studyData)) {
-
-      studies =
-        studyData;
-
-    } else {
-
-      studies =
-        studyData.estudos || [];
-
-    }
-
-
-    console.log(
-      "Devocionais:",
-      devotionals.length
-    );
-
-    console.log(
-      "Estudos:",
-      studies.length
-    );
-
-
-  } catch (error) {
-
-    console.error(
-      "Erro carregando conteúdo:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   DIA ATUAL
-========================================================= */
-
-function getCurrentDay() {
-
-  /*
-   * Enquanto a jornada ainda está começando,
-   * usamos o primeiro dia.
-   */
-
-  const firstIncomplete =
-    devotionals.find(
-      item =>
-        !isDone(
-          Number(item.dia)
-        )
-    );
-
-  return firstIncomplete
-    ? Number(firstIncomplete.dia)
-    : 1;
-
-}
-
-
-/* =========================================================
-   ATUALIZAR PROGRESSO
-========================================================= */
-
-function updateProgress() {
-
-  const completed =
-    countCompleted();
-
-  $$("[data-completed]")
-    .forEach(element => {
-
-      element.textContent =
-        completed;
-
-    });
-
-
-  $$("[data-progress-bar]")
-    .forEach(element => {
-
-      const percent =
-        Math.min(
-          100,
-          (completed / 365) * 100
-        );
-
-      element.style.width =
-        `${percent}%`;
-
-    });
-
-
-  $$("[data-favorite-count]")
-    .forEach(element => {
-
-      element.textContent =
-        countFavorites();
-
-    });
-
-}
-
-
-/* =========================================================
-   TELA DE HOJE
-========================================================= */
-
-function renderToday() {
-
-  const day =
-    currentDay;
-
-  const item =
-    getDay(day);
-
-  if (!item) return;
-
-
-  const title =
-    item.titulo ||
-    `Dia ${day}`;
-
-
-  const intro =
-    item.introducao ||
-    item.reflexao ||
-    "";
-
-
-  const reference =
-    item.referencia ||
-    "";
-
-
-  $$("[data-day-progress]")
-    .forEach(element => {
-
-      element.textContent =
-        `Dia ${day} de 365`;
-
-    });
-
-
-  $$("[data-today-title]")
-    .forEach(element => {
-
-      element.textContent =
-        title;
-
-    });
-
-
-  $$("[data-today-intro]")
-    .forEach(element => {
-
-      element.textContent =
-        intro;
-
-    });
-
-
-  $$("[data-today-reference]")
-    .forEach(element => {
-
-      element.textContent =
-        reference;
-
-    });
-
-}
-
-
-/* =========================================================
-   CARD DA JORNADA
-========================================================= */
-
-function devotionalCard(item) {
-
-  const day =
-    Number(item.dia);
-
-  const title =
-    item.titulo ||
-    `Dia ${day}`;
-
-
-  const reference =
-    item.referencia ||
-    "";
-
-
-  const completed =
-    isDone(day);
-
-
-  return `
-
-    <article
-      class="content-card"
-      data-open-day="${day}"
-    >
-
-      <div class="content-card__image">
-
-        <div class="content-card__number">
-
-          ${String(day).padStart(2, "0")}
-
-        </div>
-
-      </div>
-
-
-      <div class="content-card__body">
-
-        <span class="eyebrow">
-          DIA ${day}
-        </span>
-
-        <h3>
-          ${escapeHTML(title)}
-        </h3>
-
-        <span class="reference">
-          ${escapeHTML(reference)}
-        </span>
-
-        ${
-          completed
-            ? `
-              <small
-                style="
-                  margin-top:6px;
-                  color:#e8c776;
-                "
-              >
-                ✓ Concluído
-              </small>
-            `
-            : ""
-        }
-
-      </div>
-
-    </article>
-
-  `;
-
-}
-
-
-/* =========================================================
-   RENDER RAIL
-========================================================= */
-
-function renderRail() {
-
-  const container =
-    $("[data-devotional-rail]");
-
-  if (!container) return;
-
-
-  const start =
-    Math.max(
-      1,
-      currentDay
-    );
-
-
-  const items =
-    devotionals
-      .filter(item => {
-
-        const day =
-          Number(item.dia);
-
-        return (
-          day >= start &&
-          day <= start + 9
-        );
-
-      })
-      .slice(0, 10);
-
-
-  container.innerHTML =
-    items
-      .map(devotionalCard)
-      .join("");
-
-}
-
-
-/* =========================================================
-   JORNADA COMPLETA
-========================================================= */
-
-function renderJourney() {
-
-  const grid =
-    $("[data-journey-grid]");
-
-  if (!grid) return;
-
-
-  grid.innerHTML =
-    devotionals
-      .slice(0, 365)
-      .map(item => {
-
-        const day =
-          Number(item.dia);
-
-        const completed =
-          isDone(day);
-
-
-        return `
-
-          <article
-            class="
-              journey-day
-              ${completed ? "completed" : ""}
-            "
-            data-open-day="${day}"
-          >
-
-            <strong>
-              ${String(day).padStart(2,"0")}
-            </strong>
-
-            <h3>
-              ${escapeHTML(
-                item.titulo ||
-                `Dia ${day}`
-              )}
-            </h3>
-
-            <span>
-              ${
-                completed
-                  ? "✓ CONCLUÍDO"
-                  : item.referencia || "CONTINUAR"
-              }
-            </span>
-
-          </article>
-
-        `;
-
-      })
-      .join("");
-
-}
-
-
-/* =========================================================
-   ESTUDOS
-========================================================= */
-
-function renderStudies() {
-
-  const grid =
-    $("[data-study-grid]");
-
-  if (!grid) return;
-
-
-  grid.innerHTML =
-    studies
-      .map((study, index) => {
-
-        const images = [
-
-          "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=1200&q=90",
-
-          "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1200&q=90",
-
-          "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=1200&q=90"
-
-        ];
-
-
-        return `
-
-          <article class="study-item">
-
-            <div
-              class="study-item__image"
-              style="
-                background-image:
-                url('${images[index % images.length]}')
-              "
-            ></div>
-
-            <div
-              class="study-item__overlay"
-            ></div>
-
-
-            <div
-              class="study-item__body"
-            >
-
-              <span class="eyebrow">
-                ${
-                  escapeHTML(
-                    study.categoria ||
-                    "ESTUDO"
-                  )
-                }
-              </span>
-
-              <h3>
-                ${
-                  escapeHTML(
-                    study.titulo ||
-                    "Estudo"
-                  )
-                }
-              </h3>
-
-              <p>
-                ${
-                  escapeHTML(
-                    study.subtitulo ||
-                    study.texto_principal?.referencia ||
-                    ""
-                  )
-                }
-              </p>
-
-              <button
-                data-open-study="${escapeHTML(
-                  study.id || ""
-                )}"
-              >
-                Abrir
-              </button>
-
-            </div>
-
-          </article>
-
-        `;
-
-      })
-      .join("");
-
-}
-
-
-/* =========================================================
-   ABRIR DEVOCIONAL
-========================================================= */
-
-function openDevotional(day) {
-
-  const item =
-    getDay(day);
-
-  if (!item) return;
-
-
-  const modal =
-    $("#devotionalModal");
-
-  const content =
-    modal.querySelector(
-      "[data-modal-content]"
-    );
-
-
-  const study =
-    getStudyByDay(day);
-
-
-  content.innerHTML = `
-
-    <div class="modal-inner">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <meta
+    name="theme-color"
+    content="#080706"
+  >
+
+  <meta
+    name="description"
+    content="Doce Espírito Santo — Um Amigo Íntimo. Uma jornada de 365 dias para aprender a perceber Sua presença."
+  >
+
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
+
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent"
+  >
+
+  <meta
+    name="apple-mobile-web-app-title"
+    content="Doce Espírito Santo"
+  >
+
+  <link
+    rel="manifest"
+    href="./manifest.json"
+  >
+
+  <link
+    rel="icon"
+    href="./icon.svg"
+    type="image/svg+xml"
+  >
+
+  <title>
+    Doce Espírito Santo — Um Amigo Íntimo
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="./styles.css"
+  >
+</head>
+
+<body class="is-loading">
+
+  <!-- =====================================================
+       LOADING
+  ====================================================== -->
+
+  <div
+    id="loadingScreen"
+    class="loading-screen"
+  >
+    <div class="loading-mark">
+      <img
+        src="./icon.svg"
+        alt=""
+      >
+    </div>
+
+    <div class="loading-brand">
+      <strong>DOCE ESPÍRITO SANTO</strong>
+      <span>UM AMIGO ÍNTIMO</span>
+    </div>
+
+    <div class="loading-line">
+      <span></span>
+    </div>
+  </div>
+
+
+  <!-- =====================================================
+       APLICAÇÃO
+  ====================================================== -->
+
+  <div id="app">
+
+    <!-- ===================================================
+         TOPBAR
+    ==================================================== -->
+
+    <header class="topbar">
 
       <button
-        class="modal-close"
-        data-close-modal
+        class="brand"
+        type="button"
+        data-nav="inicio"
+        aria-label="Início"
       >
-        ×
+
+        <img
+          src="./icon.svg"
+          alt=""
+          class="brand-icon"
+        >
+
+        <span class="brand-text">
+          <strong>DOCE ESPÍRITO SANTO</strong>
+          <small>UM AMIGO ÍNTIMO</small>
+        </span>
+
       </button>
 
 
-      <span class="eyebrow">
-        DIA ${day} DE 365
-      </span>
+      <div class="topbar-actions">
 
+        <button
+          class="icon-button"
+          type="button"
+          data-open-search
+          aria-label="Pesquisar"
+        >
+          <span>⌕</span>
+        </button>
 
-      <h2>
-        ${escapeHTML(
-          item.titulo ||
-          `Dia ${day}`
-        )}
-      </h2>
-
-
-      <div class="modal-reference">
-
-        ${escapeHTML(
-          item.referencia || ""
-        )}
+        <button
+          class="icon-button"
+          type="button"
+          data-nav="perfil"
+          aria-label="Perfil"
+        >
+          <span>◉</span>
+        </button>
 
       </div>
 
-
-      ${
-        item.introducao
-          ? `
-            <section>
-
-              <h3>
-                Introdução
-              </h3>
-
-              <p>
-                ${escapeHTML(
-                  item.introducao
-                )}
-              </p>
-
-            </section>
-          `
-          : ""
-      }
+    </header>
 
 
-      ${
-        item.reflexao
-          ? `
-            <section>
+    <!-- ===================================================
+         CONTEÚDO PRINCIPAL
+    ==================================================== -->
 
-              <h3>
-                Reflexão
-              </h3>
-
-              <p>
-                ${escapeHTML(
-                  item.reflexao
-                )}
-              </p>
-
-            </section>
-          `
-          : ""
-      }
+    <main class="app-content">
 
 
-      ${
-        item.pratica
-          ? `
-            <section>
+      <!-- =================================================
+           INÍCIO
+      ================================================== -->
 
-              <h3>
-                Prática de presença
-              </h3>
+      <section
+        class="screen active is-active"
+        data-screen="inicio"
+      >
 
-              <p>
-                ${escapeHTML(
-                  item.pratica
-                )}
-              </p>
+        <!-- HERO -->
 
-            </section>
-          `
-          : ""
-      }
+        <section class="hero">
 
+          <div class="hero-content">
 
-      ${
-        item.pergunta
-          ? `
-            <section>
+            <span class="eyebrow">
+              SUA JORNADA
+            </span>
 
-              <h3>
-                Pare e responda
-              </h3>
+            <h1>
+              Aprenda a <span>percebê-lo.</span>
+            </h1>
 
-              <p>
-                ${escapeHTML(
-                  item.pergunta
-                )}
-              </p>
+            <p>
+              Ele já está aqui.
+              Uma jornada de 365 dias para desenvolver
+              presença, Palavra, oração, jejum,
+              contemplação e intimidade com o
+              Doce Espírito Santo.
+            </p>
 
-            </section>
-          `
-          : ""
-      }
-
-
-      ${
-        item.oracao
-          ? `
-            <section>
-
-              <h3>
-                Oração
-              </h3>
-
-              <p
-                class="prayer-text"
-              >
-                ${escapeHTML(
-                  item.oracao
-                )}
-              </p>
-
-            </section>
-          `
-          : ""
-      }
-
-
-      ${
-        study
-          ? `
-            <section>
-
-              <span class="eyebrow">
-                APROFUNDE
-              </span>
-
-              <h3>
-                ${
-                  escapeHTML(
-                    study.titulo ||
-                    "Estudo relacionado"
-                  )
-                }
-              </h3>
-
-              <p>
-                ${
-                  escapeHTML(
-                    study.subtitulo ||
-                    "Continue aprofundando este tema."
-                  )
-                }
-              </p>
+            <div class="hero-actions">
 
               <button
                 class="primary-button"
-                data-open-study="${escapeHTML(
-                  study.id || ""
-                )}"
+                type="button"
+                data-start-journey
               >
-                Abrir estudo completo
+                Começar minha jornada
               </button>
 
-            </section>
-          `
-          : ""
-      }
-
-
-      <div class="modal-actions">
-
-        <button
-          class="secondary-button"
-          data-favorite="${day}"
-        >
-
-          ${
-            isFavorite(day)
-              ? "♥ Na minha lista"
-              : "♡ Minha lista"
-          }
-
-        </button>
-
-
-        <button
-          class="primary-button"
-          data-complete="${day}"
-        >
-
-          ${
-            isDone(day)
-              ? "✓ Concluído"
-              : "Concluir dia"
-          }
-
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  modal.classList.add(
-    "active"
-  );
-
-  modal.classList.add(
-    "is-open"
-  );
-
-
-  document.body.style.overflow =
-    "hidden";
-
-}
-
-
-/* =========================================================
-   ABRIR ESTUDO
-========================================================= */
-
-function openStudy(id) {
-
-  const study =
-    studies.find(
-      item =>
-        item.id === id
-    );
-
-  if (!study) return;
-
-
-  const modal =
-    $("#studyModal");
-
-  const content =
-    modal.querySelector(
-      "[data-study-content]"
-    );
-
-
-  const points =
-    study.exegese?.pontos || [];
-
-
-  const questions =
-    study.perguntas || [];
-
-
-  content.innerHTML = `
-
-    <div class="modal-inner">
-
-      <button
-        class="modal-close"
-        data-close-study
-      >
-        ×
-      </button>
-
-
-      <span class="eyebrow">
-        ESTUDO TEOLÓGICO
-      </span>
-
-
-      <h2>
-        ${escapeHTML(
-          study.titulo ||
-          ""
-        )}
-      </h2>
-
-
-      ${
-        study.subtitulo
-          ? `
-            <p
-              style="
-                margin-top:10px;
-                color:#aaa097;
-              "
-            >
-              ${escapeHTML(
-                study.subtitulo
-              )}
-            </p>
-          `
-          : ""
-      }
-
-
-      ${
-        study.texto_principal?.referencia
-          ? `
-            <div class="modal-reference">
-
-              ${
-                escapeHTML(
-                  study.texto_principal.referencia
-                )
-              }
+              <button
+                class="glass-button"
+                type="button"
+                data-nav="hoje"
+              >
+                Continuar
+              </button>
 
             </div>
-          `
-          : ""
-      }
+
+          </div>
+
+        </section>
 
 
-      ${
-        study.objetivo
-          ? `
-            <section>
+        <!-- CATEGORIAS -->
 
-              <h3>
-                Objetivo
-              </h3>
+        <section class="content-section">
 
-              <p>
-                ${escapeHTML(
-                  study.objetivo
-                )}
-              </p>
+          <div class="section-heading">
 
-            </section>
-          `
-          : ""
-      }
-
-
-      ${
-        study.contexto_historico?.texto
-          ? `
-            <section>
-
-              <h3>
-                Contexto histórico
-              </h3>
-
-              <p>
-                ${escapeHTML(
-                  study.contexto_historico.texto
-                )}
-              </p>
-
-            </section>
-          `
-          : ""
-      }
-
-
-      ${
-        points.length
-          ? `
-            <section>
-
-              <h3>
-                Exegese
-              </h3>
-
-              ${points.map(
-                point => `
-
-                  <div class="study-point">
-
-                    <strong>
-                      ${escapeHTML(
-                        point.tema || ""
-                      )}
-                    </strong>
-
-                    <p>
-                      ${escapeHTML(
-                        point.explicacao || ""
-                      )}
-                    </p>
-
-                  </div>
-
-                `
-              ).join("")}
-
-            </section>
-          `
-          : ""
-      }
-
-
-      ${
-        study.teologia
-          ? `
-            <section>
-
-              <h3>
-                ${
-                  escapeHTML(
-                    study.teologia.titulo ||
-                    "Teologia"
-                  )
-                }
-              </h3>
-
-              <p>
-                ${
-                  escapeHTML(
-                    study.teologia.implicacao ||
-                    ""
-                  )
-                }
-              </p>
-
-            </section>
-          `
-          : ""
-      }
-
-
-      ${
-        study.contemplacao_teologica
-          ? `
-            <section
-              class="study-contemplation"
-            >
-
+            <div>
               <span class="eyebrow">
-                CONTEMPLAÇÃO
+                DESCUBRA
               </span>
 
-              <h3>
-                ${
-                  escapeHTML(
-                    study.contemplacao_teologica.titulo ||
-                    "Pare e contemple"
-                  )
-                }
-              </h3>
+              <h2>
+                Aprenda a percebê-lo
+              </h2>
+            </div>
+
+          </div>
+
+
+          <div class="chips">
+
+            <button
+              class="chip active"
+              type="button"
+              data-nav="hoje"
+            >
+              Presença
+            </button>
+
+            <button
+              class="chip"
+              type="button"
+              data-nav="estudos"
+            >
+              Estudos
+            </button>
+
+            <button
+              class="chip"
+              type="button"
+              data-nav="biblia"
+            >
+              Bíblia
+            </button>
+
+            <button
+              class="chip"
+              type="button"
+              data-nav="planos"
+            >
+              Planos
+            </button>
+
+            <button
+              class="chip"
+              type="button"
+              data-nav="mapas"
+            >
+              Mapas
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- PROGRESSO -->
+
+        <section class="content-section">
+
+          <div class="glass-card progress-card">
+
+            <div class="progress-header">
+
+              <div>
+                <span class="eyebrow">
+                  SUA JORNADA
+                </span>
+
+                <h3>
+                  Continue de onde parou
+                </h3>
+              </div>
+
+              <strong data-progress-text>
+                0%
+              </strong>
+
+            </div>
+
+            <div class="progress-track">
+              <span data-progress></span>
+            </div>
+
+            <div class="progress-meta">
+              <span>
+                <strong data-completed-count>0</strong>
+                dias concluídos
+              </span>
+
+              <span>
+                <strong data-total-days>365</strong>
+                dias
+              </span>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- HOJE -->
+
+        <section class="content-section">
+
+          <div class="section-heading">
+
+            <div>
+              <span class="eyebrow">
+                CONTINUE SUA JORNADA
+              </span>
+
+              <h2>
+                Para hoje
+              </h2>
+            </div>
+
+            <button
+              class="text-button"
+              type="button"
+              data-nav="hoje"
+            >
+              Ver tudo
+            </button>
+
+          </div>
+
+          <div
+            class="horizontal-rail"
+            id="todayRail"
+            data-today-rail
+          ></div>
+
+        </section>
+
+
+        <!-- PRESENÇA -->
+
+        <section class="content-section">
+
+          <div class="section-heading">
+
+            <div>
+              <span class="eyebrow">
+                PRESENÇA
+              </span>
+
+              <h2>
+                Aprenda a percebê-lo
+              </h2>
+            </div>
+
+          </div>
+
+          <div
+            class="horizontal-rail"
+            id="presenceRail"
+            data-presence-rail
+          ></div>
+
+        </section>
+
+
+        <!-- TOP 10 -->
+
+        <section class="content-section">
+
+          <div class="section-heading">
+
+            <div>
+              <span class="eyebrow">
+                MAIS PROFUNDOS
+              </span>
+
+              <h2>
+                Top 10 da jornada
+              </h2>
+            </div>
+
+          </div>
+
+          <div
+            class="top10-rail"
+            id="top10Rail"
+            data-top10-rail
+          ></div>
+
+        </section>
+
+
+        <!-- ESTUDOS -->
+
+        <section class="content-section">
+
+          <div class="section-heading">
+
+            <div>
+              <span class="eyebrow">
+                APROFUNDAMENTO
+              </span>
+
+              <h2>
+                Estudos teológicos
+              </h2>
+            </div>
+
+            <button
+              class="text-button"
+              type="button"
+              data-explore-studies
+            >
+              Explorar
+            </button>
+
+          </div>
+
+          <div
+            class="horizontal-rail"
+            id="studiesRail"
+            data-studies-rail
+          ></div>
+
+        </section>
+
+      </section>
+
+
+      <!-- =================================================
+           HOJE
+      ================================================== -->
+
+      <section
+        class="screen"
+        data-screen="hoje"
+      >
+
+        <section class="page-header">
+
+          <span class="eyebrow">
+            ENCONTRO DE HOJE
+          </span>
+
+          <h1>
+            Dia <span data-today-day>1</span>
+          </h1>
+
+          <p data-today-reference></p>
+
+        </section>
+
+
+        <section class="today-feature">
+
+          <div class="glass-card">
+
+            <span class="eyebrow">
+              DEVOCIONAL
+            </span>
+
+            <h2 data-today-title>
+              Aprenda a percebê-lo
+            </h2>
+
+            <p>
+              Um encontro profundo com a Palavra,
+              contemplação, prática e oração.
+            </p>
+
+            <button
+              class="primary-button"
+              type="button"
+              data-start-journey
+            >
+              Entrar no devocional
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <section class="content-section">
+
+          <div class="section-heading">
+
+            <div>
+              <span class="eyebrow">
+                CAMADAS
+              </span>
+
+              <h2>
+                Aprofunde sua experiência
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <div class="tools-grid">
+
+            <button
+              class="glass-card tool-card"
+              type="button"
+              data-nav="biblia"
+            >
+              <span class="tool-icon">✦</span>
+              <strong>Bíblia</strong>
+              <small>Leia o texto dentro da jornada</small>
+            </button>
+
+            <button
+              class="glass-card tool-card"
+              type="button"
+              data-nav="estudos"
+            >
+              <span class="tool-icon">◇</span>
+              <strong>Estudo</strong>
+              <small>Aprofunde o tema</small>
+            </button>
+
+            <button
+              class="glass-card tool-card"
+              type="button"
+              data-nav="mapas"
+            >
+              <span class="tool-icon">⌁</span>
+              <strong>Mapa</strong>
+              <small>Visualize a jornada</small>
+            </button>
+
+            <button
+              class="glass-card tool-card"
+              type="button"
+              data-nav="diario"
+            >
+              <span class="tool-icon">✎</span>
+              <strong>Diário</strong>
+              <small>Registre o que percebeu</small>
+            </button>
+
+          </div>
+
+        </section>
+
+      </section>
+
+
+      <!-- =================================================
+           JORNADA
+      ================================================== -->
+
+      <section
+        class="screen"
+        data-screen="jornada"
+      >
+
+        <section class="page-header">
+
+          <span class="eyebrow">
+            365 DIAS
+          </span>
+
+          <h1>
+            Sua jornada
+          </h1>
+
+          <p>
+            Um caminho contínuo de presença,
+            Palavra, oração e transformação.
+          </p>
+
+        </section>
+
+
+        <section class="content-section">
+
+          <div class="glass-card progress-card">
+
+            <div class="progress-header">
+
+              <div>
+                <span class="eyebrow">
+                  PROGRESSO
+                </span>
+
+                <h3>
+                  Sua caminhada
+                </h3>
+              </div>
+
+              <strong data-progress-text>
+                0%
+              </strong>
+
+            </div>
+
+            <div class="progress-track">
+              <span data-progress></span>
+            </div>
+
+            <div class="progress-meta">
+              <span>
+                <strong data-completed-count>0</strong>
+                concluídos
+              </span>
+
+              <span>
+                de
+                <strong>365</strong>
+              </span>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <section class="content-section">
+
+          <div
+            class="horizontal-rail"
+            data-today-rail
+          ></div>
+
+        </section>
+
+      </section>
+
+
+      <!-- =================================================
+           FAVORITOS
+      ================================================== -->
+
+      <section
+        class="screen"
+        data-screen="favoritos"
+      >
+
+        <section class="page-header">
+
+          <span class="eyebrow">
+            SUA BIBLIOTECA
+          </span>
+
+          <h1>
+            Favoritos
+          </h1>
+
+          <p>
+            Conteúdos que você escolheu guardar.
+          </p>
+
+        </section>
+
+        <section class="content-section">
+
+          <div
+            class="card-grid"
+            id="favoritesList"
+            data-favorites-list
+          ></div>
+
+        </section>
+
+      </section>
+
+
+      <!-- =================================================
+           ESTUDOS
+      ================================================== -->
+
+      <section
+        class="screen"
+        data-screen="estudos"
+      >
+
+        <section class="page-header">
+
+          <span class="eyebrow">
+            APROFUNDAMENTO
+          </span>
+
+          <h1>
+            Estudos
+          </h1>
+
+          <p>
+            Bíblia, contexto, exegese, teologia,
+            contemplação e aplicação.
+          </p>
+
+        </section>
+
+        <section class="content-section">
+
+          <div
+            class="horizontal-rail"
+            data-studies-rail
+          ></div>
+
+        </section>
+
+      </section>
+
+
+      <!-- =================================================
+           BÍBLIA
+      ================================================== -->
+
+      <section
+        class="screen"
+        data-screen="biblia"
+      >
+
+        <section class="page-header">
+
+          <span class="eyebrow">
+            PALAVRA
+          </span>
+
+          <h1>
+            Bíblia
+          </h1>
+
+          <p>
+            A Escritura como fundamento da jornada.
+          </p>
+
+        </section>
+
+        <section class="content-section">
+
+          <div class="glass-card feature-placeholder">
+
+            <span class="tool-icon">✦</span>
+
+            <h2>
+              Bíblia dentro da jornada
+            </h2>
+
+            <p>
+              Esta área será conectada à experiência
+              bíblica completa do aplicativo.
+            </p>
+
+          </div>
+
+        </section>
+
+      </section>
+
+
+      <!-- =================================================
+           MAPAS
+      ================================================== -->
+
+      <section
+        class="screen"
+        data-screen="mapas"
+      >
+
+        <section class="page-header">
+
+          <span class="eyebrow">
+            VISUALIZE
+          </span>
+
+          <h1>
+            Mapas de estudo
+          </h1>
+
+          <p>
+            Conecte textos, temas, conceitos e práticas.
+          </p>
+
+        </section>
+
+        <section class="content-section">
+
+          <div class="glass-card feature-placeholder">
+
+            <span class="tool-icon">⌁</span>
+
+            <h2>
+              Mapas da jornada
+            </h2>
+
+            <p>
+              Em breve você poderá navegar visualmente
+              pelos grandes temas da jornada.
+            </p>
+
+          </div>
+
+        </section>
+
+      </section>
+
+
+      <!-- =================================================
+           PLANOS
+      ================================================== -->
+
+      <section
+        class="screen"
+        data-screen="planos"
+      >
+
+        <section class="page-header">
+
+          <span class="eyebrow">
+            CONTINUIDADE
+          </span>
+
+          <h1>
+            Planos de leitura
+          </h1>
+
+          <p>
+            Caminhadas estruturadas para aprofundar
+            sua relação com a Palavra.
+          </p>
+
+        </section>
+
+        <section class="content-section">
+
+          <div class="glass-card feature-placeholder">
+
+            <span class="tool-icon">◇</span>
+
+            <h2>
+              Planos
+            </h2>
+
+            <p>
+              Os planos de leitura serão integrados
+              à jornada de 365 dias.
+            </p>
+
+          </div>
+
+        </section>
+
+      </section>
+
+
+      <!-- =================================================
+           DIÁRIO
+      ================================================== -->
+
+      <section
+        class="screen"
+        data-screen="diario"
+      >
+
+        <section class="page-header">
+
+          <span class="eyebrow">
+            INTIMIDADE
+          </span>
+
+          <h1>
+            Diário
+          </h1>
+
+          <p>
+            Registre aquilo que você percebeu,
+            compreendeu e viveu.
+          </p>
+
+        </section>
+
+        <section class="content-section">
+
+          <div class="glass-card feature-placeholder">
+
+            <span class="tool-icon">✎</span>
+
+            <h2>
+              Seu diário espiritual
+            </h2>
+
+            <p>
+              Um espaço reservado para registrar
+              sua caminhada.
+            </p>
+
+          </div>
+
+        </section>
+
+      </section>
+
+
+      <!-- =================================================
+           PERFIL
+      ================================================== -->
+
+      <section
+        class="screen"
+        data-screen="perfil"
+      >
+
+        <section class="page-header">
+
+          <span class="eyebrow">
+            SUA EXPERIÊNCIA
+          </span>
+
+          <h1>
+            Perfil
+          </h1>
+
+          <p>
+            Acompanhe sua caminhada e seus conteúdos.
+          </p>
+
+        </section>
+
+        <section class="content-section">
+
+          <div class="glass-card profile-card">
+
+            <div class="profile-icon">
+              <img
+                src="./icon.svg"
+                alt=""
+              >
+            </div>
+
+            <div>
+              <span class="eyebrow">
+                DOCE ESPÍRITO SANTO
+              </span>
+
+              <h2>
+                Um Amigo Íntimo
+              </h2>
 
               <p>
-                ${
-                  escapeHTML(
-                    study.contemplacao_teologica.texto ||
-                    ""
-                  )
-                }
+                Uma jornada de 365 dias.
               </p>
-
-            </section>
-          `
-          : ""
-      }
-
-
-      ${
-        questions.length
-          ? `
-            <section>
-
-              <h3>
-                Perguntas para aprofundar
-              </h3>
-
-              <ol class="study-questions">
-
-                ${
-                  questions
-                    .map(question => `
-                      <li>
-                        ${
-                          escapeHTML(
-                            typeof question === "string"
-                              ? question
-                              : question.pergunta || ""
-                          )
-                        }
-                      </li>
-                    `)
-                    .join("")
-                }
-
-              </ol>
-
-            </section>
-          `
-          : ""
-      }
-
-
-      ${
-        study.bibliografia
-          ? `
-            <section>
-
-              <h3>
-                Bibliografia
-              </h3>
-
-              ${
-                study.bibliografia.observacao
-                  ? `
-                    <p>
-                      ${
-                        escapeHTML(
-                          study.bibliografia.observacao
-                        )
-                      }
-                    </p>
-                  `
-                  : ""
-              }
-
-            </section>
-          `
-          : ""
-      }
-
-
-      ${
-        study.oracao
-          ? `
-            <section>
-
-              <h3>
-                Oração
-              </h3>
-
-              <p
-                class="prayer-text"
-              >
-                ${
-                  escapeHTML(
-                    typeof study.oracao === "string"
-                      ? study.oracao
-                      : study.oracao.texto || ""
-                  )
-                }
-              </p>
-
-            </section>
-          `
-          : ""
-      }
-
-    </div>
-
-  `;
-
-
-  modal.classList.add(
-    "active"
-  );
-
-  modal.classList.add(
-    "is-open"
-  );
-
-
-  document.body.style.overflow =
-    "hidden";
-
-}
-
-
-/* =========================================================
-   FECHAR MODAIS
-========================================================= */
-
-function closeModal() {
-
-  $$(".modal").forEach(modal => {
-
-    modal.classList.remove(
-      "active",
-      "is-open"
-    );
-
-  });
-
-  document.body.style.overflow =
-    "";
-
-}
-
-
-/* =========================================================
-   NAVEGAÇÃO
-========================================================= */
-
-function navigate(screen) {
-
-  $$(".screen")
-    .forEach(element => {
-
-      element.classList.remove(
-        "active"
-      );
-
-    });
-
-
-  const target =
-    document.getElementById(
-      screen
-    );
-
-  if (target) {
-
-    target.classList.add(
-      "active"
-    );
-
-  }
-
-
-  $$("[data-nav]")
-    .forEach(button => {
-
-      button.classList.toggle(
-        "active",
-        button.dataset.nav === screen
-      );
-
-    });
-
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-
-  if (screen === "journey") {
-
-    renderJourney();
-
-  }
-
-
-  if (screen === "studies") {
-
-    renderStudies();
-
-  }
-
-
-  if (screen === "profile") {
-
-    updateProgress();
-
-  }
-
-}
-
-
-/* =========================================================
-   BUSCA
-========================================================= */
-
-function openSearch() {
-
-  const overlay =
-    $("#searchOverlay");
-
-  overlay.classList.add(
-    "active"
-  );
-
-  setTimeout(() => {
-
-    $("#searchInput")?.focus();
-
-  }, 100);
-
-}
-
-
-function closeSearch() {
-
-  $("#searchOverlay")
-    .classList.remove(
-      "active"
-    );
-
-}
-
-
-function search(query) {
-
-  const container =
-    $("#searchResults");
-
-  const term =
-    query
-      .trim()
-      .toLowerCase();
-
-
-  if (!term) {
-
-    container.innerHTML =
-      "";
-
-    return;
-
-  }
-
-
-  const devotionalResults =
-    devotionals.filter(item => {
-
-      const text = [
-
-        item.titulo,
-        item.introducao,
-        item.reflexao,
-        item.pratica,
-        item.pergunta,
-        item.referencia
-
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-
-
-      return text.includes(term);
-
-    });
-
-
-  const studyResults =
-    studies.filter(item => {
-
-      const text = [
-
-        item.titulo,
-        item.subtitulo,
-        item.objetivo,
-        item.pergunta_central,
-        item.categoria
-
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-
-
-      return text.includes(term);
-
-    });
-
-
-  container.innerHTML = `
-
-    ${
-      devotionalResults
-        .slice(0, 8)
-        .map(item => `
-
-          <div
-            class="search-result"
-            data-open-day="${item.dia}"
-          >
-
-            <span>
-              DIA ${item.dia}
-            </span>
-
-            <h3>
-              ${escapeHTML(
-                item.titulo
-              )}
-            </h3>
+            </div>
 
           </div>
 
-        `)
-        .join("")
-    }
-
-
-    ${
-      studyResults
-        .slice(0, 5)
-        .map(item => `
-
-          <div
-            class="search-result"
-            data-open-study="${escapeHTML(
-              item.id || ""
-            )}"
-          >
-
-            <span>
-              ESTUDO
-            </span>
-
-            <h3>
-              ${escapeHTML(
-                item.titulo
-              )}
-            </h3>
-
-          </div>
-
-        `)
-        .join("")
-    }
-
-  `;
-
-}
-
-
-/* =========================================================
-   EVENTOS
-========================================================= */
-
-document.addEventListener(
-  "click",
-  event => {
-
-
-    /* ABRIR DIA */
-
-    const dayButton =
-      event.target.closest(
-        "[data-open-day]"
-      );
-
-    if (dayButton) {
-
-      openDevotional(
-        Number(
-          dayButton.dataset.openDay
-        )
-      );
-
-      return;
-
-    }
-
-
-    /* HOJE */
-
-    if (
-      event.target.closest(
-        "[data-open-today]"
-      )
-    ) {
-
-      openDevotional(
-        currentDay
-      );
-
-      return;
-
-    }
-
-
-    /* ESTUDOS */
-
-    const studyButton =
-      event.target.closest(
-        "[data-open-study]"
-      );
-
-    if (studyButton) {
-
-      openStudy(
-        studyButton.dataset.openStudy
-      );
-
-      return;
-
-    }
-
-
-    /* CONCLUIR */
-
-    const complete =
-      event.target.closest(
-        "[data-complete]"
-      );
-
-    if (complete) {
-
-      const day =
-        Number(
-          complete.dataset.complete
-        );
-
-      toggleDone(day);
-
-      updateProgress();
-
-      openDevotional(day);
-
-      renderRail();
-
-      return;
-
-    }
-
-
-    /* FAVORITO */
-
-    const favorite =
-      event.target.closest(
-        "[data-favorite]"
-      );
-
-    if (favorite) {
-
-      const day =
-        Number(
-          favorite.dataset.favorite
-        );
-
-      toggleFavorite(day);
-
-      updateProgress();
-
-      openDevotional(day);
-
-      return;
-
-    }
-
-
-    /* FECHAR MODAL */
-
-    if (
-      event.target.closest(
-        "[data-close-modal]"
-      ) ||
-      event.target.classList.contains(
-        "modal-backdrop"
-      )
-    ) {
-
-      closeModal();
-
-      return;
-
-    }
-
-
-    /* FECHAR ESTUDO */
-
-    if (
-      event.target.closest(
-        "[data-close-study]"
-      )
-    ) {
-
-      closeModal();
-
-      return;
-
-    }
-
-
-    /* NAVEGAÇÃO */
-
-    const nav =
-      event.target.closest(
-        "[data-nav]"
-      );
-
-    if (nav) {
-
-      navigate(
-        nav.dataset.nav
-      );
-
-      return;
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   BOTÕES
-========================================================= */
-
-$("#searchButton")
-  ?.addEventListener(
-    "click",
-    openSearch
-  );
-
-
-$("#closeSearch")
-  ?.addEventListener(
-    "click",
-    closeSearch
-);
-
-
-$("#searchInput")
-  ?.addEventListener(
-    "input",
-    event => {
-
-      search(
-        event.target.value
-      );
-
-    }
-  );
-
-
-$("#startJourney")
-  ?.addEventListener(
-    "click",
-    () => {
-
-      openDevotional(
-        currentDay
-      );
-
-    }
-  );
-
-
-$("#profileButton")
-  ?.addEventListener(
-    "click",
-    () => {
-
-      navigate("profile");
-
-    }
-  );
-
-
-$("[data-open-studies]")
-  ?.addEventListener(
-    "click",
-    () => {
-
-      navigate("studies");
-
-    }
-  );
-
-
-$("[data-open-journey]")
-  ?.addEventListener(
-    "click",
-    () => {
-
-      navigate("journey");
-
-    }
-  );
-
-
-/* =========================================================
-   ESC
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if (
-      event.key === "Escape"
-    ) {
-
-      closeModal();
-
-      closeSearch();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   INICIALIZAÇÃO
-========================================================= */
-
-async function init() {
-
-  try {
-
-    await loadContent();
-
-    currentDay =
-      getCurrentDay();
-
-    renderToday();
-
-    renderRail();
-
-    renderJourney();
-
-    renderStudies();
-
-    updateProgress();
-
-  } catch (error) {
-
-    console.error(
-      "Erro geral:",
-      error
-    );
-
-  } finally {
-
-    /*
-     * O SPLASH SEMPRE SAI.
-     */
-
-    setTimeout(
-      hideSplash,
-      650
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   FALLBACK DE SEGURANÇA
-========================================================= */
-
-window.setTimeout(
-  hideSplash,
-  4000
-);
-
-
-window.addEventListener(
-  "load",
-  () => {
-
-    setTimeout(
-      hideSplash,
-      300
-    );
-
-  },
-  {
-    once: true
-  }
-);
-
-
-window.addEventListener(
-  "error",
-  () => {
-
-    hideSplash();
-
-  }
-);
-
-
-window.addEventListener(
-  "unhandledrejection",
-  () => {
-
-    hideSplash();
-
-  }
-);
-
-
-/* =========================================================
-   START
-========================================================= */
-
-if (
-  document.readyState ===
-  "loading"
-) {
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    init,
-    {
-      once: true
-    }
-  );
-
-} else {
-
-  init();
-
-}
+        </section>
+
+      </section>
+
+    </main>
+
+
+    <!-- ===================================================
+         NAVEGAÇÃO INFERIOR
+    ==================================================== -->
+
+    <nav class="bottom-nav">
+
+      <button
+        type="button"
+        data-nav="inicio"
+        class="active"
+      >
+        <span>⌂</span>
+        <small>Início</small>
+      </button>
+
+      <button
+        type="button"
+        data-nav="jornada"
+      >
+        <span>◈</span>
+        <small>Jornada</small>
+      </button>
+
+      <button
+        type="button"
+        data-nav="hoje"
+      >
+        <span>✦</span>
+        <small>Hoje</small>
+      </button>
+
+      <button
+        type="button"
+        data-nav="favoritos"
+      >
+        <span>☆</span>
+        <small>Favoritos</small>
+      </button>
+
+      <button
+        type="button"
+        data-nav="perfil"
+      >
+        <span>◉</span>
+        <small>Perfil</small>
+      </button>
+
+    </nav>
+
+  </div>
+
+
+  <!-- =====================================================
+       SCRIPTS
+       IMPORTANTE: JAVASCRIPT FICA FORA DO HTML.
+  ====================================================== -->
+
+  <script src="./motor-editorial.js"></script>
+  <script src="./app.js"></script>
+
+</body>
+</html>
