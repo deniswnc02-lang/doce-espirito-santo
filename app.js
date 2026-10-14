@@ -1,960 +1,1257 @@
-/* ============================================================
-   DOCE ESPÍRITO SANTO — UM AMIGO ÍNTIMO
-   APP.JS — NOVA ARQUITETURA
-   ============================================================ */
+let devotionals = [];
+let currentDay = 1;
+let currentFilter = "all";
 
-(() => {
-  "use strict";
+const $ = (id) => document.getElementById(id);
 
-  /* ==========================================================
-     CONFIGURAÇÃO PRINCIPAL
-     ========================================================== */
+const doneKey = (d) => `day-${d}-done`;
+const favKey = (d) => `day-${d}-favorite`;
 
-  const APP = {
-    name: "Doce Espírito Santo",
-    subtitle: "Um Amigo Íntimo",
-    version: "3.0.0",
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  }[c]));
+}
 
-    author: {
-      name: "Dr. Denis Willian Cruz",
-      instagram: "@dr.denispsicoterapeuta"
-    },
+function isDone(day){
+  return localStorage.getItem(doneKey(day)) === "true";
+}
 
-    journey: {
-      totalDays: 365,
-      minimumMinutes: 40,
-      idealMinutes: 50
-    },
-
-    terminology: {
-      holySpirit: "Doce Espírito Santo",
-      god: "o Eterno"
-    }
-  };
+function isFavorite(day){
+  return localStorage.getItem(favKey(day)) === "true";
+}
 
 
-  /* ==========================================================
-     12 FASES DA JORNADA
-     ========================================================== */
+/* =========================================================
+   CARREGAR DEVOCIONAIS
+========================================================= */
 
-  const PHASES = [
-    {
-      id: 1,
-      name: "Perceber",
-      start: 1,
-      end: 30,
-      description: "Aprender a reconhecer a presença."
-    },
+async function loadDevotionals(){
 
-    {
-      id: 2,
-      name: "Aprofundar",
-      start: 31,
-      end: 60,
-      description: "Ir além da superfície."
-    },
+  try{
 
-    {
-      id: 3,
-      name: "Ser Transformado",
-      start: 61,
-      end: 90,
-      description: "Permitir que a presença transforme o interior."
-    },
-
-    {
-      id: 4,
-      name: "Orar",
-      start: 91,
-      end: 120,
-      description: "Aprender a conversar com o Eterno."
-    },
-
-    {
-      id: 5,
-      name: "Ouvir",
-      start: 121,
-      end: 150,
-      description: "Desenvolver silêncio, percepção e discernimento."
-    },
-
-    {
-      id: 6,
-      name: "Palavra",
-      start: 151,
-      end: 180,
-      description: "Aprender a permanecer nas Escrituras."
-    },
-
-    {
-      id: 7,
-      name: "Jesus",
-      start: 181,
-      end: 220,
-      description: "Reconhecer Cristo como centro da caminhada."
-    },
-
-    {
-      id: 8,
-      name: "Direção",
-      start: 221,
-      end: 250,
-      description: "Aprender a caminhar com discernimento."
-    },
-
-    {
-      id: 9,
-      name: "Fruto",
-      start: 251,
-      end: 290,
-      description: "Permitir que o interior apareça no exterior."
-    },
-
-    {
-      id: 10,
-      name: "Servir",
-      start: 291,
-      end: 320,
-      description: "Transformar presença em serviço."
-    },
-
-    {
-      id: 11,
-      name: "Testemunhar",
-      start: 321,
-      end: 345,
-      description: "Compartilhar aquilo que foi vivido."
-    },
-
-    {
-      id: 12,
-      name: "Permanecer",
-      start: 346,
-      end: 365,
-      description: "Continuar quando a jornada já virou vida."
-    }
-  ];
-
-
-  /* ==========================================================
-     ORDEM BÍBLICA DA JORNADA
-     ========================================================== */
-
-  const BIBLICAL_ORDER = [
-    "Antigo Testamento",
-    "Livros Poéticos",
-    "Profetas",
-    "Evangelhos",
-    "Atos",
-    "Cartas",
-    "Apocalipse"
-  ];
-
-
-  /* ==========================================================
-     ESTRUTURA EDITORIAL DE CADA DIA
-     ========================================================== */
-
-  const DAY_STRUCTURE = [
-    "identificacao",
-    "leituraBiblica",
-    "contextoHistorico",
-    "contextoLiterario",
-    "contextoTeologico",
-    "estudoBiblico",
-    "conexoesBiblicas",
-    "reflexaoProfunda",
-    "perguntas",
-    "aplicacaoPratica",
-    "praticaEspiritual",
-    "momentoDeSilencio",
-    "oracao",
-    "audio",
-    "diario",
-    "encerramento",
-    "continuidade"
-  ];
-
-
-  /* ==========================================================
-     ESTADO DO APLICATIVO
-     ========================================================== */
-
-  const STORAGE_KEY = "doce-espirito-santo-v3";
-
-  const defaultState = {
-    currentDay: 1,
-    completedDays: [],
-    favorites: [],
-    journal: {},
-    lastVisit: null,
-    audioSpeed: 1
-  };
-
-  let state = loadState();
-
-  let devotionalData = [];
-
-  let currentAudio = null;
-
-
-  /* ==========================================================
-     ESTADO — LOCAL STORAGE
-     ========================================================== */
-
-  function loadState() {
-
-    try {
-
-      const saved = localStorage.getItem(STORAGE_KEY);
-
-      if (!saved) {
-        return { ...defaultState };
-      }
-
-      const parsed = JSON.parse(saved);
-
-      return {
-        ...defaultState,
-        ...parsed
-      };
-
-    } catch (error) {
-
-      console.warn(
-        "Não foi possível carregar o progresso.",
-        error
-      );
-
-      return { ...defaultState };
-    }
-  }
-
-
-  function saveState() {
-
-    try {
-
-      state.lastVisit = new Date().toISOString();
-
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(state)
-      );
-
-    } catch (error) {
-
-      console.warn(
-        "Não foi possível salvar o progresso.",
-        error
-      );
-    }
-  }
-
-
-  /* ==========================================================
-     FASE
-     ========================================================== */
-
-  function getPhase(day) {
-
-    return PHASES.find(
-      phase =>
-        day >= phase.start &&
-        day <= phase.end
-    ) || null;
-
-  }
-
-
-  /* ==========================================================
-     PERCENTUAL DE PROGRESSO
-     ========================================================== */
-
-  function getProgress() {
-
-    return Math.round(
-      (
-        state.completedDays.length /
-        APP.journey.totalDays
-      ) * 100
+    const response = await fetch(
+      `devocionais.json?v=${Date.now()}`
     );
 
-  }
+    if(!response.ok){
+      throw new Error("devocionais.json não encontrado");
+    }
 
+    const data = await response.json();
 
-  /* ==========================================================
-     DEVOCIONAL DO DIA
-     ========================================================== */
-
-  function getDevotional(day) {
-
-    return devotionalData.find(
-      item =>
-        Number(item.day ?? item.dia ?? item.id) === Number(day)
-    ) || null;
-
-  }
-
-
-  /* ==========================================================
-     NORMALIZAÇÃO DO CONTEÚDO
-     ========================================================== */
-
-  function normalizeDevotional(item) {
-
-    if (!item) return null;
-
-    const day = Number(
-      item.day ??
-      item.dia ??
-      item.id ??
-      1
-    );
-
-    const phase = getPhase(day);
-
-    return {
-
-      id: item.id ?? day,
-
-      day,
-
-      title:
-        item.title ??
-        item.titulo ??
-        `Dia ${day}`,
-
-      subtitle:
-        item.subtitle ??
-        item.subtitulo ??
-        "",
-
-      theme:
-        item.theme ??
-        item.tema ??
-        "",
-
-      phase:
-        item.phase ??
-        item.fase ??
-        phase?.name ??
-        "",
-
-      phaseDescription:
-        phase?.description ??
-        "",
-
-      duration:
-        item.duration ??
-        item.duracao ??
-        APP.journey.minimumMinutes,
-
-      bible: {
-
-        reference:
-          item.reference ??
-          item.referencia ??
-          item.verse ??
-          "",
-
-        verse:
-          item.verse ??
-          item.versiculo ??
-          "",
-
-        text:
-          item.bibleText ??
-          item.textoBiblico ??
-          "",
-
-        historicalContext:
-          item.contextoHistorico ??
-          "",
-
-        literaryContext:
-          item.contextoLiterario ??
-          "",
-
-        theologicalContext:
-          item.contextoTeologico ??
-          "",
-
-        relatedPassages:
-          item.passagensRelacionadas ??
-          []
-
-      },
-
-      study: {
-
-        introduction:
-          item.introduction ??
-          item.introducao ??
-          "",
-
-        study:
-          item.study ??
-          item.estudoBiblico ??
-          "",
-
-        whatTextSays:
-          item.oQueOTextoDiz ??
-          "",
-
-        meaning:
-          item.oQueOTextoSignifica ??
-          "",
-
-        revelation:
-          item.oQueOTextoRevela ??
-          "",
-
-        aboutGod:
-          item.oQueRevelaSobreOEtterno ??
-          "",
-
-        aboutHolySpirit:
-          item.oQueRevelaSobreODoceEspiritoSanto ??
-          "",
-
-        aboutUs:
-          item.oQueRevelaSobreNos ??
-          ""
-
-      },
-
-      reflection:
-        item.reflection ??
-        item.reflexao ??
-        item.reflexaoProfunda ??
-        "",
-
-      questions:
-        Array.isArray(item.questions)
-          ? item.questions
-          : Array.isArray(item.perguntas)
-            ? item.perguntas
-            : item.question
-              ? [item.question]
-              : item.pergunta
-                ? [item.pergunta]
-                : [],
-
-      application:
-        item.application ??
-        item.aplicacaoPratica ??
-        "",
-
-      practice:
-        item.practice ??
-        item.pratica ??
-        item.praticaEspiritual ??
-        "",
-
-      silence:
-        item.silence ??
-        item.momentoDeSilencio ??
-        "",
-
-      prayer:
-        item.prayer ??
-        item.oracao ??
-        "",
-
-      audioScript:
-        item.audioScript ??
-        item.roteiroAudio ??
-        "",
-
-      journalQuestion:
-        item.journalQuestion ??
-        item.perguntaDiario ??
-        item.diario ??
-        "",
-
-      closing:
-        item.closing ??
-        item.encerramento ??
-        "",
-
-      nextDay:
-        day < APP.journey.totalDays
-          ? day + 1
-          : null
-
-    };
-
-  }
-
-
-  /* ==========================================================
-     CARREGAR DEVOCIONAIS
-     ========================================================== */
-
-  async function loadDevotionals() {
-
-    const possibleFiles = [
-      "devocionais.json",
-      "./devocionais.json",
-      "/devocionais.json"
-    ];
-
-    for (const file of possibleFiles) {
-
-      try {
-
-        const response = await fetch(file, {
-          cache: "no-store"
-        });
-
-        if (!response.ok) continue;
-
-        const data = await response.json();
-
-        if (Array.isArray(data)) {
-
-          devotionalData =
-            data.map(normalizeDevotional);
-
-          console.info(
-            `${devotionalData.length} devocionais carregados.`
+    devotionals =
+      Array.isArray(data)
+        ? data
+        : (
+            Array.isArray(data.devocionais)
+              ? data.devocionais
+              : []
           );
 
-          return devotionalData;
-        }
-
-      } catch (error) {
-
-        console.warn(
-          `Não foi possível carregar ${file}.`,
-          error
-        );
-
-      }
-
-    }
-
-    console.warn(
-      "A base de devocionais ainda não foi carregada."
-    );
-
-    devotionalData = [];
-
-    return [];
-
-  }
-
-
-  /* ==========================================================
-     CONCLUSÃO DO DIA
-     ========================================================== */
-
-  function completeDay(day) {
-
-    const numericDay = Number(day);
-
-    if (!state.completedDays.includes(numericDay)) {
-
-      state.completedDays.push(numericDay);
-
-      state.completedDays.sort(
-        (a, b) => a - b
+    if(!devotionals.length){
+      throw new Error(
+        "Nenhum devocional encontrado"
       );
-
     }
 
-    if (
-      numericDay < APP.journey.totalDays
-    ) {
+  }catch(err){
 
-      state.currentDay =
-        numericDay + 1;
+    console.error(err);
 
+    /*
+      Fallback apenas para a interface não ficar
+      completamente vazia caso o JSON não carregue.
+    */
+
+    devotionals = Array.from(
+      {length:365},
+      (_,i) => ({
+
+        dia:i+1,
+
+        titulo:
+          i === 0
+            ? "Comece aprendendo a percebê-lo"
+            : `Jornada — Dia ${i+1}`,
+
+        introducao:
+          i === 0
+            ? "A presença não precisa ser fabricada. Aprenda a reconhecer aquilo que já está aqui."
+            : "Um novo passo para aprofundar sua caminhada.",
+
+        referencia:
+          "João 14:16–17",
+
+        reflexao:
+          "O conteúdo deste dia será carregado a partir do seu devocionais.json.",
+
+        pratica:
+          "Abra o coração, diminua o ruído e permaneça alguns minutos consciente da presença do Doce Espírito Santo.",
+
+        pergunta:
+          "O que estou percebendo hoje?",
+
+        oracao:
+          "Doce Espírito Santo, ensina-me a perceber Tua presença e a viver esta jornada com verdade. Amém."
+      })
+    );
+  }
+
+  renderAll();
+}
+
+
+/* =========================================================
+   LOCALIZAR DIA
+========================================================= */
+
+function getDay(n){
+
+  return (
+    devotionals.find(
+      d => Number(d.dia) === Number(n)
+    )
+    ||
+    devotionals[n-1]
+  );
+}
+
+
+/* =========================================================
+   PRÓXIMO DIA
+========================================================= */
+
+function getNextDay(){
+
+  const first =
+    devotionals.find(
+      d => !isDone(Number(d.dia))
+    );
+
+  return first || devotionals[0];
+}
+
+
+/* =========================================================
+   PROGRESSO
+========================================================= */
+
+function countDone(){
+
+  let count = 0;
+
+  for(let i = 1; i <= 365; i++){
+
+    if(isDone(i)){
+      count++;
     }
 
-    saveState();
+  }
 
-    emitAppEvent(
-      "dayCompleted",
-      {
-        day: numericDay,
-        progress: getProgress()
-      }
+  return count;
+}
+
+
+function updateProgress(){
+
+  const done = countDone();
+
+  const pct =
+    Math.min(
+      100,
+      (done / 365) * 100
+    );
+
+  if($("progressLabel")){
+    $("progressLabel").textContent =
+      `${done} / 365`;
+  }
+
+  if($("progressFill")){
+    $("progressFill").style.width =
+      `${pct}%`;
+  }
+
+  if($("journeyDone")){
+    $("journeyDone").textContent =
+      done;
+  }
+
+  if($("journeyPercent")){
+    $("journeyPercent").textContent =
+      `${Math.round(pct)}%`;
+  }
+
+  if($("profileProgress")){
+    $("profileProgress").textContent =
+      `${done} / 365`;
+  }
+
+  if($("profileProgressFill")){
+    $("profileProgressFill").style.width =
+      `${pct}%`;
+  }
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+function cardHTML(day){
+
+  const n = Number(day.dia);
+
+  return `
+
+    <button
+      class="dev-card ${isDone(n) ? "done" : ""}"
+      data-open-day="${n}"
+    >
+
+      <img
+        src="capa.jpeg"
+        alt=""
+      >
+
+      <div class="dev-card-content">
+
+        <div class="dev-card-day">
+          DIA ${String(n).padStart(2,"0")}
+        </div>
+
+        <h3>
+          ${escapeHTML(
+            day.titulo ||
+            "Um novo encontro"
+          )}
+        </h3>
+
+      </div>
+
+    </button>
+
+  `;
+}
+
+
+/* =========================================================
+   RAILS
+========================================================= */
+
+function renderRails(){
+
+  const next = getNextDay();
+
+  if(next){
+
+    const n =
+      Number(next.dia);
+
+    $("continueNumber").textContent =
+      String(n).padStart(2,"0");
+
+    $("continueTitle").textContent =
+      next.titulo ||
+      `Dia ${n}`;
+
+    $("continueIntro").textContent =
+      next.introducao ||
+      "Continue sua jornada.";
+  }
+
+
+  /*
+    Primeira fileira
+  */
+
+  $("todayRail").innerHTML =
+    devotionals
+      .slice(0,10)
+      .map(cardHTML)
+      .join("");
+
+
+  /*
+    Fileira sobre presença
+  */
+
+  $("presenceRail").innerHTML =
+    devotionals
+      .filter(d =>
+        /presen|perceb|silên|silenc|atenção|presença/i
+          .test(
+            `${d.titulo}
+             ${d.introducao}
+             ${d.pratica}`
+          )
+      )
+      .slice(0,10)
+      .map(cardHTML)
+      .join("");
+
+
+  /*
+    Caso não encontre conteúdo
+  */
+
+  if(
+    !$("presenceRail").innerHTML
+  ){
+
+    $("presenceRail").innerHTML =
+      devotionals
+        .slice(0,10)
+        .map(cardHTML)
+        .join("");
+  }
+
+
+  /*
+    Jornada
+  */
+
+  $("journeyRail").innerHTML =
+    devotionals
+      .slice(0,14)
+      .map(cardHTML)
+      .join("");
+
+
+  bindCards();
+}
+
+
+/* =========================================================
+   GRID DOS 365 DIAS
+========================================================= */
+
+function renderDayGrid(){
+
+  $("dayGrid").innerHTML =
+    devotionals
+      .map(d => {
+
+        const n =
+          Number(d.dia);
+
+        return `
+
+          <button
+            class="day-tile ${isDone(n) ? "done" : ""}"
+            data-open-day="${n}"
+          >
+
+            <small>
+              DIA ${String(n).padStart(2,"0")}
+            </small>
+
+            <strong>
+              ${escapeHTML(
+                d.titulo ||
+                "Devocional"
+              )}
+            </strong>
+
+          </button>
+
+        `;
+      })
+      .join("");
+
+  bindCards();
+}
+
+
+/* =========================================================
+   FAVORITOS
+========================================================= */
+
+function renderFavorites(){
+
+  const favs =
+    devotionals.filter(
+      d => isFavorite(
+        Number(d.dia)
+      )
+    );
+
+  $("favoritesRail").innerHTML =
+    favs
+      .map(cardHTML)
+      .join("");
+
+  $("favoritesEmpty").style.display =
+    favs.length
+      ? "none"
+      : "block";
+
+  bindCards();
+}
+
+
+/* =========================================================
+   TELA "HOJE"
+========================================================= */
+
+function renderToday(){
+
+  const day =
+    getNextDay() ||
+    devotionals[0];
+
+  if(!day) return;
+
+  $("todayDetail").innerHTML = `
+
+    <div
+      class="journey-card"
+      data-open-day="${Number(day.dia)}"
+    >
+
+      <div class="journey-number">
+        ${String(
+          Number(day.dia)
+        ).padStart(2,"0")}
+      </div>
+
+      <div class="journey-copy">
+
+        <span>
+          SEU PRÓXIMO ENCONTRO
+        </span>
+
+        <h3>
+          ${escapeHTML(day.titulo)}
+        </h3>
+
+        <p>
+          ${escapeHTML(
+            day.introducao || ""
+          )}
+        </p>
+
+      </div>
+
+      <div class="journey-arrow">
+        ›
+      </div>
+
+    </div>
+
+    <div style="padding:18px">
+
+      <div
+        class="detail-block"
+        style="border-top:0;margin-top:0"
+      >
+
+        <span>
+          REFERÊNCIA
+        </span>
+
+        <p>
+          ${escapeHTML(
+            day.referencia || ""
+          )}
+        </p>
+
+      </div>
+
+      <div class="detail-block">
+
+        <span>
+          PRÁTICA DE PRESENÇA
+        </span>
+
+        <p>
+          ${escapeHTML(
+            day.pratica || ""
+          )}
+        </p>
+
+      </div>
+
+      <button
+        class="primary-cta wide"
+        data-open-day="${Number(day.dia)}"
+      >
+        Abrir encontro
+      </button>
+
+    </div>
+
+  `;
+
+  bindCards();
+}
+
+
+/* =========================================================
+   ABRIR DEVOCIONAL
+========================================================= */
+
+function openDay(dayNumber){
+
+  const day =
+    getDay(dayNumber);
+
+  if(!day) return;
+
+  currentDay =
+    Number(day.dia);
+
+
+  $("detailDay").textContent =
+    `DIA ${String(
+      currentDay
+    ).padStart(2,"0")}`;
+
+
+  $("detailRef").textContent =
+    day.referencia ||
+    day.biblia ||
+    "";
+
+
+  $("detailTitle").textContent =
+    day.titulo ||
+    "";
+
+
+  $("detailIntro").textContent =
+    day.introducao ||
+    "";
+
+
+  $("detailPractice").textContent =
+    day.pratica ||
+    "";
+
+
+  $("detailQuestion").textContent =
+    day.pergunta ||
+    "";
+
+
+  $("detailPrayer").textContent =
+    day.oracao ||
+    "";
+
+
+  /*
+    Reflexão
+  */
+
+  const reflection =
+    day.reflexao ||
+    "";
+
+
+  const paragraphs =
+    Array.isArray(reflection)
+      ? reflection
+      : String(
+          reflection
+        ).split(/\n+/);
+
+
+  $("detailReflection").innerHTML =
+    paragraphs
+      .filter(Boolean)
+      .map(
+        p =>
+          `<p>${escapeHTML(p)}</p>`
+      )
+      .join("");
+
+
+  /*
+    Favorito
+  */
+
+  $("favoriteButton").textContent =
+    isFavorite(currentDay)
+      ? "♥ Na minha lista"
+      : "♡ Minha lista";
+
+
+  /*
+    Concluído
+  */
+
+  $("completeButton").textContent =
+    isDone(currentDay)
+      ? "✓ Dia concluído"
+      : "✓ Concluir este dia";
+
+
+  /*
+    Abrir modal
+  */
+
+  $("detailModal")
+    .classList
+    .add("open");
+
+
+  $("detailModal")
+    .setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+
+  document.body.style.overflow =
+    "hidden";
+}
+
+
+/* =========================================================
+   FECHAR MODAL
+========================================================= */
+
+function closeModal(){
+
+  $("detailModal")
+    .classList
+    .remove("open");
+
+
+  $("detailModal")
+    .setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+
+  document.body.style.overflow =
+    "";
+}
+
+
+/* =========================================================
+   CONCLUIR DIA
+========================================================= */
+
+function completeCurrentDay(){
+
+  localStorage.setItem(
+    doneKey(currentDay),
+    "true"
+  );
+
+  updateProgress();
+
+  renderRails();
+
+  renderDayGrid();
+
+  renderFavorites();
+
+  renderToday();
+
+
+  $("completeButton").textContent =
+    "✓ Dia concluído";
+}
+
+
+/* =========================================================
+   FAVORITAR
+========================================================= */
+
+function toggleFavorite(){
+
+  const key =
+    favKey(currentDay);
+
+
+  if(
+    isFavorite(currentDay)
+  ){
+
+    localStorage.removeItem(
+      key
+    );
+
+  }else{
+
+    localStorage.setItem(
+      key,
+      "true"
     );
 
   }
 
 
-  /* ==========================================================
-     FAVORITOS
-     ========================================================== */
+  $("favoriteButton").textContent =
+    isFavorite(currentDay)
+      ? "♥ Na minha lista"
+      : "♡ Minha lista";
 
-  function isFavorite(day) {
 
-    return state.favorites.includes(
-      Number(day)
-    );
+  renderFavorites();
+}
 
-  }
 
+/* =========================================================
+   NAVEGAÇÃO
+========================================================= */
 
-  function toggleFavorite(day) {
+function showScreen(name){
 
-    const numericDay = Number(day);
-
-    if (isFavorite(numericDay)) {
-
-      state.favorites =
-        state.favorites.filter(
-          item => item !== numericDay
-        );
-
-    } else {
-
-      state.favorites.push(
-        numericDay
-      );
-
-    }
-
-    saveState();
-
-    emitAppEvent(
-      "favoriteChanged",
-      {
-        day: numericDay,
-        favorite: isFavorite(numericDay)
-      }
-    );
-
-  }
-
-
-  /* ==========================================================
-     DIÁRIO
-     ========================================================== */
-
-  function saveJournal(day, content) {
-
-    const numericDay = Number(day);
-
-    state.journal[numericDay] = {
-      content: String(content ?? ""),
-      updatedAt: new Date().toISOString()
-    };
-
-    saveState();
-
-    emitAppEvent(
-      "journalSaved",
-      {
-        day: numericDay
-      }
-    );
-
-  }
-
-
-  function getJournal(day) {
-
-    return state.journal[Number(day)]?.content ?? "";
-
-  }
-
-
-  /* ==========================================================
-     ÁUDIO
-     ========================================================== */
-
-  function stopAudio() {
-
-    if (!currentAudio) return;
-
-    try {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-    } catch (_) {}
-
-    currentAudio = null;
-
-  }
-
-
-  function playAudio(source) {
-
-    if (!source) {
-
-      emitAppEvent(
-        "audioUnavailable",
-        {}
-      );
-
-      return;
-    }
-
-    stopAudio();
-
-    currentAudio =
-      new Audio(source);
-
-    currentAudio.playbackRate =
-      Number(state.audioSpeed) || 1;
-
-    currentAudio.play()
-      .catch(error => {
-
-        console.warn(
-          "Não foi possível iniciar o áudio.",
-          error
-        );
-
-      });
-
-  }
-
-
-  function setAudioSpeed(speed) {
-
-    const allowed = [
-      0.75,
-      1,
-      1.25,
-      1.5
-    ];
-
-    const numericSpeed =
-      Number(speed);
-
-    if (!allowed.includes(numericSpeed)) {
-      return;
-    }
-
-    state.audioSpeed =
-      numericSpeed;
-
-    if (currentAudio) {
-      currentAudio.playbackRate =
-        numericSpeed;
-    }
-
-    saveState();
-
-  }
-
-
-  /* ==========================================================
-     NAVEGAÇÃO
-     ========================================================== */
-
-  function openDay(day) {
-
-    const numericDay =
-      Math.min(
-        APP.journey.totalDays,
-        Math.max(1, Number(day))
-      );
-
-    state.currentDay =
-      numericDay;
-
-    saveState();
-
-    const devotional =
-      getDevotional(numericDay);
-
-    emitAppEvent(
-      "dayOpened",
-      {
-        day: numericDay,
-        devotional
-      }
-    );
-
-    return devotional;
-
-  }
-
-
-  function nextDay() {
-
-    if (
-      state.currentDay >=
-      APP.journey.totalDays
-    ) {
-      return null;
-    }
-
-    return openDay(
-      state.currentDay + 1
-    );
-
-  }
-
-
-  function previousDay() {
-
-    if (
-      state.currentDay <= 1
-    ) {
-      return null;
-    }
-
-    return openDay(
-      state.currentDay - 1
-    );
-
-  }
-
-
-  /* ==========================================================
-     EVENTOS INTERNOS
-     ========================================================== */
-
-  function emitAppEvent(
-    name,
-    detail = {}
-  ) {
-
-    try {
-
-      window.dispatchEvent(
-        new CustomEvent(
-          `doceEspíritoSanto:${name}`,
-          {
-            detail
-          }
+  document
+    .querySelectorAll(".screen")
+    .forEach(
+      s =>
+        s.classList.remove(
+          "active"
         )
+    );
+
+
+  const screen =
+    $(`${name}Screen`);
+
+
+  if(screen){
+
+    screen.classList.add(
+      "active"
+    );
+
+  }
+
+
+  document
+    .querySelectorAll(
+      ".nav-item"
+    )
+    .forEach(
+      b =>
+        b.classList.toggle(
+          "active",
+          b.dataset.action === name
+        )
+    );
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+/* =========================================================
+   BUSCA
+========================================================= */
+
+function openSearch(){
+
+  $("searchOverlay")
+    .classList
+    .add("open");
+
+
+  $("searchInput").value =
+    "";
+
+
+  setTimeout(
+    () =>
+      $("searchInput").focus(),
+    100
+  );
+}
+
+
+function closeSearch(){
+
+  $("searchOverlay")
+    .classList
+    .remove("open");
+}
+
+
+function search(query){
+
+  const q =
+    query
+      .trim()
+      .toLowerCase();
+
+
+  const results =
+    q
+      ? devotionals
+          .filter(d =>
+            `
+              ${d.dia}
+              ${d.titulo || ""}
+              ${d.introducao || ""}
+              ${d.reflexao || ""}
+              ${d.referencia || ""}
+            `
+              .toLowerCase()
+              .includes(q)
+          )
+          .slice(0,30)
+      : [];
+
+
+  $("searchResults").innerHTML =
+    results
+      .map(cardHTML)
+      .join("")
+      ||
+      (
+        q
+          ? `
+            <div class="empty-state">
+              Nenhum encontro encontrado.
+            </div>
+          `
+          : ""
       );
 
-    } catch (_) {
 
-      try {
+  bindCards();
+}
 
-        window.dispatchEvent(
-          new Event(
-            `doceEspíritoSanto:${name}`
+
+/* =========================================================
+   DIÁRIO
+========================================================= */
+
+function saveJournal(){
+
+  localStorage.setItem(
+    "general-journal",
+    $("journal").value
+  );
+
+
+  const btn =
+    document.querySelector(
+      '[data-action="saveJournal"]'
+    );
+
+
+  if(btn){
+
+    const old =
+      btn.textContent;
+
+    btn.textContent =
+      "Salvo ✓";
+
+
+    setTimeout(
+      () =>
+        btn.textContent =
+          old,
+      1400
+    );
+  }
+}
+
+
+/* =========================================================
+   VINCULAR CARDS
+========================================================= */
+
+function bindCards(){
+
+  document
+    .querySelectorAll(
+      "[data-open-day]"
+    )
+    .forEach(el => {
+
+      el.onclick = () =>
+        openDay(
+          Number(
+            el.dataset.openDay
           )
         );
 
-      } catch (_) {}
+    });
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+function handleAction(action){
+
+  if(action === "home"){
+
+    showScreen("home");
+
+  }
+
+  else if(action === "journey"){
+
+    showScreen("journey");
+
+  }
+
+  else if(action === "today"){
+
+    showScreen("today");
+
+    renderToday();
+
+  }
+
+  else if(action === "favorites"){
+
+    showScreen("favorites");
+
+    renderFavorites();
+
+  }
+
+  else if(action === "profile"){
+
+    showScreen("profile");
+
+  }
+
+  else if(action === "journal"){
+
+    showScreen("journal");
+
+  }
+
+  else if(action === "continue"){
+
+    openDay(
+      Number(
+        getNextDay()?.dia ||
+        1
+      )
+    );
+
+  }
+
+  else if(action === "search"){
+
+    openSearch();
+
+  }
+
+  else if(action === "closeModal"){
+
+    closeModal();
+
+  }
+
+  else if(action === "closeSearch"){
+
+    closeSearch();
+
+  }
+
+  else if(action === "saveJournal"){
+
+    saveJournal();
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDERIZAÇÃO GERAL
+========================================================= */
+
+function renderAll(){
+
+  renderRails();
+
+  renderDayGrid();
+
+  renderFavorites();
+
+  renderToday();
+
+  updateProgress();
+
+
+  const saved =
+    localStorage.getItem(
+      "general-journal"
+    );
+
+
+  if(
+    saved &&
+    $("journal")
+  ){
+
+    $("journal").value =
+      saved;
+
+  }
+}
+
+
+/* =========================================================
+   EVENTOS
+========================================================= */
+
+document.addEventListener(
+  "click",
+  e => {
+
+    const actionEl =
+      e.target.closest(
+        "[data-action]"
+      );
+
+
+    if(actionEl){
+
+      handleAction(
+        actionEl.dataset.action
+      );
 
     }
 
   }
+);
 
 
-  /* ==========================================================
-     API PÚBLICA DO APLICATIVO
-     ========================================================== */
+/* =========================================================
+   BOTÕES DO MODAL
+========================================================= */
 
-  window.DoceEspiritoSanto = {
-
-    APP,
-
-    PHASES,
-
-    BIBLICAL_ORDER,
-
-    DAY_STRUCTURE,
-
-    state,
-
-    getPhase,
-
-    getProgress,
-
-    getDevotional,
-
-    normalizeDevotional,
-
-    loadDevotionals,
-
-    openDay,
-
-    nextDay,
-
-    previousDay,
-
-    completeDay,
-
-    isFavorite,
-
-    toggleFavorite,
-
-    saveJournal,
-
-    getJournal,
-
-    playAudio,
-
-    stopAudio,
-
-    setAudioSpeed
-
-  };
+$("completeButton")
+  .addEventListener(
+    "click",
+    completeCurrentDay
+  );
 
 
-  /* ==========================================================
-     INICIALIZAÇÃO
-     ========================================================== */
+$("favoriteButton")
+  .addEventListener(
+    "click",
+    toggleFavorite
+  );
 
-  async function initialize() {
 
-    console.log(
-      "Doce Espírito Santo — Um Amigo Íntimo"
-    );
+/* =========================================================
+   BUSCA
+========================================================= */
 
-    console.log(
-      "Motor editorial:",
-      APP.version
-    );
+$("searchInput")
+  .addEventListener(
+    "input",
+    e =>
+      search(
+        e.target.value
+      )
+  );
 
-    console.log(
-      "Jornada:",
-      APP.journey.totalDays,
-      "dias"
-    );
 
-    console.log(
-      "Experiência mínima:",
-      APP.journey.minimumMinutes,
-      "minutos"
-    );
+/* =========================================================
+   FILTROS
+========================================================= */
 
-    await loadDevotionals();
+document
+  .querySelectorAll(".chip")
+  .forEach(chip => {
 
-    emitAppEvent(
-      "ready",
-      {
-        app: APP,
-        phases: PHASES,
-        progress: getProgress(),
-        currentDay: state.currentDay
+    chip.addEventListener(
+      "click",
+      () => {
+
+        document
+          .querySelectorAll(".chip")
+          .forEach(
+            c =>
+              c.classList.remove(
+                "active"
+              )
+          );
+
+
+        chip.classList.add(
+          "active"
+        );
+
+
+        currentFilter =
+          chip.dataset.filter;
+
+
+        if(
+          currentFilter === "all"
+        ){
+
+          renderRails();
+
+          return;
+        }
+
+
+        const filtered =
+          devotionals.filter(
+            d => {
+
+              const text =
+                `
+                  ${d.titulo || ""}
+                  ${d.introducao || ""}
+                  ${d.reflexao || ""}
+                  ${d.pratica || ""}
+                `
+                  .toLowerCase();
+
+
+              if(
+                currentFilter ===
+                "presence"
+              ){
+
+                return /presen|perceb|atenção|silên|silenc/
+                  .test(text);
+
+              }
+
+
+              if(
+                currentFilter ===
+                "prayer"
+              ){
+
+                return /oraç|oração|orar/
+                  .test(text);
+
+              }
+
+
+              if(
+                currentFilter ===
+                "word"
+              ){
+
+                return /palavra|bíblia|bíblico|escritura/
+                  .test(text);
+
+              }
+
+
+              return true;
+
+            }
+          );
+
+
+        $("todayRail").innerHTML =
+          filtered
+            .slice(0,12)
+            .map(cardHTML)
+            .join("");
+
+
+        $("presenceRail").innerHTML =
+          filtered
+            .slice(12,24)
+            .map(cardHTML)
+            .join("");
+
+
+        $("journeyRail").innerHTML =
+          filtered
+            .slice(24,38)
+            .map(cardHTML)
+            .join("");
+
+
+        bindCards();
+
       }
     );
 
+  });
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+window.addEventListener(
+  "scroll",
+  () => {
+
+    $("topbar")
+      .classList
+      .toggle(
+        "scrolled",
+        window.scrollY > 20
+      );
+
+  },
+  {
+    passive:true
   }
+);
 
 
-  /* ==========================================================
-     INICIAR
-     ========================================================== */
+/* =========================================================
+   FECHAR MODAL CLICANDO FORA
+========================================================= */
 
-  if (
-    document.readyState ===
-    "loading"
-  ) {
+$("detailModal")
+  .addEventListener(
+    "click",
+    e => {
 
-    document.addEventListener(
-      "DOMContentLoaded",
-      initialize
-    );
+      if(
+        e.target ===
+        $("detailModal")
+      ){
 
-  } else {
+        closeModal();
 
-    initialize();
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   TECLA ESC
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  e => {
+
+    if(e.key === "Escape"){
+
+      closeModal();
+
+      closeSearch();
+
+    }
 
   }
+);
 
-})();
+
+/* =========================================================
+   INICIAR APP
+========================================================= */
+
+loadDevotionals();
