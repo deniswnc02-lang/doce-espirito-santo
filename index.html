@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -8,7 +10,10 @@
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
 
-  <meta name="theme-color" content="#090706">
+  <meta
+    name="theme-color"
+    content="#070604"
+  >
 
   <meta
     name="apple-mobile-web-app-capable"
@@ -25,935 +30,1103 @@
     content="Doce Espírito Santo"
   >
 
-  <meta
-    name="description"
-    content="Doce Espírito Santo — Um Amigo Íntimo. Uma jornada de 365 dias."
-  >
-
   <title>
     Doce Espírito Santo — Um Amigo Íntimo
   </title>
 
   <link
+    rel="manifest"
+    href="manifest.json"
+  >
+
+  <link
+    rel="icon"
+    href="icon.svg"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    href="icon.svg"
+  >
+
+  <link
     rel="stylesheet"
     href="styles.css"
   >
+
 </head>
+
 
 <body>
 
-  <div id="app" class="app">
+<div class="app">
 
-    <!-- =========================================
-         TOPO
-    ========================================== -->
 
-    <header
-      class="topbar"
-      id="topbar"
+  <!-- =====================================================
+       TOPBAR
+  ====================================================== -->
+
+  <header
+    class="topbar"
+    id="topbar"
+  >
+
+    <button
+      class="brand"
+      data-action="home"
+      aria-label="Início"
     >
 
+      <span class="brand-mark">
+        <img
+          src="capa.jpeg"
+          alt=""
+        >
+      </span>
+
+      <span class="brand-copy">
+
+        <strong>
+          Doce Espírito Santo
+        </strong>
+
+        <small>
+          UM AMIGO ÍNTIMO
+        </small>
+
+      </span>
+
+    </button>
+
+
+    <div class="top-actions">
+
       <button
-        class="brand"
-        data-action="home"
-        aria-label="Início"
+        class="round-button"
+        data-action="search"
+        aria-label="Pesquisar"
       >
-
-        <span class="brand-mark">
-          <img
-            src="capa.jpeg"
-            alt=""
-          >
-        </span>
-
-        <span class="brand-copy">
-
-          <strong>
-            Doce Espírito Santo
-          </strong>
-
-          <small>
-            UM AMIGO ÍNTIMO
-          </small>
-
-        </span>
-
+        ⌕
       </button>
 
-
-      <div class="top-actions">
-
-        <button
-          class="round-button"
-          data-action="search"
-          aria-label="Pesquisar"
-        >
-          ⌕
-        </button>
-
-        <button
-          class="round-button"
-          data-action="profile"
-          aria-label="Perfil"
-        >
-          ◯
-        </button>
-
-      </div>
-
-    </header>
-
-
-    <!-- =========================================
-         CONTEÚDO PRINCIPAL
-    ========================================== -->
-
-    <main id="main">
-
-
-      <!-- =======================================
-           INÍCIO
-      ======================================== -->
-
-      <section
-        class="screen active"
-        id="homeScreen"
-      >
-
-        <!-- HERO -->
-
-        <div class="hero">
-
-          <div class="hero-backdrop"></div>
-
-          <div class="hero-glow"></div>
-
-
-          <div class="hero-content">
-
-            <div class="hero-kicker">
-              UMA JORNADA DE 365 DIAS
-            </div>
-
-
-            <h1>
-
-              Percebê-lo.
-
-              <br>
-
-              <em>
-                Ele já está aqui.
-              </em>
-
-            </h1>
-
-
-            <p>
-              Aprenda a percebê-lo.
-              Uma caminhada de presença,
-              Palavra, oração, jejum e
-              intimidade com o Doce Espírito Santo.
-            </p>
-
-
-            <div class="hero-actions">
-
-              <button
-                class="primary-cta"
-                data-action="continue"
-              >
-                ▶ Continuar jornada
-              </button>
-
-
-              <button
-                class="secondary-cta"
-                data-action="today"
-              >
-                ＋ Hoje
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- CATEGORIAS -->
-
-        <div
-          class="chips"
-          aria-label="Categorias"
-        >
-
-          <button
-            class="chip active"
-            data-filter="all"
-          >
-            Tudo
-          </button>
-
-
-          <button
-            class="chip"
-            data-filter="journey"
-          >
-            Jornada
-          </button>
-
-
-          <button
-            class="chip"
-            data-filter="presence"
-          >
-            Presença
-          </button>
-
-
-          <button
-            class="chip"
-            data-filter="prayer"
-          >
-            Oração
-          </button>
-
-
-          <button
-            class="chip"
-            data-filter="word"
-          >
-            Palavra
-          </button>
-
-        </div>
-
-
-        <div class="content">
-
-
-          <!-- CONTINUE SUA JORNADA -->
-
-          <section class="rail-section">
-
-            <div class="section-head">
-
-              <div>
-
-                <span class="eyebrow">
-                  CONTINUE DE ONDE PAROU
-                </span>
-
-                <h2>
-                  Sua jornada
-                </h2>
-
-              </div>
-
-
-              <span
-                class="section-count"
-                id="progressLabel"
-              >
-                0 / 365
-              </span>
-
-            </div>
-
-
-            <div
-              class="journey-card"
-              data-action="continue"
-            >
-
-              <div
-                class="journey-number"
-                id="continueNumber"
-              >
-                01
-              </div>
-
-
-              <div class="journey-copy">
-
-                <span>
-                  PRÓXIMO PASSO
-                </span>
-
-                <h3 id="continueTitle">
-                  Comece pelo Dia 1
-                </h3>
-
-                <p id="continueIntro">
-                  Sua jornada começa aprendendo
-                  a perceber a presença que já está aqui.
-                </p>
-
-              </div>
-
-
-              <div class="journey-arrow">
-                ›
-              </div>
-
-            </div>
-
-
-            <div class="progress-line">
-
-              <span
-                id="progressFill"
-              ></span>
-
-            </div>
-
-          </section>
-
-
-
-          <!-- PARA HOJE -->
-
-          <section class="rail-section">
-
-            <div class="section-head">
-
-              <div>
-
-                <span class="eyebrow">
-                  PARA HOJE
-                </span>
-
-                <h2>
-                  Um encontro por vez
-                </h2>
-
-              </div>
-
-
-              <button
-                class="see-all"
-                data-action="today"
-              >
-                Ver
-              </button>
-
-            </div>
-
-
-            <div
-              class="rail"
-              id="todayRail"
-            ></div>
-
-          </section>
-
-
-
-          <!-- PRESENÇA -->
-
-          <section class="rail-section">
-
-            <div class="section-head">
-
-              <div>
-
-                <span class="eyebrow">
-                  APRENDER A PERCEBÊ-LO
-                </span>
-
-                <h2>
-                  Práticas de presença
-                </h2>
-
-              </div>
-
-            </div>
-
-
-            <div
-              class="rail"
-              id="presenceRail"
-            ></div>
-
-          </section>
-
-
-
-          <!-- 365 DIAS -->
-
-          <section class="rail-section">
-
-            <div class="section-head">
-
-              <div>
-
-                <span class="eyebrow">
-                  365 DIAS
-                </span>
-
-                <h2>
-                  Explore a jornada
-                </h2>
-
-              </div>
-
-
-              <button
-                class="see-all"
-                data-action="journey"
-              >
-                Ver tudo
-              </button>
-
-            </div>
-
-
-            <div
-              class="rail"
-              id="journeyRail"
-            ></div>
-
-          </section>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =======================================
-           JORNADA
-      ======================================== -->
-
-      <section
-        class="screen"
-        id="journeyScreen"
-      >
-
-        <div class="page-hero">
-
-          <span class="eyebrow">
-            365 DIAS DE PRESENÇA
-          </span>
-
-          <h1>
-            Jornada
-          </h1>
-
-          <p>
-            Não é sobre completar dias.
-            É sobre aprender a perceber
-            e viver a presença.
-          </p>
-
-        </div>
-
-
-        <div class="journey-stats">
-
-          <div>
-
-            <strong id="journeyDone">
-              0
-            </strong>
-
-            <span>
-              concluídos
-            </span>
-
-          </div>
-
-
-          <div>
-
-            <strong id="journeyPercent">
-              0%
-            </strong>
-
-            <span>
-              da jornada
-            </span>
-
-          </div>
-
-
-          <div>
-
-            <strong>
-              365
-            </strong>
-
-            <span>
-              dias
-            </span>
-
-          </div>
-
-        </div>
-
-
-        <div
-          class="day-grid"
-          id="dayGrid"
-        ></div>
-
-      </section>
-
-
-
-      <!-- =======================================
-           HOJE
-      ======================================== -->
-
-      <section
-        class="screen"
-        id="todayScreen"
-      >
-
-        <div class="page-hero">
-
-          <span class="eyebrow">
-            SEU MOMENTO DE HOJE
-          </span>
-
-          <h1>
-            Hoje
-          </h1>
-
-          <p>
-            Separe alguns minutos.
-            Diminua o ruído.
-            Aprenda a percebê-lo.
-          </p>
-
-        </div>
-
-
-        <div id="todayDetail"></div>
-
-      </section>
-
-
-
-      <!-- =======================================
-           FAVORITOS
-      ======================================== -->
-
-      <section
-        class="screen"
-        id="favoritesScreen"
-      >
-
-        <div class="page-hero">
-
-          <span class="eyebrow">
-            MINHA LISTA
-          </span>
-
-          <h1>
-            Favoritos
-          </h1>
-
-          <p>
-            Guarde os encontros que
-            você quer revisitar.
-          </p>
-
-        </div>
-
-
-        <div
-          class="rail favorites-rail"
-          id="favoritesRail"
-        ></div>
-
-
-        <div
-          class="empty-state"
-          id="favoritesEmpty"
-        >
-          Você ainda não salvou
-          nenhum devocional.
-        </div>
-
-      </section>
-
-
-
-      <!-- =======================================
-           PERFIL
-      ======================================== -->
-
-      <section
-        class="screen"
-        id="profileScreen"
-      >
-
-        <div class="page-hero">
-
-          <span class="eyebrow">
-            SUA CAMINHADA
-          </span>
-
-          <h1>
-            Perfil
-          </h1>
-
-          <p>
-            Um espaço para acompanhar
-            sua jornada com o Doce Espírito Santo.
-          </p>
-
-        </div>
-
-
-        <div class="profile-card">
-
-          <div class="profile-logo">
-
-            <img
-              src="capa.jpeg"
-              alt=""
-            >
-
-          </div>
-
-
-          <div>
-
-            <h2>
-              Doce Espírito Santo
-            </h2>
-
-            <p>
-              Um Amigo Íntimo
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="profile-progress">
-
-          <div class="profile-progress-head">
-
-            <span>
-              Progresso
-            </span>
-
-            <strong id="profileProgress">
-              0 / 365
-            </strong>
-
-          </div>
-
-
-          <div class="progress-line">
-
-            <span
-              id="profileProgressFill"
-            ></span>
-
-          </div>
-
-        </div>
-
-
-        <button
-          class="wide-button"
-          data-action="journal"
-        >
-          ✎ Meu diário
-        </button>
-
-      </section>
-
-
-
-      <!-- =======================================
-           DIÁRIO
-      ======================================== -->
-
-      <section
-        class="screen"
-        id="journalScreen"
-      >
-
-        <div class="page-hero">
-
-          <span class="eyebrow">
-            SEU DIÁRIO
-          </span>
-
-          <h1>
-            Reflexões
-          </h1>
-
-          <p>
-            Escreva aquilo que esta jornada
-            está despertando em você.
-          </p>
-
-        </div>
-
-
-        <textarea
-          id="journal"
-          class="journal"
-          placeholder="Escreva aqui..."
-        ></textarea>
-
-
-        <button
-          class="primary-cta wide"
-          data-action="saveJournal"
-        >
-          Salvar reflexão
-        </button>
-
-      </section>
-
-    </main>
-
-
-
-    <!-- =========================================
-         NAVEGAÇÃO INFERIOR
-    ========================================== -->
-
-    <nav
-      class="bottom-nav"
-      id="bottomNav"
-    >
-
       <button
-        class="nav-item active"
-        data-action="home"
-      >
-        <span>⌂</span>
-        <small>Início</small>
-      </button>
-
-
-      <button
-        class="nav-item"
-        data-action="journey"
-      >
-        <span>✦</span>
-        <small>Jornada</small>
-      </button>
-
-
-      <button
-        class="nav-item"
-        data-action="today"
-      >
-        <span>◉</span>
-        <small>Hoje</small>
-      </button>
-
-
-      <button
-        class="nav-item"
-        data-action="favorites"
-      >
-        <span>♡</span>
-        <small>Minha lista</small>
-      </button>
-
-
-      <button
-        class="nav-item"
+        class="round-button profile-trigger"
         data-action="profile"
+        aria-label="Perfil"
       >
-        <span>○</span>
-        <small>Perfil</small>
+        ◯
       </button>
 
-    </nav>
+    </div>
+
+  </header>
 
 
 
-    <!-- =========================================
-         MODAL DO DEVOCIONAL
-    ========================================== -->
+  <!-- =====================================================
+       CONTEÚDO
+  ====================================================== -->
 
-    <div
-      class="modal"
-      id="detailModal"
-      aria-hidden="true"
+  <main>
+
+
+    <!-- ===================================================
+         INÍCIO
+    ==================================================== -->
+
+    <section
+      class="screen active"
+      id="homeScreen"
     >
 
-      <div
-        class="modal-backdrop"
-        data-action="closeModal"
-      ></div>
+
+      <!-- HERO -->
+
+      <section class="hero">
+
+        <div
+          class="hero-backdrop"
+          aria-hidden="true"
+        ></div>
+
+        <div
+          class="hero-light"
+          aria-hidden="true"
+        ></div>
+
+        <div
+          class="hero-particles"
+          aria-hidden="true"
+        ></div>
 
 
-      <article class="detail-panel">
-
-        <button
-          class="modal-close"
-          data-action="closeModal"
-          aria-label="Fechar"
-        >
-          ×
-        </button>
+        <div class="hero-content">
 
 
-        <div class="detail-cover">
-
-          <img
-            src="capa.jpeg"
-            alt=""
-          >
-
-        </div>
-
-
-        <div class="detail-body">
-
-          <div class="detail-meta">
-
-            <span id="detailDay">
-              DIA 1
-            </span>
-
-            <span id="detailRef">
-              REFERÊNCIA
-            </span>
-
+          <div class="hero-kicker">
+            UMA JORNADA DE 365 DIAS
           </div>
 
 
-          <h2 id="detailTitle"></h2>
+          <h1>
+
+            Percebê-lo.
+
+            <br>
+
+            <em>
+              Ele já está aqui.
+            </em>
+
+          </h1>
 
 
-          <p
-            class="detail-intro"
-            id="detailIntro"
-          ></p>
+          <p class="hero-description">
+
+            Aprenda a percebê-lo.
+
+            Uma jornada de presença,
+            Palavra, oração, jejum e
+            intimidade com o
+            <strong>
+              Doce Espírito Santo.
+            </strong>
+
+          </p>
 
 
-          <div class="detail-block">
-
-            <span>
-              REFLEXÃO
-            </span>
-
-            <div
-              id="detailReflection"
-            ></div>
-
-          </div>
-
-
-          <div class="detail-block">
-
-            <span>
-              PRÁTICA DE PRESENÇA
-            </span>
-
-            <p id="detailPractice"></p>
-
-          </div>
-
-
-          <div class="detail-block">
-
-            <span>
-              PERGUNTA
-            </span>
-
-            <p id="detailQuestion"></p>
-
-          </div>
-
-
-          <div class="detail-block prayer">
-
-            <span>
-              ORAÇÃO
-            </span>
-
-            <p id="detailPrayer"></p>
-
-          </div>
-
-
-          <div class="detail-actions">
+          <div class="hero-actions">
 
             <button
               class="primary-cta"
-              id="completeButton"
+              data-action="continue"
             >
-              ✓ Concluir este dia
+
+              <span class="play-icon">
+                ▶
+              </span>
+
+              Continuar jornada
+
             </button>
 
 
             <button
               class="secondary-cta"
-              id="favoriteButton"
+              data-action="today"
             >
-              ♡ Minha lista
+
+              <span>
+                +
+              </span>
+
+              Hoje
+
             </button>
 
           </div>
 
+
+          <!-- PROGRESSO -->
+
+          <div class="hero-progress">
+
+            <div class="hero-progress-top">
+
+              <span>
+                SUA JORNADA
+              </span>
+
+              <strong id="progressLabel">
+                0 / 365
+              </strong>
+
+            </div>
+
+            <div class="hero-progress-bar">
+
+              <span id="progressFill"></span>
+
+            </div>
+
+          </div>
+
+
         </div>
 
-      </article>
-
-    </div>
+      </section>
 
 
 
-    <!-- =========================================
-         BUSCA
-    ========================================== -->
+      <!-- FILTROS -->
 
-    <div
-      class="search-overlay"
-      id="searchOverlay"
-    >
-
-      <div class="search-head">
+      <nav
+        class="chips"
+        aria-label="Categorias"
+      >
 
         <button
-          class="modal-close"
-          data-action="closeSearch"
+          class="chip active"
+          data-filter="all"
         >
-          ×
+          Tudo
         </button>
 
-
-        <input
-          id="searchInput"
-          type="search"
-          placeholder="Buscar na jornada..."
-          autocomplete="off"
+        <button
+          class="chip"
+          data-filter="journey"
         >
+          Jornada
+        </button>
+
+        <button
+          class="chip"
+          data-filter="presence"
+        >
+          Presença
+        </button>
+
+        <button
+          class="chip"
+          data-filter="prayer"
+        >
+          Oração
+        </button>
+
+        <button
+          class="chip"
+          data-filter="word"
+        >
+          Palavra
+        </button>
+
+      </nav>
+
+
+
+      <div class="content">
+
+
+        <!-- ===============================================
+             CONTINUE
+        ================================================ -->
+
+        <section class="rail-section continue-section">
+
+          <div class="section-head">
+
+            <div>
+
+              <div class="eyebrow">
+                CONTINUE DE ONDE PAROU
+              </div>
+
+              <h2>
+                Sua jornada
+              </h2>
+
+            </div>
+
+            <span
+              class="section-count"
+              id="progressLabelSecondary"
+            >
+              0 / 365
+            </span>
+
+          </div>
+
+
+          <button
+            class="continue-card"
+            data-action="continue"
+          >
+
+            <div class="continue-art">
+
+              <div class="continue-orb"></div>
+
+              <div class="continue-feather">
+                ✦
+              </div>
+
+              <span class="continue-number">
+                <span id="continueNumber">
+                  01
+                </span>
+              </span>
+
+            </div>
+
+
+            <div class="continue-copy">
+
+              <span class="continue-label">
+                PRÓXIMO PASSO
+              </span>
+
+              <h3 id="continueTitle">
+                A Presença que já está aqui
+              </h3>
+
+              <p id="continueIntro">
+                Antes de tentar encontrar alguma coisa,
+                pare. Respire.
+              </p>
+
+            </div>
+
+
+            <span class="continue-arrow">
+              ›
+            </span>
+
+          </button>
+
+        </section>
+
+
+
+        <!-- ===============================================
+             PARA HOJE
+        ================================================ -->
+
+        <section class="rail-section">
+
+          <div class="section-head">
+
+            <div>
+
+              <div class="eyebrow">
+                PARA HOJE
+              </div>
+
+              <h2>
+                Um encontro por vez
+              </h2>
+
+            </div>
+
+            <button
+              class="see-all"
+              data-action="today"
+            >
+              Ver
+            </button>
+
+          </div>
+
+
+          <div
+            class="rail poster-rail"
+            id="todayRail"
+          ></div>
+
+        </section>
+
+
+
+        <!-- ===============================================
+             APRENDA A PERCEBÊ-LO
+        ================================================ -->
+
+        <section class="rail-section">
+
+          <div class="section-head">
+
+            <div>
+
+              <div class="eyebrow">
+                APRENDA A PERCEBÊ-LO
+              </div>
+
+              <h2>
+                Práticas de presença
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="rail poster-rail"
+            id="presenceRail"
+          ></div>
+
+        </section>
+
+
+
+        <!-- ===============================================
+             TOP 10
+        ================================================ -->
+
+        <section class="rail-section top-ten-section">
+
+          <div class="section-head">
+
+            <div>
+
+              <div class="eyebrow">
+                SUA CAMINHADA
+              </div>
+
+              <h2>
+                Top 10 para aprofundar
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="top-ten-rail"
+            id="topTenRail"
+          ></div>
+
+        </section>
+
+
+
+        <!-- ===============================================
+             EXPLORE
+        ================================================ -->
+
+        <section class="rail-section">
+
+          <div class="section-head">
+
+            <div>
+
+              <div class="eyebrow">
+                365 DIAS
+              </div>
+
+              <h2>
+                Explore a jornada
+              </h2>
+
+            </div>
+
+            <button
+              class="see-all"
+              data-action="journey"
+            >
+              Ver tudo
+            </button>
+
+          </div>
+
+
+          <div
+            class="rail poster-rail"
+            id="journeyRail"
+          ></div>
+
+        </section>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         JORNADA
+    ==================================================== -->
+
+    <section
+      class="screen"
+      id="journeyScreen"
+    >
+
+      <div class="page-hero">
+
+        <div class="eyebrow">
+          365 DIAS
+        </div>
+
+        <h1>
+          Sua jornada.
+        </h1>
+
+        <p>
+          Um dia de cada vez.
+          Sem pressa. Sem performance.
+          Apenas presença.
+        </p>
+
+      </div>
+
+
+      <div class="journey-stats">
+
+        <div>
+
+          <strong id="journeyDone">
+            0
+          </strong>
+
+          <span>
+            concluídos
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <strong id="journeyPercent">
+            0%
+          </strong>
+
+          <span>
+            da jornada
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <strong>
+            365
+          </strong>
+
+          <span>
+            dias
+          </span>
+
+        </div>
 
       </div>
 
 
       <div
-        class="search-results rail"
-        id="searchResults"
+        class="day-grid"
+        id="dayGrid"
       ></div>
 
-    </div>
+    </section>
+
+
+
+    <!-- ===================================================
+         HOJE
+    ==================================================== -->
+
+    <section
+      class="screen"
+      id="todayScreen"
+    >
+
+      <div class="page-hero">
+
+        <div class="eyebrow">
+          PARA HOJE
+        </div>
+
+        <h1>
+          Um encontro por vez.
+        </h1>
+
+        <p>
+          O dia de hoje não precisa
+          ser vivido sozinho.
+        </p>
+
+      </div>
+
+
+      <div id="todayDetail"></div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         FAVORITOS
+    ==================================================== -->
+
+    <section
+      class="screen"
+      id="favoritesScreen"
+    >
+
+      <div class="page-hero">
+
+        <div class="eyebrow">
+          MINHA LISTA
+        </div>
+
+        <h1>
+          O que tocou você.
+        </h1>
+
+        <p>
+          Guarde os encontros aos quais
+          você deseja voltar.
+        </p>
+
+      </div>
+
+
+      <div
+        class="rail poster-rail"
+        id="favoritesRail"
+      ></div>
+
+
+      <div
+        class="empty-state"
+        id="favoritesEmpty"
+      >
+
+        Ainda não há encontros
+        na sua lista.
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         PERFIL
+    ==================================================== -->
+
+    <section
+      class="screen"
+      id="profileScreen"
+    >
+
+      <div class="page-hero">
+
+        <div class="eyebrow">
+          SEU CAMINHO
+        </div>
+
+        <h1>
+          Perfil.
+        </h1>
+
+      </div>
+
+
+      <div class="profile-card">
+
+        <div class="profile-logo">
+
+          <img
+            src="capa.jpeg"
+            alt=""
+          >
+
+        </div>
+
+
+        <div>
+
+          <h2>
+            Minha jornada
+          </h2>
+
+          <p>
+            Um caminho de presença
+            e intimidade.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="profile-progress">
+
+        <div class="profile-progress-head">
+
+          <span>
+            Progresso
+          </span>
+
+          <strong id="profileProgress">
+            0 / 365
+          </strong>
+
+        </div>
+
+
+        <div class="progress-line">
+
+          <span
+            id="profileProgressFill"
+          ></span>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="wide-button"
+        data-action="journal"
+      >
+
+        ✎
+
+        Meu diário
+
+      </button>
+
+
+      <button
+        class="wide-button"
+        data-action="favorites"
+      >
+
+        ♡
+
+        Minha lista
+
+      </button>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         DIÁRIO
+    ==================================================== -->
+
+    <section
+      class="screen"
+      id="journalScreen"
+    >
+
+      <div class="page-hero">
+
+        <div class="eyebrow">
+          DIÁRIO
+        </div>
+
+        <h1>
+          O que você percebeu?
+        </h1>
+
+        <p>
+          Registre aquilo que nasceu
+          durante a jornada.
+        </p>
+
+      </div>
+
+
+      <textarea
+        id="journal"
+        class="journal"
+        placeholder="Escreva aqui..."
+      ></textarea>
+
+
+      <button
+        class="primary-cta wide-button"
+        data-action="saveJournal"
+      >
+
+        Salvar no diário
+
+      </button>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =====================================================
+       NAVEGAÇÃO INFERIOR
+  ====================================================== -->
+
+  <nav class="bottom-nav">
+
+
+    <button
+      class="nav-item active"
+      data-action="home"
+    >
+
+      <span>
+        ⌂
+      </span>
+
+      <small>
+        Início
+      </small>
+
+    </button>
+
+
+    <button
+      class="nav-item"
+      data-action="journey"
+    >
+
+      <span>
+        ✦
+      </span>
+
+      <small>
+        Jornada
+      </small>
+
+    </button>
+
+
+    <button
+      class="nav-item"
+      data-action="today"
+    >
+
+      <span>
+        ◉
+      </span>
+
+      <small>
+        Hoje
+      </small>
+
+    </button>
+
+
+    <button
+      class="nav-item"
+      data-action="favorites"
+    >
+
+      <span>
+        ♡
+      </span>
+
+      <small>
+        Minha lista
+      </small>
+
+    </button>
+
+
+    <button
+      class="nav-item"
+      data-action="profile"
+    >
+
+      <span>
+        ◯
+      </span>
+
+      <small>
+        Perfil
+      </small>
+
+    </button>
+
+
+  </nav>
+
+
+
+  <!-- =====================================================
+       MODAL DO DEVOCIONAL
+  ====================================================== -->
+
+  <div
+    class="modal"
+    id="detailModal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="modal-backdrop"
+      data-action="closeModal"
+    ></div>
+
+
+    <article class="detail-panel">
+
+
+      <button
+        class="modal-close"
+        data-action="closeModal"
+        aria-label="Fechar"
+      >
+        ×
+      </button>
+
+
+      <div class="detail-cover">
+
+        <div class="detail-cover-art">
+
+          <div class="detail-light"></div>
+
+          <div class="detail-feather">
+            ✦
+          </div>
+
+          <span
+            id="detailDay"
+            class="detail-day-number"
+          >
+            DIA 01
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="detail-body">
+
+
+        <div class="detail-meta">
+
+          <span id="detailRef">
+            JOÃO 14:16–17
+          </span>
+
+        </div>
+
+
+        <h2 id="detailTitle">
+          A Presença que já está aqui
+        </h2>
+
+
+        <p
+          class="detail-intro"
+          id="detailIntro"
+        ></p>
+
+
+        <div class="detail-actions">
+
+          <button
+            class="primary-cta"
+            id="completeButton"
+          >
+            ✓ Concluir este dia
+          </button>
+
+
+          <button
+            class="secondary-cta"
+            id="favoriteButton"
+          >
+            ♡ Minha lista
+          </button>
+
+        </div>
+
+
+        <div class="detail-block">
+
+          <span>
+            REFLEXÃO
+          </span>
+
+          <div id="detailReflection"></div>
+
+        </div>
+
+
+        <div class="detail-block">
+
+          <span>
+            PRÁTICA
+          </span>
+
+          <p id="detailPractice"></p>
+
+        </div>
+
+
+        <div class="detail-block">
+
+          <span>
+            PERGUNTA
+          </span>
+
+          <p id="detailQuestion"></p>
+
+        </div>
+
+
+        <div class="detail-block prayer">
+
+          <span>
+            ORAÇÃO
+          </span>
+
+          <p id="detailPrayer"></p>
+
+        </div>
+
+
+      </div>
+
+    </article>
 
   </div>
 
 
-  <!-- =========================================
-       JAVASCRIPT PRINCIPAL
-  ========================================== -->
 
-  <script src="app.js"></script>
+  <!-- =====================================================
+       BUSCA
+  ====================================================== -->
+
+  <div
+    class="search-overlay"
+    id="searchOverlay"
+  >
+
+    <div class="search-head">
+
+
+      <button
+        class="modal-close"
+        data-action="closeSearch"
+      >
+        ×
+      </button>
+
+
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Buscar na jornada..."
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <div
+      class="search-results"
+      id="searchResults"
+    ></div>
+
+  </div>
+
+
+
+</div>
+
+
+<script src="app.js"></script>
 
 </body>
+
 </html>
