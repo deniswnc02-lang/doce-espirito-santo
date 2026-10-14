@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -10,94 +8,46 @@
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
 
+  <meta name="theme-color" content="#090706">
   <meta
-    name="theme-color"
-    content="#070604"
+    name="description"
+    content="Doce Espírito Santo — Um Amigo Íntimo. Uma jornada de 365 dias de presença, Palavra, oração, jejum e intimidade."
   >
 
-  <meta
-    name="apple-mobile-web-app-capable"
-    content="yes"
-  >
+  <title>Doce Espírito Santo — Um Amigo Íntimo</title>
 
-  <meta
-    name="apple-mobile-web-app-status-bar-style"
-    content="black-translucent"
-  >
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg">
 
-  <meta
-    name="apple-mobile-web-app-title"
-    content="Doce Espírito Santo"
-  >
-
-  <title>
-    Doce Espírito Santo — Um Amigo Íntimo
-  </title>
-
-  <link
-    rel="manifest"
-    href="manifest.json"
-  >
-
-  <link
-    rel="icon"
-    href="icon.svg"
-  >
-
-  <link
-    rel="apple-touch-icon"
-    href="icon.svg"
-  >
-
-  <link
-    rel="stylesheet"
-    href="styles.css"
-  >
-
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 
 <body>
 
 <div class="app">
 
-
-  <!-- =====================================================
+  <!-- =========================================================
        TOPBAR
-  ====================================================== -->
+  ========================================================== -->
 
-  <header
-    class="topbar"
-    id="topbar"
-  >
+  <header class="topbar" id="topbar">
 
     <button
       class="brand"
       data-action="home"
-      aria-label="Início"
+      aria-label="Ir para o início"
     >
 
       <span class="brand-mark">
-        <img
-          src="capa.jpeg"
-          alt=""
-        >
+        <img src="capa.jpeg" alt="">
       </span>
 
       <span class="brand-copy">
-
-        <strong>
-          Doce Espírito Santo
-        </strong>
-
-        <small>
-          UM AMIGO ÍNTIMO
-        </small>
-
+        <strong>Doce Espírito Santo</strong>
+        <small>UM AMIGO ÍNTIMO</small>
       </span>
 
     </button>
-
 
     <div class="top-actions">
 
@@ -110,9 +60,9 @@
       </button>
 
       <button
-        class="round-button profile-trigger"
-        data-action="profile"
-        aria-label="Perfil"
+        class="round-button"
+        data-action="command"
+        aria-label="Abrir comandos"
       >
         ◯
       </button>
@@ -122,78 +72,47 @@
   </header>
 
 
-
-  <!-- =====================================================
-       CONTEÚDO
-  ====================================================== -->
+  <!-- =========================================================
+       CONTEÚDO PRINCIPAL
+  ========================================================== -->
 
   <main>
 
 
-    <!-- ===================================================
+    <!-- =======================================================
          INÍCIO
-    ==================================================== -->
+    ======================================================== -->
 
     <section
       class="screen active"
       id="homeScreen"
     >
 
-
       <!-- HERO -->
 
       <section class="hero">
 
-        <div
-          class="hero-backdrop"
-          aria-hidden="true"
-        ></div>
+        <div class="hero-backdrop"></div>
 
-        <div
-          class="hero-light"
-          aria-hidden="true"
-        ></div>
-
-        <div
-          class="hero-particles"
-          aria-hidden="true"
-        ></div>
-
+        <div class="hero-glow"></div>
 
         <div class="hero-content">
-
 
           <div class="hero-kicker">
             UMA JORNADA DE 365 DIAS
           </div>
 
-
           <h1>
-
-            Percebê-lo.
-
-            <br>
-
-            <em>
-              Ele já está aqui.
-            </em>
-
+            Aprenda a<br>
+            <em>percebê-lo.</em>
           </h1>
 
-
-          <p class="hero-description">
-
-            Aprenda a percebê-lo.
-
-            Uma jornada de presença,
-            Palavra, oração, jejum e
-            intimidade com o
-            <strong>
-              Doce Espírito Santo.
-            </strong>
-
+          <p>
+            Ele já está aqui.
+            Uma caminhada profunda de presença,
+            Palavra, oração, jejum, contemplação
+            e intimidade com o Doce Espírito Santo.
           </p>
-
 
           <div class="hero-actions">
 
@@ -201,69 +120,26 @@
               class="primary-cta"
               data-action="continue"
             >
-
-              <span class="play-icon">
-                ▶
-              </span>
-
-              Continuar jornada
-
+              ▶ &nbsp; Continuar jornada
             </button>
-
 
             <button
               class="secondary-cta"
               data-action="today"
             >
-
-              <span>
-                +
-              </span>
-
-              Hoje
-
+              + &nbsp; Hoje
             </button>
 
           </div>
-
-
-          <!-- PROGRESSO -->
-
-          <div class="hero-progress">
-
-            <div class="hero-progress-top">
-
-              <span>
-                SUA JORNADA
-              </span>
-
-              <strong id="progressLabel">
-                0 / 365
-              </strong>
-
-            </div>
-
-            <div class="hero-progress-bar">
-
-              <span id="progressFill"></span>
-
-            </div>
-
-          </div>
-
 
         </div>
 
       </section>
 
 
-
       <!-- FILTROS -->
 
-      <nav
-        class="chips"
-        aria-label="Categorias"
-      >
+      <div class="chips">
 
         <button
           class="chip active"
@@ -300,23 +176,28 @@
           Palavra
         </button>
 
-      </nav>
+        <button
+          class="chip"
+          data-filter="study"
+        >
+          Estudos
+        </button>
 
+      </div>
 
 
       <div class="content">
 
 
-        <!-- ===============================================
+        <!-- ===================================================
              CONTINUE
-        ================================================ -->
+        ==================================================== -->
 
-        <section class="rail-section continue-section">
+        <section class="rail-section">
 
           <div class="section-head">
 
             <div>
-
               <div class="eyebrow">
                 CONTINUE DE ONDE PAROU
               </div>
@@ -324,12 +205,11 @@
               <h2>
                 Sua jornada
               </h2>
-
             </div>
 
             <span
               class="section-count"
-              id="progressLabelSecondary"
+              id="progressLabel"
             >
               0 / 365
             </span>
@@ -338,30 +218,20 @@
 
 
           <button
-            class="continue-card"
+            class="journey-card"
             data-action="continue"
           >
 
-            <div class="continue-art">
-
-              <div class="continue-orb"></div>
-
-              <div class="continue-feather">
-                ✦
-              </div>
-
-              <span class="continue-number">
-                <span id="continueNumber">
-                  01
-                </span>
-              </span>
-
+            <div
+              class="journey-number"
+              id="continueNumber"
+            >
+              01
             </div>
 
+            <div class="journey-copy">
 
-            <div class="continue-copy">
-
-              <span class="continue-label">
+              <span>
                 PRÓXIMO PASSO
               </span>
 
@@ -370,33 +240,36 @@
               </h3>
 
               <p id="continueIntro">
-                Antes de tentar encontrar alguma coisa,
-                pare. Respire.
+                Comece aprendendo a reconhecer
+                aquilo que já está aqui.
               </p>
 
             </div>
 
-
-            <span class="continue-arrow">
+            <div class="journey-arrow">
               ›
-            </span>
+            </div>
 
           </button>
+
+
+          <div class="progress-line">
+            <span id="progressFill"></span>
+          </div>
 
         </section>
 
 
 
-        <!-- ===============================================
+        <!-- ===================================================
              PARA HOJE
-        ================================================ -->
+        ==================================================== -->
 
         <section class="rail-section">
 
           <div class="section-head">
 
             <div>
-
               <div class="eyebrow">
                 PARA HOJE
               </div>
@@ -404,7 +277,6 @@
               <h2>
                 Um encontro por vez
               </h2>
-
             </div>
 
             <button
@@ -416,9 +288,8 @@
 
           </div>
 
-
           <div
-            class="rail poster-rail"
+            class="rail"
             id="todayRail"
           ></div>
 
@@ -426,31 +297,28 @@
 
 
 
-        <!-- ===============================================
-             APRENDA A PERCEBÊ-LO
-        ================================================ -->
+        <!-- ===================================================
+             APRENDER A PERCEBÊ-LO
+        ==================================================== -->
 
         <section class="rail-section">
 
           <div class="section-head">
 
             <div>
-
               <div class="eyebrow">
-                APRENDA A PERCEBÊ-LO
+                APRENDER A PERCEBÊ-LO
               </div>
 
               <h2>
                 Práticas de presença
               </h2>
-
             </div>
 
           </div>
 
-
           <div
-            class="rail poster-rail"
+            class="rail"
             id="presenceRail"
           ></div>
 
@@ -458,16 +326,15 @@
 
 
 
-        <!-- ===============================================
+        <!-- ===================================================
              TOP 10
-        ================================================ -->
+        ==================================================== -->
 
-        <section class="rail-section top-ten-section">
+        <section class="rail-section top10-section">
 
           <div class="section-head">
 
             <div>
-
               <div class="eyebrow">
                 SUA CAMINHADA
               </div>
@@ -475,31 +342,28 @@
               <h2>
                 Top 10 para aprofundar
               </h2>
-
             </div>
 
           </div>
 
-
           <div
-            class="top-ten-rail"
-            id="topTenRail"
+            class="rail top10-rail"
+            id="top10Rail"
           ></div>
 
         </section>
 
 
 
-        <!-- ===============================================
-             EXPLORE
-        ================================================ -->
+        <!-- ===================================================
+             365 DIAS
+        ==================================================== -->
 
         <section class="rail-section">
 
           <div class="section-head">
 
             <div>
-
               <div class="eyebrow">
                 365 DIAS
               </div>
@@ -507,7 +371,6 @@
               <h2>
                 Explore a jornada
               </h2>
-
             </div>
 
             <button
@@ -519,11 +382,223 @@
 
           </div>
 
-
           <div
-            class="rail poster-rail"
+            class="rail"
             id="journeyRail"
           ></div>
+
+        </section>
+
+
+
+        <!-- ===================================================
+             ESTUDOS
+        ==================================================== -->
+
+        <section class="rail-section resource-section">
+
+          <div class="section-head">
+
+            <div>
+              <div class="eyebrow">
+                APROFUNDE
+              </div>
+
+              <h2>
+                Estudos teológicos
+              </h2>
+            </div>
+
+            <button
+              class="see-all"
+              data-action="studies"
+            >
+              Explorar
+            </button>
+
+          </div>
+
+          <div class="resource-rail">
+
+            <button
+              class="resource-card"
+              data-action="studies"
+            >
+
+              <span class="resource-icon">
+                ✦
+              </span>
+
+              <strong>
+                Teologia
+              </strong>
+
+              <small>
+                Estudos aprofundados
+              </small>
+
+            </button>
+
+
+            <button
+              class="resource-card"
+              data-action="bible"
+            >
+
+              <span class="resource-icon">
+                ✧
+              </span>
+
+              <strong>
+                Bíblia
+              </strong>
+
+              <small>
+                Leia e aprofunde
+              </small>
+
+            </button>
+
+
+            <button
+              class="resource-card"
+              data-action="maps"
+            >
+
+              <span class="resource-icon">
+                ◇
+              </span>
+
+              <strong>
+                Mapas
+              </strong>
+
+              <small>
+                Conecte os temas
+              </small>
+
+            </button>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- ===================================================
+             PLANO DE LEITURA
+        ==================================================== -->
+
+        <section class="rail-section resource-section">
+
+          <div class="section-head">
+
+            <div>
+              <div class="eyebrow">
+                LEIA COMIGO
+              </div>
+
+              <h2>
+                Planos de leitura
+              </h2>
+            </div>
+
+            <button
+              class="see-all"
+              data-action="plans"
+            >
+              Ver planos
+            </button>
+
+          </div>
+
+          <div class="plan-card">
+
+            <div class="plan-card-number">
+              365
+            </div>
+
+            <div>
+
+              <span>
+                PLANO PRINCIPAL
+              </span>
+
+              <h3>
+                A Bíblia através da presença
+              </h3>
+
+              <p>
+                Uma jornada de leitura bíblica
+                conectada aos temas dos devocionais.
+              </p>
+
+            </div>
+
+            <button
+              data-action="plans"
+              aria-label="Abrir plano"
+            >
+              ›
+            </button>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- ===================================================
+             ÁUDIO
+        ==================================================== -->
+
+        <section class="rail-section audio-section">
+
+          <div class="section-head">
+
+            <div>
+              <div class="eyebrow">
+                OUÇA
+              </div>
+
+              <h2>
+                Uma voz para acompanhar sua jornada
+              </h2>
+            </div>
+
+          </div>
+
+          <button
+            class="audio-feature"
+            data-action="audio"
+          >
+
+            <div class="audio-symbol">
+              ▶
+            </div>
+
+            <div>
+
+              <span>
+                ÁUDIO
+              </span>
+
+              <strong>
+                Devocionais e orações
+              </strong>
+
+              <small>
+                Ouça enquanto caminha,
+                descansa ou contempla.
+              </small>
+
+            </div>
+
+            <div class="audio-arrow">
+              ›
+            </div>
+
+          </button>
 
         </section>
 
@@ -534,9 +609,9 @@
 
 
 
-    <!-- ===================================================
+    <!-- =======================================================
          JORNADA
-    ==================================================== -->
+    ======================================================== -->
 
     <section
       class="screen"
@@ -546,17 +621,17 @@
       <div class="page-hero">
 
         <div class="eyebrow">
-          365 DIAS
+          SUA CAMINHADA
         </div>
 
         <h1>
-          Sua jornada.
+          365 dias.
         </h1>
 
         <p>
-          Um dia de cada vez.
-          Sem pressa. Sem performance.
-          Apenas presença.
+          Não é uma corrida para terminar.
+          É uma jornada para aprender a perceber,
+          permanecer e viver a presença.
         </p>
 
       </div>
@@ -565,7 +640,6 @@
       <div class="journey-stats">
 
         <div>
-
           <strong id="journeyDone">
             0
           </strong>
@@ -573,25 +647,19 @@
           <span>
             concluídos
           </span>
-
         </div>
 
-
         <div>
-
           <strong id="journeyPercent">
             0%
           </strong>
 
           <span>
-            da jornada
+            progresso
           </span>
-
         </div>
 
-
         <div>
-
           <strong>
             365
           </strong>
@@ -599,7 +667,6 @@
           <span>
             dias
           </span>
-
         </div>
 
       </div>
@@ -614,9 +681,9 @@
 
 
 
-    <!-- ===================================================
+    <!-- =======================================================
          HOJE
-    ==================================================== -->
+    ======================================================== -->
 
     <section
       class="screen"
@@ -626,7 +693,7 @@
       <div class="page-hero">
 
         <div class="eyebrow">
-          PARA HOJE
+          HOJE
         </div>
 
         <h1>
@@ -634,8 +701,8 @@
         </h1>
 
         <p>
-          O dia de hoje não precisa
-          ser vivido sozinho.
+          Desacelere. Leia. Contemple.
+          Permaneça.
         </p>
 
       </div>
@@ -643,13 +710,65 @@
 
       <div id="todayDetail"></div>
 
+
+      <section class="today-tools">
+
+        <button
+          class="tool-card"
+          data-action="audio"
+        >
+          <span>▶</span>
+
+          <strong>
+            Ouvir
+          </strong>
+
+          <small>
+            Devocional em áudio
+          </small>
+        </button>
+
+
+        <button
+          class="tool-card"
+          data-action="bible"
+        >
+          <span>✧</span>
+
+          <strong>
+            Bíblia
+          </strong>
+
+          <small>
+            Ler o texto bíblico
+          </small>
+        </button>
+
+
+        <button
+          class="tool-card"
+          data-action="journal"
+        >
+          <span>✎</span>
+
+          <strong>
+            Diário
+          </strong>
+
+          <small>
+            Registrar o que percebeu
+          </small>
+        </button>
+
+      </section>
+
     </section>
 
 
 
-    <!-- ===================================================
+    <!-- =======================================================
          FAVORITOS
-    ==================================================== -->
+    ======================================================== -->
 
     <section
       class="screen"
@@ -663,19 +782,19 @@
         </div>
 
         <h1>
-          O que tocou você.
+          O que você guardou.
         </h1>
 
         <p>
-          Guarde os encontros aos quais
-          você deseja voltar.
+          Encontros, estudos e conteúdos
+          que você deseja revisitar.
         </p>
 
       </div>
 
 
       <div
-        class="rail poster-rail"
+        class="rail favorites-rail"
         id="favoritesRail"
       ></div>
 
@@ -684,9 +803,138 @@
         class="empty-state"
         id="favoritesEmpty"
       >
+        Você ainda não adicionou nenhum
+        conteúdo à sua lista.
+      </div>
 
-        Ainda não há encontros
-        na sua lista.
+    </section>
+
+
+
+    <!-- =======================================================
+         ESTUDOS
+    ======================================================== -->
+
+    <section
+      class="screen"
+      id="studiesScreen"
+    >
+
+      <div class="page-hero">
+
+        <div class="eyebrow">
+          APROFUNDAMENTO
+        </div>
+
+        <h1>
+          Estudos.
+        </h1>
+
+        <p>
+          Conteúdo desenvolvido para ir além
+          da leitura devocional e conduzir você
+          ao estudo bíblico e teológico.
+        </p>
+
+      </div>
+
+
+      <div class="study-library">
+
+        <button
+          class="library-card"
+          data-study="pneumatologia"
+        >
+
+          <span>
+            PNEUMATOLOGIA
+          </span>
+
+          <strong>
+            Quem é o Espírito Santo?
+          </strong>
+
+          <small>
+            Pessoa, obra, presença e missão.
+          </small>
+
+          <b>
+            →
+          </b>
+
+        </button>
+
+
+        <button
+          class="library-card"
+          data-study="presenca"
+        >
+
+          <span>
+            TEOLOGIA DA PRESENÇA
+          </span>
+
+          <strong>
+            Aprendendo a perceber
+          </strong>
+
+          <small>
+            Presença, consciência e comunhão.
+          </small>
+
+          <b>
+            →
+          </b>
+
+        </button>
+
+
+        <button
+          class="library-card"
+          data-study="oracao"
+        >
+
+          <span>
+            VIDA DE ORAÇÃO
+          </span>
+
+          <strong>
+            Permanecer diante do Eterno
+          </strong>
+
+          <small>
+            Oração, silêncio e contemplação.
+          </small>
+
+          <b>
+            →
+          </b>
+
+        </button>
+
+
+        <button
+          class="library-card"
+          data-study="palavra"
+        >
+
+          <span>
+            BÍBLIA
+          </span>
+
+          <strong>
+            Palavra e presença
+          </strong>
+
+          <small>
+            Como a Escritura forma nossa caminhada.
+          </small>
+
+          <b>
+            →
+          </b>
+
+        </button>
 
       </div>
 
@@ -694,9 +942,393 @@
 
 
 
-    <!-- ===================================================
+    <!-- =======================================================
+         BÍBLIA
+    ======================================================== -->
+
+    <section
+      class="screen"
+      id="bibleScreen"
+    >
+
+      <div class="page-hero">
+
+        <div class="eyebrow">
+          BÍBLIA
+        </div>
+
+        <h1>
+          A Palavra no centro.
+        </h1>
+
+        <p>
+          Um espaço preparado para leitura,
+          contexto, estudo e contemplação das Escrituras.
+        </p>
+
+      </div>
+
+
+      <div class="bible-search">
+
+        <input
+          type="text"
+          id="bibleInput"
+          placeholder="Buscar livro, capítulo ou tema..."
+          autocomplete="off"
+        >
+
+      </div>
+
+
+      <div
+        class="bible-content"
+        id="bibleContent"
+      >
+
+        <div class="bible-placeholder">
+
+          <span>
+            ✧
+          </span>
+
+          <h2>
+            Sua Bíblia
+          </h2>
+
+          <p>
+            A estrutura está preparada para receber
+            o módulo bíblico, planos de leitura,
+            referências cruzadas e estudos.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =======================================================
+         MAPAS
+    ======================================================== -->
+
+    <section
+      class="screen"
+      id="mapsScreen"
+    >
+
+      <div class="page-hero">
+
+        <div class="eyebrow">
+          MAPAS DE ESTUDO
+        </div>
+
+        <h1>
+          Conecte as ideias.
+        </h1>
+
+        <p>
+          Mapas visuais para enxergar como
+          personagens, textos, temas e doutrinas
+          se relacionam.
+        </p>
+
+      </div>
+
+
+      <div class="map-library">
+
+        <button
+          class="map-card"
+          data-map="espirito-santo"
+        >
+
+          <div class="map-visual">
+            <span>ESPÍRITO</span>
+            <i>→</i>
+            <span>PRESENÇA</span>
+          </div>
+
+          <strong>
+            O Espírito Santo nas Escrituras
+          </strong>
+
+          <small>
+            Antigo e Novo Testamento
+          </small>
+
+        </button>
+
+
+        <button
+          class="map-card"
+          data-map="joao14"
+        >
+
+          <div class="map-visual">
+            <span>JOÃO 14</span>
+            <i>→</i>
+            <span>CONSOLADOR</span>
+          </div>
+
+          <strong>
+            A promessa do Consolador
+          </strong>
+
+          <small>
+            Contexto e conexões bíblicas
+          </small>
+
+        </button>
+
+
+        <button
+          class="map-card"
+          data-map="oracao"
+        >
+
+          <div class="map-visual">
+            <span>ORAÇÃO</span>
+            <i>→</i>
+            <span>PRESENÇA</span>
+          </div>
+
+          <strong>
+            O caminho da oração
+          </strong>
+
+          <small>
+            Prática, contemplação e comunhão
+          </small>
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =======================================================
+         PLANOS
+    ======================================================== -->
+
+    <section
+      class="screen"
+      id="plansScreen"
+    >
+
+      <div class="page-hero">
+
+        <div class="eyebrow">
+          PLANOS DE LEITURA
+        </div>
+
+        <h1>
+          Leia com propósito.
+        </h1>
+
+        <p>
+          Planos que unem Bíblia, devocional,
+          oração e aprofundamento.
+        </p>
+
+      </div>
+
+
+      <div class="plan-library">
+
+        <button
+          class="plan-large"
+          data-plan="365"
+        >
+
+          <span>
+            365 DIAS
+          </span>
+
+          <strong>
+            A Bíblia através da presença
+          </strong>
+
+          <small>
+            Uma jornada anual de leitura.
+          </small>
+
+          <b>
+            Começar →
+          </b>
+
+        </button>
+
+
+        <button
+          class="plan-large"
+          data-plan="30"
+        >
+
+          <span>
+            30 DIAS
+          </span>
+
+          <strong>
+            Aprendendo a perceber
+          </strong>
+
+          <small>
+            Um mês para desacelerar e prestar atenção.
+          </small>
+
+          <b>
+            Começar →
+          </b>
+
+        </button>
+
+
+        <button
+          class="plan-large"
+          data-plan="21"
+        >
+
+          <span>
+            21 DIAS
+          </span>
+
+          <strong>
+            Escola de oração
+          </strong>
+
+          <small>
+            Uma jornada de oração e contemplação.
+          </small>
+
+          <b>
+            Começar →
+          </b>
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =======================================================
+         ÁUDIO
+    ======================================================== -->
+
+    <section
+      class="screen"
+      id="audioScreen"
+    >
+
+      <div class="page-hero">
+
+        <div class="eyebrow">
+          EXPERIÊNCIA DE ÁUDIO
+        </div>
+
+        <h1>
+          Ouça. Permaneça.
+        </h1>
+
+        <p>
+          Um espaço para ouvir o devocional
+          enquanto você continua sua rotina.
+        </p>
+
+      </div>
+
+
+      <div class="audio-library">
+
+        <div class="audio-main-card">
+
+          <div class="audio-main-symbol">
+            ▶
+          </div>
+
+          <span>
+            PRÓXIMO ENCONTRO
+          </span>
+
+          <h2>
+            Devocional em áudio
+          </h2>
+
+          <p>
+            Em breve você poderá ouvir
+            o devocional completo e a oração
+            com uma voz natural e contemplativa.
+          </p>
+
+          <button
+            class="primary-cta"
+            data-action="continue"
+          >
+            Abrir devocional
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =======================================================
+         DIÁRIO
+    ======================================================== -->
+
+    <section
+      class="screen"
+      id="journalScreen"
+    >
+
+      <div class="page-hero">
+
+        <div class="eyebrow">
+          DIÁRIO ESPIRITUAL
+        </div>
+
+        <h1>
+          O que você percebeu?
+        </h1>
+
+        <p>
+          Registre pensamentos, orações,
+          perguntas e percepções da jornada.
+        </p>
+
+      </div>
+
+
+      <textarea
+        class="journal"
+        id="journal"
+        placeholder="Escreva aqui..."
+      ></textarea>
+
+
+      <button
+        class="wide-button"
+        data-action="saveJournal"
+      >
+        Salvar no meu diário
+      </button>
+
+    </section>
+
+
+
+    <!-- =======================================================
          PERFIL
-    ==================================================== -->
+    ======================================================== -->
 
     <section
       class="screen"
@@ -706,12 +1338,16 @@
       <div class="page-hero">
 
         <div class="eyebrow">
-          SEU CAMINHO
+          SUA JORNADA
         </div>
 
         <h1>
           Perfil.
         </h1>
+
+        <p>
+          Acompanhe sua caminhada e seus conteúdos salvos.
+        </p>
 
       </div>
 
@@ -719,24 +1355,17 @@
       <div class="profile-card">
 
         <div class="profile-logo">
-
-          <img
-            src="capa.jpeg"
-            alt=""
-          >
-
+          <img src="capa.jpeg" alt="">
         </div>
-
 
         <div>
 
           <h2>
-            Minha jornada
+            Minha caminhada
           </h2>
 
           <p>
-            Um caminho de presença
-            e intimidade.
+            Doce Espírito Santo
           </p>
 
         </div>
@@ -749,7 +1378,7 @@
         <div class="profile-progress-head">
 
           <span>
-            Progresso
+            Jornada
           </span>
 
           <strong id="profileProgress">
@@ -758,13 +1387,8 @@
 
         </div>
 
-
         <div class="progress-line">
-
-          <span
-            id="profileProgressFill"
-          ></span>
-
+          <span id="profileProgressFill"></span>
         </div>
 
       </div>
@@ -774,11 +1398,7 @@
         class="wide-button"
         data-action="journal"
       >
-
-        ✎
-
-        Meu diário
-
+        Abrir meu diário
       </button>
 
 
@@ -786,161 +1406,68 @@
         class="wide-button"
         data-action="favorites"
       >
-
-        ♡
-
         Minha lista
-
       </button>
 
     </section>
-
-
-
-    <!-- ===================================================
-         DIÁRIO
-    ==================================================== -->
-
-    <section
-      class="screen"
-      id="journalScreen"
-    >
-
-      <div class="page-hero">
-
-        <div class="eyebrow">
-          DIÁRIO
-        </div>
-
-        <h1>
-          O que você percebeu?
-        </h1>
-
-        <p>
-          Registre aquilo que nasceu
-          durante a jornada.
-        </p>
-
-      </div>
-
-
-      <textarea
-        id="journal"
-        class="journal"
-        placeholder="Escreva aqui..."
-      ></textarea>
-
-
-      <button
-        class="primary-cta wide-button"
-        data-action="saveJournal"
-      >
-
-        Salvar no diário
-
-      </button>
-
-    </section>
-
 
   </main>
 
 
 
-  <!-- =====================================================
+  <!-- =========================================================
        NAVEGAÇÃO INFERIOR
-  ====================================================== -->
+  ========================================================== -->
 
   <nav class="bottom-nav">
-
 
     <button
       class="nav-item active"
       data-action="home"
     >
-
-      <span>
-        ⌂
-      </span>
-
-      <small>
-        Início
-      </small>
-
+      <span>⌂</span>
+      <small>Início</small>
     </button>
-
 
     <button
       class="nav-item"
       data-action="journey"
     >
-
-      <span>
-        ✦
-      </span>
-
-      <small>
-        Jornada
-      </small>
-
+      <span>✦</span>
+      <small>Jornada</small>
     </button>
-
 
     <button
       class="nav-item"
       data-action="today"
     >
-
-      <span>
-        ◉
-      </span>
-
-      <small>
-        Hoje
-      </small>
-
+      <span>◉</span>
+      <small>Hoje</small>
     </button>
-
 
     <button
       class="nav-item"
       data-action="favorites"
     >
-
-      <span>
-        ♡
-      </span>
-
-      <small>
-        Minha lista
-      </small>
-
+      <span>♡</span>
+      <small>Minha lista</small>
     </button>
-
 
     <button
       class="nav-item"
       data-action="profile"
     >
-
-      <span>
-        ◯
-      </span>
-
-      <small>
-        Perfil
-      </small>
-
+      <span>○</span>
+      <small>Perfil</small>
     </button>
-
 
   </nav>
 
 
 
-  <!-- =====================================================
+  <!-- =========================================================
        MODAL DO DEVOCIONAL
-  ====================================================== -->
+  ========================================================== -->
 
   <div
     class="modal"
@@ -956,7 +1483,6 @@
 
     <article class="detail-panel">
 
-
       <button
         class="modal-close"
         data-action="closeModal"
@@ -968,30 +1494,21 @@
 
       <div class="detail-cover">
 
-        <div class="detail-cover-art">
-
-          <div class="detail-light"></div>
-
-          <div class="detail-feather">
-            ✦
-          </div>
-
-          <span
-            id="detailDay"
-            class="detail-day-number"
-          >
-            DIA 01
-          </span>
-
-        </div>
+        <img
+          src="capa.jpeg"
+          alt=""
+        >
 
       </div>
 
 
       <div class="detail-body">
 
-
         <div class="detail-meta">
+
+          <span id="detailDay">
+            DIA 01
+          </span>
 
           <span id="detailRef">
             JOÃO 14:16–17
@@ -1008,7 +1525,10 @@
         <p
           class="detail-intro"
           id="detailIntro"
-        ></p>
+        >
+          Aprenda a reconhecer a presença
+          do Doce Espírito Santo.
+        </p>
 
 
         <div class="detail-actions">
@@ -1020,7 +1540,6 @@
             ✓ Concluir este dia
           </button>
 
-
           <button
             class="secondary-cta"
             id="favoriteButton"
@@ -1030,6 +1549,9 @@
 
         </div>
 
+
+
+        <!-- REFLEXÃO -->
 
         <div class="detail-block">
 
@@ -1042,6 +1564,9 @@
         </div>
 
 
+
+        <!-- PRÁTICA -->
+
         <div class="detail-block">
 
           <span>
@@ -1053,16 +1578,22 @@
         </div>
 
 
+
+        <!-- PERGUNTA -->
+
         <div class="detail-block">
 
           <span>
-            PERGUNTA
+            PERGUNTA PARA CONTEMPLAR
           </span>
 
           <p id="detailQuestion"></p>
 
         </div>
 
+
+
+        <!-- ORAÇÃO -->
 
         <div class="detail-block prayer">
 
@@ -1072,8 +1603,51 @@
 
           <p id="detailPrayer"></p>
 
+
+          <button
+            class="audio-prayer-button"
+            data-action="audioPrayer"
+          >
+            ▶ &nbsp; Ouvir esta oração
+          </button>
+
         </div>
 
+
+
+        <!-- NOVA ÁREA DE APROFUNDAMENTO -->
+
+        <div class="detail-block immersion-block">
+
+          <span>
+            CONTINUE APROFUNDANDO
+          </span>
+
+          <div class="immersion-grid">
+
+            <button data-action="bible">
+              <strong>✧ Bíblia</strong>
+              <small>Ir para o texto</small>
+            </button>
+
+            <button data-action="studies">
+              <strong>✦ Estudo</strong>
+              <small>Aprofundar o tema</small>
+            </button>
+
+            <button data-action="maps">
+              <strong>◇ Mapa</strong>
+              <small>Ver conexões</small>
+            </button>
+
+            <button data-action="journal">
+              <strong>✎ Diário</strong>
+              <small>Registrar percepção</small>
+            </button>
+
+          </div>
+
+        </div>
 
       </div>
 
@@ -1083,9 +1657,9 @@
 
 
 
-  <!-- =====================================================
+  <!-- =========================================================
        BUSCA
-  ====================================================== -->
+  ========================================================== -->
 
   <div
     class="search-overlay"
@@ -1094,18 +1668,17 @@
 
     <div class="search-head">
 
-
       <button
         class="modal-close"
         data-action="closeSearch"
+        aria-label="Fechar pesquisa"
       >
         ×
       </button>
 
-
       <input
-        id="searchInput"
         type="search"
+        id="searchInput"
         placeholder="Buscar na jornada..."
         autocomplete="off"
       >
@@ -1122,11 +1695,107 @@
 
 
 
+  <!-- =========================================================
+       CENTRAL DE COMANDOS /
+  ========================================================== -->
+
+  <div
+    class="command-overlay"
+    id="commandOverlay"
+  >
+
+    <div class="command-backdrop" data-action="closeCommand"></div>
+
+    <div class="command-panel">
+
+      <button
+        class="modal-close"
+        data-action="closeCommand"
+        aria-label="Fechar comandos"
+      >
+        ×
+      </button>
+
+      <div class="command-header">
+
+        <span>
+          CENTRAL DE COMANDOS
+        </span>
+
+        <h2>
+          O que você deseja explorar?
+        </h2>
+
+      </div>
+
+
+      <div class="command-input-wrap">
+
+        <span>
+          /
+        </span>
+
+        <input
+          type="text"
+          id="commandInput"
+          placeholder="estudo, bíblia, mapa..."
+          autocomplete="off"
+        >
+
+      </div>
+
+
+      <div
+        class="command-suggestions"
+        id="commandSuggestions"
+      >
+
+        <button data-command="/estudo espírito santo">
+          /estudo espírito santo
+        </button>
+
+        <button data-command="/mapa presença">
+          /mapa presença
+        </button>
+
+        <button data-command="/bíblia joão 14">
+          /bíblia joão 14
+        </button>
+
+        <button data-command="/plano 365">
+          /plano 365
+        </button>
+
+        <button data-command="/oração">
+          /oração
+        </button>
+
+        <button data-command="/referências">
+          /referências
+        </button>
+
+      </div>
+
+
+      <div
+        class="command-results"
+        id="commandResults"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =========================================================
+       MOTOR PRINCIPAL
+  ========================================================== -->
+
+  <script src="motor-editorial.js"></script>
+  <script src="app.js"></script>
+
 </div>
 
-
-<script src="app.js"></script>
-
 </body>
-
 </html>
