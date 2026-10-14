@@ -1,18 +1,16 @@
 // ============================================================
 // DOCE ESPÍRITO SANTO — UM AMIGO ÍNTIMO
-// MOTOR EDITORIAL DA JORNADA DE 365 DIAS
+// MOTOR EDITORIAL — VERSÃO 2.0
 // ============================================================
 
-const MOTOR_EDITORIAL = {
+window.MOTOR_EDITORIAL = {
+
   versao: "2.0",
 
   projeto: {
     nome: "Doce Espírito Santo",
     subtitulo: "Um Amigo Íntimo",
     dias: 365,
-
-    objetivo:
-      "Conduzir o usuário em uma jornada bíblica progressiva de percepção, aprofundamento, transformação, oração, escuta, Palavra, vida em Cristo, direção, fruto, serviço, testemunho e permanência.",
 
     duracaoMinimaMinutos: 40,
     duracaoIdealMinutos: 50,
@@ -24,27 +22,30 @@ const MOTOR_EDITORIAL = {
   },
 
   // ==========================================================
-  // PRINCÍPIO BÍBLICO
+  // ORDEM DA JORNADA
   // ==========================================================
 
   principioBiblico: {
-    ordem: "Antigo Testamento → Profetas → Evangelhos → Atos → Cartas",
+
+    ordem:
+      "Antigo Testamento → Livros Poéticos → Profetas → Evangelhos → Atos → Cartas → Apocalipse",
 
     regra:
-      "A jornada deve respeitar a progressão da revelação bíblica, começando no Antigo Testamento e avançando progressivamente para o Novo Testamento.",
+      "A jornada deve respeitar a progressão histórica e teológica das Escrituras, apresentando primeiro o contexto do Antigo Testamento e avançando progressivamente para a revelação do Novo Testamento.",
 
     conexoes:
-      "Quando uma passagem do Antigo Testamento possui relação com uma passagem do Novo Testamento, apresentar primeiro o contexto original e depois explicar a conexão bíblica.",
+      "Quando houver relação entre uma passagem do Antigo Testamento e o Novo Testamento, apresentar primeiro o contexto original da passagem e depois explicar a conexão.",
 
     cuidado:
-      "Não forçar conexões proféticas ou tipológicas que o próprio texto bíblico não sustente."
+      "Não criar conexões artificiais. Toda aplicação deve respeitar o contexto bíblico."
   },
 
   // ==========================================================
-  // FASES DA JORNADA
+  // 12 ETAPAS DA JORNADA
   // ==========================================================
 
   fases: [
+
     {
       id: 1,
       nome: "Perceber",
@@ -140,86 +141,70 @@ const MOTOR_EDITORIAL = {
       fim: 365,
       objetivo: "Continuar quando a jornada já virou vida."
     }
+
   ],
 
   // ==========================================================
-  // ESTRUTURA OBRIGATÓRIA DE CADA DEVOCIONAL
+  // ESTRUTURA DE UM DIA
   // ==========================================================
 
-  estruturaDoDia: {
-    identificacao: [
-      "dia",
-      "fase",
-      "titulo",
-      "subtitulo",
-      "objetivo",
-      "duracaoEstimada"
-    ],
+  estruturaDoDia: [
 
-    biblia: [
-      "referenciaPrincipal",
-      "textoPrincipal",
-      "contextoHistorico",
-      "contextoLiterario",
-      "contextoTeologico",
-      "passagensRelacionadas",
-      "conexoesAntigoNovoTestamento"
-    ],
+    "identificacao",
 
-    estudo: [
-      "introducao",
-      "estudoBiblico",
-      "oQueOTextoDiz",
-      "oQueOTextoSignifica",
-      "oQueOTextoRevela",
-      "oQueRevelaSobreOEtterno",
-      "oQueRevelaSobreODoceEspiritoSanto",
-      "oQueRevelaSobreNos"
-    ],
+    "leituraBiblica",
 
-    experiencia: [
-      "reflexaoProfunda",
-      "perguntas",
-      "aplicacaoPratica",
-      "praticaEspiritual",
-      "momentoDeSilencio"
-    ],
+    "contextoHistorico",
 
-    oracao: [
-      "introducaoOracao",
-      "oracao",
-      "roteiroAudio"
-    ],
+    "contextoLiterario",
 
-    diario: [
-      "perguntaDiario",
-      "campoLivre"
-    ],
+    "contextoTeologico",
 
-    continuidade: [
-      "encerramento",
-      "proximoDia"
-    ]
-  },
+    "estudoBiblico",
+
+    "conexoesBiblicas",
+
+    "reflexaoProfunda",
+
+    "perguntas",
+
+    "aplicacaoPratica",
+
+    "praticaEspiritual",
+
+    "momentoDeSilencio",
+
+    "oracao",
+
+    "audio",
+
+    "diario",
+
+    "encerramento",
+
+    "continuidade"
+
+  ],
 
   // ==========================================================
-  // DISTRIBUIÇÃO DA EXPERIÊNCIA DE 40–50 MINUTOS
+  // TEMPO MÍNIMO
   // ==========================================================
 
   experiencia: {
+
     leituraBiblica: {
       minimo: 5,
       maximo: 8
     },
 
     contexto: {
-      minimo: 4,
-      maximo: 6
+      minimo: 5,
+      maximo: 7
     },
 
     estudoBiblico: {
-      minimo: 12,
-      maximo: 15
+      minimo: 15,
+      maximo: 20
     },
 
     reflexao: {
@@ -246,6 +231,7 @@ const MOTOR_EDITORIAL = {
       minimo: 2,
       maximo: 5
     }
+
   },
 
   // ==========================================================
@@ -253,14 +239,23 @@ const MOTOR_EDITORIAL = {
   // ==========================================================
 
   audio: {
+
     habilitado: true,
 
     voz: {
+
       genero: "masculina",
+
       tonalidade: "grave",
+
       estilo: "natural",
-      personalidade: "acolhedora e madura",
-      interpretacao: "humana e contemplativa",
+
+      personalidade:
+        "madura, serena, acolhedora e contemplativa",
+
+      interpretacao:
+        "humana, pausada e expressiva",
+
       evitar: [
         "voz robótica",
         "entonação artificial",
@@ -268,6 +263,7 @@ const MOTOR_EDITORIAL = {
         "voz publicitária",
         "excesso de dramatização"
       ]
+
     },
 
     controles: [
@@ -277,31 +273,22 @@ const MOTOR_EDITORIAL = {
       "reiniciar",
       "velocidade",
       "progresso"
-    ],
-
-    velocidades: [
-      0.75,
-      1,
-      1.25,
-      1.5
     ]
+
   },
 
   // ==========================================================
-  // MOMENTO DE SILÊNCIO
+  // SILÊNCIO
   // ==========================================================
 
   silencio: {
+
     habilitado: true,
 
-    duracoes: [
-      3,
-      5,
-      10
-    ],
+    duracoes: [3, 5, 10],
 
     mensagem:
-      "Agora, não leia. Permaneça. Não tente produzir uma experiência. Apenas perceba."
+      "Agora, não tente produzir uma experiência. Permaneça. Leia novamente. Perceba. Silencie por alguns instantes."
   },
 
   // ==========================================================
@@ -309,6 +296,7 @@ const MOTOR_EDITORIAL = {
   // ==========================================================
 
   diario: {
+
     habilitado: true,
 
     salvarPorDia: true,
@@ -320,6 +308,7 @@ const MOTOR_EDITORIAL = {
       "aplicacao",
       "anotacaoLivre"
     ]
+
   },
 
   // ==========================================================
@@ -327,21 +316,28 @@ const MOTOR_EDITORIAL = {
   // ==========================================================
 
   progresso: {
+
     registrarDiaConcluido: true,
+
     registrarUltimoDia: true,
+
     registrarFaseAtual: true,
+
     registrarFavoritos: true,
+
     registrarDiario: true,
 
-    percentualBaseadoEm:
-      "dias concluídos / 365"
+    percentual:
+      "dias concluídos / 365 * 100"
+
   },
 
   // ==========================================================
-  // REGRAS DE QUALIDADE
+  // REGRAS EDITORIAIS
   // ==========================================================
 
   qualidade: {
+
     evitarConteudoSuperficial: true,
 
     evitarRepeticao: true,
@@ -356,11 +352,17 @@ const MOTOR_EDITORIAL = {
 
     exigirFundamentacaoBiblica: true,
 
+    exigirContextoBiblico: true,
+
+    exigirAplicacaoPratica: true,
+
     diferenciarTextoInterpretacaoAplicacao: true,
 
     regraCentral:
-      "Nenhum dia deve existir apenas para preencher espaço. Cada devocional deve possuir fundamento bíblico, propósito espiritual, desenvolvimento, experiência prática e continuidade dentro da jornada."
+      "Nenhum dia deve existir apenas para preencher espaço. Cada devocional precisa possuir fundamento bíblico, contexto, interpretação responsável, reflexão, aplicação, oração e continuidade dentro da jornada."
+
   }
+
 };
 
 
@@ -368,163 +370,39 @@ const MOTOR_EDITORIAL = {
 // FUNÇÕES DO MOTOR
 // ============================================================
 
-function encontrarFase(dia) {
-  return MOTOR_EDITORIAL.fases.find(
-    fase => dia >= fase.inicio && dia <= fase.fim
+window.encontrarFase = function(dia) {
+
+  return window.MOTOR_EDITORIAL.fases.find(
+
+    fase =>
+      dia >= fase.inicio &&
+      dia <= fase.fim
+
   );
-}
+
+};
 
 
-function obterInformacoesDoDia(dia) {
-  const fase = encontrarFase(dia);
+window.obterInformacoesDoDia = function(dia) {
 
-  if (!fase) {
-    return null;
-  }
+  const fase = window.encontrarFase(dia);
+
+  if (!fase) return null;
 
   return {
-    dia,
+
+    dia: dia,
+
     fase: fase.nome,
-    objetivoDaFase: fase.objetivo,
+
+    objetivo: fase.objetivo,
+
     duracaoMinima:
-      MOTOR_EDITORIAL.duracaoMinimaMinutos,
+      window.MOTOR_EDITORIAL.projeto.duracaoMinimaMinutos,
+
     duracaoIdeal:
-      MOTOR_EDITORIAL.duracaoIdealMinutos
+      window.MOTOR_EDITORIAL.projeto.duracaoIdealMinutos
+
   };
-}
 
-
-// ============================================================
-// NORMALIZAÇÃO DOS DEVOCIONAIS EXISTENTES
-// ============================================================
-
-function normalizarDevocional(devocional) {
-
-  const dia = Number(devocional.dia);
-  const fase = encontrarFase(dia);
-
-  return {
-    ...devocional,
-
-    fase: fase ? fase.nome : null,
-
-    subtitulo:
-      devocional.subtitulo || "",
-
-    objetivo:
-      devocional.objetivo || "",
-
-    duracaoEstimada:
-      devocional.duracaoEstimada || 40,
-
-    biblia: {
-      referenciaPrincipal:
-        devocional.referencia || "",
-
-      textoPrincipal:
-        devocional.textoPrincipal || "",
-
-      contextoHistorico:
-        devocional.contextoHistorico || "",
-
-      contextoLiterario:
-        devocional.contextoLiterario || "",
-
-      contextoTeologico:
-        devocional.contextoTeologico || "",
-
-      passagensRelacionadas:
-        devocional.passagensRelacionadas || [],
-
-      conexoesAntigoNovoTestamento:
-        devocional.conexoesAntigoNovoTestamento || ""
-    },
-
-    estudo: {
-      introducao:
-        devocional.introducao || "",
-
-      estudoBiblico:
-        devocional.estudoBiblico || "",
-
-      oQueOTextoDiz:
-        devocional.oQueOTextoDiz || "",
-
-      oQueOTextoSignifica:
-        devocional.oQueOTextoSignifica || "",
-
-      oQueOTextoRevela:
-        devocional.oQueOTextoRevela || "",
-
-      oQueRevelaSobreOEtterno:
-        devocional.oQueRevelaSobreOEtterno || "",
-
-      oQueRevelaSobreODoceEspiritoSanto:
-        devocional.oQueRevelaSobreODoceEspiritoSanto || "",
-
-      oQueRevelaSobreNos:
-        devocional.oQueRevelaSobreNos || ""
-    },
-
-    experiencia: {
-      reflexaoProfunda:
-        devocional.reflexao || "",
-
-      perguntas:
-        devocional.perguntas
-          ? devocional.perguntas
-          : devocional.pergunta
-            ? [devocional.pergunta]
-            : [],
-
-      aplicacaoPratica:
-        devocional.aplicacaoPratica || "",
-
-      praticaEspiritual:
-        devocional.pratica || "",
-
-      momentoDeSilencio:
-        devocional.momentoDeSilencio || ""
-    },
-
-    oracao: {
-      introducaoOracao:
-        devocional.introducaoOracao || "",
-
-      oracao:
-        devocional.oracao || "",
-
-      roteiroAudio:
-        devocional.roteiroAudio || ""
-    },
-
-    diario: {
-      perguntaDiario:
-        devocional.diario || "",
-
-      campoLivre: true
-    },
-
-    continuidade: {
-      encerramento:
-        devocional.encerramento || "",
-
-      proximoDia:
-        dia < 365 ? dia + 1 : null
-    }
-  };
-}
-
-
-// ============================================================
-// EXPORTAÇÃO
-// ============================================================
-
-if (typeof module !== "undefined") {
-  module.exports = {
-    MOTOR_EDITORIAL,
-    encontrarFase,
-    obterInformacoesDoDia,
-    normalizarDevocional
-  };
-}
+};
