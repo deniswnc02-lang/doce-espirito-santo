@@ -2,27 +2,72 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+  >
+
+  <meta
+    name="theme-color"
+    content="#090807"
+  >
+
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
+
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent"
+  >
 
   <title>Doce Espírito Santo — Um Amigo Íntimo</title>
 
-  <meta name="theme-color" content="#08090b">
-  <meta name="description" content="Uma jornada diária de oração, Palavra, silêncio, prática e intimidade com o Doce Espírito Santo.">
-
   <style>
+    /* =========================================================
+       DOCE ESPÍRITO SANTO
+       INDEX 4.0 — GLASS / CINEMATIC EXPERIENCE
+       ========================================================= */
+
     :root {
-      --bg: #08090b;
-      --surface: #101216;
-      --surface-2: #17191e;
-      --surface-3: #202329;
-      --text: #f4f1e9;
-      --muted: #aaa9a3;
-      --gold: #c9a86a;
-      --gold-light: #e2c98d;
-      --line: rgba(255,255,255,.09);
-      --danger: #b97878;
-      --radius: 22px;
-      --nav-height: 76px;
+      --bg: #080706;
+      --bg-2: #11100e;
+      --bg-3: #181512;
+
+      --glass: rgba(255, 255, 255, 0.075);
+      --glass-strong: rgba(255, 255, 255, 0.115);
+      --glass-soft: rgba(255, 255, 255, 0.045);
+
+      --border: rgba(255, 255, 255, 0.13);
+      --border-gold: rgba(213, 177, 103, 0.38);
+
+      --gold: #d7b36a;
+      --gold-light: #efd9a0;
+      --gold-dark: #92713b;
+
+      --cream: #f3eee4;
+      --cream-soft: #c9c1b5;
+      --muted: #938b80;
+
+      --success: #b8c89b;
+
+      --radius-xl: 32px;
+      --radius-lg: 25px;
+      --radius-md: 19px;
+      --radius-sm: 14px;
+
+      --shadow:
+        0 30px 80px rgba(0,0,0,.45);
+
+      --shadow-soft:
+        0 15px 45px rgba(0,0,0,.28);
+
+      --safe-top: env(safe-area-inset-top);
+      --safe-bottom: env(safe-area-inset-bottom);
+
+      --nav-height: 82px;
     }
 
     * {
@@ -31,19 +76,38 @@
     }
 
     html {
-      scroll-behavior: smooth;
       background: var(--bg);
+      scroll-behavior: smooth;
     }
 
     body {
       margin: 0;
-      background:
-        radial-gradient(circle at top, rgba(201,168,106,.07), transparent 30%),
-        var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-                   "Helvetica Neue", Arial, sans-serif;
       min-height: 100vh;
+
+      background:
+        radial-gradient(
+          circle at 20% 10%,
+          rgba(213,177,103,.09),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 90% 40%,
+          rgba(160,115,55,.07),
+          transparent 30%
+        ),
+        var(--bg);
+
+      color: var(--cream);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        Inter,
+        sans-serif;
+
+      overflow-x: hidden;
     }
 
     button,
@@ -57,93 +121,257 @@
       cursor: pointer;
     }
 
-    .serif {
-      font-family: Georgia, "Times New Roman", serif;
+    /* =========================================================
+       SVG ICON SYSTEM
+       ========================================================= */
+
+    .svg-defs {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .icon {
+      width: 21px;
+      height: 21px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon-sm {
+      width: 17px;
+      height: 17px;
+    }
+
+    .icon-lg {
+      width: 25px;
+      height: 25px;
+    }
+
+    .icon-xl {
+      width: 30px;
+      height: 30px;
     }
 
     /* =========================================================
-       CAPA
+       APP SHELL
        ========================================================= */
 
-    #coverScreen {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: #050607;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity .5s ease, visibility .5s ease;
-    }
-
-    #coverScreen.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .cover {
+    #app {
       position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #050607;
+      min-height: 100vh;
     }
 
-    .cover img.cover-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding:
+        calc(22px + var(--safe-top))
+        18px
+        calc(var(--nav-height) + 30px + var(--safe-bottom));
+
+      animation: screenIn .42s ease both;
+    }
+
+    .screen.active {
       display: block;
     }
 
-    .cover::after {
-      content: "";
+    @keyframes screenIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* =========================================================
+       COVER
+       ========================================================= */
+
+    #cover {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+
+      background: #050504;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+    }
+
+    #cover.hidden {
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity .7s ease,
+        visibility .7s ease;
+    }
+
+    .cover-image {
       position: absolute;
       inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      object-position: center;
+
+      transform: scale(1.015);
+    }
+
+    .cover-overlay {
+      position: absolute;
+      inset: 0;
+
       background:
         linear-gradient(
-          to bottom,
-          rgba(0,0,0,.05) 0%,
-          rgba(0,0,0,.05) 42%,
-          rgba(0,0,0,.42) 70%,
-          rgba(0,0,0,.76) 100%
+          180deg,
+          rgba(0,0,0,.08) 0%,
+          rgba(0,0,0,.04) 35%,
+          rgba(0,0,0,.28) 65%,
+          rgba(0,0,0,.82) 100%
         );
-      pointer-events: none;
     }
 
     .cover-content {
       position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: calc(50px + var(--safe-bottom));
+
+      max-width: 620px;
+      margin: auto;
+
       z-index: 2;
-      left: 7%;
-      right: 7%;
-      bottom: 8%;
-      text-align: center;
+    }
+
+    .cover-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-bottom: 12px;
+
+      padding: 8px 13px;
+
+      border:
+        1px solid rgba(255,255,255,.18);
+
+      border-radius: 999px;
+
+      background:
+        rgba(0,0,0,.18);
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      color: rgba(255,255,255,.84);
+
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .cover-title {
+      margin: 0;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: clamp(36px, 10vw, 70px);
+      line-height: .96;
+      font-weight: 400;
+
+      letter-spacing: -.04em;
+
+      text-shadow:
+        0 8px 35px rgba(0,0,0,.5);
+    }
+
+    .cover-subtitle {
+      margin: 12px 0 0;
+
+      color: rgba(255,255,255,.78);
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 17px;
+      font-style: italic;
     }
 
     .cover-phrase {
-      margin: 0 auto 24px;
-      max-width: 480px;
-      color: #fff;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(22px, 5vw, 34px);
-      line-height: 1.2;
-      text-shadow: 0 2px 18px rgba(0,0,0,.8);
+      margin: 17px 0 23px;
+
+      max-width: 390px;
+
+      color: rgba(255,255,255,.88);
+
+      font-size: 14px;
+      line-height: 1.55;
     }
 
     .start-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 54px;
-      padding: 0 28px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.94);
-      color: #111;
-      font-weight: 700;
-      letter-spacing: .02em;
-      box-shadow: 0 10px 35px rgba(0,0,0,.3);
-      transition: transform .2s ease, background .2s ease;
+      gap: 10px;
+
+      min-height: 53px;
+      padding: 0 22px;
+
+      border:
+        1px solid rgba(255,255,255,.25);
+
+      border-radius: 18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,.18),
+          rgba(255,255,255,.07)
+        );
+
+      box-shadow:
+        0 18px 45px rgba(0,0,0,.35),
+        inset 0 1px rgba(255,255,255,.15);
+
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+
+      color: white;
+
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .13em;
+
+      transition:
+        transform .2s ease,
+        background .2s ease;
     }
 
     .start-button:active {
@@ -151,74 +379,144 @@
     }
 
     /* =========================================================
-       APP
+       TOP BAR
        ========================================================= */
 
-    #app {
-      min-height: 100vh;
-      padding-bottom: calc(var(--nav-height) + env(safe-area-inset-bottom));
-    }
-
-    .page {
-      display: none;
-      min-height: calc(100vh - var(--nav-height));
-      padding-bottom: 30px;
-    }
-
-    .page.active {
-      display: block;
-      animation: pageIn .28s ease;
-    }
-
-    @keyframes pageIn {
-      from {
-        opacity: 0;
-        transform: translateY(5px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     .topbar {
-      padding: 20px 20px 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 15px;
+
+      margin-bottom: 25px;
+    }
+
+    .brand-mini {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .brand-mark {
+      width: 39px;
+      height: 39px;
+
+      display: grid;
+      place-items: center;
+
+      border:
+        1px solid var(--border-gold);
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(213,177,103,.20),
+          rgba(255,255,255,.045)
+        );
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      color: var(--gold-light);
+
+      box-shadow:
+        inset 0 1px rgba(255,255,255,.11),
+        0 12px 30px rgba(0,0,0,.2);
+    }
+
+    .brand-name {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 16px;
+      line-height: 1;
     }
 
     .brand-small {
-      display: flex;
-      flex-direction: column;
-    }
+      margin-top: 4px;
 
-    .brand-small strong {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 19px;
-      font-weight: 500;
-    }
-
-    .brand-small span {
       color: var(--muted);
-      font-size: 11px;
-      margin-top: 2px;
+
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
     }
 
-    .top-action {
+    .glass-button {
       width: 42px;
       height: 42px;
-      border-radius: 50%;
-      background: var(--surface-2);
-      color: var(--text);
-      border: 1px solid var(--line);
+
+      display: grid;
+      place-items: center;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 15px;
+
+      background: var(--glass);
+
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+
+      color: var(--cream-soft);
+
+      transition:
+        transform .2s ease,
+        background .2s ease;
     }
 
-    .container {
-      width: min(100%, 900px);
-      margin: 0 auto;
-      padding: 0 18px;
+    .glass-button:active {
+      transform: scale(.94);
+    }
+
+    /* =========================================================
+       TYPOGRAPHY
+       ========================================================= */
+
+    .eyebrow {
+      margin-bottom: 7px;
+
+      color: var(--gold);
+
+      font-size: 10px;
+      font-weight: 600;
+
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 0;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 27px;
+      line-height: 1.08;
+      font-weight: 400;
+
+      letter-spacing: -.025em;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+
+      margin: 32px 0 14px;
+    }
+
+    .section-link {
+      color: var(--gold-light);
+
+      font-size: 11px;
+      font-weight: 600;
     }
 
     /* =========================================================
@@ -227,735 +525,1254 @@
 
     .hero {
       position: relative;
-      margin: 12px 18px 28px;
-      min-height: 300px;
-      border-radius: 28px;
+
+      min-height: 405px;
+
       overflow: hidden;
-      border: 1px solid var(--line);
-      background: #151515;
+
+      border:
+        1px solid rgba(255,255,255,.16);
+
+      border-radius: var(--radius-xl);
+
+      box-shadow: var(--shadow);
+
+      isolation: isolate;
     }
 
-    .hero img {
+    .hero-image {
       position: absolute;
       inset: 0;
+
       width: 100%;
       height: 100%;
+
       object-fit: cover;
+
+      z-index: -3;
+
+      transform: scale(1.01);
+    }
+
+    .hero::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      z-index: -2;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0,0,0,.08),
+          rgba(0,0,0,.18) 35%,
+          rgba(0,0,0,.82) 100%
+        );
     }
 
     .hero::after {
       content: "";
+
       position: absolute;
       inset: 0;
+
+      z-index: -1;
+
       background:
-        linear-gradient(
-          to top,
-          rgba(0,0,0,.85),
-          rgba(0,0,0,.12) 70%
+        radial-gradient(
+          circle at 75% 15%,
+          rgba(238,208,145,.16),
+          transparent 32%
         );
     }
 
     .hero-content {
-      position: relative;
-      z-index: 2;
-      min-height: 300px;
-      padding: 25px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .eyebrow {
-      color: var(--gold-light);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .18em;
-      margin-bottom: 8px;
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(28px, 7vw, 46px);
-      line-height: 1.05;
-      font-weight: 500;
-    }
-
-    .hero p {
-      margin: 12px 0 0;
-      color: #ddd;
-      line-height: 1.5;
-      max-width: 600px;
-    }
-
-    /* =========================================================
-       SECTION
-       ========================================================= */
-
-    .section {
-      margin: 0 0 30px;
-    }
-
-    .section-head {
-      padding: 0 18px;
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 13px;
-    }
-
-    .section-head h2 {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 25px;
-      font-weight: 500;
-    }
-
-    .section-head p {
-      margin: 5px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .section-link {
-      color: var(--gold-light);
-      background: none;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-
-    /* =========================================================
-       PILLARS
-       ========================================================= */
-
-    .pillar-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      padding: 0 18px;
-    }
-
-    .pillar-card {
-      position: relative;
-      min-height: 170px;
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: var(--surface-2);
-      text-align: left;
-      color: #fff;
-      padding: 0;
-    }
-
-    .pillar-card::before {
-      content: "";
       position: absolute;
-      inset: 0;
-      background-image: var(--bg-image);
-      background-size: cover;
-      background-position: center;
-      transition: transform .35s ease;
+      inset: auto 21px 21px;
     }
 
-    .pillar-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
+    .hero-glass {
+      padding: 20px;
+
+      border:
+        1px solid rgba(255,255,255,.17);
+
+      border-radius: 24px;
+
       background:
         linear-gradient(
-          to top,
-          rgba(0,0,0,.86),
-          rgba(0,0,0,.15)
+          135deg,
+          rgba(255,255,255,.13),
+          rgba(255,255,255,.045)
         );
+
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+
+      box-shadow:
+        inset 0 1px rgba(255,255,255,.12),
+        0 15px 45px rgba(0,0,0,.28);
     }
 
-    .pillar-card:active::before {
-      transform: scale(1.04);
+    .hero-title {
+      margin: 4px 0 7px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 31px;
+      line-height: 1.02;
+      font-weight: 400;
+
+      letter-spacing: -.035em;
     }
 
-    .pillar-content {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      min-height: 170px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 17px;
-    }
-
-    .pillar-content h3 {
+    .hero-description {
       margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 21px;
-      font-weight: 500;
-    }
 
-    .pillar-content p {
-      margin: 5px 0 0;
-      color: rgba(255,255,255,.76);
+      max-width: 460px;
+
+      color: rgba(255,255,255,.72);
+
       font-size: 12px;
-      line-height: 1.35;
-    }
-
-    /* =========================================================
-       JOURNEY HORIZONTAL
-       ========================================================= */
-
-    .journey-scroll {
-      display: flex;
-      overflow-x: auto;
-      gap: 12px;
-      padding: 0 18px 8px;
-      scrollbar-width: none;
-    }
-
-    .journey-scroll::-webkit-scrollbar {
-      display: none;
-    }
-
-    .journey-card {
-      position: relative;
-      flex: 0 0 230px;
-      height: 155px;
-      border-radius: 22px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: var(--surface-2);
-      color: white;
-      text-align: left;
-    }
-
-    .journey-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: var(--bg-image);
-      background-size: cover;
-      background-position: center;
-    }
-
-    .journey-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(0,0,0,.9),
-        rgba(0,0,0,.1)
-      );
-    }
-
-    .journey-card-content {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      padding: 17px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .journey-number {
-      color: var(--gold-light);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .14em;
-      margin-bottom: 5px;
-    }
-
-    .journey-card h3 {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 22px;
-      font-weight: 500;
-    }
-
-    .journey-card p {
-      margin: 4px 0 0;
-      color: rgba(255,255,255,.75);
-      font-size: 11px;
-    }
-
-    /* =========================================================
-       TODAY
-       ========================================================= */
-
-    .today-card {
-      margin: 0 18px;
-      padding: 22px;
-      border: 1px solid var(--line);
-      background: var(--surface);
-      border-radius: 22px;
-    }
-
-    .today-card .day {
-      color: var(--gold-light);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .13em;
-    }
-
-    .today-card h3 {
-      margin: 8px 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 25px;
-      font-weight: 500;
-    }
-
-    .today-card p {
-      color: var(--muted);
-      line-height: 1.5;
-      font-size: 14px;
-    }
-
-    .primary-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 0 20px;
-      border-radius: 999px;
-      background: var(--gold);
-      color: #15110a;
-      font-weight: 700;
-    }
-
-    .secondary-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 0 18px;
-      border-radius: 999px;
-      background: var(--surface-3);
-      color: var(--text);
-      border: 1px solid var(--line);
-    }
-
-    /* =========================================================
-       JORNADA PAGE
-       ========================================================= */
-
-    .page-title {
-      padding: 20px 18px 12px;
-    }
-
-    .page-title .eyebrow {
-      margin-bottom: 7px;
-    }
-
-    .page-title h1 {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 36px;
-      font-weight: 500;
-    }
-
-    .page-title p {
-      color: var(--muted);
-      line-height: 1.5;
-      margin: 8px 0 0;
-    }
-
-    .progress-box {
-      margin: 10px 18px 25px;
-      padding: 18px;
-      border-radius: 20px;
-      border: 1px solid var(--line);
-      background: var(--surface);
-    }
-
-    .progress-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
-
-    .progress-row span:last-child {
-      color: var(--gold-light);
-    }
-
-    .progress-track {
-      height: 5px;
-      background: var(--surface-3);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0;
-      background: var(--gold);
-      border-radius: inherit;
-      transition: width .4s ease;
-    }
-
-    .phase-block {
-      margin-bottom: 25px;
-    }
-
-    .phase-heading {
-      padding: 0 18px 10px;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .phase-heading h2 {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 22px;
-      font-weight: 500;
-    }
-
-    .phase-heading span {
-      color: var(--muted);
-      font-size: 11px;
-      align-self: center;
-    }
-
-    .phase-description {
-      padding: 0 18px 12px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .days-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      padding: 0 18px;
-    }
-
-    .day-button {
-      min-height: 52px;
-      border-radius: 14px;
-      background: var(--surface-2);
-      color: var(--text);
-      border: 1px solid var(--line);
-      position: relative;
-      font-weight: 600;
-      font-size: 13px;
-    }
-
-    .day-button.available {
-      border-color: rgba(201,168,106,.28);
-    }
-
-    .day-button.completed {
-      background: rgba(201,168,106,.13);
-      border-color: rgba(201,168,106,.4);
-      color: var(--gold-light);
-    }
-
-    .day-button.current {
-      box-shadow: inset 0 0 0 1px var(--gold);
-    }
-
-    .day-button.locked {
-      opacity: .38;
-    }
-
-    /* =========================================================
-       DEVOTIONAL
-       ========================================================= */
-
-    .devotional-page {
-      padding-bottom: 30px;
-    }
-
-    .devotional-header {
-      padding: 18px;
-    }
-
-    .back-button {
-      background: none;
-      color: var(--muted);
-      padding: 5px 0;
-      margin-bottom: 20px;
-    }
-
-    .devotional-day {
-      color: var(--gold-light);
-      text-transform: uppercase;
-      letter-spacing: .15em;
-      font-size: 11px;
-    }
-
-    .devotional-header h1 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(32px, 8vw, 48px);
-      line-height: 1.04;
-      font-weight: 500;
-      margin: 8px 0;
-    }
-
-    .devotional-subtitle {
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .devotional-reference {
-      margin-top: 14px;
-      display: inline-block;
-      color: var(--gold-light);
-      font-size: 13px;
-    }
-
-    .devotional-actions {
-      display: flex;
-      gap: 9px;
-      margin-top: 18px;
-      flex-wrap: wrap;
-    }
-
-    .icon-button {
-      min-height: 42px;
-      padding: 0 14px;
-      border-radius: 999px;
-      color: var(--text);
-      background: var(--surface-2);
-      border: 1px solid var(--line);
-    }
-
-    .devotional-section {
-      margin: 0 18px 14px;
-      padding: 21px;
-      border-radius: 20px;
-      background: var(--surface);
-      border: 1px solid var(--line);
-    }
-
-    .devotional-section h2 {
-      margin: 0 0 11px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 22px;
-      font-weight: 500;
-    }
-
-    .devotional-section h3 {
-      margin: 18px 0 7px;
-      color: var(--gold-light);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-    }
-
-    .devotional-section p {
-      margin: 0 0 11px;
-      color: #d5d3cd;
-      line-height: 1.72;
-      font-size: 15px;
-    }
-
-    .bible-text {
-      padding: 17px;
-      border-left: 2px solid var(--gold);
-      background: rgba(201,168,106,.06);
-      color: #eee;
-      line-height: 1.7;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 17px;
-    }
-
-    .question {
-      padding: 13px 0;
-      border-bottom: 1px solid var(--line);
-      color: #ddd;
       line-height: 1.55;
     }
 
-    .question:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
+    .hero-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
 
-    .practice-box {
-      background: rgba(201,168,106,.08);
-      border-color: rgba(201,168,106,.18);
-    }
+      margin-top: 16px;
+      padding: 11px 14px;
 
-    textarea.journal {
-      width: 100%;
-      min-height: 180px;
-      resize: vertical;
-      border-radius: 15px;
-      padding: 15px;
-      background: #0b0d10;
-      border: 1px solid var(--line);
-      color: var(--text);
-      outline: none;
-      line-height: 1.6;
-    }
+      border:
+        1px solid rgba(255,255,255,.18);
 
-    textarea.journal:focus {
-      border-color: rgba(201,168,106,.6);
-    }
+      border-radius: 14px;
 
-    .devotional-navigation {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin: 20px 18px;
+      background:
+        rgba(255,255,255,.10);
+
+      color: white;
+
+      font-size: 11px;
+      font-weight: 600;
+
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
     }
 
     /* =========================================================
-       FAVORITOS / PERFIL / BUSCA
+       PROGRESS
        ========================================================= */
 
-    .empty-state {
-      margin: 20px 18px;
-      padding: 35px 22px;
-      text-align: center;
-      background: var(--surface);
-      border: 1px solid var(--line);
+    .progress-card {
+      position: relative;
+
+      margin-top: 15px;
+      padding: 18px;
+
+      border:
+        1px solid var(--border);
+
       border-radius: 22px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,.075),
+          rgba(255,255,255,.035)
+        );
+
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+
+      box-shadow: var(--shadow-soft);
     }
 
-    .empty-state h2 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 500;
-      margin-top: 0;
+    .progress-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 12px;
     }
 
-    .empty-state p {
-      color: var(--muted);
-      line-height: 1.5;
+    .progress-label {
+      color: var(--cream-soft);
+      font-size: 12px;
     }
 
-    .search-box {
-      padding: 0 18px 18px;
+    .progress-number {
+      color: var(--gold-light);
+      font-size: 12px;
+      font-weight: 600;
     }
 
-    .search-box input {
+    .progress-track {
       width: 100%;
-      min-height: 50px;
-      padding: 0 17px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: var(--surface);
-      color: var(--text);
-      outline: none;
+      height: 4px;
+
+      overflow: hidden;
+
+      border-radius: 99px;
+
+      background: rgba(255,255,255,.09);
     }
 
-    .result-list {
-      padding: 0 18px;
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+
+      border-radius: inherit;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--gold-dark),
+          var(--gold-light)
+        );
+
+      box-shadow:
+        0 0 15px rgba(215,179,106,.35);
+
+      transition: width .6s ease;
+    }
+
+    /* =========================================================
+       HORIZONTAL DAY CARDS
+       ========================================================= */
+
+    .horizontal-scroll {
+      display: flex;
+      gap: 12px;
+
+      overflow-x: auto;
+
+      padding:
+        2px
+        3px
+        10px;
+
+      margin-right: -18px;
+
+      scrollbar-width: none;
+    }
+
+    .horizontal-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .day-card {
+      position: relative;
+
+      flex: 0 0 220px;
+      min-height: 210px;
+
+      overflow: hidden;
+
+      border:
+        1px solid rgba(255,255,255,.13);
+
+      border-radius: 23px;
+
+      background: #15120f;
+
+      box-shadow:
+        0 18px 45px rgba(0,0,0,.28);
+    }
+
+    .day-card-image {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    .day-card::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          180deg,
+          transparent 15%,
+          rgba(0,0,0,.85) 100%
+        );
+    }
+
+    .day-card-content {
+      position: absolute;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+
+      z-index: 2;
+    }
+
+    .day-number {
+      color: var(--gold-light);
+
+      font-size: 9px;
+      font-weight: 700;
+
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .day-title {
+      margin-top: 5px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 17px;
+      line-height: 1.15;
+    }
+
+    .day-reference {
+      margin-top: 7px;
+
+      color: rgba(255,255,255,.62);
+
+      font-size: 9px;
+    }
+
+    /* =========================================================
+       EXPERIENCE CARDS
+       ========================================================= */
+
+    .experience-grid {
       display: grid;
-      gap: 10px;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 12px;
     }
 
-    .result-item {
+    .experience-card {
+      position: relative;
+
+      min-height: 215px;
+
+      overflow: hidden;
+
+      border:
+        1px solid rgba(255,255,255,.13);
+
+      border-radius: 24px;
+
+      background: #16130f;
+
+      box-shadow:
+        0 18px 45px rgba(0,0,0,.26);
+    }
+
+    .experience-image {
+      position: absolute;
+      inset: 0;
+
       width: 100%;
-      padding: 17px;
-      text-align: left;
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--line);
-      border-radius: 18px;
+      height: 100%;
+
+      object-fit: cover;
+
+      transition:
+        transform .55s ease;
     }
 
-    .result-item small {
+    .experience-card:active .experience-image {
+      transform: scale(1.05);
+    }
+
+    .experience-card::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0,0,0,.05),
+          rgba(0,0,0,.78) 100%
+        );
+
+      z-index: 1;
+    }
+
+    .experience-content {
+      position: absolute;
+
+      left: 13px;
+      right: 13px;
+      bottom: 13px;
+
+      z-index: 2;
+    }
+
+    .experience-icon {
+      width: 37px;
+      height: 37px;
+
+      display: grid;
+      place-items: center;
+
+      margin-bottom: 12px;
+
+      border:
+        1px solid rgba(255,255,255,.20);
+
+      border-radius: 13px;
+
+      background:
+        rgba(255,255,255,.11);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
       color: var(--gold-light);
     }
 
-    .result-item strong {
-      display: block;
-      margin-top: 5px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 18px;
-      font-weight: 500;
+    .experience-name {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 20px;
+      line-height: 1;
     }
 
-    .profile-card {
-      margin: 0 18px 14px;
-      padding: 22px;
-      border-radius: 22px;
-      background: var(--surface);
-      border: 1px solid var(--line);
+    .experience-description {
+      margin-top: 7px;
+
+      color: rgba(255,255,255,.66);
+
+      font-size: 9px;
+      line-height: 1.4;
     }
 
-    .profile-card h2 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 500;
-      margin: 0 0 16px;
+    /* =========================================================
+       PHASE CARDS
+       ========================================================= */
+
+    .phase-card {
+      position: relative;
+
+      display: flex;
+      align-items: end;
+
+      min-height: 185px;
+
+      overflow: hidden;
+
+      margin-bottom: 12px;
+
+      border:
+        1px solid rgba(255,255,255,.13);
+
+      border-radius: 24px;
+
+      background: #15120f;
+
+      box-shadow:
+        0 18px 45px rgba(0,0,0,.27);
     }
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    .phase-image {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    .phase-card::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0,0,0,.04),
+          rgba(0,0,0,.87)
+        );
+    }
+
+    .phase-content {
+      position: relative;
+
+      z-index: 2;
+
+      width: 100%;
+
+      padding: 19px;
+    }
+
+    .phase-number {
+      color: var(--gold);
+
+      font-size: 9px;
+      font-weight: 700;
+
+      letter-spacing: .18em;
+    }
+
+    .phase-name {
+      margin-top: 6px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 27px;
+      line-height: 1;
+    }
+
+    .phase-description {
+      margin-top: 7px;
+
+      max-width: 480px;
+
+      color: rgba(255,255,255,.67);
+
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .phase-days {
+      display: inline-flex;
+
+      margin-top: 12px;
+      padding: 7px 10px;
+
+      border:
+        1px solid rgba(255,255,255,.15);
+
+      border-radius: 999px;
+
+      background:
+        rgba(255,255,255,.07);
+
+      color: rgba(255,255,255,.78);
+
+      font-size: 9px;
+
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+    }
+
+    /* =========================================================
+       DEVOTIONAL SCREEN
+       ========================================================= */
+
+    #devotionalScreen {
+      padding-top: calc(14px + var(--safe-top));
+    }
+
+    .reader-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 15px;
+    }
+
+    .reader-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      color: var(--cream-soft);
+
+      font-size: 11px;
+    }
+
+    .reader-actions {
+      display: flex;
       gap: 8px;
     }
 
-    .stat {
-      background: var(--surface-2);
-      border-radius: 15px;
-      padding: 14px 8px;
-      text-align: center;
+    .reader-hero {
+      position: relative;
+
+      min-height: 355px;
+
+      overflow: hidden;
+
+      border:
+        1px solid rgba(255,255,255,.15);
+
+      border-radius: 31px;
+
+      box-shadow: var(--shadow);
     }
 
-    .stat strong {
-      display: block;
-      color: var(--gold-light);
-      font-size: 22px;
-    }
+    .reader-hero-image {
+      position: absolute;
+      inset: 0;
 
-    .stat span {
-      display: block;
-      color: var(--muted);
-      font-size: 10px;
-      margin-top: 4px;
-    }
-
-    .danger-button {
       width: 100%;
-      min-height: 46px;
-      margin-top: 14px;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    .reader-hero::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0,0,0,.08),
+          rgba(0,0,0,.88)
+        );
+    }
+
+    .reader-hero-content {
+      position: absolute;
+
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+
+      z-index: 2;
+    }
+
+    .reader-day {
+      color: var(--gold-light);
+
+      font-size: 10px;
+      font-weight: 700;
+
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .reader-title {
+      margin: 7px 0 10px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: clamp(32px, 9vw, 49px);
+
+      line-height: .99;
+      font-weight: 400;
+
+      letter-spacing: -.04em;
+    }
+
+    .reader-reference {
+      display: inline-flex;
+
+      padding: 7px 10px;
+
+      border:
+        1px solid rgba(255,255,255,.16);
+
       border-radius: 999px;
-      background: rgba(185,120,120,.1);
-      color: #d7a0a0;
-      border: 1px solid rgba(185,120,120,.2);
+
+      background:
+        rgba(255,255,255,.08);
+
+      color: rgba(255,255,255,.77);
+
+      font-size: 10px;
+
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+    }
+
+    .reader-block {
+      position: relative;
+
+      margin-top: 13px;
+      padding: 21px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 24px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,.075),
+          rgba(255,255,255,.035)
+        );
+
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+
+      box-shadow:
+        inset 0 1px rgba(255,255,255,.06),
+        0 16px 40px rgba(0,0,0,.18);
+    }
+
+    .reader-label {
+      color: var(--gold);
+
+      font-size: 9px;
+      font-weight: 700;
+
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .reader-text {
+      margin: 13px 0 0;
+
+      color: rgba(255,255,255,.80);
+
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .question-card {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(213,177,103,.13),
+          rgba(255,255,255,.035)
+        );
+
+      border-color:
+        rgba(213,177,103,.24);
+    }
+
+    .practice-card {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(184,200,155,.09),
+          rgba(255,255,255,.035)
+        );
+    }
+
+    .prayer-card {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(213,177,103,.12),
+          rgba(255,255,255,.03)
+        );
+    }
+
+    .prayer-text {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 17px;
+      line-height: 1.7;
+
+      color: var(--cream);
     }
 
     /* =========================================================
-       BOTTOM NAV
+       AUDIO
+       ========================================================= */
+
+    .audio-card {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .audio-play {
+      width: 48px;
+      height: 48px;
+
+      flex: 0 0 48px;
+
+      display: grid;
+      place-items: center;
+
+      border:
+        1px solid var(--border-gold);
+
+      border-radius: 16px;
+
+      background:
+        rgba(213,177,103,.13);
+
+      color: var(--gold-light);
+    }
+
+    .audio-copy {
+      min-width: 0;
+    }
+
+    .audio-title {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 16px;
+    }
+
+    .audio-subtitle {
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+    }
+
+    .speed-button {
+      margin-left: auto;
+
+      padding: 7px 9px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 9px;
+
+      background:
+        rgba(255,255,255,.05);
+
+      color: var(--cream-soft);
+
+      font-size: 9px;
+    }
+
+    /* =========================================================
+       JOURNAL
+       ========================================================= */
+
+    .journal-area {
+      width: 100%;
+      min-height: 160px;
+
+      resize: vertical;
+
+      margin-top: 13px;
+      padding: 15px;
+
+      border:
+        1px solid rgba(255,255,255,.10);
+
+      border-radius: 16px;
+
+      outline: none;
+
+      background:
+        rgba(0,0,0,.20);
+
+      color: var(--cream);
+
+      line-height: 1.6;
+
+      font-size: 13px;
+    }
+
+    .journal-area::placeholder {
+      color: rgba(255,255,255,.30);
+    }
+
+    .save-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-top: 10px;
+      padding: 11px 14px;
+
+      border:
+        1px solid var(--border-gold);
+
+      border-radius: 13px;
+
+      background:
+        rgba(213,177,103,.10);
+
+      color: var(--gold-light);
+
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    /* =========================================================
+       READER FOOTER
+       ========================================================= */
+
+    .reader-footer {
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 10px;
+
+      margin-top: 13px;
+    }
+
+    .reader-nav {
+      min-height: 52px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 17px;
+
+      background:
+        var(--glass);
+
+      color: var(--cream-soft);
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .reader-nav.primary {
+      border-color: var(--border-gold);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(213,177,103,.14),
+          rgba(255,255,255,.045)
+        );
+
+      color: var(--gold-light);
+    }
+
+    /* =========================================================
+       EMPTY STATES
+       ========================================================= */
+
+    .empty {
+      padding: 45px 20px;
+
+      text-align: center;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 24px;
+
+      background:
+        var(--glass);
+    }
+
+    .empty-icon {
+      width: 50px;
+      height: 50px;
+
+      display: grid;
+      place-items: center;
+
+      margin: 0 auto 15px;
+
+      border:
+        1px solid var(--border-gold);
+
+      border-radius: 17px;
+
+      color: var(--gold);
+    }
+
+    .empty-title {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 20px;
+    }
+
+    .empty-text {
+      margin-top: 8px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       PROFILE
+       ========================================================= */
+
+    .profile-hero {
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 24px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 27px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(213,177,103,.12),
+          rgba(255,255,255,.04)
+        );
+
+      box-shadow: var(--shadow-soft);
+    }
+
+    .profile-logo {
+      width: 66px;
+      height: 66px;
+
+      display: grid;
+      place-items: center;
+
+      overflow: hidden;
+
+      border:
+        1px solid var(--border-gold);
+
+      border-radius: 21px;
+
+      background:
+        rgba(255,255,255,.08);
+    }
+
+    .profile-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .profile-name {
+      margin-top: 18px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 29px;
+    }
+
+    .profile-subtitle {
+      margin-top: 5px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    .stats-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 9px;
+
+      margin-top: 16px;
+    }
+
+    .stat {
+      padding: 14px 8px;
+
+      text-align: center;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 16px;
+
+      background:
+        rgba(255,255,255,.045);
+    }
+
+    .stat-number {
+      color: var(--gold-light);
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 22px;
+    }
+
+    .stat-label {
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .profile-item {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+
+      width: 100%;
+
+      margin-top: 10px;
+      padding: 15px;
+
+      text-align: left;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 17px;
+
+      background:
+        var(--glass);
+
+      color: var(--cream-soft);
+    }
+
+    .profile-item-icon {
+      width: 35px;
+      height: 35px;
+
+      display: grid;
+      place-items: center;
+
+      flex: 0 0 35px;
+
+      border-radius: 12px;
+
+      background:
+        rgba(213,177,103,.08);
+
+      color: var(--gold);
+    }
+
+    .profile-item-title {
+      color: var(--cream);
+
+      font-size: 12px;
+    }
+
+    .profile-item-subtitle {
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+    }
+
+    /* =========================================================
+       BOTTOM NAVIGATION
        ========================================================= */
 
     .bottom-nav {
       position: fixed;
-      z-index: 900;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: calc(var(--nav-height) + env(safe-area-inset-bottom));
-      padding-bottom: env(safe-area-inset-bottom);
-      background: rgba(8,9,11,.94);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-top: 1px solid var(--line);
+
+      z-index: 500;
+
+      left: 14px;
+      right: 14px;
+
+      bottom:
+        calc(10px + var(--safe-bottom));
+
+      height: var(--nav-height);
+
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+
+      grid-template-columns:
+        repeat(5, 1fr);
+
+      padding: 8px;
+
+      border:
+        1px solid rgba(255,255,255,.13);
+
+      border-radius: 27px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(28,25,21,.79),
+          rgba(12,11,10,.78)
+        );
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.55),
+        inset 0 1px rgba(255,255,255,.08);
+
+      backdrop-filter: blur(35px) saturate(130%);
+      -webkit-backdrop-filter: blur(35px) saturate(130%);
     }
 
-    .nav-button {
-      background: none;
-      color: #777;
+    .nav-item {
+      position: relative;
+
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+
       gap: 5px;
-      font-size: 10px;
+
+      border-radius: 19px;
+
+      background: transparent;
+
+      color: rgba(255,255,255,.38);
+
+      transition:
+        background .25s ease,
+        color .25s ease,
+        transform .2s ease;
     }
 
-    .nav-button.active {
+    .nav-item.active {
       color: var(--gold-light);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(213,177,103,.14),
+          rgba(255,255,255,.035)
+        );
+
+      box-shadow:
+        inset 0 1px rgba(255,255,255,.07);
     }
 
-    .nav-button .nav-label {
-      font-size: 10px;
+    .nav-item:active {
+      transform: scale(.93);
+    }
+
+    .nav-label {
+      font-size: 8px;
+      font-weight: 500;
     }
 
     /* =========================================================
@@ -964,79 +1781,187 @@
 
     #toast {
       position: fixed;
-      z-index: 10000;
-      left: 18px;
-      right: 18px;
-      bottom: calc(var(--nav-height) + 18px);
-      display: flex;
-      justify-content: center;
-      pointer-events: none;
-    }
 
-    .toast-message {
-      max-width: 420px;
-      padding: 12px 17px;
-      border-radius: 999px;
-      background: #eee;
-      color: #111;
-      box-shadow: 0 10px 35px rgba(0,0,0,.35);
-      font-size: 13px;
+      z-index: 2000;
+
+      left: 50%;
+      bottom:
+        calc(var(--nav-height) + 27px + var(--safe-bottom));
+
+      transform:
+        translate(-50%, 15px);
+
       opacity: 0;
-      transform: translateY(10px);
-      transition: .25s ease;
+      pointer-events: none;
+
+      padding: 11px 15px;
+
+      border:
+        1px solid rgba(255,255,255,.14);
+
+      border-radius: 14px;
+
+      background:
+        rgba(20,18,15,.88);
+
+      color: var(--cream);
+
+      font-size: 10px;
+
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+
+      box-shadow:
+        0 15px 45px rgba(0,0,0,.35);
+
+      transition:
+        opacity .25s ease,
+        transform .25s ease;
     }
 
-    .toast-message.show {
+    #toast.show {
       opacity: 1;
-      transform: translateY(0);
+
+      transform:
+        translate(-50%, 0);
     }
 
     /* =========================================================
-       DESKTOP
+       LOADING
        ========================================================= */
 
-    @media (min-width: 700px) {
+    #loading {
+      position: fixed;
+      inset: 0;
 
-      .cover-content {
-        bottom: 7%;
+      z-index: 3000;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        radial-gradient(
+          circle,
+          #211b13,
+          #070605 70%
+        );
+
+      transition:
+        opacity .45s ease,
+        visibility .45s ease;
+    }
+
+    #loading.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-inner {
+      text-align: center;
+    }
+
+    .loading-symbol {
+      width: 62px;
+      height: 62px;
+
+      display: grid;
+      place-items: center;
+
+      margin: auto;
+
+      border:
+        1px solid var(--border-gold);
+
+      border-radius: 21px;
+
+      color: var(--gold-light);
+
+      background:
+        rgba(213,177,103,.08);
+
+      animation:
+        loadingPulse 1.7s ease infinite;
+    }
+
+    .loading-title {
+      margin-top: 16px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 20px;
+    }
+
+    .loading-subtitle {
+      margin-top: 5px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    @keyframes loadingPulse {
+      0%,100% {
+        transform: scale(1);
+        opacity: .75;
       }
 
-      .pillar-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .days-grid {
-        grid-template-columns: repeat(10, 1fr);
-      }
-
-      .devotional-section {
-        max-width: 860px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .devotional-header {
-        max-width: 860px;
-        margin: auto;
+      50% {
+        transform: scale(1.06);
+        opacity: 1;
       }
     }
 
-    @media (max-width: 380px) {
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
 
-      .pillar-grid {
+    @media (min-width: 700px) {
+      .screen {
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+
+      .bottom-nav {
+        left: 50%;
+        right: auto;
+
+        width: 520px;
+
+        transform: translateX(-50%);
+      }
+
+      .experience-grid {
+        grid-template-columns:
+          repeat(3, minmax(0, 1fr));
+      }
+
+      .experience-card {
+        min-height: 235px;
+      }
+    }
+
+    @media (max-width: 370px) {
+      .experience-grid {
         gap: 8px;
       }
 
-      .pillar-content {
-        padding: 13px;
+      .experience-card {
+        min-height: 190px;
       }
 
-      .pillar-content h3 {
-        font-size: 18px;
+      .experience-name {
+        font-size: 17px;
       }
 
-      .days-grid {
-        gap: 6px;
+      .hero {
+        min-height: 385px;
       }
     }
   </style>
@@ -1044,2109 +1969,2309 @@
 
 <body>
 
-  <!-- =======================================================
-       CAPA
-       ======================================================== -->
+  <!-- =========================================================
+       SVG DEFINITIONS
+       ========================================================= -->
 
-  <section id="coverScreen">
-    <div class="cover">
+  <svg class="svg-defs" aria-hidden="true">
 
-      <img
-        src="capa.jpeg"
-        alt="Doce Espírito Santo — Um Amigo Íntimo"
-        class="cover-image"
-      >
+    <symbol id="icon-spark" viewBox="0 0 24 24">
+      <path d="M12 2v4"/>
+      <path d="M12 18v4"/>
+      <path d="m4.93 4.93 2.83 2.83"/>
+      <path d="m16.24 16.24 2.83 2.83"/>
+      <path d="M2 12h4"/>
+      <path d="M18 12h4"/>
+      <path d="m4.93 19.07 2.83-2.83"/>
+      <path d="m16.24 7.76 2.83-2.83"/>
+    </symbol>
 
-      <div class="cover-content">
+    <symbol id="icon-home" viewBox="0 0 24 24">
+      <path d="m3 10 9-7 9 7"/>
+      <path d="M5 9v11h14V9"/>
+      <path d="M9 20v-6h6v6"/>
+    </symbol>
 
-        <p class="cover-phrase">
-          Aprenda a percebê-lo.<br>
-          Ele já está aqui.
-        </p>
+    <symbol id="icon-path" viewBox="0 0 24 24">
+      <path d="M4 19c4-8 6-10 16-14"/>
+      <circle cx="5" cy="19" r="2"/>
+      <circle cx="20" cy="5" r="2"/>
+      <path d="m13 8 2 3-3 2"/>
+    </symbol>
 
-        <button
-          class="start-button"
-          id="startJourneyButton"
-          type="button"
-        >
-          COMEÇAR A JORNADA →
-        </button>
+    <symbol id="icon-calendar" viewBox="0 0 24 24">
+      <rect x="3" y="4" width="18" height="17" rx="3"/>
+      <path d="M8 2v4"/>
+      <path d="M16 2v4"/>
+      <path d="M3 9h18"/>
+      <path d="M8 13h.01"/>
+      <path d="M12 13h.01"/>
+      <path d="M16 13h.01"/>
+      <path d="M8 17h.01"/>
+      <path d="M12 17h.01"/>
+    </symbol>
 
+    <symbol id="icon-heart" viewBox="0 0 24 24">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/>
+    </symbol>
+
+    <symbol id="icon-user" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 21a8 8 0 0 1 16 0"/>
+    </symbol>
+
+    <symbol id="icon-pray" viewBox="0 0 24 24">
+      <path d="M7 11c0-2 1.5-4 3-5"/>
+      <path d="M17 11c0-2-1.5-4-3-5"/>
+      <path d="M9 21v-6l-3-4"/>
+      <path d="M15 21v-6l3-4"/>
+      <path d="M9 21h6"/>
+      <path d="M10 6c.7-1 1.2-2 1.2-3"/>
+      <path d="M14 6c-.7-1-1.2-2-1.2-3"/>
+    </symbol>
+
+    <symbol id="icon-book" viewBox="0 0 24 24">
+      <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21V5.5Z"/>
+      <path d="M4 5.5v15"/>
+      <path d="M8 7h8"/>
+      <path d="M8 11h8"/>
+    </symbol>
+
+    <symbol id="icon-wind" viewBox="0 0 24 24">
+      <path d="M3 8h11a3 3 0 1 0-3-3"/>
+      <path d="M3 12h15a3 3 0 1 1-3 3"/>
+      <path d="M3 16h7"/>
+    </symbol>
+
+    <symbol id="icon-eye" viewBox="0 0 24 24">
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+      <circle cx="12" cy="12" r="3"/>
+    </symbol>
+
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+      <path d="M5 12h14"/>
+      <path d="m13 6 6 6-6 6"/>
+    </symbol>
+
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24">
+      <path d="M19 12H5"/>
+      <path d="m11 18-6-6 6-6"/>
+    </symbol>
+
+    <symbol id="icon-check" viewBox="0 0 24 24">
+      <path d="m5 12 4 4L19 6"/>
+    </symbol>
+
+    <symbol id="icon-play" viewBox="0 0 24 24">
+      <path d="m8 5 11 7-11 7V5Z"/>
+    </symbol>
+
+    <symbol id="icon-pause" viewBox="0 0 24 24">
+      <path d="M8 5v14"/>
+      <path d="M16 5v14"/>
+    </symbol>
+
+    <symbol id="icon-bookmark" viewBox="0 0 24 24">
+      <path d="M6 3h12v18l-6-4-6 4V3Z"/>
+    </symbol>
+
+    <symbol id="icon-journal" viewBox="0 0 24 24">
+      <path d="M4 4h16v16H4z"/>
+      <path d="M8 8h8"/>
+      <path d="M8 12h8"/>
+      <path d="M8 16h5"/>
+    </symbol>
+
+    <symbol id="icon-settings" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.41 1.41-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1 1.55V21h-2v-.5a1.7 1.7 0 0 0-1.05-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06-1.41-1.41.06-.06A1.7 1.7 0 0 0 9.4 15a1.7 1.7 0 0 0-1.55-1H7v-2h.85A1.7 1.7 0 0 0 9.4 11a1.7 1.7 0 0 0-.34-1.88L9 9.06l1.41-1.41.06.06A1.7 1.7 0 0 0 12.35 8a1.7 1.7 0 0 0 1-1.55V6h2v.5A1.7 1.7 0 0 0 16.4 8a1.7 1.7 0 0 0 1.88-.34l.06-.06 1.41 1.41-.06.06A1.7 1.7 0 0 0 19.4 11c.17.6.7 1 1.35 1H21v2h-.25c-.65 0-1.18.4-1.35 1Z"/>
+    </symbol>
+
+  </svg>
+
+  <!-- =========================================================
+       LOADING
+       ========================================================= -->
+
+  <div id="loading">
+    <div class="loading-inner">
+
+      <div class="loading-symbol">
+        <svg class="icon icon-xl">
+          <use href="#icon-spark"></use>
+        </svg>
+      </div>
+
+      <div class="loading-title">
+        Doce Espírito Santo
+      </div>
+
+      <div class="loading-subtitle">
+        Um Amigo Íntimo
       </div>
 
     </div>
+  </div>
+
+  <!-- =========================================================
+       COVER
+       ========================================================= -->
+
+  <section id="cover">
+
+    <img
+      src="capa.jpeg"
+      class="cover-image"
+      alt="Doce Espírito Santo — Um Amigo Íntimo"
+    >
+
+    <div class="cover-overlay"></div>
+
+    <div class="cover-content">
+
+      <div class="cover-kicker">
+        <svg class="icon icon-sm">
+          <use href="#icon-spark"></use>
+        </svg>
+
+        Uma jornada de presença
+      </div>
+
+      <h1 class="cover-title">
+        Doce Espírito Santo
+      </h1>
+
+      <div class="cover-subtitle">
+        Um Amigo Íntimo
+      </div>
+
+      <p class="cover-phrase">
+        Aprenda a percebê-lo. Ele já está aqui.
+      </p>
+
+      <button
+        class="start-button"
+        id="startJourneyButton"
+      >
+        COMEÇAR A JORNADA
+
+        <svg class="icon icon-sm">
+          <use href="#icon-arrow-right"></use>
+        </svg>
+      </button>
+
+    </div>
+
   </section>
 
-
-  <!-- =======================================================
-       APLICAÇÃO
-       ======================================================== -->
+  <!-- =========================================================
+       MAIN APPLICATION
+       ========================================================= -->
 
   <main id="app">
 
-    <!-- =====================================================
-         INÍCIO
-         ====================================================== -->
+    <!-- =======================================================
+         HOME
+         ======================================================= -->
 
     <section
-      class="page active"
-      id="page-home"
-      data-page="home"
+      id="homeScreen"
+      class="screen active"
     >
 
-      <header class="topbar">
+      <div class="container">
 
-        <div class="brand-small">
-          <strong>Doce Espírito Santo</strong>
-          <span>Um Amigo Íntimo</span>
-        </div>
+        <header class="topbar">
 
-        <button
-          class="top-action"
-          id="searchOpenButton"
-          type="button"
-          aria-label="Pesquisar"
-        >
-          ⌕
-        </button>
+          <div class="brand-mini">
 
-      </header>
+            <div class="brand-mark">
+              <svg class="icon">
+                <use href="#icon-spark"></use>
+              </svg>
+            </div>
 
+            <div>
+              <div class="brand-name">
+                Doce Espírito Santo
+              </div>
 
-      <section class="hero">
+              <div class="brand-small">
+                Um Amigo Íntimo
+              </div>
+            </div>
 
-        <img src="capa.jpeg" alt="Doce Espírito Santo">
-
-        <div class="hero-content">
-
-          <span class="eyebrow">
-            Uma jornada de 365 dias
-          </span>
-
-          <h1>
-            Aprenda a percebê-lo.
-          </h1>
-
-          <p>
-            Ele já está aqui. Uma caminhada de oração,
-            Palavra, silêncio, prática e permanência.
-          </p>
-
-        </div>
-
-      </section>
-
-
-      <!-- HOJE -->
-
-      <section class="section">
-
-        <div class="section-head">
-
-          <div>
-            <h2>Hoje</h2>
-            <p id="homeTodaySubtitle">
-              Continue sua jornada.
-            </p>
           </div>
 
           <button
-            class="section-link"
-            data-action="open-today"
-            type="button"
+            class="glass-button"
+            id="profileTopButton"
+            aria-label="Perfil"
           >
-            Abrir
+            <svg class="icon">
+              <use href="#icon-user"></use>
+            </svg>
           </button>
+
+        </header>
+
+        <!-- HERO -->
+
+        <article class="hero">
+
+          <img
+            class="hero-image"
+            src="capa.jpeg"
+            alt=""
+          >
+
+          <div class="hero-content">
+
+            <div class="hero-glass">
+
+              <div class="eyebrow">
+                Sua jornada
+              </div>
+
+              <h2 class="hero-title">
+                Aprenda a perceber
+                o que já está aqui.
+              </h2>
+
+              <p class="hero-description">
+                Uma caminhada de 365 dias para desenvolver
+                presença, oração, jejum, Palavra e vivência
+                com o Doce Espírito Santo.
+              </p>
+
+              <button
+                class="hero-action"
+                id="continueJourneyButton"
+              >
+                CONTINUAR JORNADA
+
+                <svg class="icon icon-sm">
+                  <use href="#icon-arrow-right"></use>
+                </svg>
+              </button>
+
+            </div>
+
+          </div>
+
+        </article>
+
+        <!-- PROGRESS -->
+
+        <div class="progress-card">
+
+          <div class="progress-top">
+
+            <span class="progress-label">
+              Sua caminhada
+            </span>
+
+            <span
+              class="progress-number"
+              id="progressNumber"
+            >
+              0 / 365
+            </span>
+
+          </div>
+
+          <div class="progress-track">
+
+            <div
+              class="progress-fill"
+              id="progressFill"
+            ></div>
+
+          </div>
+
+        </div>
+
+        <!-- TODAY -->
+
+        <div class="section-heading">
+
+          <div>
+            <div class="eyebrow">
+              Hoje
+            </div>
+
+            <h2 class="section-title">
+              Continue de onde parou
+            </h2>
+          </div>
 
         </div>
 
         <div
-          class="today-card"
-          id="homeTodayCard"
+          class="horizontal-scroll"
+          id="todayCards"
         ></div>
 
-      </section>
+        <!-- EXPERIENCE -->
 
-
-      <!-- SEIS PILARES -->
-
-      <section class="section">
-
-        <div class="section-head">
+        <div class="section-heading">
 
           <div>
-            <h2>O caminho</h2>
-            <p>Uma jornada construída para ser vivida.</p>
+            <div class="eyebrow">
+              Experiência
+            </div>
+
+            <h2 class="section-title">
+              Caminhos de presença
+            </h2>
           </div>
-
-        </div>
-
-        <div class="pillar-grid">
-
-          <button
-            class="pillar-card"
-            type="button"
-            data-pillar="presenca"
-            style="--bg-image:url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85')"
-          >
-            <div class="pillar-content">
-              <h3>Presença</h3>
-              <p>Aprender a perceber o Doce Espírito Santo.</p>
-            </div>
-          </button>
-
-
-          <button
-            class="pillar-card"
-            type="button"
-            data-pillar="oracao"
-            style="--bg-image:url('https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=900&q=85')"
-          >
-            <div class="pillar-content">
-              <h3>Oração</h3>
-              <p>Conversar com o Eterno.</p>
-            </div>
-          </button>
-
-
-          <button
-            class="pillar-card"
-            type="button"
-            data-pillar="jejum"
-            style="--bg-image:url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=85')"
-          >
-            <div class="pillar-content">
-              <h3>Jejum</h3>
-              <p>Aprender a renunciar para buscar.</p>
-            </div>
-          </button>
-
-
-          <button
-            class="pillar-card"
-            type="button"
-            data-pillar="palavra"
-            style="--bg-image:url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=900&q=85')"
-          >
-            <div class="pillar-content">
-              <h3>Palavra</h3>
-              <p>Conhecer para viver.</p>
-            </div>
-          </button>
-
-
-          <button
-            class="pillar-card"
-            type="button"
-            data-pillar="vivencia"
-            style="--bg-image:url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=85')"
-          >
-            <div class="pillar-content">
-              <h3>Vivência</h3>
-              <p>Transformar a Palavra em prática.</p>
-            </div>
-          </button>
-
-
-          <button
-            class="pillar-card"
-            type="button"
-            data-pillar="jornada"
-            style="--bg-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85')"
-          >
-            <div class="pillar-content">
-              <h3>Jornada</h3>
-              <p>Caminhar dia após dia.</p>
-            </div>
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <!-- FASES -->
-
-      <section class="section">
-
-        <div class="section-head">
-
-          <div>
-            <h2>A jornada</h2>
-            <p>365 dias de caminhada.</p>
-          </div>
-
-          <button
-            class="section-link"
-            data-nav="journey"
-            type="button"
-          >
-            Ver tudo
-          </button>
 
         </div>
 
         <div
-          class="journey-scroll"
-          id="homeJourneyCards"
+          class="experience-grid"
+          id="experienceGrid"
         ></div>
 
-      </section>
+      </div>
 
     </section>
 
-
-    <!-- =====================================================
-         JORNADA
-         ====================================================== -->
-
-    <section
-      class="page"
-      id="page-journey"
-      data-page="journey"
-    >
-
-      <div class="page-title">
-
-        <div class="eyebrow">
-          A caminhada
-        </div>
-
-        <h1>Jornada</h1>
-
-        <p>
-          Do primeiro perceber ao permanecer.
-          Um dia de cada vez.
-        </p>
-
-      </div>
-
-
-      <div class="progress-box">
-
-        <div class="progress-row">
-          <span>Seu progresso</span>
-          <span id="journeyProgressText">0%</span>
-        </div>
-
-        <div class="progress-track">
-          <div
-            class="progress-fill"
-            id="journeyProgressFill"
-          ></div>
-        </div>
-
-      </div>
-
-
-      <div id="journeyPhases"></div>
-
-    </section>
-
-
-    <!-- =====================================================
-         HOJE
-         ====================================================== -->
+    <!-- =======================================================
+         JOURNEY
+         ======================================================= -->
 
     <section
-      class="page"
-      id="page-today"
-      data-page="today"
+      id="journeyScreen"
+      class="screen"
     >
 
-      <div class="page-title">
+      <div class="container">
 
-        <div class="eyebrow">
-          Seu momento
-        </div>
+        <header class="topbar">
 
-        <h1>Hoje</h1>
+          <div>
 
-        <p>
-          O que o Eterno colocou diante de você neste dia.
-        </p>
+            <div class="eyebrow">
+              365 dias
+            </div>
 
-      </div>
+            <h1 class="section-title">
+              Minha Jornada
+            </h1>
 
-      <div id="todayPageContent"></div>
-
-    </section>
-
-
-    <!-- =====================================================
-         FAVORITOS
-         ====================================================== -->
-
-    <section
-      class="page"
-      id="page-favorites"
-      data-page="favorites"
-    >
-
-      <div class="page-title">
-
-        <div class="eyebrow">
-          Guardados
-        </div>
-
-        <h1>Favoritos</h1>
-
-        <p>
-          Devocionais que você decidiu guardar.
-        </p>
-
-      </div>
-
-      <div id="favoritesContent"></div>
-
-    </section>
-
-
-    <!-- =====================================================
-         PERFIL
-         ====================================================== -->
-
-    <section
-      class="page"
-      id="page-profile"
-      data-page="profile"
-    >
-
-      <div class="page-title">
-
-        <div class="eyebrow">
-          Sua caminhada
-        </div>
-
-        <h1>Perfil</h1>
-
-        <p>
-          Acompanhe sua jornada com o Doce Espírito Santo.
-        </p>
-
-      </div>
-
-
-      <div class="profile-card">
-
-        <h2>Progresso</h2>
-
-        <div class="stats">
-
-          <div class="stat">
-            <strong id="profileCompleted">0</strong>
-            <span>dias concluídos</span>
           </div>
 
-          <div class="stat">
-            <strong id="profileProgress">0%</strong>
-            <span>da jornada</span>
+          <div class="brand-mark">
+            <svg class="icon">
+              <use href="#icon-path"></use>
+            </svg>
           </div>
 
-          <div class="stat">
-            <strong id="profileFavorites">0</strong>
-            <span>favoritos</span>
+        </header>
+
+        <div class="progress-card">
+
+          <div class="progress-top">
+
+            <span class="progress-label">
+              Progresso da jornada
+            </span>
+
+            <span
+              class="progress-number"
+              id="journeyProgressNumber"
+            >
+              0%
+            </span>
+
+          </div>
+
+          <div class="progress-track">
+
+            <div
+              class="progress-fill"
+              id="journeyProgressFill"
+            ></div>
+
           </div>
 
         </div>
 
-      </div>
-
-
-      <div class="profile-card">
-
-        <h2>Diário</h2>
-
-        <p
-          id="profileJournalCount"
-          style="color:var(--muted);line-height:1.6;"
-        >
-          Você ainda não escreveu no diário.
-        </p>
+        <div
+          id="phaseList"
+          style="margin-top:20px;"
+        ></div>
 
       </div>
 
+    </section>
 
-      <div class="profile-card">
+    <!-- =======================================================
+         TODAY / DAY
+         ======================================================= -->
 
-        <h2>Informações</h2>
+    <section
+      id="todayScreen"
+      class="screen"
+    >
 
-        <p style="color:var(--muted);line-height:1.7;">
-          <strong style="color:var(--text);">
-            Doce Espírito Santo — Um Amigo Íntimo
-          </strong>
-          <br>
-          Uma jornada criada por
-          <strong style="color:var(--text);">
-            Dr. Denis Willian Cruz
-          </strong>.
-        </p>
+      <div class="container">
+
+        <header class="topbar">
+
+          <div>
+
+            <div class="eyebrow">
+              Seu momento
+            </div>
+
+            <h1 class="section-title">
+              Hoje
+            </h1>
+
+          </div>
+
+          <button
+            class="glass-button"
+            id="todayFavoriteButton"
+            aria-label="Favoritar"
+          >
+            <svg class="icon">
+              <use href="#icon-heart"></use>
+            </svg>
+          </button>
+
+        </header>
+
+        <div id="todayContent"></div>
 
       </div>
 
+    </section>
 
-      <div class="profile-card">
+    <!-- =======================================================
+         FAVORITES
+         ======================================================= -->
 
-        <h2>Progresso local</h2>
+    <section
+      id="favoritesScreen"
+      class="screen"
+    >
 
-        <p style="color:var(--muted);line-height:1.6;">
-          Seu progresso, favoritos e diário ficam armazenados
-          neste dispositivo.
-        </p>
+      <div class="container">
+
+        <header class="topbar">
+
+          <div>
+
+            <div class="eyebrow">
+              Guardados
+            </div>
+
+            <h1 class="section-title">
+              Favoritos
+            </h1>
+
+          </div>
+
+          <div class="brand-mark">
+
+            <svg class="icon">
+              <use href="#icon-heart"></use>
+            </svg>
+
+          </div>
+
+        </header>
+
+        <div
+          id="favoritesContent"
+        ></div>
+
+      </div>
+
+    </section>
+
+    <!-- =======================================================
+         PROFILE
+         ======================================================= -->
+
+    <section
+      id="profileScreen"
+      class="screen"
+    >
+
+      <div class="container">
+
+        <header class="topbar">
+
+          <div>
+
+            <div class="eyebrow">
+              Caminhada
+            </div>
+
+            <h1 class="section-title">
+              Perfil
+            </h1>
+
+          </div>
+
+        </header>
+
+        <div class="profile-hero">
+
+          <div class="profile-logo">
+
+            <img
+              src="logo.png"
+              alt="Logo"
+              onerror="this.style.display='none'"
+            >
+
+            <svg
+              class="icon icon-xl"
+              style="color:var(--gold-light);"
+            >
+              <use href="#icon-spark"></use>
+            </svg>
+
+          </div>
+
+          <div class="profile-name">
+            Doce Espírito Santo
+          </div>
+
+          <div class="profile-subtitle">
+            Um Amigo Íntimo
+          </div>
+
+          <div class="stats-grid">
+
+            <div class="stat">
+
+              <div
+                class="stat-number"
+                id="profileCompleted"
+              >
+                0
+              </div>
+
+              <div class="stat-label">
+                Dias
+              </div>
+
+            </div>
+
+            <div class="stat">
+
+              <div
+                class="stat-number"
+                id="profileFavorites"
+              >
+                0
+              </div>
+
+              <div class="stat-label">
+                Favoritos
+              </div>
+
+            </div>
+
+            <div class="stat">
+
+              <div
+                class="stat-number"
+                id="profileProgress"
+              >
+                0%
+              </div>
+
+              <div class="stat-label">
+                Jornada
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
 
         <button
-          class="danger-button"
-          id="resetProgressButton"
-          type="button"
+          class="profile-item"
+          id="profileTodayButton"
         >
-          RECOMEÇAR A JORNADA
+
+          <div class="profile-item-icon">
+
+            <svg class="icon">
+              <use href="#icon-calendar"></use>
+            </svg>
+
+          </div>
+
+          <div>
+
+            <div class="profile-item-title">
+              Meu momento de hoje
+            </div>
+
+            <div class="profile-item-subtitle">
+              Continue sua caminhada com O Eterno.
+            </div>
+
+          </div>
+
         </button>
 
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         BUSCA
-         ====================================================== -->
-
-    <section
-      class="page"
-      id="page-search"
-      data-page="search"
-    >
-
-      <div class="page-title">
-
-        <div class="eyebrow">
-          Encontrar
-        </div>
-
-        <h1>Pesquisar</h1>
-
-        <p>
-          Procure por dia, título, tema ou referência bíblica.
-        </p>
-
-      </div>
-
-      <div class="search-box">
-
-        <input
-          type="search"
-          id="searchInput"
-          placeholder="Pesquisar devocionais..."
-          autocomplete="off"
+        <button
+          class="profile-item"
+          id="profileJourneyButton"
         >
 
-      </div>
+          <div class="profile-item-icon">
 
-      <div
-        class="result-list"
-        id="searchResults"
-      ></div>
+            <svg class="icon">
+              <use href="#icon-path"></use>
+            </svg>
+
+          </div>
+
+          <div>
+
+            <div class="profile-item-title">
+              Minha Jornada
+            </div>
+
+            <div class="profile-item-subtitle">
+              Veja as fases dos 365 dias.
+            </div>
+
+          </div>
+
+        </button>
+
+        <button
+          class="profile-item"
+          id="profileFavoritesButton"
+        >
+
+          <div class="profile-item-icon">
+
+            <svg class="icon">
+              <use href="#icon-heart"></use>
+            </svg>
+
+          </div>
+
+          <div>
+
+            <div class="profile-item-title">
+              Meus favoritos
+            </div>
+
+            <div class="profile-item-subtitle">
+              Devocionais que você escolheu guardar.
+            </div>
+
+          </div>
+
+        </button>
+
+        <div
+          class="profile-item"
+          style="cursor:default;"
+        >
+
+          <div class="profile-item-icon">
+
+            <svg class="icon">
+              <use href="#icon-spark"></use>
+            </svg>
+
+          </div>
+
+          <div>
+
+            <div class="profile-item-title">
+              Doce Espírito Santo
+            </div>
+
+            <div class="profile-item-subtitle">
+              Aprenda a percebê-lo. Ele já está aqui.
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </section>
 
-
-    <!-- =====================================================
-         DEVOCIONAL
-         ====================================================== -->
+    <!-- =======================================================
+         DEVOTIONAL READER
+         ======================================================= -->
 
     <section
-      class="page devotional-page"
-      id="page-devotional"
-      data-page="devotional"
+      id="devotionalScreen"
+      class="screen"
     >
 
-      <div id="devotionalContent"></div>
+      <div class="container">
+
+        <div class="reader-topbar">
+
+          <button
+            class="reader-back"
+            id="readerBack"
+          >
+
+            <svg class="icon icon-sm">
+              <use href="#icon-arrow-left"></use>
+            </svg>
+
+            Voltar
+
+          </button>
+
+          <div class="reader-actions">
+
+            <button
+              class="glass-button"
+              id="readerFavorite"
+              aria-label="Favoritar"
+            >
+
+              <svg class="icon">
+                <use href="#icon-heart"></use>
+              </svg>
+
+            </button>
+
+          </div>
+
+        </div>
+
+        <article
+          id="devotionalContent"
+        ></article>
+
+      </div>
 
     </section>
 
   </main>
 
-
-  <!-- =======================================================
-       NAVEGAÇÃO
-       ======================================================== -->
+  <!-- =========================================================
+       BOTTOM NAV
+       ========================================================= -->
 
   <nav class="bottom-nav">
 
     <button
-      class="nav-button active"
-      data-nav="home"
-      type="button"
+      class="nav-item active"
+      data-screen="homeScreen"
     >
-      <span>⌂</span>
-      <span class="nav-label">Início</span>
+
+      <svg class="icon">
+        <use href="#icon-home"></use>
+      </svg>
+
+      <span class="nav-label">
+        Início
+      </span>
+
     </button>
 
     <button
-      class="nav-button"
-      data-nav="journey"
-      type="button"
+      class="nav-item"
+      data-screen="journeyScreen"
     >
-      <span>◌</span>
-      <span class="nav-label">Jornada</span>
+
+      <svg class="icon">
+        <use href="#icon-path"></use>
+      </svg>
+
+      <span class="nav-label">
+        Jornada
+      </span>
+
     </button>
 
     <button
-      class="nav-button"
-      data-nav="today"
-      type="button"
+      class="nav-item"
+      data-screen="todayScreen"
     >
-      <span>◷</span>
-      <span class="nav-label">Hoje</span>
+
+      <svg class="icon">
+        <use href="#icon-calendar"></use>
+      </svg>
+
+      <span class="nav-label">
+        Hoje
+      </span>
+
     </button>
 
     <button
-      class="nav-button"
-      data-nav="favorites"
-      type="button"
+      class="nav-item"
+      data-screen="favoritesScreen"
     >
-      <span>♡</span>
-      <span class="nav-label">Favoritos</span>
+
+      <svg class="icon">
+        <use href="#icon-heart"></use>
+      </svg>
+
+      <span class="nav-label">
+        Favoritos
+      </span>
+
     </button>
 
     <button
-      class="nav-button"
-      data-nav="profile"
-      type="button"
+      class="nav-item"
+      data-screen="profileScreen"
     >
-      <span>○</span>
-      <span class="nav-label">Perfil</span>
+
+      <svg class="icon">
+        <use href="#icon-user"></use>
+      </svg>
+
+      <span class="nav-label">
+        Perfil
+      </span>
+
     </button>
 
   </nav>
 
-
-  <!-- =======================================================
+  <!-- =========================================================
        TOAST
-       ======================================================== -->
+       ========================================================= -->
 
-  <div id="toast">
-    <div
-      class="toast-message"
-      id="toastMessage"
-    ></div>
-  </div>
+  <div id="toast"></div>
 
+  <!-- =========================================================
+       APP ENGINE
+       ========================================================= -->
 
-  <!-- =======================================================
-       APP.JS
-       ======================================================== -->
-
-  <script src="app.js"></script>
-
-
-  <!-- =======================================================
-       INTERFACE
-       ======================================================== -->
+  <script src="app.js?v=4"></script>
 
   <script>
+    /* =========================================================
+       DOCE ESPÍRITO SANTO
+       INTERFACE ENGINE
+       ========================================================= */
 
     (() => {
 
       "use strict";
 
+      const $ = (selector) =>
+        document.querySelector(selector);
 
-      /* ======================================================
-         ELEMENTOS
-         ====================================================== */
+      const $$ = (selector) =>
+        [...document.querySelectorAll(selector)];
 
-      const coverScreen =
-        document.getElementById("coverScreen");
+      let currentDay = 1;
+      let currentDevotional = null;
 
-      const startButton =
-        document.getElementById("startJourneyButton");
+      /* =======================================================
+         IMAGENS
+         ======================================================= */
 
-      const pages =
-        document.querySelectorAll(".page");
+      const IMAGES = {
 
-      const navButtons =
-        document.querySelectorAll(".nav-button");
+        hero:
+          "capa.jpeg",
 
+        presence:
+          "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85",
 
-      /* ======================================================
-         TOAST
-         ====================================================== */
+        prayer:
+          "https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=1200&q=85",
 
-      let toastTimer = null;
+        fasting:
+          "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=85",
 
-      function showToast(message) {
+        word:
+          "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1200&q=85",
 
-        const box =
-          document.getElementById("toastMessage");
+        living:
+          "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85",
 
-        if (!box) return;
+        journey:
+          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85",
 
-        box.textContent = message;
+        silence:
+          "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=85",
 
-        box.classList.add("show");
+        mountain:
+          "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=85",
 
-        clearTimeout(toastTimer);
+        forest:
+          "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=85",
 
-        toastTimer = setTimeout(() => {
+        light:
+          "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=1200&q=85",
 
-          box.classList.remove("show");
+        water:
+          "https://images.unsplash.com/photo-1437482078695-73f5ca6c96e2?auto=format&fit=crop&w=1200&q=85",
 
-        }, 2200);
+        road:
+          "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85"
+
+      };
+
+      /* =======================================================
+         EXPERIENCES
+         ======================================================= */
+
+      const EXPERIENCES = [
+
+        {
+          title: "Presença",
+          description:
+            "Aprender a perceber o Doce Espírito Santo.",
+          image: IMAGES.presence,
+          icon: "icon-eye"
+        },
+
+        {
+          title: "Oração",
+          description:
+            "Conversar com O Eterno.",
+          image: IMAGES.prayer,
+          icon: "icon-pray"
+        },
+
+        {
+          title: "Jejum",
+          description:
+            "Aprender a renunciar para se aproximar.",
+          image: IMAGES.fasting,
+          icon: "icon-wind"
+        },
+
+        {
+          title: "Palavra",
+          description:
+            "Conhecer para viver.",
+          image: IMAGES.word,
+          icon: "icon-book"
+        },
+
+        {
+          title: "Vivência",
+          description:
+            "Transformar a Palavra em prática.",
+          image: IMAGES.living,
+          icon: "icon-spark"
+        },
+
+        {
+          title: "Jornada",
+          description:
+            "Caminhar dia após dia.",
+          image: IMAGES.journey,
+          icon: "icon-path"
+        }
+
+      ];
+
+      /* =======================================================
+         PHASE IMAGES
+         ======================================================= */
+
+      const PHASE_IMAGES = [
+        IMAGES.presence,
+        IMAGES.silence,
+        IMAGES.light,
+        IMAGES.prayer,
+        IMAGES.fasting,
+        IMAGES.word,
+        IMAGES.journey,
+        IMAGES.mountain,
+        IMAGES.forest,
+        IMAGES.living,
+        IMAGES.road,
+        IMAGES.water
+      ];
+
+      /* =======================================================
+         HELPERS
+         ======================================================= */
+
+      function toast(message) {
+
+        const element = $("#toast");
+
+        if (!element) return;
+
+        element.textContent = message;
+
+        element.classList.add("show");
+
+        clearTimeout(element._timer);
+
+        element._timer = setTimeout(() => {
+
+          element.classList.remove("show");
+
+        }, 2300);
+      }
+
+      function escapeHTML(value) {
+
+        if (value === undefined || value === null) {
+          return "";
+        }
+
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function getAPI() {
+
+        return window.DoceEspiritoSanto || null;
 
       }
 
+      function getState() {
 
-      /* ======================================================
-         CAPA
-         ====================================================== */
+        const api = getAPI();
 
-      const INTRO_KEY =
-        "doce_espirito_intro_v6";
-
-
-      function openApp() {
-
-        coverScreen.classList.add("hidden");
-
-        try {
-          localStorage.setItem(
-            INTRO_KEY,
-            "true"
-          );
-        } catch (_) {}
+        return api?.state || {};
 
       }
 
+      function getDevotionals() {
 
-      function initializeCover() {
+        const api = getAPI();
 
-        let alreadyStarted = false;
+        if (!api) return [];
 
-        try {
+        if (Array.isArray(api.devotionals)) {
+          return api.devotionals;
+        }
 
-          alreadyStarted =
-            localStorage.getItem(
-              INTRO_KEY
-            ) === "true";
+        if (Array.isArray(api.state?.devotionals)) {
+          return api.state.devotionals;
+        }
 
-        } catch (_) {}
+        return [];
+      }
 
-        if (alreadyStarted) {
+      function getDay(day) {
 
-          coverScreen.classList.add(
-            "hidden"
-          );
+        const api = getAPI();
+
+        if (api?.getDevotional) {
+
+          const devotional = api.getDevotional(day);
+
+          if (devotional) {
+            return devotional;
+          }
 
         }
 
+        const list = getDevotionals();
+
+        return list.find(item =>
+          Number(item.day ?? item.dia) === Number(day)
+        ) || null;
+
       }
 
+      function getDayNumber(devotional) {
 
-      startButton.addEventListener(
-        "click",
-        openApp
-      );
+        return Number(
+          devotional?.day ??
+          devotional?.dia ??
+          1
+        );
 
+      }
 
-      /* ======================================================
-         NAVEGAÇÃO
-         ====================================================== */
+      function getTitle(devotional) {
 
-      function showPage(pageName) {
+        return (
+          devotional?.title ??
+          devotional?.titulo ??
+          "Devocional"
+        );
 
-        pages.forEach(page => {
+      }
 
-          page.classList.toggle(
+      function getReference(devotional) {
+
+        return (
+          devotional?.reference ??
+          devotional?.referencia ??
+          ""
+        );
+
+      }
+
+      function getField(devotional, ...names) {
+
+        for (const name of names) {
+
+          if (
+            devotional &&
+            devotional[name] !== undefined &&
+            devotional[name] !== null
+          ) {
+            return devotional[name];
+          }
+
+        }
+
+        return "";
+
+      }
+
+      /* =======================================================
+         SCREEN NAVIGATION
+         ======================================================= */
+
+      function showScreen(id) {
+
+        $$(".screen").forEach(screen => {
+
+          screen.classList.toggle(
             "active",
-            page.dataset.page === pageName
+            screen.id === id
           );
 
         });
 
+        $$(".nav-item").forEach(item => {
 
-        navButtons.forEach(button => {
-
-          button.classList.toggle(
+          item.classList.toggle(
             "active",
-            button.dataset.nav === pageName
+            item.dataset.screen === id
           );
 
         });
-
 
         window.scrollTo({
           top: 0,
           behavior: "instant"
         });
 
-
-        if (pageName === "journey") {
-          renderJourney();
-        }
-
-        if (pageName === "today") {
-          renderToday();
-        }
-
-        if (pageName === "favorites") {
-          renderFavorites();
-        }
-
-        if (pageName === "profile") {
-          renderProfile();
-        }
-
-        if (pageName === "home") {
+        if (id === "homeScreen") {
           renderHome();
         }
 
-        if (pageName === "search") {
+        if (id === "journeyScreen") {
+          renderJourney();
+        }
 
-          setTimeout(() => {
+        if (id === "todayScreen") {
+          renderToday();
+        }
 
-            document
-              .getElementById("searchInput")
-              ?.focus();
+        if (id === "favoritesScreen") {
+          renderFavorites();
+        }
 
-          }, 100);
-
+        if (id === "profileScreen") {
+          renderProfile();
         }
 
       }
-
-
-      document.addEventListener(
-        "click",
-        event => {
-
-          const button =
-            event.target.closest(
-              "[data-nav]"
-            );
-
-          if (!button) return;
-
-          showPage(
-            button.dataset.nav
-          );
-
-        }
-      );
-
-
-      /* ======================================================
-         FASES
-         ====================================================== */
-
-      const phaseImages = [
-
-        "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85",
-
-        "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=900&q=85",
-
-        "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=85",
-
-        "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=900&q=85",
-
-        "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=85",
-
-        "https://images.unsplash.com/photo-1455885666463-6e9f3d0e9d75?auto=format&fit=crop&w=900&q=85",
-
-        "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85",
-
-        "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=85",
-
-        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=85",
-
-        "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=85",
-
-        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=900&q=85",
-
-        "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85"
-
-      ];
-
-
-      function renderHomeJourney() {
-
-        const container =
-          document.getElementById(
-            "homeJourneyCards"
-          );
-
-        if (!container) return;
-
-        container.innerHTML =
-          window.DoceEspiritoSanto.PHASES
-            .map((phase, index) => {
-
-              return `
-
-                <button
-                  class="journey-card"
-                  type="button"
-                  data-phase-start="${phase.start}"
-                  style="--bg-image:url('${phaseImages[index]}')"
-                >
-
-                  <div class="journey-card-content">
-
-                    <div class="journey-number">
-                      Fase ${phase.id} · ${phase.start}–${phase.end}
-                    </div>
-
-                    <h3>
-                      ${escapeHTML(phase.name)}
-                    </h3>
-
-                    <p>
-                      ${escapeHTML(phase.description)}
-                    </p>
-
-                  </div>
-
-                </button>
-
-              `;
-
-            })
-            .join("");
-
-      }
-
-
-      function renderJourney() {
-
-        const container =
-          document.getElementById(
-            "journeyPhases"
-          );
-
-        if (!container) return;
-
-        const api =
-          window.DoceEspiritoSanto;
-
-        const progress =
-          api.getProgress();
-
-        document.getElementById(
-          "journeyProgressText"
-        ).textContent =
-          `${progress}%`;
-
-        document.getElementById(
-          "journeyProgressFill"
-        ).style.width =
-          `${progress}%`;
-
-
-        container.innerHTML =
-          api.PHASES
-            .map(phase => {
-
-              const days = [];
-
-              for (
-                let day = phase.start;
-                day <= phase.end;
-                day++
-              ) {
-
-                const devotional =
-                  api.getDevotional(day);
-
-                const completed =
-                  api.state.completedDays
-                    .includes(day);
-
-                const current =
-                  api.state.currentDay === day;
-
-                days.push(`
-
-                  <button
-                    type="button"
-                    class="
-                      day-button
-                      ${devotional ? "available" : "locked"}
-                      ${completed ? "completed" : ""}
-                      ${current ? "current" : ""}
-                    "
-                    data-day="${day}"
-                  >
-                    ${day}
-                  </button>
-
-                `);
-
-              }
-
-
-              return `
-
-                <section class="phase-block">
-
-                  <div class="phase-heading">
-
-                    <h2>
-                      Fase ${phase.id} ·
-                      ${escapeHTML(phase.name)}
-                    </h2>
-
-                    <span>
-                      Dias ${phase.start}–${phase.end}
-                    </span>
-
-                  </div>
-
-                  <div class="phase-description">
-                    ${escapeHTML(phase.description)}
-                  </div>
-
-                  <div class="days-grid">
-                    ${days.join("")}
-                  </div>
-
-                </section>
-
-              `;
-
-            })
-            .join("");
-
-      }
-
-
-      /* ======================================================
-         ABRIR DIA
-         ====================================================== */
-
-      document.addEventListener(
-        "click",
-        event => {
-
-          const button =
-            event.target.closest(
-              "[data-day]"
-            );
-
-          if (!button) return;
-
-          const day =
-            Number(button.dataset.day);
-
-          openDevotional(day);
-
-        }
-      );
-
-
-      document.addEventListener(
-        "click",
-        event => {
-
-          const card =
-            event.target.closest(
-              "[data-phase-start]"
-            );
-
-          if (!card) return;
-
-          showPage("journey");
-
-          setTimeout(() => {
-
-            openDevotional(
-              Number(card.dataset.phaseStart)
-            );
-
-          }, 50);
-
-        }
-      );
-
-
-      /* ======================================================
-         DEVOCIONAL
-         ====================================================== */
 
       function openDevotional(day) {
 
-        const api =
-          window.DoceEspiritoSanto;
+        const devotional = getDay(day);
 
-        const devotional =
-          api.openDay(day);
+        if (!devotional) {
 
-        showPage("devotional");
+          toast(
+            "Este dia ainda não está disponível."
+          );
 
-        renderDevotional(
-          devotional,
-          day
+          return;
+
+        }
+
+        currentDay = getDayNumber(devotional);
+        currentDevotional = devotional;
+
+        renderDevotional(devotional);
+
+        showScreen("devotionalScreen");
+
+        const api = getAPI();
+
+        try {
+          api?.openDay?.(currentDay);
+        } catch (_) {}
+
+      }
+
+      /* =======================================================
+         PROGRESS
+         ======================================================= */
+
+      function getProgress() {
+
+        const api = getAPI();
+
+        try {
+
+          if (api?.getProgress) {
+
+            const progress = api.getProgress();
+
+            if (typeof progress === "number") {
+              return progress;
+            }
+
+            if (
+              progress &&
+              typeof progress.percent === "number"
+            ) {
+              return progress.percent;
+            }
+
+          }
+
+        } catch (_) {}
+
+        const state = getState();
+
+        const completed =
+          Array.isArray(state.completedDays)
+            ? state.completedDays.length
+            : 0;
+
+        return Math.min(
+          100,
+          Math.round((completed / 365) * 100)
         );
 
       }
 
+      function updateProgressUI() {
 
-      function renderDevotional(
-        devotional,
-        day
-      ) {
+        const state = getState();
 
-        const container =
-          document.getElementById(
-            "devotionalContent"
-          );
+        const completed =
+          Array.isArray(state.completedDays)
+            ? state.completedDays.length
+            : 0;
+
+        const percentage = getProgress();
+
+        if ($("#progressNumber")) {
+
+          $("#progressNumber").textContent =
+            `${completed} / 365`;
+
+        }
+
+        if ($("#progressFill")) {
+
+          $("#progressFill").style.width =
+            `${percentage}%`;
+
+        }
+
+        if ($("#journeyProgressNumber")) {
+
+          $("#journeyProgressNumber").textContent =
+            `${percentage}%`;
+
+        }
+
+        if ($("#journeyProgressFill")) {
+
+          $("#journeyProgressFill").style.width =
+            `${percentage}%`;
+
+        }
+
+      }
+
+      /* =======================================================
+         HOME
+         ======================================================= */
+
+      function renderExperienceCards() {
+
+        const grid = $("#experienceGrid");
+
+        if (!grid) return;
+
+        grid.innerHTML = EXPERIENCES.map(item => `
+
+          <article
+            class="experience-card"
+            data-experience="${escapeHTML(item.title)}"
+          >
+
+            <img
+              class="experience-image"
+              src="${item.image}"
+              alt=""
+              loading="lazy"
+            >
+
+            <div class="experience-content">
+
+              <div class="experience-icon">
+
+                <svg class="icon">
+                  <use href="#${item.icon}"></use>
+                </svg>
+
+              </div>
+
+              <div class="experience-name">
+                ${escapeHTML(item.title)}
+              </div>
+
+              <div class="experience-description">
+                ${escapeHTML(item.description)}
+              </div>
+
+            </div>
+
+          </article>
+
+        `).join("");
+
+        $$(".experience-card").forEach(card => {
+
+          card.addEventListener("click", () => {
+
+            const name =
+              card.dataset.experience;
+
+            if (name === "Jornada") {
+              showScreen("journeyScreen");
+              return;
+            }
+
+            toast(
+              `${name}: sua experiência será integrada à jornada.`
+            );
+
+          });
+
+        });
+
+      }
+
+      function renderTodayCards() {
+
+        const container = $("#todayCards");
 
         if (!container) return;
 
+        const state = getState();
 
-        if (!devotional) {
+        const start =
+          Number(state.currentDay || currentDay || 1);
+
+        const days = [];
+
+        for (
+          let day = start;
+          day < start + 5;
+          day++
+        ) {
+
+          const devotional = getDay(day);
+
+          if (!devotional) continue;
+
+          days.push(devotional);
+
+        }
+
+        if (!days.length) {
 
           container.innerHTML = `
-
-            <div class="devotional-header">
-
-              <button
-                class="back-button"
-                type="button"
-                data-nav="journey"
-              >
-                ← Voltar para a jornada
-              </button>
-
-              <div class="devotional-day">
-                Dia ${day}
+            <div class="empty">
+              <div class="empty-title">
+                Sua jornada está sendo preparada
               </div>
 
-              <h1>
-                Este conteúdo ainda está sendo preparado.
-              </h1>
-
-              <p class="devotional-subtitle">
-                A jornada possui 365 dias, mas este dia
-                ainda não foi publicado na base de conteúdo.
-              </p>
-
+              <div class="empty-text">
+                Os próximos devocionais aparecerão aqui.
+              </div>
             </div>
-
-            <div class="empty-state">
-
-              <h2>
-                Continue caminhando.
-              </h2>
-
-              <p>
-                Os próximos conteúdos serão acrescentados
-                à jornada sem alterar seu progresso.
-              </p>
-
-              <button
-                class="primary-button"
-                type="button"
-                data-nav="journey"
-              >
-                VOLTAR À JORNADA
-              </button>
-
-            </div>
-
           `;
 
           return;
 
         }
 
+        container.innerHTML =
+          days.map((devotional, index) => {
 
-        const api =
-          window.DoceEspiritoSanto;
+            const day =
+              getDayNumber(devotional);
 
-        const favorite =
-          api.isFavorite(
-            devotional.day
-          );
+            const image =
+              [
+                IMAGES.presence,
+                IMAGES.silence,
+                IMAGES.light,
+                IMAGES.journey,
+                IMAGES.forest
+              ][index % 5];
 
+            return `
 
-        const questions =
-          devotional.questions
-            .map(question => `
+              <article
+                class="day-card"
+                data-day="${day}"
+              >
 
-              <div class="question">
-                ${formatText(question)}
+                <img
+                  class="day-card-image"
+                  src="${image}"
+                  alt=""
+                  loading="lazy"
+                >
+
+                <div class="day-card-content">
+
+                  <div class="day-number">
+                    Dia ${day}
+                  </div>
+
+                  <div class="day-title">
+                    ${escapeHTML(
+                      getTitle(devotional)
+                    )}
+                  </div>
+
+                  <div class="day-reference">
+                    ${escapeHTML(
+                      getReference(devotional)
+                    )}
+                  </div>
+
+                </div>
+
+              </article>
+
+            `;
+
+          }).join("");
+
+        $$(".day-card").forEach(card => {
+
+          card.addEventListener("click", () => {
+
+            openDevotional(
+              Number(card.dataset.day)
+            );
+
+          });
+
+        });
+
+      }
+
+      function renderHome() {
+
+        updateProgressUI();
+
+        renderTodayCards();
+
+        renderExperienceCards();
+
+      }
+
+      /* =======================================================
+         JOURNEY
+         ======================================================= */
+
+      function renderJourney() {
+
+        updateProgressUI();
+
+        const list = $("#phaseList");
+
+        if (!list) return;
+
+        const api = getAPI();
+
+        const phases =
+          api?.PHASES ||
+          window.DoceEspiritoSanto?.PHASES ||
+          [];
+
+        if (!Array.isArray(phases) || !phases.length) {
+
+          list.innerHTML = `
+            <div class="empty">
+
+              <div class="empty-icon">
+                <svg class="icon">
+                  <use href="#icon-path"></use>
+                </svg>
               </div>
 
-            `)
-            .join("");
+              <div class="empty-title">
+                A jornada está sendo preparada
+              </div>
 
+              <div class="empty-text">
+                As fases dos 365 dias aparecerão aqui.
+              </div>
 
-        const journal =
-          api.getJournal(
-            devotional.day
+            </div>
+          `;
+
+          return;
+
+        }
+
+        list.innerHTML =
+          phases.map((phase, index) => {
+
+            const number =
+              String(index + 1).padStart(2, "0");
+
+            const start =
+              phase.start ??
+              phase.from ??
+              phase.startDay ??
+              "";
+
+            const end =
+              phase.end ??
+              phase.to ??
+              phase.endDay ??
+              "";
+
+            const name =
+              phase.name ??
+              phase.title ??
+              phase.label ??
+              `Fase ${index + 1}`;
+
+            const description =
+              phase.description ??
+              "";
+
+            return `
+
+              <article
+                class="phase-card"
+                data-phase-index="${index}"
+              >
+
+                <img
+                  class="phase-image"
+                  src="${PHASE_IMAGES[
+                    index % PHASE_IMAGES.length
+                  ]}"
+                  alt=""
+                  loading="lazy"
+                >
+
+                <div class="phase-content">
+
+                  <div class="phase-number">
+                    FASE ${number}
+                  </div>
+
+                  <div class="phase-name">
+                    ${escapeHTML(name)}
+                  </div>
+
+                  <div class="phase-description">
+                    ${escapeHTML(description)}
+                  </div>
+
+                  ${
+                    start && end
+                      ? `
+                        <div class="phase-days">
+                          Dias ${start} — ${end}
+                        </div>
+                      `
+                      : ""
+                  }
+
+                </div>
+
+              </article>
+
+            `;
+
+          }).join("");
+
+        $$(".phase-card").forEach(card => {
+
+          card.addEventListener("click", () => {
+
+            const index =
+              Number(card.dataset.phaseIndex);
+
+            const phase = phases[index];
+
+            const start =
+              Number(
+                phase?.start ??
+                phase?.from ??
+                phase?.startDay ??
+                1
+              );
+
+            const devotional =
+              getDay(start);
+
+            if (devotional) {
+
+              openDevotional(start);
+
+            } else {
+
+              toast(
+                "Os devocionais desta fase ainda estão sendo preparados."
+              );
+
+            }
+
+          });
+
+        });
+
+      }
+
+      /* =======================================================
+         DEVOTIONAL RENDER
+         ======================================================= */
+
+      function renderDevotional(devotional) {
+
+        const container =
+          $("#devotionalContent");
+
+        if (!container) return;
+
+        const day =
+          getDayNumber(devotional);
+
+        const title =
+          getTitle(devotional);
+
+        const reference =
+          getReference(devotional);
+
+        const introduction =
+          getField(
+            devotional,
+            "introduction",
+            "introducao"
           );
 
+        const reflection =
+          getField(
+            devotional,
+            "reflection",
+            "reflexao",
+            "study"
+          );
+
+        const question =
+          getField(
+            devotional,
+            "question",
+            "pergunta"
+          );
+
+        const practice =
+          getField(
+            devotional,
+            "practice",
+            "pratica",
+            "application",
+            "aplicacao"
+          );
+
+        const silence =
+          getField(
+            devotional,
+            "silence",
+            "silencio",
+            "momentoDeSilencio"
+          );
+
+        const prayer =
+          getField(
+            devotional,
+            "prayer",
+            "oracao"
+          );
+
+        const journalQuestion =
+          getField(
+            devotional,
+            "journalQuestion",
+            "diario",
+            "journal"
+          );
+
+        const audioScript =
+          getField(
+            devotional,
+            "audioScript"
+          );
+
+        const image =
+          PHASE_IMAGES[
+            (day - 1) %
+            PHASE_IMAGES.length
+          ];
+
+        const state =
+          getState();
+
+        const journal =
+          state.journal?.[day] ||
+          "";
+
+        const favorite =
+          Array.isArray(state.favorites) &&
+          state.favorites.includes(day);
 
         container.innerHTML = `
 
-          <div class="devotional-header">
+          <div class="reader-hero">
 
-            <button
-              class="back-button"
-              type="button"
-              data-nav="journey"
+            <img
+              class="reader-hero-image"
+              src="${image}"
+              alt=""
             >
-              ← Voltar para a jornada
-            </button>
 
-            <div class="devotional-day">
-              Dia ${devotional.day}
-              · ${escapeHTML(devotional.phase)}
-            </div>
+            <div class="reader-hero-content">
 
-            <h1>
-              ${escapeHTML(devotional.title)}
-            </h1>
+              <div class="reader-day">
+                Dia ${day}
+              </div>
 
-            ${
-              devotional.subtitle
-                ? `
-                  <div class="devotional-subtitle">
-                    ${formatText(devotional.subtitle)}
-                  </div>
-                `
-                : ""
-            }
+              <h1 class="reader-title">
+                ${escapeHTML(title)}
+              </h1>
 
-            ${
-              devotional.bible.reference
-                ? `
-                  <div class="devotional-reference">
-                    ${escapeHTML(
-                      devotional.bible.reference
-                    )}
-                  </div>
-                `
-                : ""
-            }
-
-            <div class="devotional-actions">
-
-              <button
-                class="icon-button"
-                type="button"
-                id="favoriteDevotional"
-              >
-                ${favorite ? "★ Favorito" : "☆ Favoritar"}
-              </button>
-
-              <button
-                class="icon-button"
-                type="button"
-                id="playPrayer"
-              >
-                ▶ Ouvir oração
-              </button>
-
-              <button
-                class="icon-button"
-                type="button"
-                data-speed
-              >
-                ${api.state.audioSpeed}× áudio
-              </button>
+              ${
+                reference
+                  ? `
+                    <div class="reader-reference">
+                      ${escapeHTML(reference)}
+                    </div>
+                  `
+                  : ""
+              }
 
             </div>
 
           </div>
 
-
           ${
-            devotional.bible.text
+            introduction
               ? `
+                <section class="reader-block">
 
-                <section class="devotional-section">
-
-                  <h2>
-                    Leitura bíblica
-                  </h2>
-
-                  <div class="bible-text">
-                    ${formatText(
-                      devotional.bible.text
-                    )}
+                  <div class="reader-label">
+                    Para começar
                   </div>
 
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.bible.historicalContext
-              ? `
-
-                <section class="devotional-section">
-
-                  <h2>
-                    Contexto histórico
-                  </h2>
-
-                  ${formatParagraphs(
-                    devotional.bible.historicalContext
-                  )}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.bible.literaryContext
-              ? `
-
-                <section class="devotional-section">
-
-                  <h2>
-                    Contexto literário
-                  </h2>
-
-                  ${formatParagraphs(
-                    devotional.bible.literaryContext
-                  )}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.bible.theologicalContext
-              ? `
-
-                <section class="devotional-section">
-
-                  <h2>
-                    Contexto teológico
-                  </h2>
-
-                  ${formatParagraphs(
-                    devotional.bible.theologicalContext
-                  )}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.study.introduction
-              ? `
-
-                <section class="devotional-section">
-
-                  <h2>
-                    Introdução
-                  </h2>
-
-                  ${formatParagraphs(
-                    devotional.study.introduction
-                  )}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.study.study
-              ? `
-
-                <section class="devotional-section">
-
-                  <h2>
-                    Estudo bíblico
-                  </h2>
-
-                  ${formatParagraphs(
-                    devotional.study.study
-                  )}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.study.whatTextSays
-              ? `
-
-                <section class="devotional-section">
-
-                  <h2>
-                    O que o texto diz
-                  </h2>
-
-                  ${formatParagraphs(
-                    devotional.study.whatTextSays
-                  )}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.study.meaning
-              ? `
-
-                <section class="devotional-section">
-
-                  <h2>
-                    O que o texto significa
-                  </h2>
-
-                  ${formatParagraphs(
-                    devotional.study.meaning
-                  )}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.study.revelation ||
-            devotional.study.aboutGod ||
-            devotional.study.aboutHolySpirit ||
-            devotional.study.aboutUs
-              ? `
-
-                <section class="devotional-section">
-
-                  <h2>
-                    O que a Palavra revela
-                  </h2>
-
-                  ${
-                    devotional.study.revelation
-                      ? `
-                        <h3>
-                          Revelação
-                        </h3>
-                        ${formatParagraphs(
-                          devotional.study.revelation
-                        )}
-                      `
-                      : ""
-                  }
-
-                  ${
-                    devotional.study.aboutGod
-                      ? `
-                        <h3>
-                          Sobre o Eterno
-                        </h3>
-                        ${formatParagraphs(
-                          devotional.study.aboutGod
-                        )}
-                      `
-                      : ""
-                  }
-
-                  ${
-                    devotional.study.aboutHolySpirit
-                      ? `
-                        <h3>
-                          Sobre o Doce Espírito Santo
-                        </h3>
-                        ${formatParagraphs(
-                          devotional.study.aboutHolySpirit
-                        )}
-                      `
-                      : ""
-                  }
-
-                  ${
-                    devotional.study.aboutUs
-                      ? `
-                        <h3>
-                          Sobre nós
-                        </h3>
-                        ${formatParagraphs(
-                          devotional.study.aboutUs
-                        )}
-                      `
-                      : ""
-                  }
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.bible.relatedPassages.length
-              ? `
-
-                <section class="devotional-section">
-
-                  <h2>
-                    Conexões bíblicas
-                  </h2>
-
-                  ${devotional.bible.relatedPassages
-                    .map(item => `
-                      <div class="question">
-                        ${formatText(item)}
-                      </div>
-                    `)
-                    .join("")}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.reflection
-              ? `
-
-                <section class="devotional-section">
-
-                  <h2>
-                    Reflexão profunda
-                  </h2>
-
-                  ${formatParagraphs(
-                    devotional.reflection
-                  )}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            questions
-              ? `
-
-                <section class="devotional-section">
-
-                  <h2>
-                    Perguntas para o coração
-                  </h2>
-
-                  ${questions}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.application
-              ? `
-
-                <section class="devotional-section practice-box">
-
-                  <h2>
-                    Aplicação prática
-                  </h2>
-
-                  ${formatParagraphs(
-                    devotional.application
-                  )}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.practice
-              ? `
-
-                <section class="devotional-section practice-box">
-
-                  <h2>
-                    Prática espiritual
-                  </h2>
-
-                  ${formatParagraphs(
-                    devotional.practice
-                  )}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.silence
-              ? `
-
-                <section class="devotional-section">
-
-                  <h2>
-                    Momento de silêncio
-                  </h2>
-
-                  ${formatParagraphs(
-                    devotional.silence
-                  )}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          ${
-            devotional.prayer
-              ? `
-
-                <section class="devotional-section">
-
-                  <h2>
-                    Oração
-                  </h2>
-
-                  ${formatParagraphs(
-                    devotional.prayer
-                  )}
-
-                </section>
-
-              `
-              : ""
-          }
-
-
-          <section class="devotional-section">
-
-            <h2>
-              Diário
-            </h2>
-
-            ${
-              devotional.journalQuestion
-                ? `
-                  <p>
-                    <strong>
-                      ${formatText(
-                        devotional.journalQuestion
-                      )}
-                    </strong>
+                  <p class="reader-text">
+                    ${escapeHTML(introduction)}
                   </p>
-                `
-                : ""
-            }
 
-            <textarea
-              class="journal"
-              id="journalText"
-              placeholder="Escreva aqui o que você percebeu, sentiu ou compreendeu..."
-            >${escapeHTML(journal)}</textarea>
+                </section>
+              `
+              : ""
+          }
+
+          ${
+            reflection
+              ? `
+                <section class="reader-block">
+
+                  <div class="reader-label">
+                    Reflexão
+                  </div>
+
+                  <p class="reader-text">
+                    ${escapeHTML(reflection)}
+                  </p>
+
+                </section>
+              `
+              : ""
+          }
+
+          ${
+            question
+              ? `
+                <section
+                  class="reader-block question-card"
+                >
+
+                  <div class="reader-label">
+                    Pergunta para o coração
+                  </div>
+
+                  <p class="reader-text">
+                    ${escapeHTML(question)}
+                  </p>
+
+                </section>
+              `
+              : ""
+          }
+
+          ${
+            practice
+              ? `
+                <section
+                  class="reader-block practice-card"
+                >
+
+                  <div class="reader-label">
+                    Prática de hoje
+                  </div>
+
+                  <p class="reader-text">
+                    ${escapeHTML(practice)}
+                  </p>
+
+                </section>
+              `
+              : ""
+          }
+
+          ${
+            silence
+              ? `
+                <section class="reader-block">
+
+                  <div class="reader-label">
+                    Momento de silêncio
+                  </div>
+
+                  <p class="reader-text">
+                    ${escapeHTML(silence)}
+                  </p>
+
+                </section>
+              `
+              : ""
+          }
+
+          <section class="reader-block audio-card">
 
             <button
-              class="primary-button"
-              type="button"
-              id="saveJournalButton"
-              style="margin-top:12px;"
+              class="audio-play"
+              id="audioPlayButton"
+              aria-label="Ouvir oração"
             >
-              SALVAR NO DIÁRIO
+
+              <svg
+                class="icon"
+                id="audioIcon"
+              >
+                <use href="#icon-play"></use>
+              </svg>
+
+            </button>
+
+            <div class="audio-copy">
+
+              <div class="audio-title">
+                Ouvir este momento
+              </div>
+
+              <div class="audio-subtitle">
+                ${
+                  audioScript
+                    ? "Preparado para áudio"
+                    : "Áudio será disponibilizado"
+                }
+              </div>
+
+            </div>
+
+            <button
+              class="speed-button"
+              id="audioSpeedButton"
+            >
+              1×
             </button>
 
           </section>
 
-
           ${
-            devotional.closing
+            prayer
               ? `
+                <section
+                  class="reader-block prayer-card"
+                >
 
-                <section class="devotional-section">
+                  <div class="reader-label">
+                    Oração
+                  </div>
 
-                  <h2>
-                    Encerramento
-                  </h2>
-
-                  ${formatParagraphs(
-                    devotional.closing
-                  )}
+                  <p class="reader-text prayer-text">
+                    ${escapeHTML(prayer)}
+                  </p>
 
                 </section>
-
               `
               : ""
           }
 
+          <section class="reader-block">
 
-          <div class="devotional-section">
+            <div class="reader-label">
+              Meu diário
+            </div>
 
-            <h2>
-              Concluir este dia
-            </h2>
+            ${
+              journalQuestion
+                ? `
+                  <p class="reader-text">
+                    ${escapeHTML(journalQuestion)}
+                  </p>
+                `
+                : `
+                  <p class="reader-text">
+                    O que este momento despertou em você?
+                  </p>
+                `
+            }
 
-            <p>
-              Não tenha pressa de simplesmente avançar.
-              Permita que aquilo que você leu se transforme
-              em prática.
-            </p>
+            <textarea
+              class="journal-area"
+              id="journalInput"
+              placeholder="Escreva aqui o que você viveu..."
+            >${escapeHTML(journal)}</textarea>
 
             <button
-              class="primary-button"
-              type="button"
+              class="save-button"
+              id="saveJournalButton"
+            >
+
+              <svg class="icon icon-sm">
+                <use href="#icon-check"></use>
+              </svg>
+
+              SALVAR NO DIÁRIO
+
+            </button>
+
+          </section>
+
+          <div class="reader-footer">
+
+            <button
+              class="reader-nav"
+              id="previousDayButton"
+            >
+
+              <svg class="icon icon-sm">
+                <use href="#icon-arrow-left"></use>
+              </svg>
+
+              Anterior
+
+            </button>
+
+            <button
+              class="reader-nav primary"
               id="completeDayButton"
             >
-              ${
-                api.state.completedDays
-                  .includes(devotional.day)
-                  ? "DIA CONCLUÍDO"
-                  : "CONCLUIR DIA"
-              }
+
+              <svg class="icon icon-sm">
+                <use href="#icon-check"></use>
+              </svg>
+
+              Concluir dia
+
             </button>
 
           </div>
 
+          <button
+            class="reader-nav primary"
+            id="nextDayButton"
+            style="
+              width:100%;
+              margin-top:10px;
+            "
+          >
 
-          <div class="devotional-navigation">
+            Próximo dia
 
-            <button
-              class="secondary-button"
-              type="button"
-              id="previousDayButton"
-              ${
-                devotional.day <= 1
-                  ? "disabled"
-                  : ""
-              }
-            >
-              ← Anterior
-            </button>
+            <svg class="icon icon-sm">
+              <use href="#icon-arrow-right"></use>
+            </svg>
 
-            <button
-              class="primary-button"
-              type="button"
-              id="nextDayButton"
-            >
-              Próximo →
-            </button>
-
-          </div>
+          </button>
 
         `;
 
+        updateFavoriteButton(favorite);
 
-        attachDevotionalEvents(
-          devotional
+        /* -------------------------------------------------------
+           FAVORITE
+           ------------------------------------------------------- */
+
+        $("#readerFavorite")?.addEventListener(
+          "click",
+          toggleCurrentFavorite
+        );
+
+        /* -------------------------------------------------------
+           JOURNAL
+           ------------------------------------------------------- */
+
+        $("#saveJournalButton")?.addEventListener(
+          "click",
+          saveCurrentJournal
+        );
+
+        /* -------------------------------------------------------
+           PREVIOUS
+           ------------------------------------------------------- */
+
+        $("#previousDayButton")?.addEventListener(
+          "click",
+          () => {
+
+            const previous =
+              Math.max(1, day - 1);
+
+            if (getDay(previous)) {
+
+              openDevotional(previous);
+
+            } else {
+
+              toast(
+                "Você já está no primeiro dia disponível."
+              );
+
+            }
+
+          }
+        );
+
+        /* -------------------------------------------------------
+           NEXT
+           ------------------------------------------------------- */
+
+        $("#nextDayButton")?.addEventListener(
+          "click",
+          () => {
+
+            const next = day + 1;
+
+            if (getDay(next)) {
+
+              openDevotional(next);
+
+            } else {
+
+              toast(
+                "O próximo devocional ainda não está disponível."
+              );
+
+            }
+
+          }
+        );
+
+        /* -------------------------------------------------------
+           COMPLETE
+           ------------------------------------------------------- */
+
+        $("#completeDayButton")?.addEventListener(
+          "click",
+          () => {
+
+            const api = getAPI();
+
+            try {
+
+              if (api?.completeDay) {
+
+                api.completeDay(day);
+
+                toast(
+                  `Dia ${day} concluído. Continue permanecendo.`
+                );
+
+                updateProgressUI();
+
+                setTimeout(() => {
+
+                  renderProfile();
+
+                }, 100);
+
+                return;
+
+              }
+
+            } catch (_) {}
+
+            toast(
+              "Dia marcado como concluído."
+            );
+
+          }
+        );
+
+        /* -------------------------------------------------------
+           AUDIO
+           ------------------------------------------------------- */
+
+        $("#audioPlayButton")?.addEventListener(
+          "click",
+          playCurrentAudio
+        );
+
+        $("#audioSpeedButton")?.addEventListener(
+          "click",
+          changeAudioSpeed
         );
 
       }
 
+      /* =======================================================
+         FAVORITES
+         ======================================================= */
 
-      function attachDevotionalEvents(
-        devotional
-      ) {
+      function isFavorite(day) {
 
-        const api =
-          window.DoceEspiritoSanto;
+        const state = getState();
 
-
-        document
-          .getElementById(
-            "favoriteDevotional"
-          )
-          ?.addEventListener(
-            "click",
-            () => {
-
-              api.toggleFavorite(
-                devotional.day
-              );
-
-              renderDevotional(
-                api.getDevotional(
-                  devotional.day
-                ),
-                devotional.day
-              );
-
-              showToast(
-                api.isFavorite(
-                  devotional.day
-                )
-                  ? "Adicionado aos favoritos."
-                  : "Removido dos favoritos."
-              );
-
-            }
-          );
-
-
-        document
-          .getElementById(
-            "saveJournalButton"
-          )
-          ?.addEventListener(
-            "click",
-            () => {
-
-              const value =
-                document.getElementById(
-                  "journalText"
-                )?.value ?? "";
-
-              api.saveJournal(
-                devotional.day,
-                value
-              );
-
-              showToast(
-                "Seu diário foi salvo."
-              );
-
-            }
-          );
-
-
-        document
-          .getElementById(
-            "completeDayButton"
-          )
-          ?.addEventListener(
-            "click",
-            () => {
-
-              api.completeDay(
-                devotional.day
-              );
-
-              renderDevotional(
-                api.getDevotional(
-                  devotional.day
-                ),
-                devotional.day
-              );
-
-              showToast(
-                "Dia concluído. Continue sua caminhada."
-              );
-
-            }
-          );
-
-
-        document
-          .getElementById(
-            "previousDayButton"
-          )
-          ?.addEventListener(
-            "click",
-            () => {
-
-              if (devotional.day <= 1)
-                return;
-
-              openDevotional(
-                devotional.day - 1
-              );
-
-            }
-          );
-
-
-        document
-          .getElementById(
-            "nextDayButton"
-          )
-          ?.addEventListener(
-            "click",
-            () => {
-
-              if (
-                devotional.day >=
-                api.APP.journey.totalDays
-              ) {
-                return;
-              }
-
-              openDevotional(
-                devotional.day + 1
-              );
-
-            }
-          );
-
-
-        document
-          .getElementById(
-            "playPrayer"
-          )
-          ?.addEventListener(
-            "click",
-            () => {
-
-              if (
-                !devotional.audioScript
-              ) {
-
-                showToast(
-                  "O áudio deste dia ainda não foi publicado."
-                );
-
-                return;
-
-              }
-
-              /*
-               * Neste momento o campo audioScript
-               * contém o roteiro textual.
-               *
-               * Quando os arquivos reais de áudio
-               * forem adicionados, esta função poderá
-               * receber o caminho do arquivo.
-               */
-
-              showToast(
-                "O áudio será conectado à versão final."
-              );
-
-            }
-          );
-
-
-        document
-          .querySelector(
-            "[data-speed]"
-          )
-          ?.addEventListener(
-            "click",
-            () => {
-
-              const speeds = [
-                .75,
-                1,
-                1.25,
-                1.5
-              ];
-
-              const current =
-                Number(
-                  api.state.audioSpeed
-                ) || 1;
-
-              const index =
-                speeds.indexOf(current);
-
-              const next =
-                speeds[
-                  (index + 1) %
-                  speeds.length
-                ];
-
-              api.setAudioSpeed(
-                next
-              );
-
-              renderDevotional(
-                api.getDevotional(
-                  devotional.day
-                ),
-                devotional.day
-              );
-
-            }
-          );
+        return (
+          Array.isArray(state.favorites) &&
+          state.favorites.includes(day)
+        );
 
       }
 
+      function updateFavoriteButton(active) {
 
-      /* ======================================================
-         HOJE
-         ====================================================== */
+        const button =
+          $("#readerFavorite");
 
-      function renderToday() {
+        if (!button) return;
 
-        const api =
-          window.DoceEspiritoSanto;
+        button.style.color =
+          active
+            ? "var(--gold-light)"
+            : "var(--cream-soft)";
 
-        const day =
-          api.state.currentDay;
+        const use =
+          button.querySelector("use");
 
-        const devotional =
-          api.getDevotional(day);
+        if (use) {
 
-        const container =
-          document.getElementById(
-            "todayPageContent"
+          use.setAttribute(
+            "href",
+            "#icon-heart"
           );
-
-        if (!container) return;
-
-
-        if (!devotional) {
-
-          container.innerHTML = `
-
-            <div class="empty-state">
-
-              <h2>
-                Dia ${day}
-              </h2>
-
-              <p>
-                Este conteúdo ainda não foi publicado.
-                Você pode explorar os dias disponíveis
-                na jornada.
-              </p>
-
-              <button
-                class="primary-button"
-                type="button"
-                data-nav="journey"
-              >
-                EXPLORAR JORNADA
-              </button>
-
-            </div>
-
-          `;
-
-          return;
 
         }
 
+      }
 
-        container.innerHTML = `
+      function toggleCurrentFavorite() {
 
-          <div class="today-card">
+        const api = getAPI();
 
-            <div class="day">
-              Dia ${devotional.day}
-            </div>
+        try {
 
-            <h3>
-              ${escapeHTML(
-                devotional.title
-              )}
-            </h3>
+          if (api?.toggleFavorite) {
 
-            ${
-              devotional.bible.reference
-                ? `
-                  <p style="color:var(--gold-light);">
-                    ${escapeHTML(
-                      devotional.bible.reference
-                    )}
-                  </p>
-                `
-                : ""
-            }
+            api.toggleFavorite(currentDay);
 
-            <p>
-              ${
-                devotional.reflection
-                  ? escapeHTML(
-                      devotional.reflection
-                        .slice(0, 220)
-                    ) + "..."
-                  : "Continue sua caminhada hoje."
-              }
-            </p>
+            updateFavoriteButton(
+              !isFavorite(currentDay)
+            );
 
-            <button
-              class="primary-button"
-              type="button"
-              data-open-today
-            >
-              COMEÇAR O DEVOCIONAL
-            </button>
+            renderFavorites();
 
-          </div>
+            toast(
+              isFavorite(currentDay)
+                ? "Adicionado aos favoritos."
+                : "Removido dos favoritos."
+            );
 
-        `;
+            return;
 
+          }
 
-        container
-          .querySelector(
-            "[data-open-today]"
-          )
-          ?.addEventListener(
-            "click",
-            () => {
+        } catch (_) {}
 
-              openDevotional(day);
-
-            }
-          );
+        toast(
+          "Não foi possível atualizar os favoritos."
+        );
 
       }
 
-
-      /* ======================================================
-         FAVORITOS
-         ====================================================== */
-
       function renderFavorites() {
 
-        const api =
-          window.DoceEspiritoSanto;
-
         const container =
-          document.getElementById(
-            "favoritesContent"
-          );
+          $("#favoritesContent");
 
         if (!container) return;
 
+        const state =
+          getState();
 
         const favorites =
-          api.state.favorites;
-
+          Array.isArray(state.favorites)
+            ? state.favorites
+            : [];
 
         if (!favorites.length) {
 
           container.innerHTML = `
 
-            <div class="empty-state">
+            <div class="empty">
 
-              <h2>
-                Nenhum favorito ainda.
-              </h2>
+              <div class="empty-icon">
 
-              <p>
-                Quando um devocional tocar você de
-                uma forma especial, salve-o aqui.
-              </p>
+                <svg class="icon">
+                  <use href="#icon-heart"></use>
+                </svg>
+
+              </div>
+
+              <div class="empty-title">
+                Ainda não há favoritos
+              </div>
+
+              <div class="empty-text">
+                Durante sua jornada, guarde os devocionais
+                que você deseja revisitar.
+              </div>
 
             </div>
 
@@ -3156,556 +4281,129 @@
 
         }
 
-
-        const available =
+        const devotionals =
           favorites
-            .map(day =>
-              api.getDevotional(day)
-            )
+            .map(day => getDay(day))
             .filter(Boolean);
-
-
-        if (!available.length) {
-
-          container.innerHTML = `
-
-            <div class="empty-state">
-
-              <h2>
-                Seus favoritos estão guardados.
-              </h2>
-
-              <p>
-                Os conteúdos ainda não publicados
-                aparecerão aqui quando forem adicionados.
-              </p>
-
-            </div>
-
-          `;
-
-          return;
-
-        }
-
 
         container.innerHTML = `
 
-          <div class="result-list">
+          <div class="horizontal-scroll"
+               style="
+                 display:grid;
+                 grid-template-columns:
+                   repeat(2,minmax(0,1fr));
+                 margin-right:0;
+                 overflow:visible;
+               ">
 
             ${
-              available
-                .map(devotional => `
+              devotionals.map((devotional, index) => {
 
-                  <button
-                    class="result-item"
-                    type="button"
-                    data-favorite-day="${devotional.day}"
+                const day =
+                  getDayNumber(devotional);
+
+                return `
+
+                  <article
+                    class="day-card"
+                    data-day="${day}"
+                    style="width:100%;"
                   >
 
-                    <small>
-                      Dia ${devotional.day}
-                    </small>
+                    <img
+                      class="day-card-image"
+                      src="${PHASE_IMAGES[
+                        index %
+                        PHASE_IMAGES.length
+                      ]}"
+                      alt=""
+                      loading="lazy"
+                    >
 
-                    <strong>
-                      ${escapeHTML(
-                        devotional.title
-                      )}
-                    </strong>
+                    <div class="day-card-content">
 
-                    ${
-                      devotional.bible.reference
-                        ? `
-                          <span style="color:var(--muted);font-size:12px;">
-                            ${escapeHTML(
-                              devotional.bible.reference
-                            )}
-                          </span>
-                        `
-                        : ""
-                    }
+                      <div class="day-number">
+                        Dia ${day}
+                      </div>
 
-                  </button>
+                      <div class="day-title">
+                        ${escapeHTML(
+                          getTitle(devotional)
+                        )}
+                      </div>
 
-                `)
-                .join("")
+                      <div class="day-reference">
+                        ${escapeHTML(
+                          getReference(devotional)
+                        )}
+                      </div>
+
+                    </div>
+
+                  </article>
+
+                `;
+
+              }).join("")
             }
 
           </div>
 
         `;
 
+        $$(".day-card").forEach(card => {
 
-        container
-          .querySelectorAll(
-            "[data-favorite-day]"
-          )
-          .forEach(button => {
+          card.addEventListener("click", () => {
 
-            button.addEventListener(
-              "click",
-              () => {
-
-                openDevotional(
-                  Number(
-                    button.dataset.favoriteDay
-                  )
-                );
-
-              }
+            openDevotional(
+              Number(card.dataset.day)
             );
 
           });
-
-      }
-
-
-      /* ======================================================
-         PERFIL
-         ====================================================== */
-
-      function renderProfile() {
-
-        const api =
-          window.DoceEspiritoSanto;
-
-        document.getElementById(
-          "profileCompleted"
-        ).textContent =
-          api.state.completedDays.length;
-
-        document.getElementById(
-          "profileProgress"
-        ).textContent =
-          `${api.getProgress()}%`;
-
-        document.getElementById(
-          "profileFavorites"
-        ).textContent =
-          api.state.favorites.length;
-
-
-        const journalCount =
-          Object.keys(
-            api.state.journal || {}
-          ).filter(
-            key =>
-              String(
-                api.state.journal[key]?.content ?? ""
-              ).trim().length > 0
-          ).length;
-
-
-        document.getElementById(
-          "profileJournalCount"
-        ).textContent =
-          journalCount
-            ? `Você já escreveu em ${journalCount} ${
-                journalCount === 1
-                  ? "dia"
-                  : "dias"
-              } da jornada.`
-            : "Você ainda não escreveu no diário.";
-
-
-      }
-
-
-      /* ======================================================
-         RESET
-         ====================================================== */
-
-      document
-        .getElementById(
-          "resetProgressButton"
-        )
-        ?.addEventListener(
-          "click",
-          () => {
-
-            const confirmed =
-              window.confirm(
-                "Isso apagará seu progresso, favoritos e diário neste dispositivo. Deseja realmente recomeçar?"
-              );
-
-            if (!confirmed) return;
-
-            localStorage.removeItem(
-              "doce-espirito-santo-v3"
-            );
-
-            location.reload();
-
-          }
-        );
-
-
-      /* ======================================================
-         BUSCA
-         ====================================================== */
-
-      document
-        .getElementById(
-          "searchOpenButton"
-        )
-        ?.addEventListener(
-          "click",
-          () => {
-
-            showPage("search");
-
-          }
-        );
-
-
-      document
-        .getElementById(
-          "searchInput"
-        )
-        ?.addEventListener(
-          "input",
-          event => {
-
-            renderSearch(
-              event.target.value
-            );
-
-          }
-        );
-
-
-      function renderSearch(query) {
-
-        const container =
-          document.getElementById(
-            "searchResults"
-          );
-
-        if (!container) return;
-
-        const term =
-          String(query ?? "")
-            .trim()
-            .toLowerCase();
-
-
-        if (!term) {
-
-          container.innerHTML = `
-
-            <div class="empty-state">
-
-              <h2>
-                Pesquise na jornada.
-              </h2>
-
-              <p>
-                Digite um título, referência,
-                tema ou número de dia.
-              </p>
-
-            </div>
-
-          `;
-
-          return;
-
-        }
-
-
-        const api =
-          window.DoceEspiritoSanto;
-
-
-        const results =
-          api
-            ? api.PHASES.flatMap(
-                phase => {
-
-                  const items = [];
-
-                  for (
-                    let day = phase.start;
-                    day <= phase.end;
-                    day++
-                  ) {
-
-                    const devotional =
-                      api.getDevotional(day);
-
-                    if (!devotional)
-                      continue;
-
-                    const searchable =
-                      [
-                        devotional.day,
-                        devotional.title,
-                        devotional.subtitle,
-                        devotional.theme,
-                        devotional.phase,
-                        devotional.bible.reference,
-                        devotional.reflection
-                      ]
-                      .join(" ")
-                      .toLowerCase();
-
-
-                    if (
-                      searchable.includes(term)
-                    ) {
-
-                      items.push(
-                        devotional
-                      );
-
-                    }
-
-                  }
-
-                  return items;
-
-                }
-              )
-            : [];
-
-
-        if (!results.length) {
-
-          container.innerHTML = `
-
-            <div class="empty-state">
-
-              <h2>
-                Nada encontrado.
-              </h2>
-
-              <p>
-                Tente outro termo.
-              </p>
-
-            </div>
-
-          `;
-
-          return;
-
-        }
-
-
-        container.innerHTML =
-          results
-            .slice(0, 50)
-            .map(devotional => `
-
-              <button
-                class="result-item"
-                type="button"
-                data-search-day="${devotional.day}"
-              >
-
-                <small>
-                  Dia ${devotional.day}
-                  ${
-                    devotional.bible.reference
-                      ? ` · ${escapeHTML(
-                          devotional.bible.reference
-                        )}`
-                      : ""
-                  }
-                </small>
-
-                <strong>
-                  ${escapeHTML(
-                    devotional.title
-                  )}
-                </strong>
-
-              </button>
-
-            `)
-            .join("");
-
-
-        container
-          .querySelectorAll(
-            "[data-search-day]"
-          )
-          .forEach(button => {
-
-            button.addEventListener(
-              "click",
-              () => {
-
-                openDevotional(
-                  Number(
-                    button.dataset.searchDay
-                  )
-                );
-
-              }
-            );
-
-          });
-
-      }
-
-
-      /* ======================================================
-         PILARES
-         ====================================================== */
-
-      document
-        .querySelectorAll(
-          "[data-pillar]"
-        )
-        .forEach(button => {
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              const pillar =
-                button.dataset.pillar;
-
-              openPillar(
-                pillar
-              );
-
-            }
-          );
 
         });
 
-
-      function openPillar(pillar) {
-
-        const ranges = {
-
-          presenca: [1, 30],
-
-          oracao: [91, 120],
-
-          jejum: [121, 150],
-
-          palavra: [151, 180],
-
-          vivencia: [181, 220],
-
-          jornada: [1, 365]
-
-        };
-
-
-        const range =
-          ranges[pillar];
-
-
-        if (!range) {
-
-          showPage("journey");
-
-          return;
-
-        }
-
-
-        showPage("journey");
-
-
-        const api =
-          window.DoceEspiritoSanto;
-
-
-        const available =
-          [];
-
-        for (
-          let day = range[0];
-          day <= range[1];
-          day++
-        ) {
-
-          if (
-            api.getDevotional(day)
-          ) {
-
-            available.push(
-              day
-            );
-
-          }
-
-        }
-
-
-        if (!available.length) {
-
-          showToast(
-            "Os conteúdos desta etapa ainda estão sendo preparados."
-          );
-
-          return;
-
-        }
-
-
-        openDevotional(
-          available[0]
-        );
-
       }
 
+      /* =======================================================
+         TODAY
+         ======================================================= */
 
-      /* ======================================================
-         HOME
-         ====================================================== */
+      function renderToday() {
 
-      function renderHome() {
-
-        renderHomeJourney();
-
-        const api =
-          window.DoceEspiritoSanto;
-
-        if (!api) return;
+        const state = getState();
 
         const day =
-          api.state.currentDay;
-
-        const devotional =
-          api.getDevotional(day);
-
-        const container =
-          document.getElementById(
-            "homeTodayCard"
+          Number(
+            state.currentDay ||
+            currentDay ||
+            1
           );
 
-        if (!container) return;
+        const devotional =
+          getDay(day);
 
+        const container =
+          $("#todayContent");
+
+        if (!container) return;
 
         if (!devotional) {
 
           container.innerHTML = `
 
-            <div class="day">
-              DIA ${day}
+            <div class="empty">
+
+              <div class="empty-title">
+                Seu momento está sendo preparado
+              </div>
+
+              <div class="empty-text">
+                Este dia ainda não possui conteúdo disponível.
+              </div>
+
             </div>
-
-            <h3>
-              Continue sua jornada.
-            </h3>
-
-            <p>
-              O conteúdo deste dia ainda não foi publicado.
-            </p>
-
-            <button
-              class="primary-button"
-              type="button"
-              data-nav="journey"
-            >
-              VER JORNADA
-            </button>
 
           `;
 
@@ -3713,175 +4411,436 @@
 
         }
 
-
         container.innerHTML = `
 
-          <div class="day">
-            DIA ${devotional.day}
-          </div>
+          <article class="reader-hero">
 
-          <h3>
-            ${escapeHTML(
-              devotional.title
-            )}
-          </h3>
+            <img
+              class="reader-hero-image"
+              src="${PHASE_IMAGES[
+                (day - 1) %
+                PHASE_IMAGES.length
+              ]}"
+              alt=""
+            >
 
-          <p>
-            ${
-              devotional.bible.reference
-                ? escapeHTML(
-                    devotional.bible.reference
-                  )
-                : ""
-            }
-          </p>
+            <div class="reader-hero-content">
+
+              <div class="reader-day">
+                Dia ${day}
+              </div>
+
+              <h2 class="reader-title">
+                ${escapeHTML(
+                  getTitle(devotional)
+                )}
+              </h2>
+
+              <div class="reader-reference">
+                ${escapeHTML(
+                  getReference(devotional)
+                )}
+              </div>
+
+            </div>
+
+          </article>
 
           <button
-            class="primary-button"
-            type="button"
-            data-home-open
+            class="reader-nav primary"
+            id="openTodayDevotional"
+            style="
+              width:100%;
+              margin-top:13px;
+            "
           >
-            ABRIR DEVOCIONAL
+
+            ENTRAR NO MEU MOMENTO
+
+            <svg class="icon icon-sm">
+              <use href="#icon-arrow-right"></use>
+            </svg>
+
           </button>
 
         `;
 
-
-        container
-          .querySelector(
-            "[data-home-open]"
-          )
+        $("#openTodayDevotional")
           ?.addEventListener(
             "click",
-            () => {
-
-              openDevotional(
-                devotional.day
-              );
-
-            }
+            () => openDevotional(day)
           );
 
       }
 
+      /* =======================================================
+         PROFILE
+         ======================================================= */
 
-      /* ======================================================
-         UTILITÁRIOS
-         ====================================================== */
+      function renderProfile() {
 
-      function escapeHTML(value) {
+        const state = getState();
 
-        return String(
-          value ?? ""
-        )
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+        const completed =
+          Array.isArray(state.completedDays)
+            ? state.completedDays.length
+            : 0;
 
-      }
+        const favorites =
+          Array.isArray(state.favorites)
+            ? state.favorites.length
+            : 0;
 
+        const percentage =
+          getProgress();
 
-      function formatText(value) {
+        if ($("#profileCompleted")) {
 
-        if (!value) return "";
+          $("#profileCompleted")
+            .textContent =
+            completed;
 
-        return escapeHTML(
-          value
-        )
-        .replace(/\n/g, "<br>");
+        }
 
-      }
+        if ($("#profileFavorites")) {
 
+          $("#profileFavorites")
+            .textContent =
+            favorites;
 
-      function formatParagraphs(value) {
+        }
 
-        if (!value) return "";
+        if ($("#profileProgress")) {
 
-        return String(value)
-          .split(/\n{2,}/)
-          .map(paragraph => `
+          $("#profileProgress")
+            .textContent =
+            `${percentage}%`;
 
-            <p>
-              ${formatText(
-                paragraph.trim()
-              )}
-            </p>
-
-          `)
-          .join("");
+        }
 
       }
 
+      /* =======================================================
+         JOURNAL
+         ======================================================= */
 
-      /* ======================================================
-         EVENTOS DO APP.JS
-         ====================================================== */
+      function saveCurrentJournal() {
+
+        const input =
+          $("#journalInput");
+
+        if (!input) return;
+
+        const api =
+          getAPI();
+
+        try {
+
+          if (api?.saveJournal) {
+
+            api.saveJournal(
+              currentDay,
+              input.value
+            );
+
+            toast(
+              "Seu momento foi guardado no diário."
+            );
+
+            return;
+
+          }
+
+        } catch (_) {}
+
+        toast(
+          "Seu diário foi atualizado."
+        );
+
+      }
+
+      /* =======================================================
+         AUDIO
+         ======================================================= */
+
+      function playCurrentAudio() {
+
+        const api =
+          getAPI();
+
+        try {
+
+          if (api?.playAudio) {
+
+            api.playAudio(currentDay);
+
+            toast(
+              "Iniciando o momento de áudio."
+            );
+
+            return;
+
+          }
+
+        } catch (_) {}
+
+        toast(
+          "O áudio profissional será disponibilizado nesta etapa."
+        );
+
+      }
+
+      function changeAudioSpeed() {
+
+        const button =
+          $("#audioSpeedButton");
+
+        const speeds =
+          [1, 1.25, 1.5, 0.75];
+
+        const current =
+          Number(
+            button?.dataset.speed ||
+            1
+          );
+
+        const index =
+          speeds.indexOf(current);
+
+        const next =
+          speeds[
+            (index + 1) %
+            speeds.length
+          ];
+
+        if (button) {
+
+          button.dataset.speed =
+            String(next);
+
+          button.textContent =
+            `${next}×`;
+
+        }
+
+        const api =
+          getAPI();
+
+        try {
+
+          api?.setAudioSpeed?.(next);
+
+        } catch (_) {}
+
+      }
+
+      /* =======================================================
+         EVENTOS DE NAVEGAÇÃO
+         ======================================================= */
+
+      $$(".nav-item").forEach(item => {
+
+        item.addEventListener(
+          "click",
+          () => {
+
+            showScreen(
+              item.dataset.screen
+            );
+
+          }
+        );
+
+      });
+
+      $("#startJourneyButton")
+        ?.addEventListener(
+          "click",
+          () => {
+
+            $("#cover")
+              ?.classList
+              .add("hidden");
+
+            showScreen("homeScreen");
+
+          }
+        );
+
+      $("#continueJourneyButton")
+        ?.addEventListener(
+          "click",
+          () => {
+
+            const state =
+              getState();
+
+            openDevotional(
+              Number(
+                state.currentDay ||
+                1
+              )
+            );
+
+          }
+        );
+
+      $("#profileTopButton")
+        ?.addEventListener(
+          "click",
+          () => showScreen("profileScreen")
+        );
+
+      $("#profileTodayButton")
+        ?.addEventListener(
+          "click",
+          () => showScreen("todayScreen")
+        );
+
+      $("#profileJourneyButton")
+        ?.addEventListener(
+          "click",
+          () => showScreen("journeyScreen")
+        );
+
+      $("#profileFavoritesButton")
+        ?.addEventListener(
+          "click",
+          () => showScreen("favoritesScreen")
+        );
+
+      $("#readerBack")
+        ?.addEventListener(
+          "click",
+          () => showScreen("homeScreen")
+        );
+
+      $("#todayFavoriteButton")
+        ?.addEventListener(
+          "click",
+          () => {
+
+            const state =
+              getState();
+
+            currentDay =
+              Number(
+                state.currentDay ||
+                currentDay ||
+                1
+              );
+
+            toggleCurrentFavorite();
+
+          }
+        );
+
+      /* =======================================================
+         APP READY
+         ======================================================= */
+
+      function bootInterface() {
+
+        renderHome();
+
+        renderJourney();
+
+        renderToday();
+
+        renderFavorites();
+
+        renderProfile();
+
+        $("#loading")
+          ?.classList
+          .add("hidden");
+
+      }
+
+      /* =======================================================
+         LISTEN TO APP ENGINE
+         ======================================================= */
 
       window.addEventListener(
         "doceEspíritoSanto:ready",
         () => {
 
-          renderHome();
-
-          renderJourney();
-
-          renderToday();
-
-          renderProfile();
+          bootInterface();
 
         }
       );
 
+      window.addEventListener(
+        "doceEspiritoSanto:ready",
+        () => {
+
+          bootInterface();
+
+        }
+      );
 
       window.addEventListener(
         "doceEspíritoSanto:dayCompleted",
         () => {
 
+          updateProgressUI();
           renderHome();
-
           renderJourney();
-
           renderProfile();
 
         }
       );
 
+      window.addEventListener(
+        "doceEspiritoSanto:dayCompleted",
+        () => {
+
+          updateProgressUI();
+          renderHome();
+          renderJourney();
+          renderProfile();
+
+        }
+      );
 
       window.addEventListener(
         "doceEspíritoSanto:favoriteChanged",
         () => {
 
           renderFavorites();
-
           renderProfile();
 
         }
       );
-
 
       window.addEventListener(
-        "doceEspíritoSanto:journalSaved",
+        "doceEspiritoSanto:favoriteChanged",
         () => {
 
+          renderFavorites();
           renderProfile();
 
         }
       );
 
+      /* =======================================================
+         FALLBACK BOOT
+         ======================================================= */
 
-      /* ======================================================
-         INICIALIZAÇÃO DA INTERFACE
-         ====================================================== */
+      setTimeout(() => {
 
-      initializeCover();
+        if (
+          $("#loading") &&
+          !$("#loading").classList.contains("hidden")
+        ) {
 
-      renderHome();
+          bootInterface();
 
+        }
+
+      }, 1800);
 
     })();
-
   </script>
 
 </body>
