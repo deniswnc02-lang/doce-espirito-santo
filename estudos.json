@@ -1,1 +1,774 @@
+{
+  "versao": "1.0",
+  "projeto": "Doce Espírito Santo — Um Amigo Íntimo",
+  "descricao": "Biblioteca de estudos bíblicos, teológicos e contemplativos vinculados à jornada de 365 dias.",
+  "estudos": [
+    {
+      "id": "estudo-001",
+      "dia": 1,
+      "slug": "a-presenca-que-ja-esta-aqui",
+      "categoria": "Presença",
+      "nivel": "profundo",
+      "tempo_estimado_minutos": 45,
 
+      "titulo": "A Presença que já está aqui",
+      "subtitulo": "Aprendendo a reconhecer a presença do Doce Espírito Santo",
+
+      "texto_principal": {
+        "referencia": "João 14:16–17",
+        "tema": "A promessa da presença permanente do Espírito Santo"
+      },
+
+      "objetivo": "Compreender biblicamente que a presença do Espírito Santo não é apresentada por Jesus como uma experiência ocasional, mas como uma realidade de habitação e comunhão que transforma a maneira como o discípulo percebe, interpreta e vive sua realidade.",
+
+      "pergunta_central": "Se o Doce Espírito Santo já está presente, o que significa aprender a percebê-lo?",
+
+      "tempo": {
+        "preparacao": 3,
+        "leitura_biblica": 7,
+        "contexto": 7,
+        "exegese": 8,
+        "teologia": 8,
+        "contemplacao": 5,
+        "aplicacao": 5,
+        "oracao": 2
+      },
+
+      "preparacao": {
+        "titulo": "Antes de começar",
+        "instrucao": "Não tenha pressa. Este estudo não foi criado para ser apenas consumido. Ele foi criado para ser habitado. Separe um lugar tranquilo, diminua as distrações e entre conscientemente nesta experiência.",
+        "pergunta": "O que acontece dentro de mim quando considero que Deus não está distante, mas que sua presença já está diante de mim?"
+      },
+
+      "leitura_biblica": {
+        "referencias": [
+          "João 14:16–17",
+          "João 14:18",
+          "João 14:23",
+          "1 Coríntios 6:19",
+          "Romanos 8:9–11"
+        ],
+        "instrucao": "Leia lentamente os textos. Não procure imediatamente uma explicação. Primeiro observe as palavras, os verbos, as promessas e os relacionamentos apresentados no texto.",
+        "observacoes": [
+          "Jesus promete outro Consolador.",
+          "O Espírito permanece com os discípulos.",
+          "O Espírito estaria neles.",
+          "Jesus não descreve a presença como uma visita ocasional.",
+          "A presença do Espírito está relacionada à comunhão com Deus."
+        ]
+      },
+
+      "contexto_historico": {
+        "titulo": "Onde estamos na narrativa?",
+        "conteudo": "João 14 está inserido no discurso de despedida de Jesus aos seus discípulos. O contexto é marcado pela iminência da partida de Jesus, pela perplexidade dos discípulos e pela necessidade de compreender que a ausência física de Jesus não significaria abandono.",
+        "pontos": [
+          "Jesus está preparando os discípulos para sua partida.",
+          "A promessa do Consolador responde ao medo de abandono.",
+          "A presença do Espírito está ligada à continuidade da obra de Jesus.",
+          "O discurso apresenta a relação entre amor, obediência, presença e comunhão."
+        ],
+        "pergunta": "Por que a promessa do Espírito seria especialmente importante para discípulos que estavam prestes a experimentar a ausência física de Jesus?"
+      },
+
+      "contexto_literario": {
+        "titulo": "O lugar do texto no Evangelho de João",
+        "conteudo": "O Evangelho de João apresenta a identidade e a missão de Jesus por meio de sinais, discursos e testemunhos. João 14 pertence a uma seção em que Jesus prepara os discípulos para uma nova etapa da relação deles com ele.",
+        "conexoes": [
+          "João 1:32–34",
+          "João 3:5–8",
+          "João 7:37–39",
+          "João 14:15–27",
+          "João 15:26",
+          "João 16:7–15",
+          "João 20:21–22"
+        ]
+      },
+
+      "exegese": {
+        "titulo": "O que Jesus está dizendo?",
+
+        "pontos": [
+          {
+            "tema": "Outro Consolador",
+            "explicacao": "A promessa não aponta simplesmente para uma força impessoal. Jesus apresenta aquele que virá como alguém que continua a obra de cuidado, ensino, testemunho e presença junto aos discípulos."
+          },
+          {
+            "tema": "Para que esteja convosco para sempre",
+            "explicacao": "A linguagem enfatiza permanência. A promessa não é apresentada como uma experiência espiritual passageira, mas como uma presença duradoura."
+          },
+          {
+            "tema": "O Espírito da verdade",
+            "explicacao": "A presença do Espírito está ligada à verdade. Perceber sua presença não significa abandonar a Escritura em favor de qualquer impressão subjetiva. A presença deve ser discernida em relação à verdade revelada."
+          },
+          {
+            "tema": "Ele habita convosco",
+            "explicacao": "Jesus descreve uma realidade de proximidade. O Espírito não aparece apenas como aquele que realiza uma ação externa, mas como aquele cuja presença acompanha a comunidade dos discípulos."
+          },
+          {
+            "tema": "E estará em vós",
+            "explicacao": "A promessa aponta para uma dimensão interior da presença do Espírito. A vida cristã não é apresentada apenas como uma relação externa com Deus, mas como uma vida marcada pela habitação do Espírito."
+          }
+        ]
+      },
+
+      "palavras_chave": [
+        {
+          "termo": "Parakletos",
+          "idioma": "Grego",
+          "observacao": "Termo associado ao Consolador, Advogado, Auxiliador ou Aquele que é chamado para estar ao lado."
+        },
+        {
+          "termo": "Pneuma",
+          "idioma": "Grego",
+          "observacao": "Termo relacionado a espírito, vento ou sopro, cujo significado deve ser determinado pelo contexto."
+        },
+        {
+          "termo": "Meno",
+          "idioma": "Grego",
+          "observacao": "Verbo relacionado a permanecer, permanecer em, habitar ou continuar."
+        }
+      ],
+
+      "teologia": {
+        "titulo": "O que este texto revela sobre o Doce Espírito Santo?",
+
+        "pneumatologia": [
+          "O Espírito Santo é apresentado em relação pessoal com os discípulos.",
+          "Sua presença não é reduzida a uma emoção religiosa.",
+          "Sua obra está relacionada à verdade.",
+          "Sua presença está ligada à comunhão com Cristo.",
+          "Sua habitação transforma a compreensão da vida cristã."
+        ],
+
+        "trindade": "O texto deve ser lido dentro da revelação trinitária apresentada no Novo Testamento. O Pai, o Filho e o Espírito Santo não são apresentados como três deuses independentes, mas em relação inseparável na obra da salvação.",
+
+        "implicacao": "A presença do Espírito não é um acessório da vida cristã. Ela está relacionada ao próprio modo pelo qual o discípulo vive sua comunhão com Deus.",
+
+        "alerta_teologico": "Perceber a presença do Espírito não significa interpretar toda sensação, pensamento ou coincidência como uma mensagem divina. A experiência cristã precisa permanecer submetida à Escritura, ao caráter de Cristo, à sabedoria comunitária e ao discernimento."
+      },
+
+      "contemplacao_teologica": {
+        "titulo": "Pare e contemple",
+
+        "texto": "Se o Doce Espírito Santo está presente, talvez a pergunta não seja simplesmente 'onde Deus está?', mas 'o que tem ocupado minha atenção a ponto de eu não perceber aquilo que já está diante de mim?'",
+
+        "silencio": {
+          "duracao_segundos": 120,
+          "instrucao": "Permaneça em silêncio por dois minutos. Não tente produzir uma sensação espiritual. Apenas permaneça consciente diante de Deus."
+        },
+
+        "frases": [
+          "Ele já está aqui.",
+          "Eu não preciso fabricar a presença.",
+          "Preciso aprender a permanecer atento.",
+          "A presença não substitui a Palavra.",
+          "A Palavra me ensina a discernir a presença."
+        ]
+      },
+
+      "aplicacao": {
+        "titulo": "Leve para o cotidiano",
+
+        "praticas": [
+          {
+            "nome": "Pausa de presença",
+            "duracao": "3 minutos",
+            "instrucao": "Três vezes durante o dia, pare conscientemente. Observe o ambiente, seus pensamentos e suas emoções. Ore silenciosamente: 'Doce Espírito Santo, ensina-me a perceber tua presença e a responder à verdade.'"
+          },
+          {
+            "nome": "Presença antes da reação",
+            "duracao": "durante o dia",
+            "instrucao": "Antes de responder impulsivamente a uma situação difícil, faça uma pausa. Pergunte: 'Como a consciência da presença de Deus muda minha resposta agora?'"
+          },
+          {
+            "nome": "Presença e Palavra",
+            "duracao": "10 minutos",
+            "instrucao": "Leia novamente João 14:15–27 e observe todas as relações entre amor, obediência, presença, ensino e paz."
+          }
+        ]
+      },
+
+      "perguntas": [
+        "O que normalmente faz com que eu perca consciência da presença de Deus?",
+        "Tenho confundido emoção espiritual com presença de Deus?",
+        "Como a Escritura me ajuda a discernir a presença do Espírito?",
+        "O que muda na minha rotina quando considero que o Espírito está comigo?",
+        "Em quais ambientes tenho dificuldade de viver conscientemente diante de Deus?",
+        "Minha compreensão do Espírito Santo é pessoal, bíblica ou apenas emocional?",
+        "O que preciso aprender a perceber?"
+      ],
+
+      "conexoes_biblicas": [
+        {
+          "referencia": "Salmo 139:7–10",
+          "tema": "A presença de Deus"
+        },
+        {
+          "referencia": "Ezequiel 36:26–27",
+          "tema": "O Espírito e a transformação interior"
+        },
+        {
+          "referencia": "Romanos 8:9–16",
+          "tema": "A presença do Espírito no discípulo"
+        },
+        {
+          "referencia": "1 Coríntios 3:16",
+          "tema": "O povo de Deus como templo"
+        },
+        {
+          "referencia": "1 Coríntios 6:19–20",
+          "tema": "O corpo como templo do Espírito"
+        },
+        {
+          "referencia": "Efésios 1:13–14",
+          "tema": "O Espírito como selo e garantia"
+        }
+      ],
+
+      "bibliografia": {
+        "titulo": "Para aprofundar",
+
+        "observacao": "As referências abaixo devem ser verificadas conforme a edição utilizada antes de receberem indicação de páginas específicas.",
+
+        "categorias": [
+          {
+            "categoria": "Bíblia",
+            "referencias": [
+              "Evangelho segundo João",
+              "Romanos",
+              "1 Coríntios",
+              "Efésios"
+            ]
+          },
+          {
+            "categoria": "Teologia sistemática",
+            "referencias": [
+              "Estudos de pneumatologia cristã",
+              "Teologia trinitária",
+              "Doutrina do Espírito Santo"
+            ]
+          },
+          {
+            "categoria": "Comentário bíblico",
+            "referencias": [
+              "Comentários acadêmicos sobre o Evangelho de João",
+              "Comentários histórico-gramaticais sobre João 14"
+            ]
+          }
+        ]
+      },
+
+      "mapa_estudo": {
+        "id": "mapa-presenca-001",
+        "titulo": "A presença do Espírito Santo",
+
+        "raiz": "ESPÍRITO SANTO",
+
+        "ramificacoes": [
+          {
+            "titulo": "Pessoa",
+            "itens": [
+              "Consolador",
+              "Mestre",
+              "Testemunha",
+              "Guia"
+            ]
+          },
+          {
+            "titulo": "Presença",
+            "itens": [
+              "Com os discípulos",
+              "Nos discípulos",
+              "Comunhão",
+              "Habitação"
+            ]
+          },
+          {
+            "titulo": "Verdade",
+            "itens": [
+              "Palavra",
+              "Discernimento",
+              "Ensino",
+              "Testemunho"
+            ]
+          },
+          {
+            "titulo": "Transformação",
+            "itens": [
+              "Santificação",
+              "Fruto",
+              "Obediência",
+              "Caráter"
+            ]
+          }
+        ]
+      },
+
+      "plano_leitura": {
+        "titulo": "7 dias — Aprendendo a perceber",
+
+        "dias": [
+          {
+            "dia": 1,
+            "referencia": "João 14:16–17",
+            "tema": "A presença prometida"
+          },
+          {
+            "dia": 2,
+            "referencia": "João 14:18–23",
+            "tema": "Não vos deixarei órfãos"
+          },
+          {
+            "dia": 3,
+            "referencia": "João 15:26–27",
+            "tema": "O Espírito que testemunha"
+          },
+          {
+            "dia": 4,
+            "referencia": "João 16:7–15",
+            "tema": "O Espírito que guia na verdade"
+          },
+          {
+            "dia": 5,
+            "referencia": "Romanos 8:9–16",
+            "tema": "O Espírito que habita"
+          },
+          {
+            "dia": 6,
+            "referencia": "1 Coríntios 6:19–20",
+            "tema": "Templo do Espírito"
+          },
+          {
+            "dia": 7,
+            "referencia": "Efésios 1:13–14",
+            "tema": "O Espírito como selo"
+          }
+        ]
+      },
+
+      "continuar_aprofundando": [
+        {
+          "tipo": "estudo",
+          "titulo": "Quem é o Espírito Santo?",
+          "id": "estudo-pneumatologia-001"
+        },
+        {
+          "tipo": "mapa",
+          "titulo": "O Espírito Santo nas Escrituras",
+          "id": "mapa-espirito-santo-001"
+        },
+        {
+          "tipo": "biblia",
+          "titulo": "João 14",
+          "referencia": "João 14"
+        },
+        {
+          "tipo": "plano",
+          "titulo": "7 dias — Aprendendo a perceber",
+          "id": "plano-presenca-007"
+        }
+      ],
+
+      "oracao": {
+        "titulo": "Oração de encerramento",
+        "texto": "Doce Espírito Santo, eu não quero apenas falar sobre a tua presença. Quero aprender a viver conscientemente diante dela. Ensina-me a reconhecer a verdade, a discernir aquilo que vem de ti e a permanecer em comunhão com o Eterno. Que minha percepção não seja governada apenas pelas minhas emoções, mas formada pela Palavra, pelo caráter de Cristo e pela tua presença em minha vida. Faz-me atento, ensinável e obediente. Amém."
+      },
+
+      "diario": {
+        "perguntas": [
+          "O que mais me chamou atenção neste estudo?",
+          "Que aspecto da presença do Espírito Santo eu compreendi de maneira diferente?",
+          "Onde preciso aprender a permanecer atento?",
+          "Existe alguma área da minha vida em que tenho vivido como se Deus estivesse distante?",
+          "O que quero levar comigo para as próximas 24 horas?"
+        ]
+      },
+
+      "audio": {
+        "oracao": {
+          "disponivel": false,
+          "arquivo": null
+        },
+        "estudo_completo": {
+          "disponivel": false,
+          "arquivo": null
+        }
+      }
+    },
+
+
+    {
+      "id": "estudo-002",
+      "dia": 2,
+      "slug": "nao-vos-deixarei-orfaos",
+      "categoria": "Presença",
+      "nivel": "profundo",
+      "tempo_estimado_minutos": 40,
+
+      "titulo": "Não vos deixarei órfãos",
+      "subtitulo": "A presença que responde ao medo do abandono",
+
+      "texto_principal": {
+        "referencia": "João 14:18–23",
+        "tema": "A promessa de Jesus de não abandonar seus discípulos"
+      },
+
+      "objetivo": "Investigar a promessa de Jesus em seu contexto e compreender a relação entre presença, amor, obediência e comunhão.",
+
+      "pergunta_central": "Como a certeza da presença de Deus confronta a experiência humana de abandono?",
+
+      "leitura_biblica": {
+        "referencias": [
+          "João 14:18–23",
+          "Salmo 27:10",
+          "Isaías 43:1–2",
+          "Hebreus 13:5"
+        ],
+        "instrucao": "Leia cada passagem lentamente e observe como a Escritura responde ao medo de abandono."
+      },
+
+      "contexto_historico": {
+        "titulo": "Uma promessa em meio à despedida",
+        "conteudo": "Os discípulos estavam diante da perspectiva da partida de Jesus. A linguagem de abandono precisa ser entendida nesse cenário de incerteza, perda e transformação."
+      },
+
+      "exegese": {
+        "titulo": "A promessa de Jesus",
+
+        "pontos": [
+          {
+            "tema": "Não vos deixarei órfãos",
+            "explicacao": "A promessa responde diretamente à possibilidade de os discípulos interpretarem a partida de Jesus como abandono."
+          },
+          {
+            "tema": "Voltarei para vós",
+            "explicacao": "A declaração participa da estrutura maior do discurso de despedida e deve ser interpretada em relação à morte, ressurreição, presença e ação do Espírito."
+          },
+          {
+            "tema": "Aquele que tem os meus mandamentos e os guarda",
+            "explicacao": "João conecta amor e obediência. A experiência da presença não é separada de uma vida orientada pela palavra de Cristo."
+          }
+        ]
+      },
+
+      "teologia": {
+        "titulo": "Presença, amor e obediência",
+        "pontos": [
+          "A presença de Deus não é uma promessa de ausência de sofrimento.",
+          "A presença divina não elimina automaticamente a sensação humana de abandono.",
+          "A fé aprende a interpretar a experiência à luz da promessa.",
+          "Amor e obediência aparecem conectados na linguagem de Jesus.",
+          "A presença do Espírito não transforma o discípulo em alguém passivo, mas em alguém formado."
+        ]
+      },
+
+      "contemplacao_teologica": {
+        "titulo": "Quando você se sente sozinho",
+        "texto": "Existe uma diferença entre estar sozinho e interpretar a solidão como abandono absoluto. A fé cristã não nega a dor da solidão, mas apresenta uma realidade maior: o discípulo não está abandonado por Deus.",
+        "silencio": {
+          "duracao_segundos": 180,
+          "instrucao": "Permaneça em silêncio por três minutos. Não tente expulsar seus pensamentos. Apenas reconheça sua realidade diante de Deus."
+        }
+      },
+
+      "aplicacao": {
+        "titulo": "Prática",
+        "praticas": [
+          {
+            "nome": "Nomeie o medo",
+            "instrucao": "Escreva uma situação em que você tem interpretado silêncio, distância ou dificuldade como abandono."
+          },
+          {
+            "nome": "Responda com a Escritura",
+            "instrucao": "Leia João 14:18 lentamente três vezes."
+          },
+          {
+            "nome": "Pratique permanência",
+            "instrucao": "Durante cinco minutos, permaneça diante de Deus sem pedir nada. Apenas reconheça sua presença."
+          }
+        ]
+      },
+
+      "perguntas": [
+        "Quando me sinto sozinho, qual história conto para mim mesmo?",
+        "Minha experiência emocional determina minha compreensão de Deus?",
+        "O que João 14 corrige na minha maneira de interpretar abandono?",
+        "Como amor e obediência estão relacionados?"
+      ],
+
+      "conexoes_biblicas": [
+        "Salmo 27:10",
+        "Isaías 43:1–2",
+        "Mateus 28:20",
+        "Hebreus 13:5",
+        "Romanos 8:31–39"
+      ],
+
+      "bibliografia": {
+        "titulo": "Para aprofundar",
+        "referencias": [
+          "Evangelho segundo João — comentários histórico-gramaticais",
+          "Estudos sobre o discurso de despedida de João 13–17",
+          "Teologia da presença de Deus no Antigo e Novo Testamento"
+        ]
+      },
+
+      "mapa_estudo": {
+        "id": "mapa-abandono-presenca-001",
+        "titulo": "Abandono → Promessa → Presença",
+        "ramificacoes": [
+          "Medo",
+          "Promessa",
+          "Presença",
+          "Amor",
+          "Obediência",
+          "Comunhão"
+        ]
+      },
+
+      "plano_leitura": {
+        "titulo": "Presença em meio à solidão",
+        "dias": [
+          {
+            "dia": 1,
+            "referencia": "João 14:18",
+            "tema": "Não vos deixarei órfãos"
+          },
+          {
+            "dia": 2,
+            "referencia": "Salmo 27:10",
+            "tema": "Quando pai e mãe abandonarem"
+          },
+          {
+            "dia": 3,
+            "referencia": "Isaías 43:1–2",
+            "tema": "Quando passares pelas águas"
+          },
+          {
+            "dia": 4,
+            "referencia": "Mateus 28:20",
+            "tema": "Estou convosco"
+          },
+          {
+            "dia": 5,
+            "referencia": "Romanos 8:38–39",
+            "tema": "Nada poderá nos separar"
+          }
+        ]
+      },
+
+      "oracao": {
+        "titulo": "Oração",
+        "texto": "Doce Espírito Santo, ensina-me a não interpretar meus sentimentos como a medida final da presença do Eterno. Quando eu me sentir sozinho, lembra-me da promessa de Cristo. Forma em mim uma fé que permanece mesmo quando não sinto aquilo que gostaria de sentir. Conduze-me à verdade, ao amor e à obediência. Amém."
+      },
+
+      "diario": {
+        "perguntas": [
+          "Onde tenho sentido abandono?",
+          "O que a promessa de Jesus confronta em mim?",
+          "Como posso praticar permanência hoje?"
+        ]
+      },
+
+      "audio": {
+        "oracao": {
+          "disponivel": false,
+          "arquivo": null
+        },
+        "estudo_completo": {
+          "disponivel": false,
+          "arquivo": null
+        }
+      }
+    },
+
+
+    {
+      "id": "estudo-003",
+      "dia": 3,
+      "slug": "o-espirito-que-testemunha",
+      "categoria": "Testemunho",
+      "nivel": "profundo",
+      "tempo_estimado_minutos": 40,
+
+      "titulo": "O Espírito que testemunha",
+      "subtitulo": "Verdade, testemunho e formação espiritual",
+
+      "texto_principal": {
+        "referencia": "João 15:26–27",
+        "tema": "O testemunho do Espírito acerca de Cristo"
+      },
+
+      "objetivo": "Compreender a relação entre o Espírito Santo, o testemunho acerca de Cristo e a missão dos discípulos.",
+
+      "pergunta_central": "Como o Espírito Santo forma em nós um testemunho coerente com Cristo?",
+
+      "leitura_biblica": {
+        "referencias": [
+          "João 15:26–27",
+          "João 16:13–14",
+          "Atos 1:8",
+          "1 João 5:6–8"
+        ]
+      },
+
+      "contexto_historico": {
+        "titulo": "Testemunho em um mundo resistente",
+        "conteudo": "João 15 apresenta os discípulos diante de oposição e rejeição. Nesse contexto, Jesus apresenta o testemunho do Espírito e dos próprios discípulos."
+      },
+
+      "exegese": {
+        "titulo": "O Espírito testemunha sobre Cristo",
+        "pontos": [
+          {
+            "tema": "O Consolador vem do Pai",
+            "explicacao": "O testemunho do Espírito está inserido na relação entre Pai, Filho e Espírito."
+          },
+          {
+            "tema": "Ele testemunhará de mim",
+            "explicacao": "A direção do testemunho é cristocêntrica. O Espírito glorifica e testemunha acerca de Cristo."
+          },
+          {
+            "tema": "Vós também testemunhareis",
+            "explicacao": "A ação do Espírito não elimina a responsabilidade humana. O discípulo participa da missão."
+          }
+        ]
+      },
+
+      "teologia": {
+        "titulo": "Espírito e missão",
+        "pontos": [
+          "O Espírito não desloca Cristo para o segundo plano.",
+          "O testemunho do Espírito é cristocêntrico.",
+          "A missão cristã acontece em dependência do Espírito.",
+          "Vida espiritual e testemunho público não devem ser separados."
+        ]
+      },
+
+      "contemplacao_teologica": {
+        "titulo": "Meu testemunho aponta para quem?",
+        "texto": "Uma espiritualidade genuinamente cristã não transforma a experiência espiritual em espetáculo pessoal. O Espírito testemunha de Cristo. Portanto, quanto mais madura a espiritualidade, mais Cristo ocupa o centro.",
+        "silencio": {
+          "duracao_segundos": 120,
+          "instrucao": "Permaneça em silêncio e pergunte: 'Minha vida aponta para Cristo ou para mim?'"
+        }
+      },
+
+      "aplicacao": {
+        "titulo": "Viver como testemunha",
+        "praticas": [
+          {
+            "nome": "Testemunho silencioso",
+            "instrucao": "Escolha hoje uma atitude concreta de caráter cristão que você normalmente não teria sem consciência da presença de Deus."
+          },
+          {
+            "nome": "Testemunho verbal",
+            "instrucao": "Escreva em poucas linhas o que Cristo significa para você sem usar linguagem religiosa automática."
+          }
+        ]
+      },
+
+      "perguntas": [
+        "Minha espiritualidade torna Cristo mais visível?",
+        "Tenho confundido manifestação espiritual com maturidade espiritual?",
+        "Como o Espírito participa da missão?",
+        "Meu caráter confirma meu discurso?"
+      ],
+
+      "conexoes_biblicas": [
+        "Atos 1:8",
+        "Atos 4:31",
+        "Gálatas 5:22–23",
+        "1 Pedro 3:15–16",
+        "João 16:13–14"
+      ],
+
+      "bibliografia": {
+        "titulo": "Para aprofundar",
+        "referencias": [
+          "Comentários sobre João 15–16",
+          "Estudos sobre pneumatologia e missão",
+          "Teologia bíblica do testemunho no Novo Testamento"
+        ]
+      },
+
+      "mapa_estudo": {
+        "id": "mapa-testemunho-001",
+        "titulo": "Espírito → Cristo → Testemunho → Missão",
+        "ramificacoes": [
+          "Presença",
+          "Verdade",
+          "Cristo",
+          "Testemunho",
+          "Missão",
+          "Caráter"
+        ]
+      },
+
+      "plano_leitura": {
+        "titulo": "7 dias de testemunho",
+        "dias": [
+          {
+            "dia": 1,
+            "referencia": "João 15:26–27",
+            "tema": "O Espírito testemunha"
+          },
+          {
+            "dia": 2,
+            "referencia": "João 16:13–14",
+            "tema": "O Espírito glorifica Cristo"
+          },
+          {
+            "dia": 3,
+            "referencia": "Atos 1:8",
+            "tema": "Poder para testemunhar"
+          },
+          {
+            "dia": 4,
+            "referencia": "Atos 4:31",
+            "tema": "Coragem para anunciar"
+          },
+          {
+            "dia": 5,
+            "referencia": "Gálatas 5:22–23",
+            "tema": "O testemunho do caráter"
+          },
+          {
+            "dia": 6,
+            "referencia": "1 Pedro 3:15–16",
+            "tema": "Responder com mansidão"
+          },
+          {
+            "dia": 7,
+            "referencia": "Mateus 5:14–16",
+            "tema": "Uma vida que aponta para Deus"
+          }
+        ]
+      },
+
+      "oracao": {
+        "titulo": "Oração",
+        "texto": "Doce Espírito Santo, forma em mim um testemunho que aponte para Cristo. Livra-me de transformar a vida espiritual em autopromoção. Ensina-me a viver a verdade, a amar, a servir e a testemunhar com humildade. Que minhas palavras e meu caráter estejam cada vez mais alinhados com Jesus. Amém."
+      },
+
+      "diario": {
+        "perguntas": [
+          "O que minha vida comunica sobre Cristo?",
+          "Meu caráter confirma minhas palavras?",
+          "Onde preciso amadurecer antes de querer ensinar outros?"
+        ]
+      },
+
+      "audio": {
+        "oracao": {
+          "disponivel": false,
+          "arquivo": null
+        },
+        "estudo_completo": {
+          "disponivel": false,
+          "arquivo": null
+        }
+      }
+    }
+  ]
+}
