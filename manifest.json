@@ -1,9 +1,79 @@
 {
   "name": "Doce Espírito Santo — Um Amigo Íntimo",
   "short_name": "Doce Espírito Santo",
-  "start_url": "./",
+  "description": "Uma jornada de 365 dias para aprender a perceber a presença do Doce Espírito Santo.",
+  "lang": "pt-BR",
+  "dir": "ltr",
+
+  "start_url": "./?source=pwa",
+  "scope": "./",
+
   "display": "standalone",
-  "background_color": "#120b08",
-  "theme_color": "#160d09",
-  "lang": "pt-BR"
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+
+  "orientation": "portrait",
+
+  "background_color": "#080706",
+  "theme_color": "#0A0806",
+
+  "categories": [
+    "books",
+    "education",
+    "lifestyle"
+  ],
+
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Devocional de hoje",
+      "short_name": "Hoje",
+      "description": "Abrir o encontro de hoje",
+      "url": "./?screen=hoje",
+      "icons": [
+        {
+          "src": "./icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Minha jornada",
+      "short_name": "Jornada",
+      "description": "Continuar os 365 dias",
+      "url": "./?screen=jornada",
+      "icons": [
+        {
+          "src": "./icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Estudos teológicos",
+      "short_name": "Estudos",
+      "description": "Aprofundar os temas da jornada",
+      "url": "./?screen=estudos",
+      "icons": [
+        {
+          "src": "./icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
 }
