@@ -1,408 +1,540 @@
-// ============================================================
-// DOCE ESPÍRITO SANTO — UM AMIGO ÍNTIMO
-// MOTOR EDITORIAL — VERSÃO 2.0
-// ============================================================
+/* =========================================================
+   DOCE ESPÍRITO SANTO — UM AMIGO ÍNTIMO
+   MOTOR EDITORIAL
+   =========================================================
+   
+   Função:
+   - Organizar a experiência de conteúdo
+   - Conectar devocional + estudo + Bíblia + mapa + plano
+   - Preparar a experiência de aprofundamento
+   - Criar uma camada editorial independente do visual
+   ========================================================= */
 
-window.MOTOR_EDITORIAL = {
+(() => {
+  "use strict";
 
-  versao: "2.0",
-
-  projeto: {
+  const EDITORIAL = {
     nome: "Doce Espírito Santo",
     subtitulo: "Um Amigo Íntimo",
-    dias: 365,
 
-    duracaoMinimaMinutos: 40,
-    duracaoIdealMinutos: 50,
-
-    terminologia: {
-      espiritoSanto: "Doce Espírito Santo",
-      deus: "o Eterno"
-    }
-  },
-
-  // ==========================================================
-  // ORDEM DA JORNADA
-  // ==========================================================
-
-  principioBiblico: {
-
-    ordem:
-      "Antigo Testamento → Livros Poéticos → Profetas → Evangelhos → Atos → Cartas → Apocalipse",
-
-    regra:
-      "A jornada deve respeitar a progressão histórica e teológica das Escrituras, apresentando primeiro o contexto do Antigo Testamento e avançando progressivamente para a revelação do Novo Testamento.",
-
-    conexoes:
-      "Quando houver relação entre uma passagem do Antigo Testamento e o Novo Testamento, apresentar primeiro o contexto original da passagem e depois explicar a conexão.",
-
-    cuidado:
-      "Não criar conexões artificiais. Toda aplicação deve respeitar o contexto bíblico."
-  },
-
-  // ==========================================================
-  // 12 ETAPAS DA JORNADA
-  // ==========================================================
-
-  fases: [
-
-    {
-      id: 1,
-      nome: "Perceber",
-      inicio: 1,
-      fim: 30,
-      objetivo: "Aprender a reconhecer a presença."
+    manifesto: {
+      principal: "Aprenda a percebê-lo.",
+      apoio: "Ele já está aqui.",
+      descricao:
+        "Uma jornada de 365 dias para desenvolver presença, Palavra, oração, jejum, contemplação e intimidade com o Doce Espírito Santo."
     },
 
-    {
-      id: 2,
-      nome: "Aprofundar",
-      inicio: 31,
-      fim: 60,
-      objetivo: "Ir além da superfície."
+    experiencia: {
+      principio:
+        "Netflix na experiência; Doce Espírito Santo na identidade.",
+
+      descoberta:
+        "O usuário deve sentir que está entrando em uma biblioteca viva de conteúdo espiritual.",
+
+      profundidade:
+        "Cada tema deve poder ser contemplado, estudado, praticado e aprofundado.",
+
+      continuidade:
+        "Cada conteúdo deve conduzir naturalmente ao próximo passo."
     },
 
-    {
-      id: 3,
-      nome: "Ser Transformado",
-      inicio: 61,
-      fim: 90,
-      objetivo: "Permitir que a presença transforme o interior."
+    camadas: [
+      {
+        id: "devocional",
+        nome: "Devocional",
+        descricao:
+          "A experiência diária de presença, Palavra, reflexão, prática e oração."
+      },
+
+      {
+        id: "biblia",
+        nome: "Bíblia",
+        descricao:
+          "Leitura das Escrituras relacionada ao tema do dia."
+      },
+
+      {
+        id: "estudo",
+        nome: "Estudo",
+        descricao:
+          "Aprofundamento bíblico, histórico, exegético e teológico."
+      },
+
+      {
+        id: "mapa",
+        nome: "Mapa",
+        descricao:
+          "Organização visual das conexões entre conceitos e textos."
+      },
+
+      {
+        id: "plano",
+        nome: "Plano",
+        descricao:
+          "Sequências de leitura e aprofundamento."
+      },
+
+      {
+        id: "oracao",
+        nome: "Oração",
+        descricao:
+          "Momento de resposta, contemplação e comunhão."
+      },
+
+      {
+        id: "diario",
+        nome: "Diário",
+        descricao:
+          "Registro pessoal da experiência da jornada."
+      }
+    ],
+
+    categorias: [
+      "Presença",
+      "Oração",
+      "Palavra",
+      "Jejum",
+      "Contemplação",
+      "Intimidade",
+      "Discernimento",
+      "Santificação",
+      "Caráter",
+      "Fruto",
+      "Obediência",
+      "Comunhão",
+      "Missão",
+      "Testemunho",
+      "Adoração",
+      "Vida diária"
+    ],
+
+    trilhas: [
+      {
+        id: "presenca",
+        nome: "Aprenda a percebê-lo",
+        descricao:
+          "Uma trilha para desenvolver atenção espiritual e consciência da presença do Doce Espírito Santo.",
+        categoria: "Presença"
+      },
+
+      {
+        id: "oracao",
+        nome: "Uma vida de oração",
+        descricao:
+          "Da oração mecânica à comunhão consciente.",
+        categoria: "Oração"
+      },
+
+      {
+        id: "palavra",
+        nome: "A Palavra e a presença",
+        descricao:
+          "Aprender a ler a Escritura com reverência, contexto e aplicação.",
+        categoria: "Palavra"
+      },
+
+      {
+        id: "intimidade",
+        nome: "Um Amigo Íntimo",
+        descricao:
+          "Uma jornada sobre relacionamento, comunhão e maturidade espiritual.",
+        categoria: "Intimidade"
+      },
+
+      {
+        id: "transformacao",
+        nome: "Presença que transforma",
+        descricao:
+          "O Espírito Santo formando caráter, fruto e maturidade.",
+        categoria: "Santificação"
+      }
+    ],
+
+    /* =====================================================
+       ESTRUTURA DE CADA EXPERIÊNCIA
+       ===================================================== */
+
+    experienciaDiaria: [
+      {
+        ordem: 1,
+        id: "chegada",
+        titulo: "Chegue",
+        descricao:
+          "Diminua o ritmo e perceba onde você está."
+      },
+
+      {
+        ordem: 2,
+        id: "palavra",
+        titulo: "Leia",
+        descricao:
+          "Entre no texto bíblico antes de entrar na opinião."
+      },
+
+      {
+        ordem: 3,
+        id: "compreenda",
+        titulo: "Compreenda",
+        descricao:
+          "Observe contexto, palavras, estrutura e sentido."
+      },
+
+      {
+        ordem: 4,
+        id: "contemple",
+        titulo: "Contemple",
+        descricao:
+          "Permita que a verdade alcance a vida."
+      },
+
+      {
+        ordem: 5,
+        id: "pratique",
+        titulo: "Pratique",
+        descricao:
+          "Transforme compreensão em uma atitude concreta."
+      },
+
+      {
+        ordem: 6,
+        id: "ore",
+        titulo: "Ore",
+        descricao:
+          "Responda ao que foi percebido."
+      },
+
+      {
+        ordem: 7,
+        id: "registre",
+        titulo: "Registre",
+        descricao:
+          "Escreva o que você percebeu."
+      }
+    ],
+
+    /* =====================================================
+       TEMPO DE EXPERIÊNCIA
+       ===================================================== */
+
+    tempos: {
+      rapido: {
+        minimo: 10,
+        maximo: 20,
+        nome: "Encontro breve"
+      },
+
+      completo: {
+        minimo: 30,
+        maximo: 45,
+        nome: "Experiência completa"
+      },
+
+      profundo: {
+        minimo: 45,
+        maximo: 75,
+        nome: "Imersão profunda"
+      },
+
+      estudo: {
+        minimo: 40,
+        maximo: 90,
+        nome: "Estudo aprofundado"
+      }
     },
 
-    {
-      id: 4,
-      nome: "Orar",
-      inicio: 91,
-      fim: 120,
-      objetivo: "Aprender a conversar com o Eterno."
+    /* =====================================================
+       COMANDOS EDITORIAIS
+       ===================================================== */
+
+    comandos: {
+
+      "/estudo": {
+        titulo: "Estudo",
+        descricao:
+          "Aprofunde o tema com contexto, exegese e teologia."
+      },
+
+      "/mapa": {
+        titulo: "Mapa",
+        descricao:
+          "Visualize as conexões do tema."
+      },
+
+      "/bíblia": {
+        titulo: "Bíblia",
+        descricao:
+          "Explore os textos relacionados."
+      },
+
+      "/plano": {
+        titulo: "Plano",
+        descricao:
+          "Continue através de uma sequência de leitura."
+      },
+
+      "/oração": {
+        titulo: "Oração",
+        descricao:
+          "Entre no momento de oração."
+      },
+
+      "/referências": {
+        titulo: "Referências",
+        descricao:
+          "Veja as referências utilizadas no aprofundamento."
+      },
+
+      "/diário": {
+        titulo: "Diário",
+        descricao:
+          "Registre sua experiência."
+      },
+
+      "/hoje": {
+        titulo: "Hoje",
+        descricao:
+          "Volte para o encontro do dia."
+      }
     },
 
-    {
-      id: 5,
-      nome: "Ouvir",
-      inicio: 121,
-      fim: 150,
-      objetivo: "Desenvolver silêncio, percepção e discernimento."
-    },
+    /* =====================================================
+       ORDEM DE APROFUNDAMENTO
+       ===================================================== */
 
-    {
-      id: 6,
-      nome: "Palavra",
-      inicio: 151,
-      fim: 180,
-      objetivo: "Aprender a permanecer nas Escrituras."
-    },
+    aprofundamento: [
+      "Bíblia",
+      "Contexto",
+      "Exegese",
+      "Teologia",
+      "Contemplação",
+      "Aplicação",
+      "Oração",
+      "Diário"
+    ],
 
-    {
-      id: 7,
-      nome: "Jesus",
-      inicio: 181,
-      fim: 220,
-      objetivo: "Reconhecer Cristo como centro da caminhada."
-    },
+    /* =====================================================
+       PRINCÍPIOS TEOLÓGICOS
+       ===================================================== */
 
-    {
-      id: 8,
-      nome: "Direção",
-      inicio: 221,
-      fim: 250,
-      objetivo: "Aprender a caminhar com discernimento."
-    },
+    principios: [
 
-    {
-      id: 9,
-      nome: "Fruto",
-      inicio: 251,
-      fim: 290,
-      objetivo: "Permitir que o interior apareça no exterior."
-    },
+      "A Escritura é a referência fundamental para o conteúdo bíblico.",
 
-    {
-      id: 10,
-      nome: "Servir",
-      inicio: 291,
-      fim: 320,
-      objetivo: "Transformar presença em serviço."
-    },
+      "A experiência espiritual não deve substituir a Palavra.",
 
-    {
-      id: 11,
-      nome: "Testemunhar",
-      inicio: 321,
-      fim: 345,
-      objetivo: "Compartilhar aquilo que foi vivido."
-    },
+      "A contemplação deve conduzir à verdade, não à mera sensação.",
 
-    {
-      id: 12,
-      nome: "Permanecer",
-      inicio: 346,
-      fim: 365,
-      objetivo: "Continuar quando a jornada já virou vida."
-    }
+      "A oração é resposta àquilo que foi compreendido e contemplado.",
 
-  ],
+      "O estudo deve respeitar contexto histórico, literário e linguístico.",
 
-  // ==========================================================
-  // ESTRUTURA DE UM DIA
-  // ==========================================================
+      "A aplicação deve conectar a verdade bíblica à vida cotidiana.",
 
-  estruturaDoDia: [
+      "O conteúdo deve apresentar Cristo e o Evangelho quando o texto e o tema permitirem.",
 
-    "identificacao",
+      "O Doce Espírito Santo deve ser tratado como Pessoa divina, não como uma força impessoal.",
 
-    "leituraBiblica",
+      "A linguagem deve ser profunda sem se tornar artificialmente acadêmica.",
 
-    "contextoHistorico",
+      "A experiência deve formar maturidade, caráter, discernimento e comunhão."
+    ],
 
-    "contextoLiterario",
+    /* =====================================================
+       IDENTIDADE DE LINGUAGEM
+       ===================================================== */
 
-    "contextoTeologico",
+    linguagem: {
 
-    "estudoBiblico",
+      nomeEspírito:
+        "Doce Espírito Santo",
 
-    "conexoesBiblicas",
+      nomeDeus:
+        "o Eterno",
 
-    "reflexaoProfunda",
-
-    "perguntas",
-
-    "aplicacaoPratica",
-
-    "praticaEspiritual",
-
-    "momentoDeSilencio",
-
-    "oracao",
-
-    "audio",
-
-    "diario",
-
-    "encerramento",
-
-    "continuidade"
-
-  ],
-
-  // ==========================================================
-  // TEMPO MÍNIMO
-  // ==========================================================
-
-  experiencia: {
-
-    leituraBiblica: {
-      minimo: 5,
-      maximo: 8
-    },
-
-    contexto: {
-      minimo: 5,
-      maximo: 7
-    },
-
-    estudoBiblico: {
-      minimo: 15,
-      maximo: 20
-    },
-
-    reflexao: {
-      minimo: 5,
-      maximo: 7
-    },
-
-    aplicacao: {
-      minimo: 3,
-      maximo: 5
-    },
-
-    silencio: {
-      minimo: 3,
-      maximo: 10
-    },
-
-    oracao: {
-      minimo: 5,
-      maximo: 8
-    },
-
-    diario: {
-      minimo: 2,
-      maximo: 5
-    }
-
-  },
-
-  // ==========================================================
-  // ÁUDIO
-  // ==========================================================
-
-  audio: {
-
-    habilitado: true,
-
-    voz: {
-
-      genero: "masculina",
-
-      tonalidade: "grave",
-
-      estilo: "natural",
-
-      personalidade:
-        "madura, serena, acolhedora e contemplativa",
-
-      interpretacao:
-        "humana, pausada e expressiva",
+      tom: [
+        "acolhedor",
+        "profundo",
+        "contemplativo",
+        "teológico",
+        "bíblico",
+        "humano",
+        "elegante"
+      ],
 
       evitar: [
-        "voz robótica",
-        "entonação artificial",
-        "leitura acelerada",
-        "voz publicitária",
-        "excesso de dramatização"
-      ]
+        "religiosês excessivo",
+        "frases genéricas",
+        "promessas sem fundamento bíblico",
+        "sensacionalismo espiritual",
+        "linguagem manipulativa",
+        "experiências apresentadas como doutrina"
+      ],
 
+      buscar: [
+        "clareza",
+        "profundidade",
+        "beleza",
+        "reverência",
+        "contexto",
+        "aplicação",
+        "contemplação"
+      ]
     },
 
-    controles: [
-      "play",
-      "pause",
-      "continuar",
-      "reiniciar",
-      "velocidade",
-      "progresso"
-    ]
+    /* =====================================================
+       EXPERIÊNCIA DO USUÁRIO
+       ===================================================== */
 
-  },
+    ux: {
 
-  // ==========================================================
-  // SILÊNCIO
-  // ==========================================================
+      inicio: {
+        prioridade: [
+          "Devocional de hoje",
+          "Continuar jornada",
+          "Práticas de presença",
+          "Estudos teológicos",
+          "365 dias",
+          "Planos",
+          "Áudio"
+        ]
+      },
 
-  silencio: {
+      hoje: {
+        prioridade: [
+          "Texto bíblico",
+          "Reflexão",
+          "Prática",
+          "Oração",
+          "Aprofundamento"
+        ]
+      },
 
-    habilitado: true,
+      estudo: {
+        prioridade: [
+          "Objetivo",
+          "Texto bíblico",
+          "Contexto",
+          "Exegese",
+          "Teologia",
+          "Contemplação",
+          "Aplicação",
+          "Oração",
+          "Bibliografia"
+        ]
+      }
+    }
+  };
 
-    duracoes: [3, 5, 10],
+  /* =========================================================
+     FUNÇÕES
+     ========================================================= */
 
-    mensagem:
-      "Agora, não tente produzir uma experiência. Permaneça. Leia novamente. Perceba. Silencie por alguns instantes."
-  },
-
-  // ==========================================================
-  // DIÁRIO
-  // ==========================================================
-
-  diario: {
-
-    habilitado: true,
-
-    salvarPorDia: true,
-
-    campos: [
-      "percepcao",
-      "reflexao",
-      "aprendizado",
-      "aplicacao",
-      "anotacaoLivre"
-    ]
-
-  },
-
-  // ==========================================================
-  // PROGRESSO
-  // ==========================================================
-
-  progresso: {
-
-    registrarDiaConcluido: true,
-
-    registrarUltimoDia: true,
-
-    registrarFaseAtual: true,
-
-    registrarFavoritos: true,
-
-    registrarDiario: true,
-
-    percentual:
-      "dias concluídos / 365 * 100"
-
-  },
-
-  // ==========================================================
-  // REGRAS EDITORIAIS
-  // ==========================================================
-
-  qualidade: {
-
-    evitarConteudoSuperficial: true,
-
-    evitarRepeticao: true,
-
-    evitarVersiculosForaDoContexto: true,
-
-    evitarFrasesGenericas: true,
-
-    evitarOracoesIdenticas: true,
-
-    evitarPerguntasIdenticas: true,
-
-    exigirFundamentacaoBiblica: true,
-
-    exigirContextoBiblico: true,
-
-    exigirAplicacaoPratica: true,
-
-    diferenciarTextoInterpretacaoAplicacao: true,
-
-    regraCentral:
-      "Nenhum dia deve existir apenas para preencher espaço. Cada devocional precisa possuir fundamento bíblico, contexto, interpretação responsável, reflexão, aplicação, oração e continuidade dentro da jornada."
-
+  function obterTrilha(id) {
+    return EDITORIAL.trilhas.find(
+      trilha => trilha.id === id
+    );
   }
 
-};
+  function obterCamada(id) {
+    return EDITORIAL.camadas.find(
+      camada => camada.id === id
+    );
+  }
 
+  function obterComando(comando) {
+    return EDITORIAL.comandos[comando];
+  }
 
-// ============================================================
-// FUNÇÕES DO MOTOR
-// ============================================================
+  function obterCategoria(nome) {
+    return EDITORIAL.categorias.includes(nome);
+  }
 
-window.encontrarFase = function(dia) {
+  function obterEstruturaDiaria() {
+    return EDITORIAL.experienciaDiaria;
+  }
 
-  return window.MOTOR_EDITORIAL.fases.find(
+  function obterAprofundamento() {
+    return EDITORIAL.aprofundamento;
+  }
 
-    fase =>
-      dia >= fase.inicio &&
-      dia <= fase.fim
+  function obterTempo(tipo) {
+    return EDITORIAL.tempos[tipo];
+  }
 
-  );
+  function montarContextoDevocional(devocional, estudo) {
 
-};
+    return {
+      dia: devocional?.dia || estudo?.dia || null,
 
+      titulo:
+        devocional?.titulo ||
+        estudo?.titulo ||
+        "",
 
-window.obterInformacoesDoDia = function(dia) {
+      referencia:
+        devocional?.referencia ||
+        estudo?.texto_principal?.referencia ||
+        "",
 
-  const fase = window.encontrarFase(dia);
+      categoria:
+        estudo?.categoria ||
+        "Jornada",
 
-  if (!fase) return null;
+      estudo: estudo || null,
 
-  return {
+      devocional: devocional || null,
 
-    dia: dia,
+      aprofundamentos: [
+        {
+          tipo: "biblia",
+          titulo: "Abrir na Bíblia"
+        },
 
-    fase: fase.nome,
+        {
+          tipo: "estudo",
+          titulo: "Aprofundar no estudo"
+        },
 
-    objetivo: fase.objetivo,
+        {
+          tipo: "mapa",
+          titulo: "Ver mapa"
+        },
 
-    duracaoMinima:
-      window.MOTOR_EDITORIAL.projeto.duracaoMinimaMinutos,
+        {
+          tipo: "plano",
+          titulo: "Continuar plano"
+        },
 
-    duracaoIdeal:
-      window.MOTOR_EDITORIAL.projeto.duracaoIdealMinutos
+        {
+          tipo: "oracao",
+          titulo: "Entrar em oração"
+        },
+
+        {
+          tipo: "diario",
+          titulo: "Escrever no diário"
+        }
+      ]
+    };
+  }
+
+  /* =====================================================
+     API GLOBAL
+     ===================================================== */
+
+  window.DoceEditorial = {
+
+    dados: EDITORIAL,
+
+    obterTrilha,
+    obterCamada,
+    obterComando,
+    obterCategoria,
+    obterEstruturaDiaria,
+    obterAprofundamento,
+    obterTempo,
+    montarContextoDevocional
 
   };
 
-};
+})();
