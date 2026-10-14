@@ -1,1320 +1,960 @@
-const DEVOTIONALS = [
+/* ============================================================
+   DOCE ESPÍRITO SANTO — UM AMIGO ÍNTIMO
+   APP.JS — NOVA ARQUITETURA
+   ============================================================ */
+
+(() => {
+  "use strict";
+
+  /* ==========================================================
+     CONFIGURAÇÃO PRINCIPAL
+     ========================================================== */
+
+  const APP = {
+    name: "Doce Espírito Santo",
+    subtitle: "Um Amigo Íntimo",
+    version: "3.0.0",
+
+    author: {
+      name: "Dr. Denis Willian Cruz",
+      instagram: "@dr.denispsicoterapeuta"
+    },
+
+    journey: {
+      totalDays: 365,
+      minimumMinutes: 40,
+      idealMinutes: 50
+    },
+
+    terminology: {
+      holySpirit: "Doce Espírito Santo",
+      god: "o Eterno"
+    }
+  };
+
+
+  /* ==========================================================
+     12 FASES DA JORNADA
+     ========================================================== */
+
+  const PHASES = [
+    {
+      id: 1,
+      name: "Perceber",
+      start: 1,
+      end: 30,
+      description: "Aprender a reconhecer a presença."
+    },
+
+    {
+      id: 2,
+      name: "Aprofundar",
+      start: 31,
+      end: 60,
+      description: "Ir além da superfície."
+    },
+
+    {
+      id: 3,
+      name: "Ser Transformado",
+      start: 61,
+      end: 90,
+      description: "Permitir que a presença transforme o interior."
+    },
+
+    {
+      id: 4,
+      name: "Orar",
+      start: 91,
+      end: 120,
+      description: "Aprender a conversar com o Eterno."
+    },
+
+    {
+      id: 5,
+      name: "Ouvir",
+      start: 121,
+      end: 150,
+      description: "Desenvolver silêncio, percepção e discernimento."
+    },
+
+    {
+      id: 6,
+      name: "Palavra",
+      start: 151,
+      end: 180,
+      description: "Aprender a permanecer nas Escrituras."
+    },
+
+    {
+      id: 7,
+      name: "Jesus",
+      start: 181,
+      end: 220,
+      description: "Reconhecer Cristo como centro da caminhada."
+    },
+
+    {
+      id: 8,
+      name: "Direção",
+      start: 221,
+      end: 250,
+      description: "Aprender a caminhar com discernimento."
+    },
+
+    {
+      id: 9,
+      name: "Fruto",
+      start: 251,
+      end: 290,
+      description: "Permitir que o interior apareça no exterior."
+    },
+
+    {
+      id: 10,
+      name: "Servir",
+      start: 291,
+      end: 320,
+      description: "Transformar presença em serviço."
+    },
+
+    {
+      id: 11,
+      name: "Testemunhar",
+      start: 321,
+      end: 345,
+      description: "Compartilhar aquilo que foi vivido."
+    },
+
+    {
+      id: 12,
+      name: "Permanecer",
+      start: 346,
+      end: 365,
+      description: "Continuar quando a jornada já virou vida."
+    }
+  ];
+
+
+  /* ==========================================================
+     ORDEM BÍBLICA DA JORNADA
+     ========================================================== */
+
+  const BIBLICAL_ORDER = [
+    "Antigo Testamento",
+    "Livros Poéticos",
+    "Profetas",
+    "Evangelhos",
+    "Atos",
+    "Cartas",
+    "Apocalipse"
+  ];
+
+
+  /* ==========================================================
+     ESTRUTURA EDITORIAL DE CADA DIA
+     ========================================================== */
+
+  const DAY_STRUCTURE = [
+    "identificacao",
+    "leituraBiblica",
+    "contextoHistorico",
+    "contextoLiterario",
+    "contextoTeologico",
+    "estudoBiblico",
+    "conexoesBiblicas",
+    "reflexaoProfunda",
+    "perguntas",
+    "aplicacaoPratica",
+    "praticaEspiritual",
+    "momentoDeSilencio",
+    "oracao",
+    "audio",
+    "diario",
+    "encerramento",
+    "continuidade"
+  ];
 
-{
-id:1,
-day:1,
-title:"A presença que permanece",
-theme:"Presença",
+
+  /* ==========================================================
+     ESTADO DO APLICATIVO
+     ========================================================== */
+
+  const STORAGE_KEY = "doce-espirito-santo-v3";
+
+  const defaultState = {
+    currentDay: 1,
+    completedDays: [],
+    favorites: [],
+    journal: {},
+    lastVisit: null,
+    audioSpeed: 1
+  };
 
-verse:"“E eu pedirei ao Pai, e ele lhes dará outro Consolador para estar com vocês para sempre.” — João 14:16",
+  let state = loadState();
 
-text:[
-"Há presenças que chegam e vão embora. A presença do Doce Espírito Santo é diferente: Ele não está interessado apenas em visitar momentos da sua vida, mas em caminhar com você.",
+  let devotionalData = [];
 
-"A intimidade começa quando você deixa de procurar apenas respostas e começa a perceber a companhia. Antes de falar, Ele já conhece. Antes de você entender, Ele já está presente."
-],
+  let currentAudio = null;
 
-reflection:
-"Em quais momentos do seu dia você costuma agir como se estivesse sozinho?",
 
-prayer:
-"Doce Espírito Santo, ensina-me a perceber Tua presença nas pequenas coisas. Que eu não procure apenas sinais extraordinários, mas aprenda a reconhecer Tua companhia no cotidiano. Amém.",
+  /* ==========================================================
+     ESTADO — LOCAL STORAGE
+     ========================================================== */
 
-tags:[
-"presença",
-"intimidade"
-]
+  function loadState() {
 
-},
+    try {
 
-{
-id:2,
-day:2,
-title:"Silêncio também é encontro",
-theme:"Silêncio",
+      const saved = localStorage.getItem(STORAGE_KEY);
 
-verse:"“Aquietem-se e saibam que eu sou Deus.” — Salmos 46:10",
+      if (!saved) {
+        return { ...defaultState };
+      }
 
-text:[
-"Nem toda resposta chega acompanhada de barulho. Existe um tipo de encontro que acontece quando a mente desacelera e o coração deixa de disputar o controle.",
+      const parsed = JSON.parse(saved);
 
-"O silêncio não é ausência. Pode ser espaço. Espaço para perceber, elaborar, agradecer e ouvir com mais profundidade."
-],
+      return {
+        ...defaultState,
+        ...parsed
+      };
 
-reflection:
-"O que dentro de você precisa diminuir de volume para que possa perceber melhor o que está acontecendo?",
+    } catch (error) {
 
-prayer:
-"Doce Espírito Santo, ensina-me a permanecer em silêncio sem medo. Que eu encontre descanso na Tua presença e sabedoria para não preencher todo vazio com pressa. Amém.",
+      console.warn(
+        "Não foi possível carregar o progresso.",
+        error
+      );
 
-tags:[
-"silêncio",
-"escuta"
-]
+      return { ...defaultState };
+    }
+  }
 
-},
 
-{
-id:3,
-day:3,
-title:"Quando o coração está cansado",
-theme:"Descanso",
+  function saveState() {
 
-verse:"“Venham a mim, todos os que estão cansados e sobrecarregados, e eu lhes darei descanso.” — Mateus 11:28",
+    try {
 
-text:[
-"Há um cansaço que não se resolve simplesmente dormindo. É o peso de tentar sustentar tudo, responder a todos e controlar aquilo que não depende de nós.",
+      state.lastVisit = new Date().toISOString();
 
-"Descansar também é reconhecer limites. Você não precisa provar valor o tempo inteiro."
-],
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(state)
+      );
 
-reflection:
-"Qual peso você está carregando que talvez não precise continuar carregando sozinho?",
+    } catch (error) {
 
-prayer:
-"Doce Espírito Santo, recebe aquilo que tenho tentado controlar. Dá-me discernimento para agir no que me cabe e serenidade para entregar o que não está nas minhas mãos. Amém.",
+      console.warn(
+        "Não foi possível salvar o progresso.",
+        error
+      );
+    }
+  }
 
-tags:[
-"descanso",
-"limites"
-]
 
-},
+  /* ==========================================================
+     FASE
+     ========================================================== */
 
-{
-id:4,
-day:4,
-title:"Você não precisa entender tudo hoje",
-theme:"Confiança",
+  function getPhase(day) {
 
-verse:"“Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento.” — Provérbios 3:5",
+    return PHASES.find(
+      phase =>
+        day >= phase.start &&
+        day <= phase.end
+    ) || null;
 
-text:[
-"A necessidade de entender tudo pode transformar a vida em uma tentativa permanente de antecipar o amanhã.",
+  }
 
-"Confiar não significa abandonar a responsabilidade. Significa fazer o que está ao alcance e aceitar que algumas etapas precisam ser atravessadas antes de serem compreendidas."
-],
 
-reflection:
-"Qual situação você está tentando resolver mentalmente repetidas vezes sem conseguir avançar?",
+  /* ==========================================================
+     PERCENTUAL DE PROGRESSO
+     ========================================================== */
 
-prayer:
-"Doce Espírito Santo, ajuda-me a trocar a necessidade de controlar pela disposição de confiar. Dá-me coragem para viver o presente sem exigir que o futuro me conte tudo agora. Amém.",
+  function getProgress() {
 
-tags:[
-"confiança",
-"ansiedade"
-]
+    return Math.round(
+      (
+        state.completedDays.length /
+        APP.journey.totalDays
+      ) * 100
+    );
 
-}
+  }
 
-];
 
+  /* ==========================================================
+     DEVOCIONAL DO DIA
+     ========================================================== */
 
-const STORAGE_KEY =
-"doce_espirito_santo_v1";
+  function getDevotional(day) {
 
+    return devotionalData.find(
+      item =>
+        Number(item.day ?? item.dia ?? item.id) === Number(day)
+    ) || null;
 
-let state =
-JSON.parse(
-localStorage.getItem(STORAGE_KEY) || "{}"
-);
+  }
 
 
-state.read =
-state.read || [];
+  /* ==========================================================
+     NORMALIZAÇÃO DO CONTEÚDO
+     ========================================================== */
 
+  function normalizeDevotional(item) {
 
-state.favorites =
-state.favorites || [];
+    if (!item) return null;
 
+    const day = Number(
+      item.day ??
+      item.dia ??
+      item.id ??
+      1
+    );
 
-state.notes =
-state.notes || {};
+    const phase = getPhase(day);
 
+    return {
 
-state.profile =
-state.profile || {
-name:"",
-goal:"intimidade"
-};
+      id: item.id ?? day,
 
+      day,
 
-state.theme =
-state.theme || "dark";
+      title:
+        item.title ??
+        item.titulo ??
+        `Dia ${day}`,
 
+      subtitle:
+        item.subtitle ??
+        item.subtitulo ??
+        "",
 
-let route =
-"home";
+      theme:
+        item.theme ??
+        item.tema ??
+        "",
 
+      phase:
+        item.phase ??
+        item.fase ??
+        phase?.name ??
+        "",
 
-let searchTerm =
-"";
+      phaseDescription:
+        phase?.description ??
+        "",
 
+      duration:
+        item.duration ??
+        item.duracao ??
+        APP.journey.minimumMinutes,
 
-function save(){
+      bible: {
+
+        reference:
+          item.reference ??
+          item.referencia ??
+          item.verse ??
+          "",
 
-localStorage.setItem(
-STORAGE_KEY,
-JSON.stringify(state)
-);
+        verse:
+          item.verse ??
+          item.versiculo ??
+          "",
 
-}
+        text:
+          item.bibleText ??
+          item.textoBiblico ??
+          "",
+
+        historicalContext:
+          item.contextoHistorico ??
+          "",
+
+        literaryContext:
+          item.contextoLiterario ??
+          "",
+
+        theologicalContext:
+          item.contextoTeologico ??
+          "",
+
+        relatedPassages:
+          item.passagensRelacionadas ??
+          []
+
+      },
+
+      study: {
+
+        introduction:
+          item.introduction ??
+          item.introducao ??
+          "",
 
+        study:
+          item.study ??
+          item.estudoBiblico ??
+          "",
 
-function getToday(){
+        whatTextSays:
+          item.oQueOTextoDiz ??
+          "",
 
-const index =
-(new Date().getDate() - 1)
-% DEVOTIONALS.length;
+        meaning:
+          item.oQueOTextoSignifica ??
+          "",
 
-return DEVOTIONALS[index];
+        revelation:
+          item.oQueOTextoRevela ??
+          "",
 
-}
+        aboutGod:
+          item.oQueRevelaSobreOEtterno ??
+          "",
 
+        aboutHolySpirit:
+          item.oQueRevelaSobreODoceEspiritoSanto ??
+          "",
 
-function isFavorite(id){
+        aboutUs:
+          item.oQueRevelaSobreNos ??
+          ""
 
-return state.favorites.includes(id);
+      },
 
-}
+      reflection:
+        item.reflection ??
+        item.reflexao ??
+        item.reflexaoProfunda ??
+        "",
 
+      questions:
+        Array.isArray(item.questions)
+          ? item.questions
+          : Array.isArray(item.perguntas)
+            ? item.perguntas
+            : item.question
+              ? [item.question]
+              : item.pergunta
+                ? [item.pergunta]
+                : [],
 
-function toggleFavorite(id){
+      application:
+        item.application ??
+        item.aplicacaoPratica ??
+        "",
 
-if(isFavorite(id)){
+      practice:
+        item.practice ??
+        item.pratica ??
+        item.praticaEspiritual ??
+        "",
 
-state.favorites =
-state.favorites.filter(
-item => item !== id
-);
+      silence:
+        item.silence ??
+        item.momentoDeSilencio ??
+        "",
 
-}else{
+      prayer:
+        item.prayer ??
+        item.oracao ??
+        "",
 
-state.favorites.push(id);
+      audioScript:
+        item.audioScript ??
+        item.roteiroAudio ??
+        "",
 
-}
+      journalQuestion:
+        item.journalQuestion ??
+        item.perguntaDiario ??
+        item.diario ??
+        "",
 
-save();
+      closing:
+        item.closing ??
+        item.encerramento ??
+        "",
 
-render();
+      nextDay:
+        day < APP.journey.totalDays
+          ? day + 1
+          : null
 
-}
+    };
 
+  }
 
-function markRead(id){
 
-if(!state.read.includes(id)){
+  /* ==========================================================
+     CARREGAR DEVOCIONAIS
+     ========================================================== */
 
-state.read.push(id);
+  async function loadDevotionals() {
 
-save();
+    const possibleFiles = [
+      "devocionais.json",
+      "./devocionais.json",
+      "/devocionais.json"
+    ];
 
-}
+    for (const file of possibleFiles) {
 
-}
+      try {
 
+        const response = await fetch(file, {
+          cache: "no-store"
+        });
 
-function progress(){
+        if (!response.ok) continue;
 
-return Math.round(
+        const data = await response.json();
 
-state.read.length /
-DEVOTIONALS.length *
-100
+        if (Array.isArray(data)) {
 
-);
+          devotionalData =
+            data.map(normalizeDevotional);
 
-}
+          console.info(
+            `${devotionalData.length} devocionais carregados.`
+          );
 
+          return devotionalData;
+        }
 
-function devotionalCard(devotional){
+      } catch (error) {
 
-return `
+        console.warn(
+          `Não foi possível carregar ${file}.`,
+          error
+        );
 
-<article
+      }
 
-class="card devotional-card"
+    }
 
-data-open="${devotional.id}"
+    console.warn(
+      "A base de devocionais ainda não foi carregada."
+    );
 
->
+    devotionalData = [];
 
-<button
+    return [];
 
-class="fav"
+  }
 
-data-fav="${devotional.id}"
 
->
+  /* ==========================================================
+     CONCLUSÃO DO DIA
+     ========================================================== */
 
-${
-isFavorite(devotional.id)
-? "♥"
-: "♡"
-}
+  function completeDay(day) {
 
-</button>
+    const numericDay = Number(day);
 
+    if (!state.completedDays.includes(numericDay)) {
 
-<span class="tag">
+      state.completedDays.push(numericDay);
 
-Dia ${devotional.day}
-·
-${devotional.theme}
+      state.completedDays.sort(
+        (a, b) => a - b
+      );
 
-</span>
+    }
 
+    if (
+      numericDay < APP.journey.totalDays
+    ) {
 
-<h3>
+      state.currentDay =
+        numericDay + 1;
 
-${devotional.title}
+    }
 
-</h3>
+    saveState();
 
+    emitAppEvent(
+      "dayCompleted",
+      {
+        day: numericDay,
+        progress: getProgress()
+      }
+    );
 
-<div class="meta">
+  }
 
-${
-state.read.includes(devotional.id)
-? "✓ Lido · "
-: ""
-}
 
-${devotional.tags
-.map(tag => "#" + tag)
-.join(" ")}
+  /* ==========================================================
+     FAVORITOS
+     ========================================================== */
 
-</div>
+  function isFavorite(day) {
 
+    return state.favorites.includes(
+      Number(day)
+    );
 
-<p class="muted">
+  }
 
-${devotional.text[0].slice(0,125)}…
 
-</p>
+  function toggleFavorite(day) {
 
+    const numericDay = Number(day);
 
-</article>
+    if (isFavorite(numericDay)) {
 
-`;
+      state.favorites =
+        state.favorites.filter(
+          item => item !== numericDay
+        );
 
-}
+    } else {
 
+      state.favorites.push(
+        numericDay
+      );
 
-function renderHome(){
+    }
 
-const today =
-getToday();
+    saveState();
 
+    emitAppEvent(
+      "favoriteChanged",
+      {
+        day: numericDay,
+        favorite: isFavorite(numericDay)
+      }
+    );
 
-return `
+  }
 
-<section class="hero">
 
-<span class="eyebrow">
+  /* ==========================================================
+     DIÁRIO
+     ========================================================== */
 
-Seu momento de hoje
+  function saveJournal(day, content) {
 
-</span>
+    const numericDay = Number(day);
 
+    state.journal[numericDay] = {
+      content: String(content ?? ""),
+      updatedAt: new Date().toISOString()
+    };
 
-<h1>
+    saveState();
 
-Um lugar para<br>
+    emitAppEvent(
+      "journalSaved",
+      {
+        day: numericDay
+      }
+    );
 
-permanecer.
+  }
 
-</h1>
 
+  function getJournal(day) {
 
-<p class="quote">
+    return state.journal[Number(day)]?.content ?? "";
 
-“Não é apenas sobre ler.
-É sobre perceber a presença.”
+  }
 
-</p>
 
+  /* ==========================================================
+     ÁUDIO
+     ========================================================== */
 
-<div class="actions">
+  function stopAudio() {
 
-<button
+    if (!currentAudio) return;
 
-class="btn"
+    try {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    } catch (_) {}
 
-data-open="${today.id}"
+    currentAudio = null;
 
->
+  }
 
-Abrir devocional de hoje
 
-</button>
+  function playAudio(source) {
 
+    if (!source) {
 
-</div>
+      emitAppEvent(
+        "audioUnavailable",
+        {}
+      );
 
-</section>
+      return;
+    }
 
+    stopAudio();
 
-<div class="section-head">
+    currentAudio =
+      new Audio(source);
 
-<h2>
+    currentAudio.playbackRate =
+      Number(state.audioSpeed) || 1;
 
-Seu caminho
+    currentAudio.play()
+      .catch(error => {
 
-</h2>
+        console.warn(
+          "Não foi possível iniciar o áudio.",
+          error
+        );
 
+      });
 
-<span class="muted">
+  }
 
-${progress()}%
 
-</span>
+  function setAudioSpeed(speed) {
 
-</div>
+    const allowed = [
+      0.75,
+      1,
+      1.25,
+      1.5
+    ];
 
+    const numericSpeed =
+      Number(speed);
 
-<div class="progress">
+    if (!allowed.includes(numericSpeed)) {
+      return;
+    }
 
-<i
-style="width:${progress()}%"
-></i>
+    state.audioSpeed =
+      numericSpeed;
 
-</div>
+    if (currentAudio) {
+      currentAudio.playbackRate =
+        numericSpeed;
+    }
 
+    saveState();
 
-<div
-class="grid two"
-style="margin-top:13px"
->
+  }
 
-<div class="card stat">
 
-<b>
+  /* ==========================================================
+     NAVEGAÇÃO
+     ========================================================== */
 
-${state.read.length}
+  function openDay(day) {
 
-</b>
+    const numericDay =
+      Math.min(
+        APP.journey.totalDays,
+        Math.max(1, Number(day))
+      );
 
-<span>
+    state.currentDay =
+      numericDay;
 
-leituras concluídas
+    saveState();
 
-</span>
+    const devotional =
+      getDevotional(numericDay);
 
-</div>
+    emitAppEvent(
+      "dayOpened",
+      {
+        day: numericDay,
+        devotional
+      }
+    );
 
+    return devotional;
 
-<div class="card stat">
+  }
 
-<b>
 
-${state.favorites.length}
+  function nextDay() {
 
-</b>
+    if (
+      state.currentDay >=
+      APP.journey.totalDays
+    ) {
+      return null;
+    }
 
-<span>
+    return openDay(
+      state.currentDay + 1
+    );
 
-favoritos
+  }
 
-</span>
 
-</div>
+  function previousDay() {
 
-</div>
+    if (
+      state.currentDay <= 1
+    ) {
+      return null;
+    }
 
+    return openDay(
+      state.currentDay - 1
+    );
 
-<div class="section-head">
+  }
 
-<h2>
 
-Devocional de hoje
+  /* ==========================================================
+     EVENTOS INTERNOS
+     ========================================================== */
 
-</h2>
+  function emitAppEvent(
+    name,
+    detail = {}
+  ) {
 
-</div>
+    try {
 
+      window.dispatchEvent(
+        new CustomEvent(
+          `doceEspíritoSanto:${name}`,
+          {
+            detail
+          }
+        )
+      );
 
-${devotionalCard(today)}
+    } catch (_) {
 
-`;
+      try {
 
-}
+        window.dispatchEvent(
+          new Event(
+            `doceEspíritoSanto:${name}`
+          )
+        );
 
+      } catch (_) {}
 
-function renderDevotionals(){
+    }
 
-const filtered =
-DEVOTIONALS.filter(
+  }
 
-devotional =>
 
-(
+  /* ==========================================================
+     API PÚBLICA DO APLICATIVO
+     ========================================================== */
 
-devotional.title +
-" " +
-devotional.theme +
-" " +
-devotional.text.join(" ") +
-" " +
-devotional.tags.join(" ")
+  window.DoceEspiritoSanto = {
 
-)
-.toLowerCase()
-.includes(
-searchTerm.toLowerCase()
-)
+    APP,
 
-);
+    PHASES,
 
+    BIBLICAL_ORDER,
 
-return `
+    DAY_STRUCTURE,
 
-<div class="section-head">
+    state,
 
-<div>
+    getPhase,
 
-<span class="eyebrow">
+    getProgress,
 
-Biblioteca
+    getDevotional,
 
-</span>
+    normalizeDevotional,
 
+    loadDevotionals,
 
-<h2>
+    openDay,
 
-Devocionais
+    nextDay,
 
-</h2>
+    previousDay,
 
-</div>
+    completeDay,
 
-</div>
+    isFavorite,
 
+    toggleFavorite,
 
-<input
+    saveJournal,
 
-class="search"
+    getJournal,
 
-id="search"
+    playAudio,
 
-placeholder="Buscar por tema, palavra ou título…"
+    stopAudio,
 
-value="${searchTerm}"
+    setAudioSpeed
 
->
+  };
 
 
-<div
-class="grid"
-style="margin-top:16px"
->
+  /* ==========================================================
+     INICIALIZAÇÃO
+     ========================================================== */
 
-${
-filtered.length
+  async function initialize() {
 
-?
+    console.log(
+      "Doce Espírito Santo — Um Amigo Íntimo"
+    );
 
-filtered
-.map(devotionalCard)
-.join("")
+    console.log(
+      "Motor editorial:",
+      APP.version
+    );
 
-:
+    console.log(
+      "Jornada:",
+      APP.journey.totalDays,
+      "dias"
+    );
 
-`
+    console.log(
+      "Experiência mínima:",
+      APP.journey.minimumMinutes,
+      "minutos"
+    );
 
-<div class="empty">
+    await loadDevotionals();
 
-<div class="big">
+    emitAppEvent(
+      "ready",
+      {
+        app: APP,
+        phases: PHASES,
+        progress: getProgress(),
+        currentDay: state.currentDay
+      }
+    );
 
-⌕
+  }
 
-</div>
 
-Nenhum devocional encontrado.
+  /* ==========================================================
+     INICIAR
+     ========================================================== */
 
-</div>
+  if (
+    document.readyState ===
+    "loading"
+  ) {
 
-`
+    document.addEventListener(
+      "DOMContentLoaded",
+      initialize
+    );
 
-}
+  } else {
 
-</div>
+    initialize();
 
-`;
+  }
 
-}
-
-
-function renderFavorites(){
-
-const favorites =
-DEVOTIONALS.filter(
-
-devotional =>
-state.favorites.includes(
-devotional.id
-)
-
-);
-
-
-return `
-
-<span class="eyebrow">
-
-Guardados
-
-</span>
-
-
-<h2>
-
-Meus favoritos
-
-</h2>
-
-
-<div
-class="grid"
-style="margin-top:16px"
->
-
-${
-favorites.length
-
-?
-
-favorites
-.map(devotionalCard)
-.join("")
-
-:
-
-`
-
-<div class="empty">
-
-<div class="big">
-
-♡
-
-</div>
-
-<p>
-
-Seus favoritos aparecerão aqui.
-
-</p>
-
-</div>
-
-`
-
-}
-
-</div>
-
-`;
-
-}
-
-
-function renderProfile(){
-
-return `
-
-<div class="hero">
-
-<span class="eyebrow">
-
-Seu espaço
-
-</span>
-
-
-<h1>
-
-${state.profile.name || "Amigo(a)"}
-
-</h1>
-
-
-<p class="muted">
-
-Aqui ficam suas preferências e seu progresso.
-
-</p>
-
-</div>
-
-
-<div class="section-head">
-
-<h2>
-
-Progresso
-
-</h2>
-
-</div>
-
-
-<div class="grid two">
-
-<div class="card stat">
-
-<b>
-
-${progress()}%
-
-</b>
-
-<span>
-
-jornada concluída
-
-</span>
-
-</div>
-
-
-<div class="card stat">
-
-<b>
-
-${state.read.length}
-
-</b>
-
-<span>
-
-dias lidos
-
-</span>
-
-</div>
-
-</div>
-
-
-<div class="section-head">
-
-<h2>
-
-Perfil
-
-</h2>
-
-</div>
-
-
-<div class="card">
-
-<label class="muted">
-
-Como gostaria de ser chamado?
-
-</label>
-
-
-<input
-
-class="search"
-
-id="nameInput"
-
-style="margin-top:8px"
-
-value="${state.profile.name}"
-
-placeholder="Seu nome"
-
->
-
-
-<div class="actions">
-
-<button
-
-class="btn"
-
-id="saveProfile"
-
->
-
-Salvar perfil
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-
-function renderReader(id){
-
-const devotional =
-DEVOTIONALS.find(
-item => item.id === Number(id)
-);
-
-
-if(!devotional){
-
-return renderHome();
-
-}
-
-
-markRead(
-devotional.id
-);
-
-
-return `
-
-<article class="reader">
-
-
-<button
-
-class="btn ghost"
-
-data-route="devotionals"
-
->
-
-← Voltar
-
-</button>
-
-
-<div class="cover">
-
-<span class="eyebrow">
-
-Dia ${devotional.day}
-
-·
-
-${devotional.theme}
-
-</span>
-
-
-<h1>
-
-${devotional.title}
-
-</h1>
-
-
-<p class="quote">
-
-${devotional.verse}
-
-</p>
-
-
-<div
-class="actions"
-style="justify-content:center"
->
-
-<button
-
-class="btn secondary"
-
-data-fav="${devotional.id}"
-
->
-
-${
-isFavorite(devotional.id)
-? "♥ Favoritado"
-: "♡ Favoritar"
-}
-
-</button>
-
-
-<button
-
-class="btn secondary"
-
-id="speak"
-
->
-
-Ouvir
-
-</button>
-
-</div>
-
-</div>
-
-
-<div class="body">
-
-${devotional.text
-.map(
-text =>
-`<p>${text}</p>`
-)
-.join("")}
-
-
-<div class="reflection">
-
-<span class="eyebrow">
-
-Para refletir
-
-</span>
-
-
-<h3>
-
-${devotional.reflection}
-
-</h3>
-
-</div>
-
-
-<p class="verse">
-
-${devotional.prayer}
-
-</p>
-
-</div>
-
-
-<div class="section-head">
-
-<h2>
-
-Sua anotação
-
-</h2>
-
-</div>
-
-
-<textarea
-
-id="note"
-
-placeholder="Escreva o que este momento despertou em você…"
-
->${state.notes[devotional.id] || ""}</textarea>
-
-
-<div class="actions">
-
-<button
-
-class="btn"
-
-id="saveNote"
-
->
-
-Salvar anotação
-
-</button>
-
-</div>
-
-
-</article>
-
-`;
-
-}
-
-
-function render(){
-
-document.documentElement
-.classList.toggle(
-"light",
-state.theme === "light"
-);
-
-
-const view =
-document.querySelector("#view");
-
-
-if(route.startsWith("read:")){
-
-view.innerHTML =
-renderReader(
-route.split(":")[1]
-);
-
-}else{
-
-if(route === "home")
-view.innerHTML =
-renderHome();
-
-
-if(route === "devotionals")
-view.innerHTML =
-renderDevotionals();
-
-
-if(route === "favorites")
-view.innerHTML =
-renderFavorites();
-
-
-if(route === "profile")
-view.innerHTML =
-renderProfile();
-
-}
-
-
-bindEvents();
-
-}
-
-
-function bindEvents(){
-
-document
-.querySelectorAll("[data-open]")
-.forEach(button => {
-
-button.addEventListener(
-"click",
-event => {
-
-if(
-event.target.closest(
-"[data-fav]"
-)
-)return;
-
-
-route =
-"read:" +
-button.dataset.open;
-
-
-render();
-
-}
-
-);
-
-});
-
-
-document
-.querySelectorAll("[data-fav]")
-.forEach(button => {
-
-button.addEventListener(
-"click",
-event => {
-
-event.stopPropagation();
-
-toggleFavorite(
-Number(
-button.dataset.fav
-)
-);
-
-}
-
-);
-
-});
-
-
-document
-.querySelectorAll("[data-route]")
-.forEach(button => {
-
-button.addEventListener(
-"click",
-() => {
-
-route =
-button.dataset.route;
-
-render();
-
-}
-
-);
-
-});
-
-
-document
-.querySelector("#search")
-?.addEventListener(
-"input",
-event => {
-
-searchTerm =
-event.target.value;
-
-renderDevotionalsOnly();
-
-}
-
-);
-
-
-document
-.querySelector("#saveProfile")
-?.addEventListener(
-"click",
-() => {
-
-state.profile.name =
-document.querySelector(
-"#nameInput"
-).value.trim();
-
-save();
-
-render();
-
-}
-
-);
-
-
-document
-.querySelector("#saveNote")
-?.addEventListener(
-"click",
-() => {
-
-const id =
-Number(
-route.split(":")[1]
-);
-
-state.notes[id] =
-document.querySelector(
-"#note"
-).value;
-
-save();
-
-alert(
-"Anotação salva."
-);
-
-}
-
-);
-
-
-document
-.querySelector("#speak")
-?.addEventListener(
-"click",
-speakCurrent
-);
-
-}
-
-
-function renderDevotionalsOnly(){
-
-document.querySelector(
-"#view"
-).innerHTML =
-renderDevotionals();
-
-bindEvents();
-
-}
-
-
-function speakCurrent(){
-
-const devotional =
-DEVOTIONALS.find(
-
-item =>
-
-item.id ===
-Number(
-route.split(":")[1]
-)
-
-);
-
-
-if(!devotional)
-return;
-
-
-if(!window.speechSynthesis){
-
-alert(
-"Leitura em voz alta não disponível."
-);
-
-return;
-
-}
-
-
-speechSynthesis.cancel();
-
-
-const speech =
-new SpeechSynthesisUtterance(
-
-[
-
-devotional.title,
-
-devotional.verse,
-
-...devotional.text,
-
-devotional.reflection,
-
-devotional.prayer
-
-].join(". ")
-
-);
-
-
-speech.lang =
-"pt-BR";
-
-
-speechSynthesis.speak(
-speech
-);
-
-}
-
-
-function toggleTheme(){
-
-state.theme =
-state.theme === "dark"
-? "light"
-: "dark";
-
-
-save();
-
-render();
-
-}
-
-
-document
-.querySelector("#themeBtn")
-.addEventListener(
-"click",
-toggleTheme
-);
-
-
-document
-.querySelector("#menuBtn")
-.addEventListener(
-"click",
-() => {
-
-document
-.querySelector("#drawer")
-.classList.add(
-"open"
-);
-
-
-document
-.querySelector("#backdrop")
-.classList.add(
-"show"
-);
-
-}
-);
-
-
-document
-.querySelector("#closeDrawer")
-.addEventListener(
-"click",
-closeDrawer
-);
-
-
-document
-.querySelector("#backdrop")
-.addEventListener(
-"click",
-closeDrawer
-);
-
-
-function closeDrawer(){
-
-document
-.querySelector("#drawer")
-.classList.remove(
-"open"
-);
-
-
-document
-.querySelector("#backdrop")
-.classList.remove(
-"show"
-);
-
-}
-
-
-document
-.querySelector("#resetBtn")
-?.addEventListener(
-"click",
-() => {
-
-if(
-confirm(
-"Restaurar todos os dados locais?"
-)
-){
-
-localStorage.removeItem(
-STORAGE_KEY
-);
-
-location.reload();
-
-}
-
-}
-);
-
-
-render();
+})();
