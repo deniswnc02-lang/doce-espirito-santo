@@ -1,49 +1,54 @@
 /* =========================================================
    DOCE ESPÍRITO SANTO — UM AMIGO ÍNTIMO
-   APP ENGINE
+   APP.JS — Motor principal da experiência
    ========================================================= */
 
 (() => {
   "use strict";
 
-  /* =======================================================
+  /* ---------------------------------------------------------
      CONFIGURAÇÃO
-     ======================================================= */
+  --------------------------------------------------------- */
 
-  const CONFIG = {
-    DEVOCIONAIS: "./devocionais.json",
-    ESTUDOS: "./estudos.json",
-
-    STORAGE: {
-      COMPLETOS: "doce_espirito_completos_v3",
-      FAVORITOS: "doce_espirito_favoritos_v3",
-      DIA_ATUAL: "doce_espirito_dia_v3"
-    }
+  const STORAGE = {
+    favoritos: "doce-favoritos",
+    concluidos: "doce-concluidos",
+    ultimoDia: "doce-ultimo-dia"
   };
 
-  const state = {
-    devocionais: [],
-    estudos: [],
-    completos: [],
-    favoritos: [],
-    diaAtual: 1,
-    telaAtual: "inicio",
-    carregado: false
+  const ASSETS = {
+    presenca: "./assets/card-presenca.svg",
+
+    // Próximas artes que serão adicionadas ao projeto
+    oracao: "./assets/card-oracao.svg",
+    palavra: "./assets/card-palavra.svg",
+    jejum: "./assets/card-jejum.svg",
+    intimidade: "./assets/card-intimidade.svg",
+    contemplacao: "./assets/card-contemplacao.svg",
+    discernimento: "./assets/card-discernimento.svg",
+    santificacao: "./assets/card-santificacao.svg",
+    fruto: "./assets/card-fruto.svg",
+    adoracao: "./assets/card-adoracao.svg",
+    testemunho: "./assets/card-testemunho.svg"
   };
 
+  const FALLBACK_IMAGE = ASSETS.presenca;
 
-  /* =======================================================
+  let devocionais = [];
+  let estudos = [];
+
+  /* ---------------------------------------------------------
      UTILITÁRIOS
-     ======================================================= */
+  --------------------------------------------------------- */
 
-  const $ = (selector, root = document) =>
-    root.querySelector(selector);
+  const $ = (selector, scope = document) =>
+    scope.querySelector(selector);
 
-  const $$ = (selector, root = document) =>
-    [...root.querySelectorAll(selector)];
+  const $$ = (selector, scope = document) =>
+    [...scope.querySelectorAll(selector)];
 
-  function escapeHTML(value = "") {
-    return String(value)
+  function escapeHTML(value) {
+    return String(value ?? "")
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
@@ -51,1198 +56,1299 @@
       .replace(/'/g, "&#039;");
   }
 
-  function getJSON(url) {
-    return fetch(`${url}?v=${Date.now()}`, {
-      cache: "no-store"
-    }).then(response => {
-      if (!response.ok) {
-        throw new Error(`Erro ${response.status}: ${url}`);
-      }
-
-      return response.json();
-    });
+  function normalizarTexto(texto = "") {
+    return String(texto)
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim();
   }
 
-  function readStorage(key, fallback = []) {
+  function lerStorage(chave, fallback = []) {
     try {
-      const value = localStorage.getItem(key);
-
-      if (!value) {
-        return fallback;
-      }
-
-      return JSON.parse(value);
+      const valor = localStorage.getItem(chave);
+      return valor ? JSON.parse(valor) : fallback;
     } catch {
       return fallback;
     }
   }
 
-  function writeStorage(key, value) {
+  function salvarStorage(chave, valor) {
     try {
-      localStorage.setItem(key, JSON.stringify(value));
+      localStorage.setItem(chave, JSON.stringify(valor));
     } catch {
-      console.warn("Não foi possível salvar no armazenamento.");
+      /* silencioso */
     }
   }
 
-
-  /* =======================================================
-     NORMALIZAÇÃO DOS DADOS
-     ======================================================= */
-
-  function normalizarDevocionais(data) {
-
-    if (Array.isArray(data)) {
-      return data;
-    }
-
-    if (Array.isArray(data?.devocionais)) {
-      return data.devocionais;
-    }
-
-    if (Array.isArray(data?.dias)) {
-      return data.dias;
-    }
-
-    return [];
+  function getFavoritos() {
+    return lerStorage(STORAGE.favoritos, []);
   }
 
-
-  function normalizarEstudos(data) {
-
-    if (Array.isArray(data)) {
-      return data;
-    }
-
-    if (Array.isArray(data?.estudos)) {
-      return data.estudos;
-    }
-
-    return [];
+  function getConcluidos() {
+    return lerStorage(STORAGE.concluidos, []);
   }
 
-
-  /* =======================================================
-     CARREGAMENTO
-     ======================================================= */
-
-  async function carregarConteudo() {
-
-    const resultados = await Promise.allSettled([
-      getJSON(CONFIG.DEVOCIONAIS),
-      getJSON(CONFIG.ESTUDOS)
-    ]);
-
-    const devocionais = resultados[0];
-    const estudos = resultados[1];
-
-    if (devocionais.status === "fulfilled") {
-      state.devocionais =
-        normalizarDevocionais(devocionais.value);
-    } else {
-      console.warn(
-        "Não foi possível carregar devocionais.json",
-        devocionais.reason
-      );
-    }
-
-    if (estudos.status === "fulfilled") {
-      state.estudos =
-        normalizarEstudos(estudos.value);
-    } else {
-      console.warn(
-        "Não foi possível carregar estudos.json",
-        estudos.reason
-      );
-    }
-
-    state.completos = readStorage(
-      CONFIG.STORAGE.COMPLETOS,
-      []
-    );
-
-    state.favoritos = readStorage(
-      CONFIG.STORAGE.FAVORITOS,
-      []
-    );
-
-    const diaSalvo = Number(
-      localStorage.getItem(CONFIG.STORAGE.DIA_ATUAL)
-    );
-
-    if (Number.isFinite(diaSalvo) && diaSalvo > 0) {
-      state.diaAtual = diaSalvo;
-    } else {
-      state.diaAtual = detectarDiaAtual();
-    }
-
-    state.carregado = true;
+  function isFavorito(dia) {
+    return getFavoritos().includes(Number(dia));
   }
 
+  function isConcluido(dia) {
+    return getConcluidos().includes(Number(dia));
+  }
 
-  function detectarDiaAtual() {
+  function imagemPorCategoria(categoria = "") {
+    const c = normalizarTexto(categoria);
 
-    /*
-      O aplicativo começa no Dia 1.
-      Posteriormente podemos conectar isso
-      a calendário/progresso real.
-    */
+    if (c.includes("presenca")) return ASSETS.presenca;
+    if (c.includes("oracao")) return ASSETS.oracao;
+    if (c.includes("palavra")) return ASSETS.palavra;
+    if (c.includes("jejum")) return ASSETS.jejum;
+    if (c.includes("intimidade")) return ASSETS.intimidade;
+    if (c.includes("contemplacao")) return ASSETS.contemplacao;
+    if (c.includes("discernimento")) return ASSETS.discernimento;
+    if (c.includes("santificacao")) return ASSETS.santificacao;
+    if (c.includes("fruto")) return ASSETS.fruto;
+    if (c.includes("adoracao")) return ASSETS.adoracao;
+    if (c.includes("testemunho")) return ASSETS.testemunho;
 
-    if (state.completos.length === 0) {
-      return 1;
-    }
+    return FALLBACK_IMAGE;
+  }
 
-    const maiorDia = Math.max(
-      ...state.completos.map(Number).filter(Boolean)
-    );
-
-    return Math.min(
-      Math.max(maiorDia + 1, 1),
-      365
+  function imagemDoDevocional(item) {
+    return imagemPorCategoria(
+      item?.categoria ||
+      item?.tema ||
+      item?.trilha ||
+      item?.referencia ||
+      "presenca"
     );
   }
-
-
-  /* =======================================================
-     BUSCA DE CONTEÚDO
-     ======================================================= */
-
-  function encontrarDevocional(dia) {
-
-    return state.devocionais.find(item =>
-      Number(item.dia) === Number(dia)
-    );
-  }
-
-
-  function encontrarEstudoPorDia(dia) {
-
-    return state.estudos.find(item =>
-      Number(item.dia) === Number(dia)
-    );
-  }
-
-
-  /* =======================================================
-     PROGRESSO
-     ======================================================= */
-
-  function progresso() {
-
-    return Math.min(
-      Math.round((state.completos.length / 365) * 100),
-      100
-    );
-  }
-
-
-  function salvarDiaAtual() {
-
-    try {
-      localStorage.setItem(
-        CONFIG.STORAGE.DIA_ATUAL,
-        String(state.diaAtual)
-      );
-    } catch {}
-  }
-
-
-  function marcarCompleto(dia) {
-
-    dia = Number(dia);
-
-    if (!dia || dia < 1 || dia > 365) {
-      return;
-    }
-
-    if (!state.completos.includes(dia)) {
-      state.completos.push(dia);
-
-      state.completos.sort((a, b) => a - b);
-
-      writeStorage(
-        CONFIG.STORAGE.COMPLETOS,
-        state.completos
-      );
-    }
-
-    if (dia >= state.diaAtual) {
-      state.diaAtual = Math.min(dia + 1, 365);
-      salvarDiaAtual();
-    }
-
-    renderTudo();
-  }
-
-
-  function alternarFavorito(dia) {
-
-    dia = Number(dia);
-
-    if (state.favoritos.includes(dia)) {
-
-      state.favoritos =
-        state.favoritos.filter(item => item !== dia);
-
-    } else {
-
-      state.favoritos.push(dia);
-    }
-
-    writeStorage(
-      CONFIG.STORAGE.FAVORITOS,
-      state.favoritos
-    );
-
-    renderTudo();
-  }
-
-
-  /* =======================================================
-     LOADING
-     ======================================================= */
 
   function removerLoading() {
-
-    const elementos = [
+    const seletores = [
       "#loadingScreen",
       "#loading-screen",
       ".loading-screen",
       ".app-loading"
     ];
 
-    elementos.forEach(selector => {
-
+    seletores.forEach(selector => {
       $$(selector).forEach(element => {
-
-        element.classList.add("hidden");
-
-        element.style.opacity = "0";
-        element.style.pointerEvents = "none";
-        element.style.visibility = "hidden";
+        element.classList.add("is-hidden");
 
         setTimeout(() => {
-
           try {
             element.remove();
-          } catch {}
-
+          } catch {
+            /* */
+          }
         }, 500);
       });
     });
 
-    document.documentElement.classList.remove(
-      "loading",
-      "is-loading"
-    );
-
-    document.body.classList.remove(
-      "loading",
-      "is-loading"
-    );
+    document.body.classList.remove("is-loading", "loading");
+    document.documentElement.classList.remove("is-loading", "loading");
   }
 
+  function mostrarToast(mensagem) {
+    let toast = $("#doceToast");
 
-  /* =======================================================
-     HERO
-     ======================================================= */
-
-  function renderHero() {
-
-    const hero = $(".hero");
-
-    if (!hero) {
-      return;
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "doceToast";
+      toast.className = "doce-toast";
+      document.body.appendChild(toast);
     }
 
-    /*
-      Não destruímos o HTML original do Hero.
-      Apenas garantimos que o conteúdo principal
-      permaneça coerente com a identidade.
-    */
+    toast.textContent = mensagem;
+    toast.classList.add("show");
 
-    const title = $(".hero h1", hero);
+    clearTimeout(toast._timer);
 
-    if (title && !title.textContent.trim()) {
-
-      title.innerHTML = `
-        <span>Aprenda a</span>
-        <span class="accent">percebê-lo.</span>
-      `;
-    }
+    toast._timer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2200);
   }
 
+  /* ---------------------------------------------------------
+     CARREGAMENTO DOS DADOS
+  --------------------------------------------------------- */
 
-  /* =======================================================
-     DIA DE HOJE
-     ======================================================= */
+  async function carregarDados() {
+    const resultados = await Promise.allSettled([
+      fetch("./devocionais.json", { cache: "no-store" }),
+      fetch("./estudos.json", { cache: "no-store" })
+    ]);
 
-  function renderToday() {
+    /* DEVOCIONAIS */
 
-    const elements = $$("[data-today-day]");
+    if (resultados[0].status === "fulfilled") {
+      try {
+        const json = await resultados[0].value.json();
 
-    elements.forEach(element => {
-      element.textContent = state.diaAtual;
-    });
-
-    $$("[data-today-title]").forEach(element => {
-
-      const devocional =
-        encontrarDevocional(state.diaAtual);
-
-      if (devocional) {
-        element.textContent =
-          devocional.titulo || `Dia ${state.diaAtual}`;
+        if (Array.isArray(json)) {
+          devocionais = json;
+        } else {
+          devocionais =
+            json.devocionais ||
+            json.dias ||
+            json.conteudos ||
+            [];
+        }
+      } catch (erro) {
+        console.warn("Erro ao ler devocionais.json:", erro);
+        devocionais = [];
       }
-    });
+    }
+
+    /* ESTUDOS */
+
+    if (resultados[1].status === "fulfilled") {
+      try {
+        const json = await resultados[1].value.json();
+
+        if (Array.isArray(json)) {
+          estudos = json;
+        } else {
+          estudos =
+            json.estudos ||
+            json.conteudos ||
+            [];
+        }
+      } catch (erro) {
+        console.warn("Erro ao ler estudos.json:", erro);
+        estudos = [];
+      }
+    }
+
+    devocionais.sort((a, b) =>
+      Number(a.dia || 0) - Number(b.dia || 0)
+    );
+
+    estudos.sort((a, b) =>
+      Number(a.dia || 0) - Number(b.dia || 0)
+    );
   }
 
+  /* ---------------------------------------------------------
+     HOJE
+  --------------------------------------------------------- */
 
-  /* =======================================================
-     PROGRESSO VISUAL
-     ======================================================= */
+  function obterDiaAtual() {
+    const salvo = Number(
+      localStorage.getItem(STORAGE.ultimoDia)
+    );
 
-  function renderProgress() {
+    if (salvo && devocionais.some(d => Number(d.dia) === salvo)) {
+      return salvo;
+    }
+
+    const concluidos = getConcluidos();
+
+    const proximo = devocionais.find(
+      d => !concluidos.includes(Number(d.dia))
+    );
+
+    return Number(proximo?.dia || devocionais[0]?.dia || 1);
+  }
+
+  function obterDevocional(dia) {
+    return devocionais.find(
+      item => Number(item.dia) === Number(dia)
+    );
+  }
+
+  function obterEstudoPorDia(dia) {
+    return estudos.find(
+      item => Number(item.dia) === Number(dia)
+    );
+  }
+
+  /* ---------------------------------------------------------
+     PROGRESSO
+  --------------------------------------------------------- */
+
+  function percentualProgresso() {
+    if (!devocionais.length) return 0;
+
+    return Math.round(
+      (getConcluidos().length / devocionais.length) * 100
+    );
+  }
+
+  function atualizarProgresso() {
+    const progresso = percentualProgresso();
 
     $$("[data-progress]").forEach(element => {
-
-      element.style.setProperty(
-        "--progress",
-        `${progresso()}%`
-      );
+      element.style.width = `${progresso}%`;
     });
 
-    $$("[data-progress-number]").forEach(element => {
-      element.textContent = `${progresso()}%`;
+    $$("[data-progress-text]").forEach(element => {
+      element.textContent = `${progresso}%`;
     });
 
     $$("[data-completed-count]").forEach(element => {
-      element.textContent =
-        state.completos.length;
+      element.textContent = getConcluidos().length;
+    });
+
+    $$("[data-total-days]").forEach(element => {
+      element.textContent = devocionais.length || 365;
     });
   }
 
+  /* ---------------------------------------------------------
+     HERO
+  --------------------------------------------------------- */
 
-  /* =======================================================
-     JORNADA
-     ======================================================= */
+  function renderHero() {
+    const hero = $(".hero");
 
-  function renderJourney() {
+    if (!hero) return;
 
-    $$("[data-journey-progress]").forEach(element => {
+    const titulo = $(".hero h1", hero);
 
-      element.textContent =
-        `${state.completos.length} de 365 dias`;
-    });
+    if (titulo && !titulo.textContent.trim()) {
+      titulo.innerHTML = `
+        Aprenda a <span>percebê-lo.</span>
+      `;
+    }
+
+    const descricao = $(".hero p", hero);
+
+    if (descricao && !descricao.textContent.trim()) {
+      descricao.textContent =
+        "Ele já está aqui. Uma jornada para desenvolver presença, Palavra, oração, contemplação e intimidade com o Doce Espírito Santo.";
+    }
   }
 
+  /* ---------------------------------------------------------
+     CARD PREMIUM
+  --------------------------------------------------------- */
 
-  /* =======================================================
-     RAIL DE HOJE
-     ======================================================= */
+  function criarCardDevocional(item, opcoes = {}) {
+    if (!item) return "";
+
+    const dia = Number(item.dia || 0);
+    const titulo =
+      item.titulo ||
+      `Dia ${dia}`;
+
+    const referencia =
+      item.referencia ||
+      item.texto_principal?.referencia ||
+      "";
+
+    const categoria =
+      item.categoria ||
+      item.tema ||
+      "Presença";
+
+    const imagem =
+      opcoes.imagem ||
+      imagemDoDevocional(item);
+
+    const favorito = isFavorito(dia);
+    const concluido = isConcluido(dia);
+
+    return `
+      <article
+        class="card-square premium-card"
+        data-open-day="${dia}"
+        data-category="${escapeHTML(categoria)}"
+        style="--card-image:url('${imagem}')"
+      >
+        <div class="card-square-image">
+          <img
+            src="${imagem}"
+            alt=""
+            loading="lazy"
+            onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"
+          />
+
+          <div class="card-square-overlay"></div>
+
+          <div class="card-square-top">
+            <span class="card-day">
+              DIA ${dia}
+            </span>
+
+            <button
+              class="card-favorite ${favorito ? "active" : ""}"
+              data-favorite-day="${dia}"
+              aria-label="Favoritar"
+              type="button"
+            >
+              ${favorito ? "★" : "☆"}
+            </button>
+          </div>
+
+          ${
+            concluido
+              ? `<span class="card-completed">✓</span>`
+              : ""
+          }
+
+          <div class="card-square-content">
+            <span class="card-category">
+              ${escapeHTML(categoria)}
+            </span>
+
+            <h3>
+              ${escapeHTML(titulo)}
+            </h3>
+
+            ${
+              referencia
+                ? `<p>${escapeHTML(referencia)}</p>`
+                : ""
+            }
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  /* ---------------------------------------------------------
+     CARD DE ESTUDO
+  --------------------------------------------------------- */
+
+  function criarCardEstudo(estudo) {
+    if (!estudo) return "";
+
+    const dia = Number(estudo.dia || 0);
+
+    const titulo =
+      estudo.titulo ||
+      `Estudo — Dia ${dia}`;
+
+    const categoria =
+      estudo.categoria ||
+      "Estudo";
+
+    const imagem =
+      imagemPorCategoria(categoria);
+
+    const tempo =
+      estudo.tempo_estimado_minutos ||
+      estudo.tempo?.total_minutos ||
+      40;
+
+    return `
+      <article
+        class="card-square premium-card study-card"
+        data-open-study="${escapeHTML(estudo.id || "")}"
+        data-open-study-day="${dia}"
+        style="--card-image:url('${imagem}')"
+      >
+        <div class="card-square-image">
+          <img
+            src="${imagem}"
+            alt=""
+            loading="lazy"
+            onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"
+          />
+
+          <div class="card-square-overlay"></div>
+
+          <div class="card-square-top">
+            <span class="card-day">
+              ESTUDO
+            </span>
+          </div>
+
+          <div class="card-square-content">
+            <span class="card-category">
+              ${escapeHTML(categoria)}
+            </span>
+
+            <h3>
+              ${escapeHTML(titulo)}
+            </h3>
+
+            <p>
+              ${tempo} min · aprofundamento
+            </p>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  /* ---------------------------------------------------------
+     RAIL — HOJE
+  --------------------------------------------------------- */
 
   function renderTodayRail() {
+    const rail =
+      $("[data-today-rail]") ||
+      $("#todayRail");
 
-    const container =
-      $("[data-today-rail]");
+    if (!rail) return;
 
-    if (!container) {
+    const diaAtual = obterDiaAtual();
+
+    const inicio = Math.max(0, diaAtual - 1);
+
+    const itens = devocionais.slice(
+      inicio,
+      inicio + 8
+    );
+
+    if (!itens.length) {
+      rail.innerHTML = `
+        <div class="empty-state">
+          Nenhum conteúdo disponível ainda.
+        </div>
+      `;
       return;
     }
 
-    const inicio =
-      Math.max(1, state.diaAtual - 1);
+    rail.innerHTML = itens
+      .map(item =>
+        criarCardDevocional(item)
+      )
+      .join("");
+  }
 
-    const dias = [];
+  /* ---------------------------------------------------------
+     RAIL — PRESENÇA
+  --------------------------------------------------------- */
 
-    for (
-      let dia = inicio;
-      dia <= Math.min(inicio + 7, 365);
-      dia++
-    ) {
-      dias.push(dia);
+  function renderPresenceRail() {
+    const rail =
+      $("[data-presence-rail]") ||
+      $("#presenceRail");
+
+    if (!rail) return;
+
+    const itens = devocionais
+      .filter(item => {
+        const texto = normalizarTexto(
+          `${item.titulo || ""} ${item.referencia || ""} ${item.tema || ""} ${item.categoria || ""}`
+        );
+
+        return (
+          texto.includes("presenca") ||
+          texto.includes("espirito")
+        );
+      })
+      .slice(0, 10);
+
+    const fonte =
+      itens.length
+        ? itens
+        : devocionais.slice(0, 10);
+
+    rail.innerHTML = fonte
+      .map(item =>
+        criarCardDevocional(item, {
+          imagem: ASSETS.presenca
+        })
+      )
+      .join("");
+  }
+
+  /* ---------------------------------------------------------
+     RAIL — ESTUDOS
+  --------------------------------------------------------- */
+
+  function renderStudiesRail() {
+    const rail =
+      $("[data-studies-rail]") ||
+      $("#studiesRail");
+
+    if (!rail) return;
+
+    if (!estudos.length) {
+      rail.innerHTML = `
+        <div class="empty-state">
+          Os estudos serão carregados em breve.
+        </div>
+      `;
+      return;
     }
 
-    container.innerHTML =
-      dias.map(dia => {
+    rail.innerHTML = estudos
+      .slice(0, 10)
+      .map(criarCardEstudo)
+      .join("");
+  }
 
-        const item =
-          encontrarDevocional(dia);
+  /* ---------------------------------------------------------
+     TOP 10
+  --------------------------------------------------------- */
 
-        const titulo =
-          item?.titulo ||
-          `Dia ${dia}`;
+  function renderTop10() {
+    const rail =
+      $("[data-top10-rail]") ||
+      $("#top10Rail");
 
-        const referencia =
-          item?.referencia ||
-          "Jornada de 365 dias";
+    if (!rail) return;
 
-        const concluido =
-          state.completos.includes(dia);
+    const ranking = [
+      ...devocionais
+    ]
+      .sort((a, b) =>
+        Number(a.dia || 0) -
+        Number(b.dia || 0)
+      )
+      .slice(0, 10);
+
+    rail.innerHTML = ranking
+      .map((item, index) => {
+        const dia = Number(item.dia || 0);
+        const imagem = imagemDoDevocional(item);
 
         return `
           <article
-            class="card-square"
+            class="top10-card"
             data-open-day="${dia}"
-            role="button"
-            tabindex="0"
-            aria-label="Abrir Dia ${dia}"
+            style="--top10-image:url('${imagem}')"
           >
-
-            <div class="card-content">
-
-              <div class="card-number">
-                ${concluido ? "Concluído" : `Dia ${dia}`}
-              </div>
-
-              <div class="card-title">
-                ${escapeHTML(titulo)}
-              </div>
-
-              <div class="card-meta">
-                ${escapeHTML(referencia)}
-              </div>
-
+            <div class="top10-number">
+              ${String(index + 1).padStart(2, "0")}
             </div>
 
+            <div class="top10-image">
+              <img
+                src="${imagem}"
+                alt=""
+                loading="lazy"
+                onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"
+              />
+            </div>
+
+            <div class="top10-info">
+              <span>
+                DIA ${dia}
+              </span>
+
+              <strong>
+                ${escapeHTML(item.titulo || "")}
+              </strong>
+            </div>
           </article>
         `;
-
-      }).join("");
+      })
+      .join("");
   }
 
-
-  /* =======================================================
-     RAIL DE ESTUDOS
-     ======================================================= */
-
-  function renderStudiesRail() {
-
-    const containers =
-      $$("[data-studies-rail]");
-
-    if (!containers.length) {
-      return;
-    }
-
-    containers.forEach(container => {
-
-      if (!state.estudos.length) {
-
-        container.innerHTML = `
-          <div class="empty-state">
-            <h3>Estudos em preparação</h3>
-            <p>
-              A biblioteca teológica será ampliada
-              progressivamente ao longo da jornada.
-            </p>
-          </div>
-        `;
-
-        return;
-      }
-
-      container.innerHTML =
-        state.estudos.slice(0, 10).map(estudo => {
-
-          return `
-            <article
-              class="card-square"
-              data-open-study="${escapeHTML(estudo.id || "")}"
-              role="button"
-              tabindex="0"
-            >
-
-              <div class="card-content">
-
-                <div class="card-number">
-                  Estudo · Dia ${Number(estudo.dia) || ""}
-                </div>
-
-                <div class="card-title">
-                  ${escapeHTML(estudo.titulo || "Estudo")}
-                </div>
-
-                <div class="card-meta">
-                  ${escapeHTML(
-                    estudo.categoria || "Aprofundamento"
-                  )}
-                </div>
-
-              </div>
-
-            </article>
-          `;
-
-        }).join("");
-    });
-  }
-
-
-  /* =======================================================
+  /* ---------------------------------------------------------
      FAVORITOS
-     ======================================================= */
+  --------------------------------------------------------- */
 
   function renderFavorites() {
+    const container =
+      $("[data-favorites-list]") ||
+      $("#favoritesList");
 
-    const containers =
-      $$("[data-favorites-list]");
+    if (!container) return;
 
-    if (!containers.length) {
+    const favoritos = getFavoritos();
+
+    const itens = favoritos
+      .map(dia => obterDevocional(dia))
+      .filter(Boolean);
+
+    if (!itens.length) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <strong>Seu espaço está vazio.</strong>
+          <p>
+            Salve os conteúdos que deseja revisitar.
+          </p>
+        </div>
+      `;
       return;
     }
 
-    containers.forEach(container => {
-
-      const favoritos =
-        state.favoritos
-          .map(dia => encontrarDevocional(dia))
-          .filter(Boolean);
-
-      if (!favoritos.length) {
-
-        container.innerHTML = `
-          <div class="empty-state">
-            <h3>Seu espaço está vazio</h3>
-            <p>
-              Ao encontrar um conteúdo especial,
-              toque no favorito para guardá-lo aqui.
-            </p>
-          </div>
-        `;
-
-        return;
-      }
-
-      container.innerHTML =
-        favoritos.map(item => {
-
-          return `
-            <article
-              class="card-square"
-              data-open-day="${Number(item.dia)}"
-              role="button"
-              tabindex="0"
-            >
-
-              <div class="card-content">
-
-                <div class="card-number">
-                  Dia ${Number(item.dia)}
-                </div>
-
-                <div class="card-title">
-                  ${escapeHTML(item.titulo || "")}
-                </div>
-
-                <div class="card-meta">
-                  ${escapeHTML(item.referencia || "")}
-                </div>
-
-              </div>
-
-            </article>
-          `;
-
-        }).join("");
-    });
+    container.innerHTML = itens
+      .map(item =>
+        criarCardDevocional(item)
+      )
+      .join("");
   }
 
+  /* ---------------------------------------------------------
+     FAVORITAR
+  --------------------------------------------------------- */
 
-  /* =======================================================
-     MODAL DEVOCIONAL
-     ======================================================= */
+  function alternarFavorito(dia) {
+    dia = Number(dia);
 
-  function obterModal() {
+    const favoritos = getFavoritos();
 
-    let modal = $("#devotionalModal");
+    const indice = favoritos.indexOf(dia);
 
-    if (modal) {
-      return modal;
+    if (indice >= 0) {
+      favoritos.splice(indice, 1);
+      mostrarToast("Removido dos favoritos");
+    } else {
+      favoritos.push(dia);
+      mostrarToast("Adicionado aos favoritos");
     }
 
-    modal = document.createElement("div");
+    salvarStorage(
+      STORAGE.favoritos,
+      favoritos
+    );
 
+    renderTodayRail();
+    renderPresenceRail();
+    renderFavorites();
+  }
+
+  /* ---------------------------------------------------------
+     CONCLUIR DIA
+  --------------------------------------------------------- */
+
+  function concluirDia(dia) {
+    dia = Number(dia);
+
+    const concluidos = getConcluidos();
+
+    if (!concluidos.includes(dia)) {
+      concluidos.push(dia);
+      concluidos.sort((a, b) => a - b);
+
+      salvarStorage(
+        STORAGE.concluidos,
+        concluidos
+      );
+
+      mostrarToast(
+        `Dia ${dia} concluído`
+      );
+    }
+
+    localStorage.setItem(
+      STORAGE.ultimoDia,
+      String(dia + 1)
+    );
+
+    atualizarProgresso();
+    renderTodayRail();
+    renderPresenceRail();
+    renderFavorites();
+  }
+
+  /* ---------------------------------------------------------
+     MODAL DEVOCIONAL
+  --------------------------------------------------------- */
+
+  function abrirDevocional(dia) {
+    const item = obterDevocional(dia);
+
+    if (!item) {
+      mostrarToast(
+        "Este conteúdo ainda não está disponível."
+      );
+      return;
+    }
+
+    fecharTodosModais();
+
+    const modal = document.createElement("div");
+
+    modal.className = "modal-backdrop";
     modal.id = "devotionalModal";
-    modal.className = "modal";
+
+    const favorito = isFavorito(item.dia);
+    const concluido = isConcluido(item.dia);
+
+    const estudo =
+      obterEstudoPorDia(item.dia);
 
     modal.innerHTML = `
-      <div class="modal-content">
-
+      <div
+        class="modal-sheet devotional-modal"
+        role="dialog"
+        aria-modal="true"
+      >
         <button
           class="modal-close"
-          type="button"
           data-close-modal
-          aria-label="Fechar"
+          type="button"
         >
           ×
         </button>
 
-        <div data-modal-body></div>
+        <div class="modal-hero">
+          <img
+            src="${imagemDoDevocional(item)}"
+            alt=""
+            onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"
+          />
 
+          <div class="modal-hero-overlay"></div>
+
+          <div class="modal-hero-content">
+            <span>
+              DIA ${Number(item.dia)}
+            </span>
+
+            <h2>
+              ${escapeHTML(item.titulo || "")}
+            </h2>
+
+            ${
+              item.referencia
+                ? `<p>${escapeHTML(item.referencia)}</p>`
+                : ""
+            }
+          </div>
+        </div>
+
+        <div class="modal-content">
+
+          ${
+            item.introducao
+              ? `
+                <section>
+                  <span class="eyebrow">
+                    CHEGADA
+                  </span>
+
+                  <p class="lead">
+                    ${escapeHTML(item.introducao)}
+                  </p>
+                </section>
+              `
+              : ""
+          }
+
+          ${
+            item.reflexao
+              ? `
+                <section>
+                  <span class="eyebrow">
+                    REFLEXÃO
+                  </span>
+
+                  <div class="reading-text">
+                    ${escapeHTML(item.reflexao)}
+                  </div>
+                </section>
+              `
+              : ""
+          }
+
+          ${
+            item.pergunta
+              ? `
+                <section class="glass-highlight">
+                  <span class="eyebrow">
+                    CONTEMPLE
+                  </span>
+
+                  <h3>
+                    ${escapeHTML(item.pergunta)}
+                  </h3>
+                </section>
+              `
+              : ""
+          }
+
+          ${
+            item.pratica
+              ? `
+                <section>
+                  <span class="eyebrow">
+                    PRÁTICA
+                  </span>
+
+                  <div class="reading-text">
+                    ${escapeHTML(item.pratica)}
+                  </div>
+                </section>
+              `
+              : ""
+          }
+
+          ${
+            item.oracao
+              ? `
+                <section class="prayer-section">
+                  <span class="eyebrow">
+                    ORAÇÃO
+                  </span>
+
+                  <div class="prayer-text">
+                    ${escapeHTML(item.oracao)}
+                  </div>
+
+                  <button
+                    class="primary-button"
+                    type="button"
+                    data-audio-prayer="${Number(item.dia)}"
+                  >
+                    ▶ Ouvir oração
+                  </button>
+                </section>
+              `
+              : ""
+          }
+
+          <div class="deep-actions">
+
+            ${
+              estudo
+                ? `
+                  <button
+                    class="glass-button"
+                    type="button"
+                    data-open-study-day="${Number(item.dia)}"
+                  >
+                    Aprofundar no estudo
+                  </button>
+                `
+                : ""
+            }
+
+            <button
+              class="glass-button"
+              type="button"
+              data-favorite-day="${Number(item.dia)}"
+            >
+              ${favorito ? "★ Favoritado" : "☆ Favoritar"}
+            </button>
+
+            <button
+              class="primary-button"
+              type="button"
+              data-complete-day="${Number(item.dia)}"
+            >
+              ${
+                concluido
+                  ? "✓ Dia concluído"
+                  : "Concluir este dia"
+              }
+            </button>
+
+          </div>
+
+        </div>
       </div>
     `;
 
     document.body.appendChild(modal);
 
-    return modal;
-  }
-
-
-  function abrirDevocional(dia) {
-
-    const item =
-      encontrarDevocional(dia);
-
-    if (!item) {
-
-      console.warn(
-        `Devocional do Dia ${dia} não encontrado.`
-      );
-
-      return;
-    }
-
-    const modal = obterModal();
-
-    const body =
-      $("[data-modal-body]", modal);
-
-    const favorito =
-      state.favoritos.includes(Number(dia));
-
-    const completo =
-      state.completos.includes(Number(dia));
-
-    body.innerHTML = `
-
-      <div class="modal-kicker">
-        Jornada · Dia ${Number(item.dia)}
-      </div>
-
-      <h2 class="modal-title">
-        ${escapeHTML(item.titulo || "")}
-      </h2>
-
-      ${
-        item.referencia
-          ? `
-            <div class="modal-reference">
-              ${escapeHTML(item.referencia)}
-            </div>
-          `
-          : ""
-      }
-
-      ${
-        item.introducao
-          ? `
-            <section class="modal-section">
-              <h3>Chegue</h3>
-              <p>
-                ${escapeHTML(item.introducao)}
-              </p>
-            </section>
-          `
-          : ""
-      }
-
-      ${
-        item.reflexao
-          ? `
-            <section class="modal-section">
-              <h3>Contemple</h3>
-              <p>
-                ${escapeHTML(item.reflexao)}
-              </p>
-            </section>
-          `
-          : ""
-      }
-
-      ${
-        item.pergunta
-          ? `
-            <section class="modal-section">
-              <h3>Pergunta para hoje</h3>
-              <p>
-                ${escapeHTML(item.pergunta)}
-              </p>
-            </section>
-          `
-          : ""
-      }
-
-      ${
-        item.pratica
-          ? `
-            <section class="modal-section">
-              <h3>Pratique</h3>
-              <p>
-                ${escapeHTML(item.pratica)}
-              </p>
-            </section>
-          `
-          : ""
-      }
-
-      ${
-        item.oracao
-          ? `
-            <section class="modal-section">
-              <h3>Oração</h3>
-              <p>
-                ${escapeHTML(item.oracao)}
-              </p>
-            </section>
-          `
-          : ""
-      }
-
-      ${
-        item.diario
-          ? `
-            <section class="modal-section">
-              <h3>Registre</h3>
-              <p>
-                ${escapeHTML(item.diario)}
-              </p>
-            </section>
-          `
-          : ""
-      }
-
-      <div class="modal-actions">
-
-        <button
-          class="primary-button"
-          type="button"
-          data-complete-day="${Number(item.dia)}"
-        >
-          ${completo ? "Concluído" : "Concluir dia"}
-        </button>
-
-        <button
-          class="secondary-button"
-          type="button"
-          data-favorite-day="${Number(item.dia)}"
-        >
-          ${favorito ? "Remover favorito" : "Favoritar"}
-        </button>
-
-        <button
-          class="secondary-button"
-          type="button"
-          data-open-study-day="${Number(item.dia)}"
-        >
-          Aprofundar estudo
-        </button>
-
-      </div>
-    `;
-
-    modal.classList.add("open");
-
-    document.body.style.overflow = "hidden";
-  }
-
-
-  function fecharModal() {
-
-    const modal =
-      $("#devotionalModal");
-
-    if (!modal) {
-      return;
-    }
-
-    modal.classList.remove("open");
-
-    document.body.style.overflow = "";
-
-    setTimeout(() => {
-
-      if (!modal.classList.contains("open")) {
-        modal.remove();
-      }
-
-    }, 350);
-  }
-
-
-  /* =======================================================
-     MODAL DE ESTUDO
-     ======================================================= */
-
-  function abrirEstudo(id) {
-
-    const estudo =
-      state.estudos.find(item =>
-        String(item.id) === String(id)
-      );
-
-    if (!estudo) {
-      return;
-    }
-
-    const modal = obterModal();
-
-    const body =
-      $("[data-modal-body]", modal);
-
-    body.innerHTML = `
-
-      <div class="modal-kicker">
-        Estudo · Dia ${Number(estudo.dia) || ""}
-      </div>
-
-      <h2 class="modal-title">
-        ${escapeHTML(estudo.titulo || "Estudo")}
-      </h2>
-
-      ${
-        estudo.subtitulo
-          ? `
-            <p class="screen-description">
-              ${escapeHTML(estudo.subtitulo)}
-            </p>
-          `
-          : ""
-      }
-
-      ${
-        estudo.texto_principal
-          ? `
-            <section class="modal-section">
-              <h3>Texto principal</h3>
-              <p>
-                ${escapeHTML(
-                  estudo.texto_principal.referencia || ""
-                )}
-              </p>
-              ${
-                estudo.texto_principal.tema
-                  ? `
-                    <p style="margin-top:8px">
-                      ${escapeHTML(
-                        estudo.texto_principal.tema
-                      )}
-                    </p>
-                  `
-                  : ""
-              }
-            </section>
-          `
-          : ""
-      }
-
-      ${
-        estudo.objetivo
-          ? `
-            <section class="modal-section">
-              <h3>Objetivo</h3>
-              <p>
-                ${escapeHTML(estudo.objetivo)}
-              </p>
-            </section>
-          `
-          : ""
-      }
-
-      ${
-        estudo.pergunta_central
-          ? `
-            <section class="modal-section">
-              <h3>Pergunta central</h3>
-              <p>
-                ${escapeHTML(estudo.pergunta_central)}
-              </p>
-            </section>
-          `
-          : ""
-      }
-
-      ${
-        estudo.exegese?.pontos?.length
-          ? `
-            <section class="modal-section">
-
-              <h3>
-                ${escapeHTML(
-                  estudo.exegese.titulo ||
-                  "Exegese"
-                )}
-              </h3>
-
-              <p>
-                ${estudo.exegese.pontos
-                  .map(ponto =>
-                    `• ${escapeHTML(
-                      typeof ponto === "string"
-                        ? ponto
-                        : ponto.titulo || ponto.texto || ""
-                    )}`
-                  )
-                  .join("<br><br>")}
-              </p>
-
-            </section>
-          `
-          : ""
-      }
-
-      ${
-        estudo.teologia?.sintese
-          ? `
-            <section class="modal-section">
-              <h3>Teologia</h3>
-              <p>
-                ${escapeHTML(
-                  estudo.teologia.sintese
-                )}
-              </p>
-            </section>
-          `
-          : ""
-      }
-
-      ${
-        estudo.contemplacao_teologica?.texto
-          ? `
-            <section class="modal-section">
-              <h3>Contemplação teológica</h3>
-              <p>
-                ${escapeHTML(
-                  estudo.contemplacao_teologica.texto
-                )}
-              </p>
-            </section>
-          `
-          : ""
-      }
-
-      ${
-        estudo.oracao?.texto
-          ? `
-            <section class="modal-section">
-              <h3>Oração</h3>
-              <p>
-                ${escapeHTML(
-                  estudo.oracao.texto
-                )}
-              </p>
-            </section>
-          `
-          : ""
-      }
-
-      <div class="modal-actions">
-
-        <button
-          class="primary-button"
-          type="button"
-          data-open-day="${Number(estudo.dia) || 1}"
-        >
-          Ver devocional
-        </button>
-
-      </div>
-    `;
-
-    modal.classList.add("open");
-
-    document.body.style.overflow = "hidden";
-  }
-
-
-  /* =======================================================
-     BUSCA
-     ======================================================= */
-
-  function criarBusca() {
-
-    let overlay =
-      $("#searchOverlay");
-
-    if (overlay) {
-      return overlay;
-    }
-
-    overlay = document.createElement("div");
-
-    overlay.id = "searchOverlay";
-    overlay.className = "search-overlay";
-
-    overlay.innerHTML = `
-
-      <button
-        class="icon-button"
-        data-close-search
-        type="button"
-        aria-label="Fechar busca"
-      >
-        ×
-      </button>
-
-      <div style="height:14px"></div>
-
-      <input
-        class="search-input"
-        type="search"
-        placeholder="Buscar na jornada..."
-        autocomplete="off"
-        data-search-input
-      >
-
-      <div
-        class="search-results"
-        data-search-results
-      ></div>
-
-    `;
-
-    document.body.appendChild(overlay);
-
-    return overlay;
-  }
-
-
-  function abrirBusca() {
-
-    const overlay =
-      criarBusca();
-
-    overlay.classList.add("open");
-
-    const input =
-      $("[data-search-input]", overlay);
-
-    setTimeout(() => input?.focus(), 100);
-  }
-
-
-  function fecharBusca() {
-
-    const overlay =
-      $("#searchOverlay");
-
-    if (overlay) {
-      overlay.classList.remove("open");
-    }
-  }
-
-
-  function executarBusca(termo) {
-
-    const results =
-      $("[data-search-results]");
-
-    if (!results) {
-      return;
-    }
-
-    termo = termo
-      .trim()
-      .toLowerCase();
-
-    if (!termo) {
-
-      results.innerHTML = `
-        <div class="empty-state">
-          <h3>O que você procura?</h3>
-          <p>
-            Busque por tema, palavra,
-            referência ou dia.
-          </p>
-        </div>
-      `;
-
-      return;
-    }
-
-    const encontrados =
-      state.devocionais.filter(item => {
-
-        const texto = [
-          item.titulo,
-          item.referencia,
-          item.introducao,
-          item.reflexao,
-          item.pergunta,
-          item.pratica
-        ]
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase();
-
-        return texto.includes(termo);
-      });
-
-    if (!encontrados.length) {
-
-      results.innerHTML = `
-        <div class="empty-state">
-          <h3>Nenhum resultado</h3>
-          <p>
-            Não encontramos esse conteúdo
-            na jornada.
-          </p>
-        </div>
-      `;
-
-      return;
-    }
-
-    results.innerHTML =
-      encontrados.slice(0, 20).map(item => `
-
-        <article
-          class="glass-card"
-          style="padding:16px;margin-bottom:10px"
-          data-open-day="${Number(item.dia)}"
-          role="button"
-          tabindex="0"
-        >
-
-          <div class="card-number">
-            Dia ${Number(item.dia)}
-          </div>
-
-          <div class="card-title">
-            ${escapeHTML(item.titulo || "")}
-          </div>
-
-          <div class="card-meta">
-            ${escapeHTML(item.referencia || "")}
-          </div>
-
-        </article>
-
-      `).join("");
-  }
-
-
-  /* =======================================================
-     NAVEGAÇÃO
-     ======================================================= */
-
-  function navegar(tela) {
-
-    state.telaAtual = tela;
-
-    $$("[data-screen]").forEach(screen => {
-
-      const ativa =
-        screen.dataset.screen === tela;
-
-      screen.hidden = !ativa;
+    requestAnimationFrame(() => {
+      modal.classList.add("is-visible");
     });
 
-    $$("[data-nav]").forEach(button => {
+    document.body.classList.add("modal-open");
+  }
 
-      button.classList.toggle(
+  /* ---------------------------------------------------------
+     MODAL ESTUDO
+  --------------------------------------------------------- */
+
+  function abrirEstudo(estudo) {
+    if (!estudo) return;
+
+    fecharTodosModais();
+
+    const modal = document.createElement("div");
+
+    modal.className = "modal-backdrop";
+    modal.id = "studyModal";
+
+    const leitura =
+      estudo.leitura_biblica?.referencia ||
+      estudo.texto_principal?.referencia ||
+      "";
+
+    const objetivo =
+      estudo.objetivo ||
+      "";
+
+    const contexto =
+      estudo.contexto_historico ||
+      estudo.contexto_literario ||
+      "";
+
+    const pontos =
+      estudo.exegese?.pontos ||
+      [];
+
+    modal.innerHTML = `
+      <div
+        class="modal-sheet study-modal"
+        role="dialog"
+        aria-modal="true"
+      >
+        <button
+          class="modal-close"
+          data-close-modal
+          type="button"
+        >
+          ×
+        </button>
+
+        <div class="study-cover">
+          <img
+            src="${imagemPorCategoria(estudo.categoria || "Presença")}"
+            alt=""
+            onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"
+          />
+
+          <div class="study-cover-overlay"></div>
+
+          <div>
+            <span class="eyebrow">
+              ESTUDO PROFUNDO
+            </span>
+
+            <h2>
+              ${escapeHTML(estudo.titulo || "")}
+            </h2>
+
+            ${
+              estudo.subtitulo
+                ? `<p>${escapeHTML(estudo.subtitulo)}</p>`
+                : ""
+            }
+          </div>
+        </div>
+
+        <div class="modal-content">
+
+          ${
+            leitura
+              ? `
+                <section>
+                  <span class="eyebrow">
+                    TEXTO PRINCIPAL
+                  </span>
+
+                  <h3>
+                    ${escapeHTML(leitura)}
+                  </h3>
+                </section>
+              `
+              : ""
+          }
+
+          ${
+            objetivo
+              ? `
+                <section>
+                  <span class="eyebrow">
+                    OBJETIVO
+                  </span>
+
+                  <p class="reading-text">
+                    ${escapeHTML(objetivo)}
+                  </p>
+                </section>
+              `
+              : ""
+          }
+
+          ${
+            contexto
+              ? `
+                <section>
+                  <span class="eyebrow">
+                    CONTEXTO
+                  </span>
+
+                  <p class="reading-text">
+                    ${escapeHTML(
+                      typeof contexto === "string"
+                        ? contexto
+                        : JSON.stringify(contexto)
+                    )}
+                  </p>
+                </section>
+              `
+              : ""
+          }
+
+          ${
+            pontos.length
+              ? `
+                <section>
+                  <span class="eyebrow">
+                    EXEGESE
+                  </span>
+
+                  <div class="study-points">
+                    ${pontos
+                      .map(ponto => `
+                        <div class="study-point">
+                          <strong>
+                            ${escapeHTML(
+                              ponto.titulo ||
+                              ponto.nome ||
+                              ""
+                            )}
+                          </strong>
+
+                          <p>
+                            ${escapeHTML(
+                              ponto.texto ||
+                              ponto.explicacao ||
+                              ponto.observacao ||
+                              ""
+                            )}
+                          </p>
+                        </div>
+                      `)
+                      .join("")}
+                  </div>
+                </section>
+              `
+              : ""
+          }
+
+          ${
+            estudo.teologia
+              ? `
+                <section class="glass-highlight">
+                  <span class="eyebrow">
+                    TEOLOGIA
+                  </span>
+
+                  <p>
+                    ${escapeHTML(
+                      typeof estudo.teologia === "string"
+                        ? estudo.teologia
+                        : estudo.teologia.conteudo ||
+                          estudo.teologia.descricao ||
+                          JSON.stringify(estudo.teologia)
+                    )}
+                  </p>
+                </section>
+              `
+              : ""
+          }
+
+          ${
+            estudo.contemplacao_teologica
+              ? `
+                <section>
+                  <span class="eyebrow">
+                    CONTEMPLAÇÃO
+                  </span>
+
+                  <p class="reading-text">
+                    ${escapeHTML(
+                      typeof estudo.contemplacao_teologica === "string"
+                        ? estudo.contemplacao_teologica
+                        : estudo.contemplacao_teologica.texto ||
+                          estudo.contemplacao_teologica.conteudo ||
+                          JSON.stringify(estudo.contemplacao_teologica)
+                    )}
+                  </p>
+                </section>
+              `
+              : ""
+          }
+
+          <div class="deep-actions">
+            <button
+              class="primary-button"
+              type="button"
+              data-close-modal
+            >
+              Continuar minha jornada
+            </button>
+          </div>
+
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    requestAnimationFrame(() => {
+      modal.classList.add("is-visible");
+    });
+
+    document.body.classList.add("modal-open");
+  }
+
+  /* ---------------------------------------------------------
+     MODAIS
+  --------------------------------------------------------- */
+
+  function fecharModal(modal) {
+    if (!modal) return;
+
+    modal.classList.remove("is-visible");
+
+    setTimeout(() => {
+      try {
+        modal.remove();
+      } catch {
+        /* */
+      }
+    }, 300);
+
+    document.body.classList.remove("modal-open");
+  }
+
+  function fecharTodosModais() {
+    $$(".modal-backdrop").forEach(fecharModal);
+  }
+
+  /* ---------------------------------------------------------
+     BUSCA
+  --------------------------------------------------------- */
+
+  function abrirBusca() {
+    let overlay = $("#searchOverlay");
+
+    if (!overlay) {
+      overlay = document.createElement("div");
+
+      overlay.id = "searchOverlay";
+      overlay.className = "search-overlay";
+
+      overlay.innerHTML = `
+        <div class="search-panel">
+
+          <button
+            class="modal-close"
+            data-close-search
+            type="button"
+          >
+            ×
+          </button>
+
+          <span class="eyebrow">
+            BUSCAR NA JORNADA
+          </span>
+
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Tema, Palavra, oração..."
+            autocomplete="off"
+          />
+
+          <div
+            id="searchResults"
+            class="search-results"
+          ></div>
+
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+
+      const input = $("#searchInput", overlay);
+
+      input?.addEventListener("input", () => {
+        executarBusca(input.value);
+      });
+    }
+
+    overlay.classList.add("is-visible");
+
+    setTimeout(() => {
+      $("#searchInput", overlay)?.focus();
+    }, 100);
+  }
+
+  function executarBusca(termo) {
+    const results = $("#searchResults");
+
+    if (!results) return;
+
+    const busca = normalizarTexto(termo);
+
+    if (!busca) {
+      results.innerHTML = `
+        <p class="search-empty">
+          Comece digitando um tema.
+        </p>
+      `;
+      return;
+    }
+
+    const encontrados = devocionais
+      .filter(item => {
+        const texto = normalizarTexto(`
+          ${item.titulo || ""}
+          ${item.referencia || ""}
+          ${item.introducao || ""}
+          ${item.reflexao || ""}
+          ${item.pratica || ""}
+          ${item.categoria || ""}
+        `);
+
+        return texto.includes(busca);
+      })
+      .slice(0, 20);
+
+    if (!encontrados.length) {
+      results.innerHTML = `
+        <p class="search-empty">
+          Não encontramos esse tema ainda.
+        </p>
+      `;
+      return;
+    }
+
+    results.innerHTML = encontrados
+      .map(item => `
+        <button
+          class="search-result"
+          type="button"
+          data-open-day="${Number(item.dia)}"
+        >
+          <span>
+            DIA ${Number(item.dia)}
+          </span>
+
+          <strong>
+            ${escapeHTML(item.titulo || "")}
+          </strong>
+        </button>
+      `)
+      .join("");
+  }
+
+  function fecharBusca() {
+    $("#searchOverlay")?.classList.remove(
+      "is-visible"
+    );
+  }
+
+  /* ---------------------------------------------------------
+     NAVEGAÇÃO
+  --------------------------------------------------------- */
+
+  function navegar(screen) {
+    if (!screen) return;
+
+    const telas = $$("[data-screen]");
+
+    if (!telas.length) return;
+
+    telas.forEach(tela => {
+      const ativa =
+        tela.dataset.screen === screen;
+
+      tela.classList.toggle(
         "active",
-        button.dataset.nav === tela
+        ativa
+      );
+
+      tela.classList.toggle(
+        "is-active",
+        ativa
+      );
+    });
+
+    $$("[data-nav]").forEach(nav => {
+      nav.classList.toggle(
+        "active",
+        nav.dataset.nav === screen
       );
     });
 
@@ -1250,421 +1356,331 @@
       top: 0,
       behavior: "smooth"
     });
+
+    if (screen === "favoritos") {
+      renderFavorites();
+    }
+
+    if (screen === "hoje") {
+      renderTodayScreen();
+    }
   }
 
+  /* ---------------------------------------------------------
+     TELA HOJE
+  --------------------------------------------------------- */
 
-  /* =======================================================
+  function renderTodayScreen() {
+    const dia = obterDiaAtual();
+    const item = obterDevocional(dia);
+
+    $$("[data-today-day]").forEach(el => {
+      el.textContent = dia;
+    });
+
+    $$("[data-today-title]").forEach(el => {
+      el.textContent =
+        item?.titulo ||
+        `Dia ${dia}`;
+    });
+
+    $$("[data-today-reference]").forEach(el => {
+      el.textContent =
+        item?.referencia || "";
+    });
+  }
+
+  /* ---------------------------------------------------------
      EVENTOS
-     ======================================================= */
+  --------------------------------------------------------- */
 
-  function configurarEventos() {
+  function bindEvents() {
 
-    document.addEventListener("click", event => {
+    document.addEventListener(
+      "click",
+      event => {
 
-      const openDay =
-        event.target.closest("[data-open-day]");
+        const target =
+          event.target.closest(
+            "[data-open-day]"
+          );
 
-      if (openDay) {
-
-        const dia =
-          Number(openDay.dataset.openDay);
-
-        if (dia) {
-          abrirDevocional(dia);
+        if (
+          target &&
+          !event.target.closest(
+            "[data-favorite-day]"
+          )
+        ) {
+          abrirDevocional(
+            Number(target.dataset.openDay)
+          );
+          return;
         }
 
-        return;
-      }
+        const favorito =
+          event.target.closest(
+            "[data-favorite-day]"
+          );
 
+        if (favorito) {
+          event.preventDefault();
+          event.stopPropagation();
 
-      const openStudy =
-        event.target.closest("[data-open-study]");
+          alternarFavorito(
+            Number(
+              favorito.dataset.favoriteDay
+            )
+          );
 
-      if (openStudy) {
+          return;
+        }
 
-        abrirEstudo(
-          openStudy.dataset.openStudy
-        );
+        const concluir =
+          event.target.closest(
+            "[data-complete-day]"
+          );
 
-        return;
-      }
+        if (concluir) {
+          concluirDia(
+            Number(
+              concluir.dataset.completeDay
+            )
+          );
 
+          return;
+        }
 
-      const nav =
-        event.target.closest("[data-nav]");
+        const estudoDia =
+          event.target.closest(
+            "[data-open-study-day]"
+          );
 
-      if (nav) {
+        if (estudoDia) {
+          const estudo =
+            obterEstudoPorDia(
+              Number(
+                estudoDia.dataset.openStudyDay
+              )
+            );
 
-        navegar(
-          nav.dataset.nav
-        );
+          if (estudo) {
+            abrirEstudo(estudo);
+          }
 
-        return;
-      }
-
-
-      const closeModal =
-        event.target.closest("[data-close-modal]");
-
-      if (closeModal) {
-        fecharModal();
-        return;
-      }
-
-
-      const closeSearch =
-        event.target.closest("[data-close-search]");
-
-      if (closeSearch) {
-        fecharBusca();
-        return;
-      }
-
-
-      const openSearch =
-        event.target.closest("[data-open-search]");
-
-      if (openSearch) {
-        abrirBusca();
-        return;
-      }
-
-
-      const favorite =
-        event.target.closest("[data-favorite-day]");
-
-      if (favorite) {
-
-        alternarFavorito(
-          Number(favorite.dataset.favoriteDay)
-        );
-
-        abrirDevocional(
-          Number(favorite.dataset.favoriteDay)
-        );
-
-        return;
-      }
-
-
-      const complete =
-        event.target.closest("[data-complete-day]");
-
-      if (complete) {
-
-        marcarCompleto(
-          Number(complete.dataset.completeDay)
-        );
-
-        abrirDevocional(
-          Number(complete.dataset.completeDay)
-        );
-
-        return;
-      }
-
-
-      const studyDay =
-        event.target.closest("[data-open-study-day]");
-
-      if (studyDay) {
+          return;
+        }
 
         const estudo =
-          encontrarEstudoPorDia(
-            Number(studyDay.dataset.openStudyDay)
+          event.target.closest(
+            "[data-open-study]"
           );
 
         if (estudo) {
-          abrirEstudo(estudo.id);
+          const encontrado =
+            estudos.find(
+              item =>
+                String(item.id) ===
+                String(
+                  estudo.dataset.openStudy
+                )
+            );
+
+          if (encontrado) {
+            abrirEstudo(encontrado);
+          }
+
+          return;
         }
 
-        return;
-      }
-
-
-      const start =
-        event.target.closest("[data-start-journey]");
-
-      if (start) {
-
-        state.diaAtual = 1;
-        salvarDiaAtual();
-
-        abrirDevocional(1);
-
-        return;
-      }
-
-
-      const continueButton =
-        event.target.closest("[data-continue]");
-
-      if (continueButton) {
-
-        abrirDevocional(
-          state.diaAtual
-        );
-
-        return;
-      }
-
-
-      const exploreStudies =
-        event.target.closest("[data-explore-studies]");
-
-      if (exploreStudies) {
-
-        navegar("estudos");
-
-        return;
-      }
-
-    });
-
-
-    document.addEventListener("input", event => {
-
-      if (
-        event.target.matches(
-          "[data-search-input]"
-        )
-      ) {
-        executarBusca(
-          event.target.value
-        );
-      }
-
-    });
-
-
-    document.addEventListener("keydown", event => {
-
-      if (
-        event.key === "Escape"
-      ) {
-
-        fecharModal();
-        fecharBusca();
-
-      }
-
-
-      if (
-        event.key === "Enter" &&
-        event.target.matches("[data-open-day]")
-      ) {
-
-        const dia =
-          Number(
-            event.target.dataset.openDay
+        const nav =
+          event.target.closest(
+            "[data-nav]"
           );
 
-        if (dia) {
-          abrirDevocional(dia);
+        if (nav) {
+          navegar(nav.dataset.nav);
+          return;
+        }
+
+        const fechar =
+          event.target.closest(
+            "[data-close-modal]"
+          );
+
+        if (fechar) {
+          fecharModal(
+            fechar.closest(
+              ".modal-backdrop"
+            )
+          );
+
+          return;
+        }
+
+        const fecharBuscaBtn =
+          event.target.closest(
+            "[data-close-search]"
+          );
+
+        if (fecharBuscaBtn) {
+          fecharBusca();
+          return;
+        }
+
+        const busca =
+          event.target.closest(
+            "[data-open-search]"
+          );
+
+        if (busca) {
+          abrirBusca();
+          return;
+        }
+
+        const iniciar =
+          event.target.closest(
+            "[data-start-journey]"
+          );
+
+        if (iniciar) {
+          navegar("hoje");
+          abrirDevocional(
+            obterDiaAtual()
+          );
+          return;
+        }
+
+        const explorar =
+          event.target.closest(
+            "[data-explore-studies]"
+          );
+
+        if (explorar) {
+          navegar("estudos");
+          return;
         }
       }
+    );
 
-    });
-
-
-    document.addEventListener("click", event => {
-
-      const modal =
-        event.target.closest("#devotionalModal");
-
-      if (
-        modal &&
-        event.target === modal
-      ) {
-        fecharModal();
-      }
-
-    });
-
-  }
-
-
-  /* =======================================================
-     RENDER GERAL
-     ======================================================= */
-
-  function renderTudo() {
-
-    renderHero();
-    renderToday();
-    renderProgress();
-    renderJourney();
-    renderTodayRail();
-    renderStudiesRail();
-    renderFavorites();
-  }
-
-
-  /* =======================================================
-     SERVICE WORKER
-     ======================================================= */
-
-  function registrarServiceWorker() {
-
-    if (
-      !("serviceWorker" in navigator)
-    ) {
-      return;
-    }
-
-    window.addEventListener(
-      "load",
-      () => {
-
-        navigator.serviceWorker
-          .register("./sw.js")
-          .then(registration => {
-
-            console.log(
-              "Doce Espírito Santo:",
-              "Service Worker ativo.",
-              registration.scope
-            );
-
-          })
-          .catch(error => {
-
-            console.warn(
-              "Service Worker não registrado:",
-              error
-            );
-
-          });
-
+    document.addEventListener(
+      "keydown",
+      event => {
+        if (event.key === "Escape") {
+          fecharTodosModais();
+          fecharBusca();
+        }
       }
     );
   }
 
+  /* ---------------------------------------------------------
+     SERVICE WORKER
+  --------------------------------------------------------- */
 
-  /* =======================================================
-     INICIALIZAÇÃO
-     ======================================================= */
-
-  async function iniciar() {
-
-    /*
-      Segurança contra loading infinito.
-      Mesmo que algum arquivo externo falhe,
-      a interface não ficará presa.
-    */
-
-    const timeoutLoading =
-      setTimeout(
-        removerLoading,
-        5000
+  function registrarServiceWorker() {
+    if (
+      "serviceWorker" in navigator
+    ) {
+      window.addEventListener(
+        "load",
+        () => {
+          navigator.serviceWorker
+            .register("./sw.js")
+            .then(registration => {
+              console.log(
+                "Service Worker ativo:",
+                registration.scope
+              );
+            })
+            .catch(error => {
+              console.warn(
+                "Service Worker:",
+                error
+              );
+            });
+        }
       );
+    }
+  }
+
+  /* ---------------------------------------------------------
+     INICIALIZAÇÃO
+  --------------------------------------------------------- */
+
+  async function iniciarApp() {
+
+    /* Segurança contra loading infinito */
+    const timeoutLoading =
+      setTimeout(() => {
+        removerLoading();
+      }, 5000);
 
     try {
 
-      await carregarConteudo();
+      renderHero();
 
-      configurarEventos();
+      await carregarDados();
 
-      renderTudo();
+      renderHero();
+
+      renderTodayRail();
+      renderPresenceRail();
+      renderStudiesRail();
+      renderTop10();
+      renderFavorites();
+      renderTodayScreen();
+      atualizarProgresso();
+
+      bindEvents();
 
       registrarServiceWorker();
 
-      console.log(
-        "Doce Espírito Santo iniciado.",
-        {
-          devocionais:
-            state.devocionais.length,
+      window.DoceEspirito = {
+        devocionais,
+        estudos,
+        abrirDevocional,
+        abrirEstudo,
+        navegar,
+        renderTodayRail,
+        renderPresenceRail,
+        renderStudiesRail,
+        renderTop10,
+        renderFavorites,
+        atualizarProgresso
+      };
 
-          estudos:
-            state.estudos.length,
-
-          diaAtual:
-            state.diaAtual,
-
-          progresso:
-            progresso()
-        }
-      );
-
-    } catch (error) {
+    } catch (erro) {
 
       console.error(
         "Erro ao iniciar o aplicativo:",
-        error
+        erro
       );
 
     } finally {
 
-      clearTimeout(timeoutLoading);
+      clearTimeout(
+        timeoutLoading
+      );
 
-      /*
-        Pequeno atraso para permitir
-        que o navegador pinte a interface
-        antes de retirar o loading.
-      */
-
-      requestAnimationFrame(() => {
-
-        requestAnimationFrame(() => {
-
-          removerLoading();
-
-        });
-
-      });
-
+      removerLoading();
     }
-
   }
 
-
-  /* =======================================================
-     API PÚBLICA
-     ======================================================= */
-
-  window.DoceEspirito = {
-
-    state,
-
-    abrirDevocional,
-
-    abrirEstudo,
-
-    abrirBusca,
-
-    navegar,
-
-    marcarCompleto,
-
-    alternarFavorito,
-
-    renderTudo,
-
-    encontrarDevocional,
-
-    encontrarEstudoPorDia
-
-  };
-
-
-  /* =======================================================
+  /* ---------------------------------------------------------
      START
-     ======================================================= */
+  --------------------------------------------------------- */
 
   if (
-    document.readyState === "loading"
+    document.readyState ===
+    "loading"
   ) {
-
     document.addEventListener(
       "DOMContentLoaded",
-      iniciar,
+      iniciarApp,
       { once: true }
     );
-
   } else {
-
-    iniciar();
-
+    iniciarApp();
   }
 
 })();
