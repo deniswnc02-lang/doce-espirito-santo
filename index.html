@@ -1,5013 +1,959 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
->
-
-<meta name="theme-color" content="#08090c">
-
-<title>Doce Espírito Santo — Um Amigo Íntimo</title>
-
-<meta
-  name="description"
-  content="Percebê-lo. Ele já está aqui. Uma jornada de 365 dias com o Doce Espírito Santo."
->
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap"
-  rel="stylesheet"
->
-
-<style>
-
-/* =========================================================
-   DOCE ESPÍRITO SANTO
-   FUTURISTIC / LIQUID GLASS DESIGN
-   ========================================================= */
-
-:root {
-
-  --bg:
-    #07080b;
-
-  --bg-soft:
-    #0d0e12;
-
-  --glass:
-    rgba(255,255,255,.075);
-
-  --glass-strong:
-    rgba(255,255,255,.115);
-
-  --glass-dark:
-    rgba(10,10,13,.58);
-
-  --border:
-    rgba(255,255,255,.16);
-
-  --border-soft:
-    rgba(255,255,255,.09);
-
-  --white:
-    #f8f4ef;
-
-  --muted:
-    rgba(248,244,239,.68);
-
-  --muted-2:
-    rgba(248,244,239,.44);
-
-  --gold:
-    #f4d39a;
-
-  --gold-strong:
-    #ffc486;
-
-  --peach:
-    #f4a982;
-
-  --peach-light:
-    #ffd0ae;
-
-  --orange:
-    #e9966f;
-
-  --shadow:
-    rgba(0,0,0,.45);
-
-  --radius-xl:
-    34px;
-
-  --radius-lg:
-    27px;
-
-  --radius-md:
-    21px;
-
-  --radius-sm:
-    16px;
-
-  --nav-height:
-    78px;
-
-  --safe-bottom:
-    env(safe-area-inset-bottom);
-
-  --safe-top:
-    env(safe-area-inset-top);
-}
-
-
-/* =========================================================
-   RESET
-   ========================================================= */
-
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-html {
-  background: var(--bg);
-  scroll-behavior: smooth;
-}
-
-body {
-
-  margin: 0;
-
-  min-height: 100dvh;
-
-  background:
-    radial-gradient(
-      circle at 50% -20%,
-      rgba(244,169,130,.13),
-      transparent 42%
-    ),
-    var(--bg);
-
-  color: var(--white);
-
-  font-family:
-    "DM Sans",
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
-
-  overflow-x: hidden;
-
-  -webkit-font-smoothing: antialiased;
-}
-
-
-/* =========================================================
-   APP SHELL
-   ========================================================= */
-
-#app {
-
-  position: relative;
-
-  min-height: 100dvh;
-
-  overflow-x: hidden;
-}
-
-
-/* =========================================================
-   ANIMATED ENVIRONMENT
-   ========================================================= */
-
-.ambient {
-
-  position: fixed;
-
-  inset: 0;
-
-  z-index: -20;
-
-  overflow: hidden;
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(244,169,130,.10),
-      transparent 35%
-    ),
-    #07080b;
-}
-
-
-.ambient::before {
-
-  content: "";
-
-  position: absolute;
-
-  width: 150vw;
-  height: 65vh;
-
-  left: -25vw;
-  top: 8vh;
-
-  background:
-
-    radial-gradient(
-      ellipse at center,
-      rgba(244,169,130,.18),
-      transparent 42%
-    );
-
-  filter:
-    blur(55px);
-
-  animation:
-    ambientPulse 11s ease-in-out infinite alternate;
-}
-
-
-.ambient::after {
-
-  content: "";
-
-  position: absolute;
-
-  width: 120vw;
-  height: 80vh;
-
-  right: -45vw;
-  bottom: -20vh;
-
-  background:
-
-    radial-gradient(
-      ellipse at center,
-      rgba(210,145,108,.12),
-      transparent 48%
-    );
-
-  filter:
-    blur(70px);
-
-  animation:
-    ambientDrift 17s ease-in-out infinite alternate;
-}
-
-
-/* =========================================================
-   LIQUID WAVES
-   ========================================================= */
-
-.wave-field {
-
-  position: fixed;
-
-  width: 150%;
-  height: 55vh;
-
-  left: -25%;
-
-  bottom: -8vh;
-
-  z-index: -10;
-
-  pointer-events: none;
-
-  opacity: .48;
-
-  transform:
-    rotate(-4deg);
-}
-
-
-.wave {
-
-  position: absolute;
-
-  width: 100%;
-  height: 150px;
-
-  border-top:
-    1px solid rgba(247,190,155,.24);
-
-  border-radius:
-    50%;
-
-  filter:
-    blur(.2px);
-
-  animation:
-    waveMove 13s ease-in-out infinite;
-}
-
-
-.wave:nth-child(1) {
-
-  top: 0;
-
-  transform:
-    scaleX(1.2)
-    rotate(3deg);
-
-  animation-duration: 14s;
-}
-
-
-.wave:nth-child(2) {
-
-  top: 45px;
-
-  transform:
-    scaleX(1.15)
-    rotate(-2deg);
-
-  opacity: .75;
-
-  animation-duration: 17s;
-
-  animation-delay: -4s;
-}
-
-
-.wave:nth-child(3) {
-
-  top: 90px;
-
-  transform:
-    scaleX(1.3)
-    rotate(2deg);
-
-  opacity: .48;
-
-  animation-duration: 20s;
-
-  animation-delay: -8s;
-}
-
-
-.wave:nth-child(4) {
-
-  top: 140px;
-
-  transform:
-    scaleX(1.1)
-    rotate(-3deg);
-
-  opacity: .30;
-
-  animation-duration: 18s;
-
-  animation-delay: -3s;
-}
-
-
-/* =========================================================
-   OPTIONAL REAL VIDEO BACKGROUND
-   ========================================================= */
-
-.background-video {
-
-  position: fixed;
-
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  z-index: -30;
-
-  opacity: .18;
-
-  mix-blend-mode:
-    screen;
-
-  pointer-events: none;
-
-  filter:
-    saturate(.9)
-    contrast(1.1);
-
-}
-
-
-/* =========================================================
-   TOP BAR
-   ========================================================= */
-
-.topbar {
-
-  position: sticky;
-
-  top: 0;
-
-  z-index: 50;
-
-  padding:
-    calc(12px + var(--safe-top))
-    18px
-    12px;
-
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(7,8,11,.82),
-      rgba(7,8,11,.42),
-      transparent
-    );
-
-  backdrop-filter:
-    blur(18px);
-
-  -webkit-backdrop-filter:
-    blur(18px);
-}
-
-
-.topbar-inner {
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
-
-  max-width:
-    760px;
-
-  margin:
-    0 auto;
-}
-
-
-.brand {
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    12px;
-
-  min-width: 0;
-}
-
-
-.brand-mark {
-
-  width: 43px;
-  height: 43px;
-
-  border-radius: 15px;
-
-  display:
-    grid;
-
-  place-items:
-    center;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.14),
-      rgba(255,255,255,.035)
-    );
-
-  border:
-    1px solid rgba(255,255,255,.16);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.14),
-    0 10px 35px rgba(0,0,0,.24);
-
-  color:
-    var(--gold);
-
-  font-size:
-    18px;
-
-  backdrop-filter:
-    blur(18px);
-
-  -webkit-backdrop-filter:
-    blur(18px);
-}
-
-
-.brand-text {
-
-  min-width: 0;
-}
-
-
-.brand-title {
-
-  font-size:
-    15px;
-
-  font-weight:
-    600;
-
-  letter-spacing:
-    .01em;
-
-  white-space:
-    nowrap;
-}
-
-
-.brand-subtitle {
-
-  margin-top:
-    2px;
-
-  font-size:
-    10px;
-
-  letter-spacing:
-    .18em;
-
-  text-transform:
-    uppercase;
-
-  color:
-    var(--muted-2);
-
-  white-space:
-    nowrap;
-}
-
-
-.top-action {
-
-  width: 43px;
-  height: 43px;
-
-  border-radius: 50%;
-
-  display:
-    grid;
-
-  place-items:
-    center;
-
-  border:
-    1px solid var(--border);
-
-  background:
-    rgba(255,255,255,.065);
-
-  color:
-    var(--white);
-
-  backdrop-filter:
-    blur(18px);
-
-  -webkit-backdrop-filter:
-    blur(18px);
-
-  cursor:
-    pointer;
-
-  transition:
-    transform .25s ease,
-    background .25s ease;
-}
-
-
-.top-action:active {
-
-  transform:
-    scale(.92);
-}
-
-
-/* =========================================================
-   MAIN
-   ========================================================= */
-
-main {
-
-  width:
-    min(100%, 760px);
-
-  margin:
-    0 auto;
-
-  padding:
-    8px 18px
-    calc(
-      var(--nav-height)
-      + var(--safe-bottom)
-      + 45px
-    );
-}
-
-
-/* =========================================================
-   HERO
-   ========================================================= */
-
-.hero {
-
-  position:
-    relative;
-
-  min-height:
-    440px;
-
-  border-radius:
-    var(--radius-xl);
-
-  overflow:
-    hidden;
-
-  border:
-    1px solid rgba(255,255,255,.20);
-
-  background:
-
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.10),
-      rgba(255,255,255,.035)
-    );
-
-  box-shadow:
-
-    0 35px 80px
-    rgba(0,0,0,.48),
-
-    inset 0 1px 0
-    rgba(255,255,255,.18);
-
-  backdrop-filter:
-    blur(22px)
-    saturate(125%);
-
-  -webkit-backdrop-filter:
-    blur(22px)
-    saturate(125%);
-
-  isolation:
-    isolate;
-}
-
-
-.hero::before {
-
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  background:
-
-    radial-gradient(
-      circle at 82% 18%,
-      rgba(255,207,174,.34),
-      transparent 25%
-    ),
-
-    radial-gradient(
-      circle at 20% 100%,
-      rgba(244,169,130,.17),
-      transparent 35%
-    );
-
-  z-index:
-    -1;
-}
-
-
-.hero::after {
-
-  content: "";
-
-  position: absolute;
-
-  width: 240px;
-  height: 240px;
-
-  right: -90px;
-  top: -90px;
-
-  border-radius:
-    50%;
-
-  background:
-    rgba(255,190,145,.18);
-
-  filter:
-    blur(55px);
-
-  animation:
-    orbFloat 9s ease-in-out infinite alternate;
-}
-
-
-.hero-content {
-
-  position:
-    relative;
-
-  z-index:
-    3;
-
-  min-height:
-    440px;
-
-  padding:
-    42px 30px 32px;
-
-  display:
-    flex;
-
-  flex-direction:
-    column;
-
-  justify-content:
-    flex-end;
-}
-
-
-.eyebrow {
-
-  margin-bottom:
-    15px;
-
-  color:
-    var(--gold);
-
-  font-size:
-    11px;
-
-  font-weight:
-    600;
-
-  letter-spacing:
-    .28em;
-
-  text-transform:
-    uppercase;
-}
-
-
-.hero h1 {
-
-  margin:
-    0;
-
-  max-width:
-    680px;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(43px, 10vw, 76px);
-
-  font-weight:
-    500;
-
-  line-height:
-    .91;
-
-  letter-spacing:
-    -.045em;
-
-  color:
-    var(--white);
-
-  text-shadow:
-    0 3px 25px rgba(0,0,0,.45);
-}
-
-
-.hero-copy {
-
-  max-width:
-    620px;
-
-  margin:
-    22px 0 26px;
-
-  font-size:
-    16px;
-
-  line-height:
-    1.7;
-
-  color:
-    rgba(248,244,239,.76);
-}
-
-
-.hero-copy strong {
-
-  color:
-    var(--white);
-
-  font-weight:
-    500;
-}
-
-
-/* =========================================================
-   PRIMARY BUTTON
-   ========================================================= */
-
-.primary-button {
-
-  width:
-    fit-content;
-
-  min-height:
-    54px;
-
-  padding:
-    0 24px;
-
-  display:
-    inline-flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  gap:
-    18px;
-
-  border-radius:
-    18px;
-
-  border:
-    1px solid rgba(255,255,255,.27);
-
-  background:
-
-    linear-gradient(
-      135deg,
-      rgba(255,203,169,.92),
-      rgba(222,143,105,.88)
-    );
-
-  color:
-    #201612;
-
-  font-size:
-    13px;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    .08em;
-
-  text-transform:
-    uppercase;
-
-  box-shadow:
-
-    0 15px 35px
-    rgba(218,135,95,.22),
-
-    inset 0 1px 0
-    rgba(255,255,255,.45);
-
-  cursor:
-    pointer;
-
-  transition:
-    transform .25s ease,
-    box-shadow .25s ease;
-}
-
-
-.primary-button:hover {
-
-  transform:
-    translateY(-2px);
-
-  box-shadow:
-    0 20px 40px
-    rgba(218,135,95,.30);
-}
-
-
-.primary-button:active {
-
-  transform:
-    scale(.97);
-}
-
-
-.primary-button .arrow {
-
-  font-size:
-    21px;
-
-  line-height:
-    1;
-}
-
-
-/* =========================================================
-   GLASS PROGRESS
-   ========================================================= */
-
-.progress-card {
-
-  margin-top:
-    18px;
-
-  padding:
-    20px;
-
-  border-radius:
-    var(--radius-lg);
-
-  background:
-    rgba(255,255,255,.055);
-
-  border:
-    1px solid var(--border-soft);
-
-  backdrop-filter:
-    blur(20px);
-
-  -webkit-backdrop-filter:
-    blur(20px);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.08);
-}
-
-
-.progress-top {
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
-
-  gap:
-    15px;
-
-  margin-bottom:
-    13px;
-}
-
-
-.progress-label {
-
-  font-size:
-    14px;
-
-  color:
-    var(--muted);
-}
-
-
-.progress-number {
-
-  color:
-    var(--gold);
-
-  font-size:
-    15px;
-
-  font-weight:
-    600;
-}
-
-
-.progress-track {
-
-  width:
-    100%;
-
-  height:
-    8px;
-
-  overflow:
-    hidden;
-
-  border-radius:
-    999px;
-
-  background:
-    rgba(255,255,255,.08);
-}
-
-
-.progress-fill {
-
-  height:
-    100%;
-
-  width:
-    0%;
-
-  border-radius:
-    inherit;
-
-  background:
-    linear-gradient(
-      90deg,
-      var(--orange),
-      var(--gold)
-    );
-
-  box-shadow:
-    0 0 20px rgba(244,169,130,.25);
-
-  transition:
-    width .7s cubic-bezier(.2,.8,.2,1);
-}
-
-
-/* =========================================================
-   SECTION
-   ========================================================= */
-
-.section {
-
-  margin-top:
-    50px;
-}
-
-
-.section-kicker {
-
-  margin-bottom:
-    8px;
-
-  color:
-    var(--gold);
-
-  font-size:
-    10px;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    .28em;
-
-  text-transform:
-    uppercase;
-}
-
-
-.section-title {
-
-  margin:
-    0 0 22px;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(36px, 8vw, 54px);
-
-  font-weight:
-    500;
-
-  line-height:
-    .95;
-
-  letter-spacing:
-    -.03em;
-}
-
-
-/* =========================================================
-   TODAY CARD
-   ========================================================= */
-
-.today-card {
-
-  position:
-    relative;
-
-  min-height:
-    260px;
-
-  border-radius:
-    var(--radius-lg);
-
-  overflow:
-    hidden;
-
-  border:
-    1px solid rgba(255,255,255,.16);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.11),
-      rgba(255,255,255,.035)
-    );
-
-  box-shadow:
-    0 25px 65px rgba(0,0,0,.34);
-
-  cursor:
-    pointer;
-
-  transition:
-    transform .3s ease;
-}
-
-
-.today-card:hover {
-
-  transform:
-    translateY(-4px);
-}
-
-
-.today-image {
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  width:
-    100%;
-
-  height:
-    100%;
-
-  object-fit:
-    cover;
-
-  opacity:
-    .58;
-
-  filter:
-    saturate(.9)
-    contrast(1.08);
-}
-
-
-.today-overlay {
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(4,5,7,.08),
-      rgba(4,5,7,.34) 45%,
-      rgba(4,5,7,.92)
-    );
-}
-
-
-.today-content {
-
-  position:
-    relative;
-
-  min-height:
-    260px;
-
-  padding:
-    26px;
-
-  display:
-    flex;
-
-  flex-direction:
-    column;
-
-  justify-content:
-    flex-end;
-}
-
-
-.day-label {
-
-  margin-bottom:
-    8px;
-
-  font-size:
-    10px;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    .25em;
-
-  color:
-    var(--gold);
-}
-
-
-.today-title {
-
-  margin:
-    0;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(32px, 7vw, 46px);
-
-  line-height:
-    .95;
-
-  font-weight:
-    500;
-}
-
-
-.today-reference {
-
-  margin-top:
-    10px;
-
-  color:
-    var(--muted);
-
-  font-size:
-    13px;
-}
-
-
-/* =========================================================
-   FEATURE GRID
-   ========================================================= */
-
-.feature-grid {
-
-  display:
-    grid;
-
-  grid-template-columns:
-    repeat(2, minmax(0,1fr));
-
-  gap:
-    13px;
-}
-
-
-.feature-card {
-
-  position:
-    relative;
-
-  min-height:
-    185px;
-
-  padding:
-    18px;
-
-  overflow:
-    hidden;
-
-  border-radius:
-    24px;
-
-  border:
-    1px solid rgba(255,255,255,.16);
-
-  background:
-    rgba(255,255,255,.055);
-
-  backdrop-filter:
-    blur(20px)
-    saturate(125%);
-
-  -webkit-backdrop-filter:
-    blur(20px)
-    saturate(125%);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.10),
-    0 20px 45px rgba(0,0,0,.25);
-
-  cursor:
-    pointer;
-
-  isolation:
-    isolate;
-
-  transition:
-    transform .3s ease,
-    border-color .3s ease;
-}
-
-
-.feature-card:hover {
-
-  transform:
-    translateY(-4px);
-
-  border-color:
-    rgba(244,211,154,.34);
-}
-
-
-.feature-image {
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  width:
-    100%;
-
-  height:
-    100%;
-
-  object-fit:
-    cover;
-
-  opacity:
-    .53;
-
-  z-index:
-    -2;
-
-  transition:
-    transform .6s ease;
-}
-
-
-.feature-card:hover .feature-image {
-
-  transform:
-    scale(1.06);
-}
-
-
-.feature-overlay {
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  z-index:
-    -1;
-
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(5,6,8,.05),
-      rgba(5,6,8,.80)
-    );
-}
-
-
-.feature-icon {
-
-  width:
-    46px;
-
-  height:
-    46px;
-
-  border-radius:
-    16px;
-
-  display:
-    grid;
-
-  place-items:
-    center;
-
-  margin-bottom:
-    35px;
-
-  background:
-    rgba(12,12,14,.36);
-
-  border:
-    1px solid rgba(255,255,255,.20);
-
-  color:
-    var(--gold);
-
-  backdrop-filter:
-    blur(15px);
-
-  -webkit-backdrop-filter:
-    blur(15px);
-
-  font-size:
-    19px;
-}
-
-
-.feature-card h3 {
-
-  margin:
-    0 0 6px;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:
-    28px;
-
-  line-height:
-    1;
-}
-
-
-.feature-card p {
-
-  margin:
-    0;
-
-  color:
-    var(--muted);
-
-  font-size:
-    12px;
-
-  line-height:
-    1.45;
-}
-
-
-/* =========================================================
-   JOURNEY HORIZONTAL CARDS
-   ========================================================= */
-
-.journey-scroller {
-
-  display:
-    flex;
-
-  gap:
-    14px;
-
-  overflow-x:
-    auto;
-
-  padding:
-    3px 2px 12px;
-
-  scroll-snap-type:
-    x mandatory;
-
-  scrollbar-width:
-    none;
-}
-
-
-.journey-scroller::-webkit-scrollbar {
-
-  display:
-    none;
-}
-
-
-.journey-card {
-
-  position:
-    relative;
-
-  flex:
-    0 0 76%;
-
-  min-height:
-    230px;
-
-  border-radius:
-    var(--radius-lg);
-
-  overflow:
-    hidden;
-
-  border:
-    1px solid rgba(255,255,255,.17);
-
-  scroll-snap-align:
-    start;
-
-  cursor:
-    pointer;
-
-  isolation:
-    isolate;
-}
-
-
-.journey-image {
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  width:
-    100%;
-
-  height:
-    100%;
-
-  object-fit:
-    cover;
-
-  opacity:
-    .64;
-
-  z-index:
-    -2;
-
-  transition:
-    transform .7s ease;
-}
-
-
-.journey-card:hover .journey-image {
-
-  transform:
-    scale(1.08);
-}
-
-
-.journey-gradient {
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(4,5,7,.05),
-      rgba(4,5,7,.84)
-    );
-
-  z-index:
-    -1;
-}
-
-
-.journey-content {
-
-  position:
-    relative;
-
-  min-height:
-    230px;
-
-  padding:
-    24px;
-
-  display:
-    flex;
-
-  flex-direction:
-    column;
-
-  justify-content:
-    flex-end;
-}
-
-
-.journey-number {
-
-  margin-bottom:
-    9px;
-
-  color:
-    var(--gold);
-
-  font-size:
-    10px;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    .24em;
-
-  text-transform:
-    uppercase;
-}
-
-
-.journey-card h3 {
-
-  margin:
-    0;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:
-    40px;
-
-  line-height:
-    .9;
-
-  font-weight:
-    500;
-}
-
-
-.journey-card p {
-
-  margin:
-    10px 0 0;
-
-  color:
-    var(--muted);
-
-  font-size:
-    12px;
-}
-
-
-/* =========================================================
-   DEVOTIONAL VIEW
-   ========================================================= */
-
-.view {
-
-  animation:
-    pageIn .45s ease both;
-}
-
-
-.back-button {
-
-  width:
-    44px;
-
-  height:
-    44px;
-
-  display:
-    grid;
-
-  place-items:
-    center;
-
-  border-radius:
-    50%;
-
-  border:
-    1px solid var(--border);
-
-  background:
-    rgba(255,255,255,.06);
-
-  color:
-    var(--white);
-
-  cursor:
-    pointer;
-
-  margin-bottom:
-    20px;
-}
-
-
-.devotional-hero {
-
-  position:
-    relative;
-
-  min-height:
-    300px;
-
-  overflow:
-    hidden;
-
-  border-radius:
-    var(--radius-xl);
-
-  border:
-    1px solid rgba(255,255,255,.18);
-
-  background:
-    rgba(255,255,255,.05);
-
-  isolation:
-    isolate;
-}
-
-
-.devotional-hero-image {
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  width:
-    100%;
-
-  height:
-    100%;
-
-  object-fit:
-    cover;
-
-  opacity:
-    .56;
-
-  z-index:
-    -2;
-}
-
-
-.devotional-hero::after {
-
-  content: "";
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(3,4,6,.08),
-      rgba(3,4,6,.94)
-    );
-
-  z-index:
-    -1;
-}
-
-
-.devotional-hero-content {
-
-  position:
-    relative;
-
-  min-height:
-    300px;
-
-  padding:
-    30px;
-
-  display:
-    flex;
-
-  flex-direction:
-    column;
-
-  justify-content:
-    flex-end;
-}
-
-
-.devotional-day {
-
-  color:
-    var(--gold);
-
-  font-size:
-    10px;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    .25em;
-
-  text-transform:
-    uppercase;
-}
-
-
-.devotional-title {
-
-  margin:
-    12px 0 8px;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(38px, 9vw, 58px);
-
-  line-height:
-    .92;
-
-  font-weight:
-    500;
-}
-
-
-.devotional-reference {
-
-  color:
-    var(--muted);
-}
-
-
-/* =========================================================
-   STUDY SECTIONS
-   ========================================================= */
-
-.study-stack {
-
-  margin-top:
-    18px;
-
-  display:
-    grid;
-
-  gap:
-    12px;
-}
-
-
-.study-block {
-
-  padding:
-    22px;
-
-  border-radius:
-    var(--radius-md);
-
-  background:
-    rgba(255,255,255,.055);
-
-  border:
-    1px solid rgba(255,255,255,.11);
-
-  backdrop-filter:
-    blur(18px);
-
-  -webkit-backdrop-filter:
-    blur(18px);
-}
-
-
-.study-label {
-
-  margin-bottom:
-    10px;
-
-  color:
-    var(--gold);
-
-  font-size:
-    10px;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    .22em;
-
-  text-transform:
-    uppercase;
-}
-
-
-.study-block h3 {
-
-  margin:
-    0 0 10px;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:
-    29px;
-
-  font-weight:
-    500;
-}
-
-
-.study-block p {
-
-  margin:
-    0;
-
-  color:
-    rgba(248,244,239,.74);
-
-  line-height:
-    1.75;
-
-  font-size:
-    15px;
-}
-
-
-/* =========================================================
-   JOURNAL
-   ========================================================= */
-
-.journal {
-
-  width:
-    100%;
-
-  min-height:
-    150px;
-
-  padding:
-    16px;
-
-  border-radius:
-    18px;
-
-  resize:
-    vertical;
-
-  color:
-    var(--white);
-
-  background:
-    rgba(0,0,0,.25);
-
-  border:
-    1px solid rgba(255,255,255,.12);
-
-  outline:
-    none;
-
-  font:
-    inherit;
-
-  line-height:
-    1.6;
-}
-
-
-.journal:focus {
-
-  border-color:
-    rgba(244,211,154,.45);
-
-  box-shadow:
-    0 0 0 3px rgba(244,211,154,.07);
-}
-
-
-/* =========================================================
-   BIBLE VIEW
-   ========================================================= */
-
-.bible-search {
-
-  width:
-    100%;
-
-  padding:
-    16px 18px;
-
-  border-radius:
-    18px;
-
-  border:
-    1px solid rgba(255,255,255,.12);
-
-  background:
-    rgba(255,255,255,.055);
-
-  color:
-    var(--white);
-
-  outline:
-    none;
-
-  font:
-    inherit;
-
-  backdrop-filter:
-    blur(18px);
-
-  -webkit-backdrop-filter:
-    blur(18px);
-}
-
-
-.bible-list {
-
-  margin-top:
-    16px;
-
-  display:
-    grid;
-
-  gap:
-    9px;
-}
-
-
-.bible-item {
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
-
-  gap:
-    15px;
-
-  padding:
-    17px;
-
-  border-radius:
-    18px;
-
-  border:
-    1px solid rgba(255,255,255,.10);
-
-  background:
-    rgba(255,255,255,.045);
-
-  cursor:
-    pointer;
-
-  transition:
-    background .2s ease,
-    transform .2s ease;
-}
-
-
-.bible-item:active {
-
-  transform:
-    scale(.985);
-}
-
-
-.bible-item span:first-child {
-
-  font-weight:
-    500;
-}
-
-
-.bible-item span:last-child {
-
-  color:
-    var(--gold);
-
-  font-size:
-    12px;
-}
-
-
-/* =========================================================
-   FAVORITES
-   ========================================================= */
-
-.empty-state {
-
-  padding:
-    55px 25px;
-
-  text-align:
-    center;
-
-  border:
-    1px solid rgba(255,255,255,.10);
-
-  border-radius:
-    var(--radius-lg);
-
-  background:
-    rgba(255,255,255,.04);
-}
-
-
-.empty-state-icon {
-
-  font-size:
-    36px;
-
-  margin-bottom:
-    14px;
-
-  color:
-    var(--gold);
-}
-
-
-.empty-state h3 {
-
-  margin:
-    0 0 8px;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:
-    31px;
-
-  font-weight:
-    500;
-}
-
-
-.empty-state p {
-
-  margin:
-    0;
-
-  color:
-    var(--muted);
-
-  line-height:
-    1.6;
-}
-
-
-/* =========================================================
-   PROFILE
-   ========================================================= */
-
-.profile-card {
-
-  padding:
-    30px;
-
-  border-radius:
-    var(--radius-xl);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.09),
-      rgba(255,255,255,.035)
-    );
-
-  border:
-    1px solid rgba(255,255,255,.15);
-
-  backdrop-filter:
-    blur(25px);
-
-  -webkit-backdrop-filter:
-    blur(25px);
-}
-
-
-.profile-name {
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:
-    42px;
-
-  line-height:
-    .95;
-
-  font-weight:
-    500;
-
-  margin:
-    0;
-}
-
-
-.profile-role {
-
-  margin-top:
-    8px;
-
-  color:
-    var(--gold);
-
-  font-size:
-    11px;
-
-  letter-spacing:
-    .18em;
-
-  text-transform:
-    uppercase;
-}
-
-
-.profile-divider {
-
-  height:
-    1px;
-
-  margin:
-    25px 0;
-
-  background:
-    rgba(255,255,255,.10);
-}
-
-
-.profile-line {
-
-  display:
-    flex;
-
-  justify-content:
-    space-between;
-
-  gap:
-    20px;
-
-  padding:
-    13px 0;
-
-  color:
-    var(--muted);
-}
-
-
-.profile-line strong {
-
-  color:
-    var(--white);
-
-  font-weight:
-    500;
-}
-
-
-/* =========================================================
-   BOTTOM NAV
-   ========================================================= */
-
-.bottom-nav {
-
-  position:
-    fixed;
-
-  z-index:
-    100;
-
-  left:
-    14px;
-
-  right:
-    14px;
-
-  bottom:
-    calc(
-      12px
-      + var(--safe-bottom)
-    );
-
-  height:
-    var(--nav-height);
-
-  padding:
-    7px;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    repeat(5, 1fr);
-
-  gap:
-    4px;
-
-  border-radius:
-    28px;
-
-  background:
-    rgba(20,20,23,.72);
-
-  border:
-    1px solid rgba(255,255,255,.17);
-
-  box-shadow:
-
-    0 25px 60px
-    rgba(0,0,0,.55),
-
-    inset 0 1px 0
-    rgba(255,255,255,.11);
-
-  backdrop-filter:
-    blur(28px)
-    saturate(140%);
-
-  -webkit-backdrop-filter:
-    blur(28px)
-    saturate(140%);
-}
-
-
-.nav-item {
-
-  border:
-    0;
-
-  border-radius:
-    22px;
-
-  background:
-    transparent;
-
-  color:
-    rgba(248,244,239,.48);
-
-  display:
-    flex;
-
-  flex-direction:
-    column;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  gap:
-    5px;
-
-  font:
-    inherit;
-
-  cursor:
-    pointer;
-
-  transition:
-    .25s ease;
-}
-
-
-.nav-icon {
-
-  width:
-    25px;
-
-  height:
-    25px;
-
-  display:
-    grid;
-
-  place-items:
-    center;
-
-  font-size:
-    20px;
-}
-
-
-.nav-label {
-
-  font-size:
-    10px;
-
-  font-weight:
-    500;
-}
-
-
-.nav-item.active {
-
-  color:
-    var(--gold);
-
-  background:
-    rgba(244,211,154,.09);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.08);
-}
-
-
-.nav-item:active {
-
-  transform:
-    scale(.94);
-}
-
-
-/* =========================================================
-   ICON SYSTEM
-   ========================================================= */
-
-.icon {
-
-  width:
-    20px;
-
-  height:
-    20px;
-
-  fill:
-    none;
-
-  stroke:
-    currentColor;
-
-  stroke-width:
-    1.7;
-
-  stroke-linecap:
-    round;
-
-  stroke-linejoin:
-    round;
-}
-
-
-/* =========================================================
-   TOAST
-   ========================================================= */
-
-.toast {
-
-  position:
-    fixed;
-
-  z-index:
-    200;
-
-  left:
-    50%;
-
-  bottom:
-    calc(
-      105px
-      + var(--safe-bottom)
-    );
-
-  transform:
-    translate(-50%, 20px);
-
-  width:
-    max-content;
-
-  max-width:
-    calc(100% - 40px);
-
-  padding:
-    12px 17px;
-
-  border-radius:
-    999px;
-
-  background:
-    rgba(25,25,28,.88);
-
-  border:
-    1px solid rgba(255,255,255,.15);
-
-  color:
-    var(--white);
-
-  font-size:
-    12px;
-
-  opacity:
-    0;
-
-  pointer-events:
-    none;
-
-  backdrop-filter:
-    blur(20px);
-
-  -webkit-backdrop-filter:
-    blur(20px);
-
-  transition:
-    opacity .25s ease,
-    transform .25s ease;
-}
-
-
-.toast.show {
-
-  opacity:
-    1;
-
-  transform:
-    translate(-50%, 0);
-}
-
-
-/* =========================================================
-   LOADING
-   ========================================================= */
-
-.loading-screen {
-
-  position:
-    fixed;
-
-  inset:
-    0;
-
-  z-index:
-    500;
-
-  display:
-    grid;
-
-  place-items:
-    center;
-
-  background:
-    #07080b;
-
-  transition:
-    opacity .5s ease,
-    visibility .5s ease;
-}
-
-
-.loading-screen.hidden {
-
-  opacity:
-    0;
-
-  visibility:
-    hidden;
-}
-
-
-.loader {
-
-  text-align:
-    center;
-}
-
-
-.loader-mark {
-
-  width:
-    62px;
-
-  height:
-    62px;
-
-  margin:
-    0 auto 20px;
-
-  border-radius:
-    22px;
-
-  border:
-    1px solid rgba(255,255,255,.18);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.11),
-      rgba(255,255,255,.03)
-    );
-
-  display:
-    grid;
-
-  place-items:
-    center;
-
-  color:
-    var(--gold);
-
-  box-shadow:
-    0 0 50px rgba(244,169,130,.10);
-
-  animation:
-    loaderFloat 2s ease-in-out infinite;
-}
-
-
-.loader p {
-
-  margin:
-    0;
-
-  color:
-    var(--muted);
-
-  font-size:
-    11px;
-
-  letter-spacing:
-    .18em;
-
-  text-transform:
-    uppercase;
-}
-
-
-/* =========================================================
-   ANIMATIONS
-   ========================================================= */
-
-@keyframes ambientPulse {
-
-  0% {
-    transform:
-      translate3d(-3%,0,0)
-      scale(1);
-  }
-
-  100% {
-    transform:
-      translate3d(7%,4%,0)
-      scale(1.13);
-  }
-}
-
-
-@keyframes ambientDrift {
-
-  0% {
-    transform:
-      translate3d(0,0,0)
-      scale(1);
-  }
-
-  100% {
-    transform:
-      translate3d(-10%,-8%,0)
-      scale(1.18);
-  }
-}
-
-
-@keyframes orbFloat {
-
-  0% {
-    transform:
-      translate(0,0)
-      scale(1);
-  }
-
-  100% {
-    transform:
-      translate(-30px,25px)
-      scale(1.15);
-  }
-}
-
-
-@keyframes waveMove {
-
-  0%,100% {
-    margin-left:
-      -2%;
-
-    transform:
-      scaleX(1)
-      rotate(2deg);
-  }
-
-  50% {
-    margin-left:
-      4%;
-
-    transform:
-      scaleX(1.08)
-      rotate(-2deg);
-  }
-}
-
-
-@keyframes pageIn {
-
-  from {
-    opacity:
-      0;
-
-    transform:
-      translateY(14px);
-  }
-
-  to {
-    opacity:
-      1;
-
-    transform:
-      translateY(0);
-  }
-}
-
-
-@keyframes loaderFloat {
-
-  0%,100% {
-    transform:
-      translateY(0);
-  }
-
-  50% {
-    transform:
-      translateY(-8px);
-  }
-}
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (min-width: 700px) {
-
-  main {
-
-    padding-left:
-      26px;
-
-    padding-right:
-      26px;
-  }
-
-  .feature-grid {
-
-    grid-template-columns:
-      repeat(3,1fr);
-  }
-
-  .journey-card {
-
-    flex-basis:
-      43%;
-  }
-
-  .bottom-nav {
-
-    max-width:
-      680px;
-
-    margin:
-      auto;
-
-    left:
-      50%;
-
-    right:
-      auto;
-
-    width:
-      calc(100% - 28px);
-
-    transform:
-      translateX(-50%);
-  }
-}
-
-
-@media (max-width: 390px) {
-
-  .hero-content {
-
-    padding:
-      34px 22px 26px;
-  }
-
-  .hero h1 {
-
-    font-size:
-      42px;
-  }
-
-  .feature-card {
-
-    min-height:
-      175px;
-
-    padding:
-      15px;
-  }
-
-  .feature-card h3 {
-
-    font-size:
-      25px;
-  }
-
-  .bottom-nav {
-
-    left:
-      9px;
-
-    right:
-      9px;
-  }
-}
-
-
-/* =========================================================
-   ACCESSIBILITY
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  *,
-  *::before,
-  *::after {
-
-    animation-duration:
-      .01ms !important;
-
-    animation-iteration-count:
-      1 !important;
-
-    scroll-behavior:
-      auto !important;
-
-    transition-duration:
-      .01ms !important;
-  }
-}
-
-</style>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <meta name="theme-color" content="#090706">
+
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
+
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent"
+  >
+
+  <meta
+    name="apple-mobile-web-app-title"
+    content="Doce Espírito Santo"
+  >
+
+  <meta
+    name="description"
+    content="Doce Espírito Santo — Um Amigo Íntimo. Uma jornada de 365 dias."
+  >
+
+  <title>
+    Doce Espírito Santo — Um Amigo Íntimo
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
 </head>
-
 
 <body>
 
-<div id="app">
+  <div id="app" class="app">
 
-  <!-- AMBIENTE ANIMADO -->
-  <div class="ambient"></div>
+    <!-- =========================================
+         TOPO
+    ========================================== -->
 
-  <div class="wave-field" aria-hidden="true">
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-  </div>
-
-
-  <!--
-    SE VOCÊ COLOCAR UM VÍDEO EM:
-    assets/background.mp4
-
-    ele passa a participar do ambiente visual.
-    O CSS continua funcionando como fallback.
-  -->
-  <video
-    class="background-video"
-    id="backgroundVideo"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="metadata"
-    aria-hidden="true"
-  >
-    <source src="assets/background.mp4" type="video/mp4">
-  </video>
-
-
-  <!-- LOADING -->
-
-  <div
-    class="loading-screen"
-    id="loadingScreen"
-  >
-
-    <div class="loader">
-
-      <div class="loader-mark">
-
-        <svg
-          class="icon"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path d="M12 3C9 7 7 9.5 7 13a5 5 0 0 0 10 0c0-3.5-2-6-5-10Z"/>
-          <path d="M10 16c.5.8 1.2 1.2 2 1.2"/>
-        </svg>
-
-      </div>
-
-      <p>Doce Espírito Santo</p>
-
-    </div>
-
-  </div>
-
-
-  <!-- TOP -->
-
-  <header class="topbar">
-
-    <div class="topbar-inner">
-
-      <div class="brand">
-
-        <div class="brand-mark">
-
-          <svg
-            class="icon"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 3C9 7 7 9.5 7 13a5 5 0 0 0 10 0c0-3.5-2-6-5-10Z"/>
-          </svg>
-
-        </div>
-
-        <div class="brand-text">
-
-          <div class="brand-title">
-            Doce Espírito Santo
-          </div>
-
-          <div class="brand-subtitle">
-            Um Amigo Íntimo
-          </div>
-
-        </div>
-
-      </div>
-
+    <header
+      class="topbar"
+      id="topbar"
+    >
 
       <button
-        class="top-action"
-        id="infoButton"
-        aria-label="Sobre a jornada"
+        class="brand"
+        data-action="home"
+        aria-label="Início"
       >
 
-        <svg
-          class="icon"
-          viewBox="0 0 24 24"
-        >
-          <circle cx="12" cy="12" r="9"/>
-          <path d="M12 10v6"/>
-          <path d="M12 7h.01"/>
-        </svg>
+        <span class="brand-mark">
+          <img
+            src="capa.jpeg"
+            alt=""
+          >
+        </span>
+
+        <span class="brand-copy">
+
+          <strong>
+            Doce Espírito Santo
+          </strong>
+
+          <small>
+            UM AMIGO ÍNTIMO
+          </small>
+
+        </span>
 
       </button>
 
-    </div>
 
-  </header>
+      <div class="top-actions">
 
+        <button
+          class="round-button"
+          data-action="search"
+          aria-label="Pesquisar"
+        >
+          ⌕
+        </button>
 
-  <!-- CONTEÚDO -->
+        <button
+          class="round-button"
+          data-action="profile"
+          aria-label="Perfil"
+        >
+          ◯
+        </button>
 
-  <main id="mainContent"></main>
+      </div>
 
+    </header>
 
-  <!-- NAVEGAÇÃO -->
 
-  <nav
-    class="bottom-nav"
-    id="bottomNav"
-    aria-label="Navegação principal"
-  >
+    <!-- =========================================
+         CONTEÚDO PRINCIPAL
+    ========================================== -->
 
-    <button
-      class="nav-item active"
-      data-route="home"
-    >
+    <main id="main">
 
-      <span class="nav-icon">
-        <svg class="icon" viewBox="0 0 24 24">
-          <path d="m3 10 9-7 9 7"/>
-          <path d="M5 9v11h14V9"/>
-          <path d="M9 20v-6h6v6"/>
-        </svg>
-      </span>
 
-      <span class="nav-label">
-        Início
-      </span>
+      <!-- =======================================
+           INÍCIO
+      ======================================== -->
 
-    </button>
+      <section
+        class="screen active"
+        id="homeScreen"
+      >
 
+        <!-- HERO -->
 
-    <button
-      class="nav-item"
-      data-route="journey"
-    >
+        <div class="hero">
 
-      <span class="nav-icon">
-        <svg class="icon" viewBox="0 0 24 24">
-          <path d="M4 17c4-8 7-10 16-10"/>
-          <circle cx="5" cy="17" r="2"/>
-          <circle cx="19" cy="7" r="2"/>
-        </svg>
-      </span>
+          <div class="hero-backdrop"></div>
 
-      <span class="nav-label">
-        Jornada
-      </span>
+          <div class="hero-glow"></div>
 
-    </button>
-
-
-    <button
-      class="nav-item"
-      data-route="today"
-    >
-
-      <span class="nav-icon">
-        <svg class="icon" viewBox="0 0 24 24">
-          <rect x="4" y="5" width="16" height="15" rx="2"/>
-          <path d="M8 3v4"/>
-          <path d="M16 3v4"/>
-          <path d="M4 10h16"/>
-        </svg>
-      </span>
-
-      <span class="nav-label">
-        Hoje
-      </span>
-
-    </button>
-
-
-    <button
-      class="nav-item"
-      data-route="favorites"
-    >
-
-      <span class="nav-icon">
-        <svg class="icon" viewBox="0 0 24 24">
-          <path d="M20.8 8.6c0 5.5-8.8 11-8.8 11S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.3a4.6 4.6 0 0 1 8.8 2.3Z"/>
-        </svg>
-      </span>
-
-      <span class="nav-label">
-        Favoritos
-      </span>
-
-    </button>
-
-
-    <button
-      class="nav-item"
-      data-route="profile"
-    >
-
-      <span class="nav-icon">
-        <svg class="icon" viewBox="0 0 24 24">
-          <circle cx="12" cy="8" r="4"/>
-          <path d="M4 21c.8-4 3.3-6 8-6s7.2 2 8 6"/>
-        </svg>
-      </span>
-
-      <span class="nav-label">
-        Perfil
-      </span>
-
-    </button>
-
-  </nav>
-
-
-  <!-- TOAST -->
-
-  <div
-    class="toast"
-    id="toast"
-  ></div>
-
-</div>
-
-
-<script>
-
-/* =========================================================
-   DOCE ESPÍRITO SANTO
-   INDEX CONTROLLER
-   ========================================================= */
-
-(function () {
-
-  "use strict";
-
-
-  /* -------------------------------------------------------
-     ESTADO LOCAL
-  ------------------------------------------------------- */
-
-  let currentRoute =
-    "home";
-
-  let currentDay =
-    1;
-
-  let devotionals =
-    [];
-
-  let currentDevotional =
-    null;
-
-
-  /* -------------------------------------------------------
-     REFERÊNCIAS
-  ------------------------------------------------------- */
-
-  const main =
-    document.getElementById("mainContent");
-
-  const loading =
-    document.getElementById("loadingScreen");
-
-  const toast =
-    document.getElementById("toast");
-
-  const backgroundVideo =
-    document.getElementById("backgroundVideo");
-
-
-  /* -------------------------------------------------------
-     HELPERS
-  ------------------------------------------------------- */
-
-  function escapeHTML(value) {
-
-    if (value === null || value === undefined) {
-      return "";
-    }
-
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
-
-  function showToast(message) {
-
-    toast.textContent =
-      message;
-
-    toast.classList.add("show");
-
-    clearTimeout(
-      window.__toastTimer
-    );
-
-    window.__toastTimer =
-      setTimeout(() => {
-
-        toast.classList.remove("show");
-
-      }, 2300);
-  }
-
-
-  function getAPI() {
-
-    return window.DoceEspiritoSanto || null;
-  }
-
-
-  function getState() {
-
-    const api =
-      getAPI();
-
-    if (api && api.state) {
-      return api.state;
-    }
-
-    return {
-      currentDay: 1,
-      completedDays: [],
-      favorites: [],
-      journal: {}
-    };
-  }
-
-
-  function getProgress() {
-
-    const state =
-      getState();
-
-    const completed =
-      Array.isArray(state.completedDays)
-        ? state.completedDays.length
-        : 0;
-
-    return Math.min(
-      365,
-      completed
-    );
-  }
-
-
-  function getDay() {
-
-    const api =
-      getAPI();
-
-    const state =
-      getState();
-
-    const day =
-      state.currentDay || currentDay || 1;
-
-    if (api && typeof api.getDevotional === "function") {
-
-      return api.getDevotional(day);
-
-    }
-
-    return devotionals.find(
-      item =>
-        Number(item.day) === Number(day)
-    );
-  }
-
-
-  function imageForDay(day) {
-
-    const images = [
-
-      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85",
-
-      "https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=1200&q=85",
-
-      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=85",
-
-      "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1200&q=85",
-
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85",
-
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85"
-
-    ];
-
-    return images[
-      (Number(day || 1) - 1)
-      % images.length
-    ];
-  }
-
-
-  /* -------------------------------------------------------
-     HOME
-  ------------------------------------------------------- */
-
-  function renderHome() {
-
-    const progress =
-      getProgress();
-
-    const day =
-      getDay();
-
-    const dayNumber =
-      day?.day || getState().currentDay || 1;
-
-    const title =
-      day?.title ||
-      "A presença que já está aqui";
-
-    const reference =
-      day?.reference ||
-      day?.bible ||
-      "João 14:16–17";
-
-
-    main.innerHTML = `
-
-      <div class="view">
-
-        <section class="hero">
 
           <div class="hero-content">
 
-            <div class="eyebrow">
-              SUA JORNADA
+            <div class="hero-kicker">
+              UMA JORNADA DE 365 DIAS
             </div>
 
+
             <h1>
-              Percebê-lo.<br>
-              Ele já está aqui.
+
+              Percebê-lo.
+
+              <br>
+
+              <em>
+                Ele já está aqui.
+              </em>
+
             </h1>
 
-            <p class="hero-copy">
-              Uma caminhada de
-              <strong>365 dias</strong>
-              para desenvolver presença,
-              oração, jejum, Palavra e vivência
-              com o <strong>Doce Espírito Santo</strong>.
+
+            <p>
+              Aprenda a percebê-lo.
+              Uma caminhada de presença,
+              Palavra, oração, jejum e
+              intimidade com o Doce Espírito Santo.
             </p>
 
-            <button
-              class="primary-button"
-              data-action="continue"
-            >
-              CONTINUAR JORNADA
-              <span class="arrow">→</span>
-            </button>
+
+            <div class="hero-actions">
+
+              <button
+                class="primary-cta"
+                data-action="continue"
+              >
+                ▶ Continuar jornada
+              </button>
+
+
+              <button
+                class="secondary-cta"
+                data-action="today"
+              >
+                ＋ Hoje
+              </button>
+
+            </div>
 
           </div>
 
-        </section>
+        </div>
 
 
-        <section class="progress-card">
+        <!-- CATEGORIAS -->
 
-          <div class="progress-top">
+        <div
+          class="chips"
+          aria-label="Categorias"
+        >
 
-            <span class="progress-label">
-              Sua caminhada
-            </span>
+          <button
+            class="chip active"
+            data-filter="all"
+          >
+            Tudo
+          </button>
 
-            <span class="progress-number">
-              ${progress} / 365
-            </span>
 
-          </div>
+          <button
+            class="chip"
+            data-filter="journey"
+          >
+            Jornada
+          </button>
 
-          <div class="progress-track">
+
+          <button
+            class="chip"
+            data-filter="presence"
+          >
+            Presença
+          </button>
+
+
+          <button
+            class="chip"
+            data-filter="prayer"
+          >
+            Oração
+          </button>
+
+
+          <button
+            class="chip"
+            data-filter="word"
+          >
+            Palavra
+          </button>
+
+        </div>
+
+
+        <div class="content">
+
+
+          <!-- CONTINUE SUA JORNADA -->
+
+          <section class="rail-section">
+
+            <div class="section-head">
+
+              <div>
+
+                <span class="eyebrow">
+                  CONTINUE DE ONDE PAROU
+                </span>
+
+                <h2>
+                  Sua jornada
+                </h2>
+
+              </div>
+
+
+              <span
+                class="section-count"
+                id="progressLabel"
+              >
+                0 / 365
+              </span>
+
+            </div>
+
 
             <div
-              class="progress-fill"
-              style="width:${(progress / 365) * 100}%"
+              class="journey-card"
+              data-action="continue"
+            >
+
+              <div
+                class="journey-number"
+                id="continueNumber"
+              >
+                01
+              </div>
+
+
+              <div class="journey-copy">
+
+                <span>
+                  PRÓXIMO PASSO
+                </span>
+
+                <h3 id="continueTitle">
+                  Comece pelo Dia 1
+                </h3>
+
+                <p id="continueIntro">
+                  Sua jornada começa aprendendo
+                  a perceber a presença que já está aqui.
+                </p>
+
+              </div>
+
+
+              <div class="journey-arrow">
+                ›
+              </div>
+
+            </div>
+
+
+            <div class="progress-line">
+
+              <span
+                id="progressFill"
+              ></span>
+
+            </div>
+
+          </section>
+
+
+
+          <!-- PARA HOJE -->
+
+          <section class="rail-section">
+
+            <div class="section-head">
+
+              <div>
+
+                <span class="eyebrow">
+                  PARA HOJE
+                </span>
+
+                <h2>
+                  Um encontro por vez
+                </h2>
+
+              </div>
+
+
+              <button
+                class="see-all"
+                data-action="today"
+              >
+                Ver
+              </button>
+
+            </div>
+
+
+            <div
+              class="rail"
+              id="todayRail"
+            ></div>
+
+          </section>
+
+
+
+          <!-- PRESENÇA -->
+
+          <section class="rail-section">
+
+            <div class="section-head">
+
+              <div>
+
+                <span class="eyebrow">
+                  APRENDER A PERCEBÊ-LO
+                </span>
+
+                <h2>
+                  Práticas de presença
+                </h2>
+
+              </div>
+
+            </div>
+
+
+            <div
+              class="rail"
+              id="presenceRail"
+            ></div>
+
+          </section>
+
+
+
+          <!-- 365 DIAS -->
+
+          <section class="rail-section">
+
+            <div class="section-head">
+
+              <div>
+
+                <span class="eyebrow">
+                  365 DIAS
+                </span>
+
+                <h2>
+                  Explore a jornada
+                </h2>
+
+              </div>
+
+
+              <button
+                class="see-all"
+                data-action="journey"
+              >
+                Ver tudo
+              </button>
+
+            </div>
+
+
+            <div
+              class="rail"
+              id="journeyRail"
+            ></div>
+
+          </section>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =======================================
+           JORNADA
+      ======================================== -->
+
+      <section
+        class="screen"
+        id="journeyScreen"
+      >
+
+        <div class="page-hero">
+
+          <span class="eyebrow">
+            365 DIAS DE PRESENÇA
+          </span>
+
+          <h1>
+            Jornada
+          </h1>
+
+          <p>
+            Não é sobre completar dias.
+            É sobre aprender a perceber
+            e viver a presença.
+          </p>
+
+        </div>
+
+
+        <div class="journey-stats">
+
+          <div>
+
+            <strong id="journeyDone">
+              0
+            </strong>
+
+            <span>
+              concluídos
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <strong id="journeyPercent">
+              0%
+            </strong>
+
+            <span>
+              da jornada
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              365
+            </strong>
+
+            <span>
+              dias
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="day-grid"
+          id="dayGrid"
+        ></div>
+
+      </section>
+
+
+
+      <!-- =======================================
+           HOJE
+      ======================================== -->
+
+      <section
+        class="screen"
+        id="todayScreen"
+      >
+
+        <div class="page-hero">
+
+          <span class="eyebrow">
+            SEU MOMENTO DE HOJE
+          </span>
+
+          <h1>
+            Hoje
+          </h1>
+
+          <p>
+            Separe alguns minutos.
+            Diminua o ruído.
+            Aprenda a percebê-lo.
+          </p>
+
+        </div>
+
+
+        <div id="todayDetail"></div>
+
+      </section>
+
+
+
+      <!-- =======================================
+           FAVORITOS
+      ======================================== -->
+
+      <section
+        class="screen"
+        id="favoritesScreen"
+      >
+
+        <div class="page-hero">
+
+          <span class="eyebrow">
+            MINHA LISTA
+          </span>
+
+          <h1>
+            Favoritos
+          </h1>
+
+          <p>
+            Guarde os encontros que
+            você quer revisitar.
+          </p>
+
+        </div>
+
+
+        <div
+          class="rail favorites-rail"
+          id="favoritesRail"
+        ></div>
+
+
+        <div
+          class="empty-state"
+          id="favoritesEmpty"
+        >
+          Você ainda não salvou
+          nenhum devocional.
+        </div>
+
+      </section>
+
+
+
+      <!-- =======================================
+           PERFIL
+      ======================================== -->
+
+      <section
+        class="screen"
+        id="profileScreen"
+      >
+
+        <div class="page-hero">
+
+          <span class="eyebrow">
+            SUA CAMINHADA
+          </span>
+
+          <h1>
+            Perfil
+          </h1>
+
+          <p>
+            Um espaço para acompanhar
+            sua jornada com o Doce Espírito Santo.
+          </p>
+
+        </div>
+
+
+        <div class="profile-card">
+
+          <div class="profile-logo">
+
+            <img
+              src="capa.jpeg"
+              alt=""
+            >
+
+          </div>
+
+
+          <div>
+
+            <h2>
+              Doce Espírito Santo
+            </h2>
+
+            <p>
+              Um Amigo Íntimo
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="profile-progress">
+
+          <div class="profile-progress-head">
+
+            <span>
+              Progresso
+            </span>
+
+            <strong id="profileProgress">
+              0 / 365
+            </strong>
+
+          </div>
+
+
+          <div class="progress-line">
+
+            <span
+              id="profileProgressFill"
+            ></span>
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="wide-button"
+          data-action="journal"
+        >
+          ✎ Meu diário
+        </button>
+
+      </section>
+
+
+
+      <!-- =======================================
+           DIÁRIO
+      ======================================== -->
+
+      <section
+        class="screen"
+        id="journalScreen"
+      >
+
+        <div class="page-hero">
+
+          <span class="eyebrow">
+            SEU DIÁRIO
+          </span>
+
+          <h1>
+            Reflexões
+          </h1>
+
+          <p>
+            Escreva aquilo que esta jornada
+            está despertando em você.
+          </p>
+
+        </div>
+
+
+        <textarea
+          id="journal"
+          class="journal"
+          placeholder="Escreva aqui..."
+        ></textarea>
+
+
+        <button
+          class="primary-cta wide"
+          data-action="saveJournal"
+        >
+          Salvar reflexão
+        </button>
+
+      </section>
+
+    </main>
+
+
+
+    <!-- =========================================
+         NAVEGAÇÃO INFERIOR
+    ========================================== -->
+
+    <nav
+      class="bottom-nav"
+      id="bottomNav"
+    >
+
+      <button
+        class="nav-item active"
+        data-action="home"
+      >
+        <span>⌂</span>
+        <small>Início</small>
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-action="journey"
+      >
+        <span>✦</span>
+        <small>Jornada</small>
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-action="today"
+      >
+        <span>◉</span>
+        <small>Hoje</small>
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-action="favorites"
+      >
+        <span>♡</span>
+        <small>Minha lista</small>
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-action="profile"
+      >
+        <span>○</span>
+        <small>Perfil</small>
+      </button>
+
+    </nav>
+
+
+
+    <!-- =========================================
+         MODAL DO DEVOCIONAL
+    ========================================== -->
+
+    <div
+      class="modal"
+      id="detailModal"
+      aria-hidden="true"
+    >
+
+      <div
+        class="modal-backdrop"
+        data-action="closeModal"
+      ></div>
+
+
+      <article class="detail-panel">
+
+        <button
+          class="modal-close"
+          data-action="closeModal"
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+
+
+        <div class="detail-cover">
+
+          <img
+            src="capa.jpeg"
+            alt=""
+          >
+
+        </div>
+
+
+        <div class="detail-body">
+
+          <div class="detail-meta">
+
+            <span id="detailDay">
+              DIA 1
+            </span>
+
+            <span id="detailRef">
+              REFERÊNCIA
+            </span>
+
+          </div>
+
+
+          <h2 id="detailTitle"></h2>
+
+
+          <p
+            class="detail-intro"
+            id="detailIntro"
+          ></p>
+
+
+          <div class="detail-block">
+
+            <span>
+              REFLEXÃO
+            </span>
+
+            <div
+              id="detailReflection"
             ></div>
 
           </div>
 
-        </section>
 
+          <div class="detail-block">
 
-        <section class="section">
+            <span>
+              PRÁTICA DE PRESENÇA
+            </span>
 
-          <div class="section-kicker">
-            HOJE
+            <p id="detailPractice"></p>
+
           </div>
 
-          <h2 class="section-title">
-            Um encontro para hoje.
-          </h2>
+
+          <div class="detail-block">
+
+            <span>
+              PERGUNTA
+            </span>
+
+            <p id="detailQuestion"></p>
+
+          </div>
 
 
-          <article
-            class="today-card"
-            data-action="open-today"
-          >
+          <div class="detail-block prayer">
 
-            <img
-              class="today-image"
-              src="${imageForDay(dayNumber)}"
-              alt=""
+            <span>
+              ORAÇÃO
+            </span>
+
+            <p id="detailPrayer"></p>
+
+          </div>
+
+
+          <div class="detail-actions">
+
+            <button
+              class="primary-cta"
+              id="completeButton"
             >
-
-            <div class="today-overlay"></div>
-
-            <div class="today-content">
-
-              <div class="day-label">
-                DIA ${escapeHTML(dayNumber)}
-              </div>
-
-              <h3 class="today-title">
-                ${escapeHTML(title)}
-              </h3>
-
-              <div class="today-reference">
-                ${escapeHTML(reference)}
-              </div>
-
-            </div>
-
-          </article>
-
-        </section>
+              ✓ Concluir este dia
+            </button>
 
 
-        <section class="section">
-
-          <div class="section-kicker">
-            EXPERIÊNCIA
-          </div>
-
-          <h2 class="section-title">
-            Caminhos de presença
-          </h2>
-
-
-          <div class="feature-grid">
-
-            ${featureCard(
-              "Presença",
-              "Aprender a perceber o Doce Espírito Santo.",
-              "◉",
-              0
-            )}
-
-            ${featureCard(
-              "Oração",
-              "Conversar com O Eterno.",
-              "⌁",
-              1
-            )}
-
-            ${featureCard(
-              "Jejum",
-              "Aprender a renunciar para se aproximar.",
-              "≋",
-              2
-            )}
-
-            ${featureCard(
-              "Palavra",
-              "Conhecer para viver.",
-              "▤",
-              3
-            )}
-
-            ${featureCard(
-              "Vivência",
-              "Transformar a Palavra em prática.",
-              "◇",
-              4
-            )}
-
-            ${featureCard(
-              "Jornada",
-              "Caminhar dia após dia.",
-              "⌁",
-              5
-            )}
+            <button
+              class="secondary-cta"
+              id="favoriteButton"
+            >
+              ♡ Minha lista
+            </button>
 
           </div>
 
-        </section>
-
-
-        <section class="section">
-
-          <div class="section-kicker">
-            JORNADA
-          </div>
-
-          <h2 class="section-title">
-            Os caminhos da presença
-          </h2>
-
-          <div class="journey-scroller">
-
-            ${renderJourneyCards()}
-
-          </div>
-
-        </section>
-
-      </div>
-    `;
-  }
-
-
-  function featureCard(
-    title,
-    description,
-    icon,
-    imageIndex
-  ) {
-
-    return `
-
-      <article
-        class="feature-card"
-        data-action="feature"
-        data-feature="${escapeHTML(title)}"
-      >
-
-        <img
-          class="feature-image"
-          src="${imageForDay(imageIndex + 1)}"
-          alt=""
-        >
-
-        <div class="feature-overlay"></div>
-
-        <div class="feature-icon">
-          ${icon}
         </div>
-
-        <h3>
-          ${escapeHTML(title)}
-        </h3>
-
-        <p>
-          ${escapeHTML(description)}
-        </p>
 
       </article>
 
-    `;
-  }
+    </div>
 
 
-  /* -------------------------------------------------------
-     JOURNEY CARDS
-  ------------------------------------------------------- */
 
-  function renderJourneyCards() {
+    <!-- =========================================
+         BUSCA
+    ========================================== -->
 
-    const api =
-      getAPI();
+    <div
+      class="search-overlay"
+      id="searchOverlay"
+    >
 
-    const phases =
-      api?.PHASES || [];
-
-    const fallback = [
-
-      {
-        name: "Perceber",
-        start: 1,
-        end: 30,
-        description:
-          "Aprender a reconhecer a presença."
-      },
-
-      {
-        name: "Aprofundar",
-        start: 31,
-        end: 60,
-        description:
-          "Ir além da superfície."
-      },
-
-      {
-        name: "Ser Transformado",
-        start: 61,
-        end: 90,
-        description:
-          "Permitir que a presença transforme o interior."
-      },
-
-      {
-        name: "Orar",
-        start: 91,
-        end: 120,
-        description:
-          "Aprender a conversar com O Eterno."
-      },
-
-      {
-        name: "Ouvir",
-        start: 121,
-        end: 150,
-        description:
-          "Desenvolver silêncio, percepção e discernimento."
-      },
-
-      {
-        name: "Palavra",
-        start: 151,
-        end: 180,
-        description:
-          "Aprender a permanecer nas Escrituras."
-      },
-
-      {
-        name: "Jesus",
-        start: 181,
-        end: 220,
-        description:
-          "Reconhecer Cristo como centro da caminhada."
-      },
-
-      {
-        name: "Direção",
-        start: 221,
-        end: 250,
-        description:
-          "Aprender a caminhar com discernimento."
-      },
-
-      {
-        name: "Fruto",
-        start: 251,
-        end: 290,
-        description:
-          "Permitir que o interior apareça no exterior."
-      },
-
-      {
-        name: "Servir",
-        start: 291,
-        end: 320,
-        description:
-          "Transformar presença em serviço."
-      },
-
-      {
-        name: "Testemunhar",
-        start: 321,
-        end: 345,
-        description:
-          "Compartilhar aquilo que foi vivido."
-      },
-
-      {
-        name: "Permanecer",
-        start: 346,
-        end: 365,
-        description:
-          "Continuar quando a jornada já virou vida."
-      }
-
-    ];
-
-
-    const list =
-      phases.length
-        ? phases
-        : fallback;
-
-
-    return list.map(
-      (phase, index) => {
-
-        const start =
-          phase.start ??
-          phase.startDay ??
-          1;
-
-        const end =
-          phase.end ??
-          phase.endDay ??
-          start + 29;
-
-        const name =
-          phase.name ??
-          phase.title ??
-          `Etapa ${index + 1}`;
-
-        const description =
-          phase.description ??
-          phase.phaseDescription ??
-          "";
-
-        return `
-
-          <article
-            class="journey-card"
-            data-action="phase"
-            data-phase-index="${index}"
-          >
-
-            <img
-              class="journey-image"
-              src="${imageForDay(start)}"
-              alt=""
-            >
-
-            <div class="journey-gradient"></div>
-
-            <div class="journey-content">
-
-              <div class="journey-number">
-                ETAPA ${index + 1}
-              </div>
-
-              <h3>
-                ${escapeHTML(name)}
-              </h3>
-
-              <p>
-                ${start} — ${end}
-              </p>
-
-              <p>
-                ${escapeHTML(description)}
-              </p>
-
-            </div>
-
-          </article>
-
-        `;
-
-      }
-    ).join("");
-  }
-
-
-  /* -------------------------------------------------------
-     DEVOTIONAL
-  ------------------------------------------------------- */
-
-  function renderDevotional(dayOverride) {
-
-    const api =
-      getAPI();
-
-    let day =
-      dayOverride;
-
-    if (
-      !day &&
-      api &&
-      typeof api.getDevotional === "function"
-    ) {
-
-      day =
-        api.getDevotional(
-          getState().currentDay || 1
-        );
-    }
-
-    if (!day) {
-
-      day =
-        getDay();
-    }
-
-    if (!day) {
-
-      renderEmpty(
-        "Devocional",
-        "O conteúdo deste encontro ainda não foi carregado."
-      );
-
-      return;
-    }
-
-
-    currentDevotional =
-      day;
-
-
-    const number =
-      day.day || 1;
-
-    const title =
-      day.title ||
-      "Um encontro com O Eterno";
-
-
-    const reference =
-      day.reference ||
-      day.bible ||
-      "";
-
-
-    const reflection =
-      day.reflection ||
-      day.introduction ||
-      "";
-
-
-    const study =
-      day.study ||
-      "";
-
-
-    const application =
-      day.application ||
-      "";
-
-
-    const practice =
-      day.practice ||
-      "";
-
-
-    const silence =
-      day.silence ||
-      "";
-
-
-    const prayer =
-      day.prayer ||
-      "";
-
-
-    const journalQuestion =
-      day.journalQuestion ||
-      day.question ||
-      "O que o Doce Espírito Santo está despertando em você hoje?";
-
-
-    const state =
-      getState();
-
-
-    const journal =
-      state.journal?.[number] ||
-      "";
-
-
-    const favorite =
-      Array.isArray(state.favorites) &&
-      state.favorites.includes(number);
-
-
-    main.innerHTML = `
-
-      <div class="view">
+      <div class="search-head">
 
         <button
-          class="back-button"
-          data-action="back"
-          aria-label="Voltar"
+          class="modal-close"
+          data-action="closeSearch"
         >
-          ←
+          ×
         </button>
 
 
-        <section class="devotional-hero">
-
-          <img
-            class="devotional-hero-image"
-            src="${imageForDay(number)}"
-            alt=""
-          >
-
-          <div class="devotional-hero-content">
-
-            <div class="devotional-day">
-              DIA ${escapeHTML(number)}
-            </div>
-
-            <h1 class="devotional-title">
-              ${escapeHTML(title)}
-            </h1>
-
-            <div class="devotional-reference">
-              ${escapeHTML(reference)}
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <div class="study-stack">
-
-
-          ${study
-            ? `
-              <section class="study-block">
-
-                <div class="study-label">
-                  ESTUDO
-                </div>
-
-                <h3>
-                  Aprofundando a Palavra
-                </h3>
-
-                <p>
-                  ${formatText(study)}
-                </p>
-
-              </section>
-            `
-            : ""
-          }
-
-
-          ${reflection
-            ? `
-              <section class="study-block">
-
-                <div class="study-label">
-                  REFLEXÃO
-                </div>
-
-                <h3>
-                  Percebendo a presença
-                </h3>
-
-                <p>
-                  ${formatText(reflection)}
-                </p>
-
-              </section>
-            `
-            : ""
-          }
-
-
-          ${application
-            ? `
-              <section class="study-block">
-
-                <div class="study-label">
-                  VIVÊNCIA
-                </div>
-
-                <h3>
-                  Levar a Palavra para a vida
-                </h3>
-
-                <p>
-                  ${formatText(application)}
-                </p>
-
-              </section>
-            `
-            : ""
-          }
-
-
-          ${practice
-            ? `
-              <section class="study-block">
-
-                <div class="study-label">
-                  PRÁTICA ESPIRITUAL
-                </div>
-
-                <h3>
-                  Hoje, pratique
-                </h3>
-
-                <p>
-                  ${formatText(practice)}
-                </p>
-
-              </section>
-            `
-            : ""
-          }
-
-
-          ${silence
-            ? `
-              <section class="study-block">
-
-                <div class="study-label">
-                  MOMENTO DE SILÊNCIO
-                </div>
-
-                <h3>
-                  Permaneça
-                </h3>
-
-                <p>
-                  ${formatText(silence)}
-                </p>
-
-              </section>
-            `
-            : ""
-          }
-
-
-          ${prayer
-            ? `
-              <section class="study-block">
-
-                <div class="study-label">
-                  ORAÇÃO
-                </div>
-
-                <h3>
-                  Converse com O Eterno
-                </h3>
-
-                <p>
-                  ${formatText(prayer)}
-                </p>
-
-                <br>
-
-                <button
-                  class="primary-button"
-                  data-action="audio"
-                >
-                  OUVIR ORAÇÃO
-                  <span class="arrow">▶</span>
-                </button>
-
-              </section>
-            `
-            : ""
-          }
-
-
-          <section class="study-block">
-
-            <div class="study-label">
-              DIÁRIO
-            </div>
-
-            <h3>
-              ${escapeHTML(journalQuestion)}
-            </h3>
-
-            <textarea
-              class="journal"
-              id="journalInput"
-              placeholder="Escreva o que você percebeu..."
-            >${escapeHTML(journal)}</textarea>
-
-            <br><br>
-
-            <button
-              class="primary-button"
-              data-action="save-journal"
-            >
-              SALVAR
-              <span class="arrow">✓</span>
-            </button>
-
-          </section>
-
-
-          <section class="study-block">
-
-            <div class="study-label">
-              CAMINHADA
-            </div>
-
-            <h3>
-              Este encontro não termina aqui.
-            </h3>
-
-            <p>
-              O objetivo não é apenas terminar um devocional.
-              É aprender a viver com o
-              <strong>Doce Espírito Santo</strong>,
-              permanecer na Palavra e caminhar com
-              <strong>O Eterno</strong>.
-            </p>
-
-            <br>
-
-            <button
-              class="primary-button"
-              data-action="complete-day"
-            >
-              ${isCompleted(number)
-                ? "ENCONTRO CONCLUÍDO"
-                : "CONCLUIR ENCONTRO"
-              }
-              <span class="arrow">→</span>
-            </button>
-
-          </section>
-
-        </div>
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Buscar na jornada..."
+          autocomplete="off"
+        >
 
       </div>
 
-    `;
-  }
 
+      <div
+        class="search-results rail"
+        id="searchResults"
+      ></div>
 
-  function formatText(text) {
+    </div>
 
-    return escapeHTML(text)
-      .replace(/\n/g, "<br>");
-  }
+  </div>
 
 
-  function isCompleted(day) {
+  <!-- =========================================
+       JAVASCRIPT PRINCIPAL
+  ========================================== -->
 
-    const state =
-      getState();
-
-    return Array.isArray(state.completedDays) &&
-      state.completedDays.includes(
-        Number(day)
-      );
-  }
-
-
-  /* -------------------------------------------------------
-     TODAY
-  ------------------------------------------------------- */
-
-  function renderToday() {
-
-    renderDevotional(
-      getDay()
-    );
-  }
-
-
-  /* -------------------------------------------------------
-     JOURNEY
-  ------------------------------------------------------- */
-
-  function renderJourney() {
-
-    main.innerHTML = `
-
-      <div class="view">
-
-        <section class="section" style="margin-top:10px">
-
-          <div class="section-kicker">
-            JORNADA DE 365 DIAS
-          </div>
-
-          <h1 class="section-title">
-            Os caminhos da presença.
-          </h1>
-
-          <div class="study-block">
-
-            <p>
-              Uma caminhada construída para desenvolver
-              presença, oração, jejum, Palavra e vivência.
-              Não é apenas uma sequência de leituras.
-              É um processo de transformação diante de
-              <strong>O Eterno</strong>, aprendendo a perceber
-              o <strong>Doce Espírito Santo</strong> no cotidiano.
-            </p>
-
-          </div>
-
-        </section>
-
-
-        <section class="section">
-
-          <div class="journey-scroller"
-               style="flex-direction:column">
-
-            ${renderJourneyCards()}
-
-          </div>
-
-        </section>
-
-      </div>
-
-    `;
-  }
-
-
-  /* -------------------------------------------------------
-     FAVORITES
-  ------------------------------------------------------- */
-
-  function renderFavorites() {
-
-    const state =
-      getState();
-
-    const favorites =
-      Array.isArray(state.favorites)
-        ? state.favorites
-        : [];
-
-
-    if (!favorites.length) {
-
-      renderEmpty(
-        "Seus favoritos",
-        "Quando um encontro tocar você de maneira especial, ele aparecerá aqui."
-      );
-
-      return;
-    }
-
-
-    const cards =
-      favorites.map(
-        dayNumber => {
-
-          const day =
-            getAPI()?.getDevotional?.(
-              dayNumber
-            ) ||
-            devotionals.find(
-              item =>
-                Number(item.day) === Number(dayNumber)
-            );
-
-
-          if (!day) {
-            return "";
-          }
-
-
-          return `
-
-            <article
-              class="today-card"
-              data-action="favorite-day"
-              data-day="${dayNumber}"
-            >
-
-              <img
-                class="today-image"
-                src="${imageForDay(dayNumber)}"
-                alt=""
-              >
-
-              <div class="today-overlay"></div>
-
-              <div class="today-content">
-
-                <div class="day-label">
-                  DIA ${escapeHTML(dayNumber)}
-                </div>
-
-                <h3 class="today-title">
-                  ${escapeHTML(day.title)}
-                </h3>
-
-                <div class="today-reference">
-                  ${escapeHTML(day.reference || day.bible || "")}
-                </div>
-
-              </div>
-
-            </article>
-
-          `;
-
-        }
-      ).join("");
-
-
-    main.innerHTML = `
-
-      <div class="view">
-
-        <section class="section"
-                 style="margin-top:10px">
-
-          <div class="section-kicker">
-            FAVORITOS
-          </div>
-
-          <h1 class="section-title">
-            O que ficou com você.
-          </h1>
-
-          <div class="study-stack">
-
-            ${cards}
-
-          </div>
-
-        </section>
-
-      </div>
-
-    `;
-  }
-
-
-  /* -------------------------------------------------------
-     PROFILE
-  ------------------------------------------------------- */
-
-  function renderProfile() {
-
-    const progress =
-      getProgress();
-
-
-    main.innerHTML = `
-
-      <div class="view">
-
-        <section class="section"
-                 style="margin-top:10px">
-
-          <div class="section-kicker">
-            PERFIL
-          </div>
-
-          <h1 class="section-title">
-            Sua caminhada.
-          </h1>
-
-
-          <div class="profile-card">
-
-            <h2 class="profile-name">
-              Doce Espírito Santo
-            </h2>
-
-            <div class="profile-role">
-              Um Amigo Íntimo
-            </div>
-
-
-            <div class="profile-divider"></div>
-
-
-            <div class="profile-line">
-
-              <span>
-                Jornada
-              </span>
-
-              <strong>
-                ${progress} / 365
-              </strong>
-
-            </div>
-
-
-            <div class="profile-line">
-
-              <span>
-                Encontros concluídos
-              </span>
-
-              <strong>
-                ${progress}
-              </strong>
-
-            </div>
-
-
-            <div class="profile-line">
-
-              <span>
-                Tema central
-              </span>
-
-              <strong>
-                Presença
-              </strong>
-
-            </div>
-
-
-            <div class="profile-line">
-
-              <span>
-                Direção
-              </span>
-
-              <strong>
-                O Eterno
-              </strong>
-
-            </div>
-
-
-            <div class="profile-divider"></div>
-
-
-            <p style="
-              color:var(--muted);
-              line-height:1.7;
-              margin:0;
-            ">
-
-              Aprenda a percebê-lo.
-              Ele já está aqui.
-
-            </p>
-
-          </div>
-
-        </section>
-
-      </div>
-
-    `;
-  }
-
-
-  /* -------------------------------------------------------
-     EMPTY
-  ------------------------------------------------------- */
-
-  function renderEmpty(
-    title,
-    text
-  ) {
-
-    main.innerHTML = `
-
-      <div class="view">
-
-        <section class="section"
-                 style="margin-top:10px">
-
-          <div class="empty-state">
-
-            <div class="empty-state-icon">
-              ◌
-            </div>
-
-            <h3>
-              ${escapeHTML(title)}
-            </h3>
-
-            <p>
-              ${escapeHTML(text)}
-            </p>
-
-          </div>
-
-        </section>
-
-      </div>
-
-    `;
-  }
-
-
-  /* -------------------------------------------------------
-     ROUTER
-  ------------------------------------------------------- */
-
-  function navigate(route) {
-
-    currentRoute =
-      route;
-
-    document
-      .querySelectorAll(".nav-item")
-      .forEach(
-        button => {
-
-          button.classList.toggle(
-            "active",
-            button.dataset.route === route
-          );
-
-        }
-      );
-
-
-    if (route === "home") {
-
-      renderHome();
-
-    } else if (route === "journey") {
-
-      renderJourney();
-
-    } else if (route === "today") {
-
-      renderToday();
-
-    } else if (route === "favorites") {
-
-      renderFavorites();
-
-    } else if (route === "profile") {
-
-      renderProfile();
-
-    }
-
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  }
-
-
-  /* -------------------------------------------------------
-     EVENTS
-  ------------------------------------------------------- */
-
-  document.addEventListener(
-    "click",
-    function (event) {
-
-      const nav =
-        event.target.closest(
-          ".nav-item"
-        );
-
-      if (nav) {
-
-        navigate(
-          nav.dataset.route
-        );
-
-        return;
-      }
-
-
-      const action =
-        event.target.closest(
-          "[data-action]"
-        );
-
-
-      if (!action) {
-        return;
-      }
-
-
-      const type =
-        action.dataset.action;
-
-
-      if (type === "continue") {
-
-        renderToday();
-
-        return;
-      }
-
-
-      if (type === "open-today") {
-
-        renderToday();
-
-        return;
-      }
-
-
-      if (type === "back") {
-
-        navigate("home");
-
-        return;
-      }
-
-
-      if (type === "feature") {
-
-        const feature =
-          action.dataset.feature;
-
-        showToast(
-          feature +
-          " — conteúdo integrado à jornada."
-        );
-
-        return;
-      }
-
-
-      if (type === "phase") {
-
-        const index =
-          Number(
-            action.dataset.phaseIndex
-          );
-
-        openPhase(
-          index
-        );
-
-        return;
-      }
-
-
-      if (type === "favorite-day") {
-
-        const day =
-          Number(
-            action.dataset.day
-          );
-
-        openSpecificDay(
-          day
-        );
-
-        return;
-      }
-
-
-      if (type === "complete-day") {
-
-        completeCurrentDay();
-
-        return;
-      }
-
-
-      if (type === "save-journal") {
-
-        saveJournal();
-
-        return;
-      }
-
-
-      if (type === "audio") {
-
-        playCurrentAudio();
-
-        return;
-      }
-
-    }
-  );
-
-
-  /* -------------------------------------------------------
-     OPEN DAY
-  ------------------------------------------------------- */
-
-  function openSpecificDay(day) {
-
-    const api =
-      getAPI();
-
-    if (
-      api &&
-      typeof api.openDay === "function"
-    ) {
-
-      api.openDay(day);
-
-    }
-
-    currentDay =
-      Number(day);
-
-    renderDevotional(
-      getDay()
-    );
-  }
-
-
-  /* -------------------------------------------------------
-     PHASE
-  ------------------------------------------------------- */
-
-  function openPhase(index) {
-
-    const api =
-      getAPI();
-
-    const phases =
-      api?.PHASES || [];
-
-    const phase =
-      phases[index];
-
-
-    if (!phase) {
-
-      showToast(
-        "Etapa ainda não carregada."
-      );
-
-      return;
-    }
-
-
-    const start =
-      phase.start ??
-      phase.startDay ??
-      1;
-
-
-    openSpecificDay(
-      start
-    );
-  }
-
-
-  /* -------------------------------------------------------
-     COMPLETE
-  ------------------------------------------------------- */
-
-  function completeCurrentDay() {
-
-    const api =
-      getAPI();
-
-    const number =
-      Number(
-        currentDevotional?.day ||
-        getState().currentDay ||
-        1
-      );
-
-
-    if (
-      api &&
-      typeof api.completeDay === "function"
-    ) {
-
-      api.completeDay(
-        number
-      );
-
-      showToast(
-        "Encontro concluído. Continue caminhando com O Eterno."
-      );
-
-      renderDevotional(
-        getDay()
-      );
-
-      return;
-    }
-
-
-    showToast(
-      "Progresso salvo."
-    );
-  }
-
-
-  /* -------------------------------------------------------
-     JOURNAL
-  ------------------------------------------------------- */
-
-  function saveJournal() {
-
-    const input =
-      document.getElementById(
-        "journalInput"
-      );
-
-    if (!input) {
-      return;
-    }
-
-
-    const number =
-      Number(
-        currentDevotional?.day ||
-        getState().currentDay ||
-        1
-      );
-
-
-    const api =
-      getAPI();
-
-
-    if (
-      api &&
-      typeof api.saveJournal === "function"
-    ) {
-
-      api.saveJournal(
-        number,
-        input.value
-      );
-
-    } else {
-
-      const state =
-        getState();
-
-      state.journal =
-        state.journal || {};
-
-      state.journal[number] =
-        input.value;
-
-    }
-
-
-    showToast(
-      "Seu registro foi guardado."
-    );
-  }
-
-
-  /* -------------------------------------------------------
-     AUDIO
-  ------------------------------------------------------- */
-
-  function playCurrentAudio() {
-
-    const api =
-      getAPI();
-
-    if (
-      api &&
-      typeof api.playAudio === "function"
-    ) {
-
-      const result =
-        api.playAudio(
-          currentDevotional
-        );
-
-      if (result) {
-        showToast(
-          "Iniciando o áudio."
-        );
-      } else {
-        showToast(
-          "O áudio ainda não está disponível para este encontro."
-        );
-      }
-
-      return;
-    }
-
-
-    if (
-      "speechSynthesis" in window &&
-      currentDevotional?.prayer
-    ) {
-
-      window.speechSynthesis.cancel();
-
-      const utterance =
-        new SpeechSynthesisUtterance(
-          currentDevotional.prayer
-        );
-
-      utterance.lang =
-        "pt-BR";
-
-      utterance.rate =
-        .88;
-
-      utterance.pitch =
-        .82;
-
-      window.speechSynthesis.speak(
-        utterance
-      );
-
-      showToast(
-        "Oração iniciada."
-      );
-
-      return;
-    }
-
-
-    showToast(
-      "Áudio indisponível."
-    );
-  }
-
-
-  /* -------------------------------------------------------
-     INFO
-  ------------------------------------------------------- */
-
-  document
-    .getElementById("infoButton")
-    .addEventListener(
-      "click",
-      function () {
-
-        showToast(
-          "Aprenda a percebê-lo. Ele já está aqui."
-        );
-
-      }
-    );
-
-
-  /* -------------------------------------------------------
-     VIDEO FALLBACK
-  ------------------------------------------------------- */
-
-  if (backgroundVideo) {
-
-    backgroundVideo.addEventListener(
-      "error",
-      function () {
-
-        backgroundVideo.style.display =
-          "none";
-
-      }
-    );
-
-  }
-
-
-  /* -------------------------------------------------------
-     APP READY
-  ------------------------------------------------------- */
-
-  function boot() {
-
-    try {
-
-      const api =
-        getAPI();
-
-
-      if (api?.state?.currentDay) {
-
-        currentDay =
-          api.state.currentDay;
-
-      }
-
-
-      navigate(
-        "home"
-      );
-
-
-      setTimeout(
-        () => {
-
-          loading.classList.add(
-            "hidden"
-          );
-
-        },
-        500
-      );
-
-    } catch (error) {
-
-      console.error(
-        "Erro ao iniciar aplicativo:",
-        error
-      );
-
-      loading.classList.add(
-        "hidden"
-      );
-
-      renderHome();
-    }
-  }
-
-
-  /* -------------------------------------------------------
-     WAIT FOR APP.JS
-  ------------------------------------------------------- */
-
-  if (
-    getAPI() &&
-    getAPI().state
-  ) {
-
-    boot();
-
-  } else {
-
-    window.addEventListener(
-      "doceEspíritoSanto:ready",
-      boot,
-      { once: true }
-    );
-
-
-    setTimeout(
-      () => {
-
-        if (
-          document
-            .getElementById("loadingScreen")
-            ?.classList
-            .contains("hidden")
-        ) {
-          return;
-        }
-
-        boot();
-
-      },
-      1800
-    );
-
-  }
-
-
-})();
-
-</script>
+  <script src="app.js"></script>
 
 </body>
 </html>
