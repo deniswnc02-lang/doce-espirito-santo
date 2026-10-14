@@ -1,2638 +1,1742 @@
-/* ============================================================
+/* ==========================================================
    DOCE ESPÍRITO SANTO — UM AMIGO ÍNTIMO
-   NOVA INTERFACE CINEMATOGRÁFICA
-   Arquivo: app.js
+   APP.JS — VERSÃO ESTÁVEL
+   ========================================================== */
 
-   IMPORTANTE:
-   Este arquivo cria a nova interface e injeta o CSS automaticamente.
-   Não é necessário criar Home.jsx.
-============================================================ */
-
-(() => {
+(function () {
   "use strict";
 
-  /* ==========================================================
+  /* ========================================================
      CONFIGURAÇÃO
-  ========================================================== */
+     ======================================================== */
 
-  const APP_NAME = "Doce Espírito Santo";
-  const APP_SUBTITLE = "Um Amigo Íntimo";
-
-  const IMAGES = {
-    capa: "capa.jpeg",
-
-    presence:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=85",
-
-    light:
-      "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=85",
-
-    mountains:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85",
-
-    forest:
-      "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=85",
-
-    water:
-      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=85",
-
-    sunset:
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85"
+  const APP = {
+    name: "Doce Espírito Santo",
+    subtitle: "Um Amigo Íntimo",
+    phrase: "Ele já está aqui. Aprenda a percebê-lo.",
+    cover: "capa.jpeg"
   };
 
-
-  /* ==========================================================
-     CSS
-  ========================================================== */
-
-  const style = document.createElement("style");
-
-  style.textContent = `
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
-
-  :root {
-    --black: #080908;
-    --black-2: #0d0e0c;
-    --black-3: #131512;
-    --gold: #d6b77b;
-    --gold-light: #efd8a7;
-    --champagne: #f3e6c9;
-    --cream: #e9dfc9;
-    --muted: #a9a497;
-    --white: #f8f6ef;
-    --green: #27352b;
-    --green-light: #405444;
-    --border: rgba(239,216,167,.16);
-  }
-
-  * {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    background: var(--black);
-  }
-
-  body {
-    margin: 0;
-    background:
-      radial-gradient(circle at 10% 10%, rgba(74,91,65,.20), transparent 30%),
-      radial-gradient(circle at 90% 20%, rgba(143,103,48,.16), transparent 30%),
-      radial-gradient(circle at 50% 70%, rgba(39,53,43,.22), transparent 35%),
-      linear-gradient(145deg, #070807, #10120f 45%, #090a08);
-    color: var(--white);
-    font-family: "Inter", sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9999;
-    background:
-      radial-gradient(circle at 50% -10%, rgba(255,214,139,.07), transparent 38%),
-      linear-gradient(180deg, transparent 75%, rgba(0,0,0,.45));
-  }
-
-  button,
-  input {
-    font-family: inherit;
-  }
-
-  button {
-    cursor: pointer;
-  }
-
-  img {
-    max-width: 100%;
-    display: block;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .app-shell {
-    width: 100%;
-    min-height: 100vh;
-    padding-bottom: 120px;
-  }
-
-  /* ==========================================================
-     TOPO
-  ========================================================== */
-
-  .topbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 18px 22px;
-
-    background:
-      linear-gradient(
-        180deg,
-        rgba(5,6,5,.90),
-        rgba(5,6,5,.30),
-        transparent
-      );
-
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-
-  .brand-mini {
-    display: flex;
-    flex-direction: column;
-    line-height: 1;
-  }
-
-  .brand-mini strong {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 21px;
-    font-weight: 600;
-    color: var(--champagne);
-    letter-spacing: .02em;
-  }
-
-  .brand-mini span {
-    margin-top: 4px;
-    font-size: 8px;
-    letter-spacing: .27em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  .search-button {
-    width: 43px;
-    height: 43px;
-    border: 1px solid rgba(255,255,255,.16);
-    border-radius: 50%;
-    background: rgba(15,16,14,.48);
-    color: var(--cream);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 19px;
-    backdrop-filter: blur(12px);
-  }
-
-  /* ==========================================================
-     HERO
-  ========================================================== */
-
-  .hero {
-    position: relative;
-    min-height: 720px;
-    height: 94vh;
-    max-height: 900px;
-
-    overflow: hidden;
-
-    display: flex;
-    align-items: flex-end;
-
-    background:
-      linear-gradient(
-        180deg,
-        rgba(0,0,0,.12) 0%,
-        rgba(0,0,0,.05) 25%,
-        rgba(5,6,5,.25) 48%,
-        rgba(5,6,5,.95) 100%
-      ),
-      linear-gradient(
-        90deg,
-        rgba(0,0,0,.70),
-        transparent 55%,
-        rgba(0,0,0,.20)
-      ),
-      url("capa.jpeg") center center / cover no-repeat;
-
-    isolation: isolate;
-  }
-
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background:
-      radial-gradient(
-        ellipse at 62% 25%,
-        rgba(246,207,126,.30),
-        transparent 25%
-      ),
-      radial-gradient(
-        ellipse at 28% 50%,
-        rgba(72,96,73,.22),
-        transparent 30%
-      ),
-      linear-gradient(
-        135deg,
-        rgba(15,24,18,.35),
-        transparent 50%,
-        rgba(92,62,26,.18)
-      );
-
-    z-index: -1;
-  }
-
-  .hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background:
-      linear-gradient(
-        180deg,
-        transparent 35%,
-        rgba(5,6,5,.10) 55%,
-        rgba(5,6,5,.96) 100%
-      );
-
-    z-index: -1;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    padding: 0 25px 54px;
-  }
-
-  .eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    color: var(--gold-light);
-    font-size: 9px;
-    letter-spacing: .32em;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-  }
-
-  .eyebrow::before {
-    content: "";
-    width: 28px;
-    height: 1px;
-    background: var(--gold);
-  }
-
-  .hero h1 {
-    margin: 0;
-    max-width: 520px;
-
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(46px, 13vw, 78px);
-    line-height: .86;
-    font-weight: 500;
-    letter-spacing: -.025em;
-  }
-
-  .hero h1 span {
-    display: block;
-    color: var(--gold-light);
-  }
-
-  .hero-subtitle {
-    max-width: 410px;
-    margin: 20px 0 0;
-
-    color: rgba(247,242,228,.78);
-    font-family: "Cormorant Garamond", serif;
-    font-size: 22px;
-    line-height: 1.25;
-  }
-
-  .hero-description {
-    max-width: 390px;
-    margin-top: 12px;
-
-    color: rgba(238,233,220,.62);
-    font-size: 13px;
-    line-height: 1.7;
-  }
-
-  .hero-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-top: 25px;
-    padding: 15px 23px;
-
-    border: 1px solid rgba(239,216,167,.40);
-    border-radius: 999px;
-
-    background:
-      linear-gradient(
-        135deg,
-        rgba(229,198,133,.98),
-        rgba(170,129,63,.98)
-      );
-
-    color: #15120b;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .02em;
-
-    box-shadow:
-      0 12px 40px rgba(0,0,0,.35),
-      inset 0 1px rgba(255,255,255,.45);
-  }
-
-  /* ==========================================================
-     CONTEÚDO
-  ========================================================== */
-
-  .main {
-    position: relative;
-    z-index: 5;
-    margin-top: -1px;
-  }
-
-  .section {
-    padding: 48px 21px 0;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 20px;
-  }
-
-  .section-kicker {
-    color: var(--gold);
-    font-size: 8px;
-    text-transform: uppercase;
-    letter-spacing: .30em;
-    margin-bottom: 6px;
-  }
-
-  .section-title {
-    margin: 0;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 32px;
-    font-weight: 500;
-    line-height: .95;
-    color: var(--champagne);
-  }
-
-  .section-description {
-    max-width: 350px;
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.7;
-    margin-top: 9px;
-  }
-
-  .section-link {
-    color: var(--gold-light);
-    font-size: 10px;
-    white-space: nowrap;
-  }
-
-  /* ==========================================================
-     DEVOCIONAL DE HOJE
-  ========================================================== */
-
-  .today-card {
-    position: relative;
-    overflow: hidden;
-
-    min-height: 400px;
-    border-radius: 28px;
-
-    display: flex;
-    align-items: flex-end;
-
-    background:
-      linear-gradient(
-        180deg,
-        transparent 25%,
-        rgba(0,0,0,.18) 40%,
-        rgba(0,0,0,.94) 100%
-      ),
-      url("${IMAGES.presence}") center / cover;
-    
-    border: 1px solid rgba(255,255,255,.10);
-
-    box-shadow:
-      0 25px 80px rgba(0,0,0,.30),
-      inset 0 0 80px rgba(0,0,0,.20);
-  }
-
-  .today-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(
-        circle at 70% 20%,
-        rgba(244,208,132,.20),
-        transparent 30%
-      );
-  }
-
-  .today-content {
-    position: relative;
-    z-index: 2;
-    padding: 27px;
-    width: 100%;
-  }
-
-  .day-label {
-    color: var(--gold-light);
-    font-size: 9px;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .today-title {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 36px;
-    line-height: .95;
-    margin: 0;
-    max-width: 370px;
-  }
-
-  .today-excerpt {
-    color: rgba(255,255,255,.70);
-    font-size: 12px;
-    line-height: 1.65;
-    margin: 13px 0 18px;
-    max-width: 390px;
-  }
-
-  .today-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 9px;
-  }
-
-  .button-light,
-  .button-outline {
-    border-radius: 999px;
-    padding: 11px 16px;
-    font-size: 10px;
-    border: 1px solid rgba(255,255,255,.18);
-  }
-
-  .button-light {
-    background: var(--champagne);
-    color: #16130c;
-  }
-
-  .button-outline {
-    background: rgba(0,0,0,.22);
-    color: var(--champagne);
-    backdrop-filter: blur(10px);
-  }
-
-  /* ==========================================================
-     PRÁTICAS — IMAGENS, SEM ÍCONES EM QUADRADOS
-  ========================================================== */
-
-  .image-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 11px;
-  }
-
-  .image-card {
-    position: relative;
-    min-height: 185px;
-    overflow: hidden;
-    border-radius: 22px;
-
-    display: flex;
-    align-items: flex-end;
-
-    border: 1px solid rgba(255,255,255,.09);
-
-    background-size: cover;
-    background-position: center;
-
-    transition:
-      transform .25s ease,
-      border-color .25s ease;
-  }
-
-  .image-card:active {
-    transform: scale(.98);
-  }
-
-  .image-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background:
-      linear-gradient(
-        180deg,
-        transparent 25%,
-        rgba(0,0,0,.82) 100%
-      );
-  }
-
-  .image-card-content {
-    position: relative;
-    z-index: 2;
-    padding: 18px;
-  }
-
-  .image-card h3 {
-    margin: 0;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 23px;
-    font-weight: 500;
-  }
-
-  .image-card p {
-    margin: 5px 0 0;
-    color: rgba(255,255,255,.62);
-    font-size: 9px;
-    line-height: 1.45;
-  }
-
-  /* ==========================================================
-     JORNADA 365
-  ========================================================== */
-
-  .journey {
-    position: relative;
-    min-height: 300px;
-    border-radius: 27px;
-    overflow: hidden;
-
-    background:
-      linear-gradient(
-        90deg,
-        rgba(0,0,0,.86),
-        rgba(0,0,0,.22)
-      ),
-      url("${IMAGES.mountains}") center / cover;
-  }
-
-  .journey-content {
-    position: relative;
-    z-index: 2;
-    padding: 28px;
-    max-width: 420px;
-  }
-
-  .journey-number {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 82px;
-    line-height: .75;
-    color: rgba(239,216,167,.22);
-  }
-
-  .journey h3 {
-    margin: 24px 0 8px;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 34px;
-    font-weight: 500;
-  }
-
-  .journey p {
-    margin: 0;
-    color: rgba(255,255,255,.66);
-    font-size: 11px;
-    line-height: 1.65;
-  }
-
-  .progress-wrap {
-    margin-top: 22px;
-  }
-
-  .progress-info {
-    display: flex;
-    justify-content: space-between;
-    color: rgba(255,255,255,.56);
-    font-size: 9px;
-    margin-bottom: 7px;
-  }
-
-  .progress {
-    height: 3px;
-    background: rgba(255,255,255,.14);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-
-  .progress span {
-    display: block;
-    height: 100%;
-    width: 4%;
-    background: linear-gradient(90deg, var(--gold), var(--gold-light));
-  }
-
-  /* ==========================================================
-     ESTUDOS
-  ========================================================== */
-
-  .study-card {
-    position: relative;
-    min-height: 230px;
-    overflow: hidden;
-    border-radius: 25px;
-
-    background:
-      linear-gradient(
-        90deg,
-        rgba(5,6,5,.92),
-        rgba(5,6,5,.25)
-      ),
-      url("${IMAGES.light}") center / cover;
-
-    display: flex;
-    align-items: center;
-    padding: 28px;
-
-    border: 1px solid rgba(255,255,255,.08);
-  }
-
-  .study-card-content {
-    max-width: 390px;
-  }
-
-  .study-card h3 {
-    margin: 0;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 35px;
-    font-weight: 500;
-  }
-
-  .study-card p {
-    color: rgba(255,255,255,.64);
-    font-size: 11px;
-    line-height: 1.7;
-  }
-
-  /* ==========================================================
-     BÍBLIA
-  ========================================================== */
-
-  .bible-card {
-    display: grid;
-    grid-template-columns: 1.2fr .8fr;
-    min-height: 220px;
-    overflow: hidden;
-    border-radius: 24px;
-
-    background:
-      linear-gradient(
-        135deg,
-        #1c211c,
-        #0d100e
-      );
-
-    border: 1px solid rgba(239,216,167,.12);
-  }
-
-  .bible-content {
-    padding: 27px;
-  }
-
-  .bible-content h3 {
-    margin: 0;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 31px;
-    font-weight: 500;
-  }
-
-  .bible-content p {
-    color: var(--muted);
-    font-size: 10px;
-    line-height: 1.6;
-  }
-
-  .bible-image {
-    background:
-      linear-gradient(
-        90deg,
-        #1c211c,
-        transparent
-      ),
-      url("${IMAGES.water}") center / cover;
-  }
-
-  /* ==========================================================
-     ÁUDIO
-  ========================================================== */
-
-  .audio-player {
-    margin-top: 16px;
-    padding: 17px;
-
-    border-radius: 20px;
-    border: 1px solid rgba(239,216,167,.13);
-
-    background:
-      linear-gradient(
-        135deg,
-        rgba(255,255,255,.06),
-        rgba(255,255,255,.025)
-      );
-
-    backdrop-filter: blur(18px);
-  }
-
-  .audio-top {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .audio-play {
-    width: 43px;
-    height: 43px;
-    border: 0;
-    border-radius: 50%;
-
-    background: var(--champagne);
-    color: #17130b;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 14px;
-  }
-
-  .audio-title {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 20px;
-  }
-
-  .audio-subtitle {
-    color: var(--muted);
-    font-size: 8px;
-    margin-top: 3px;
-  }
-
-  .audio-progress {
-    margin-top: 14px;
-    height: 3px;
-    background: rgba(255,255,255,.13);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-
-  .audio-progress span {
-    display: block;
-    width: 0;
-    height: 100%;
-    background: var(--gold);
-  }
-
-  /* ==========================================================
-     BUSCA
-  ========================================================== */
-
-  .search-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 5000;
-
-    display: none;
-    align-items: flex-start;
-    justify-content: center;
-
-    padding: 90px 20px 30px;
-
-    background:
-      radial-gradient(
-        circle at 50% 0%,
-        rgba(70,80,57,.25),
-        transparent 35%
-      ),
-      rgba(4,5,4,.96);
-
-    backdrop-filter: blur(25px);
-  }
-
-  .search-overlay.active {
-    display: flex;
-  }
-
-  .search-box {
-    width: 100%;
-    max-width: 650px;
-  }
-
-  .search-input {
-    width: 100%;
-    padding: 18px 0;
-
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid rgba(239,216,167,.25);
-
-    color: var(--white);
-
-    font-family: "Cormorant Garamond", serif;
-    font-size: 34px;
-    outline: none;
-  }
-
-  .search-input::placeholder {
-    color: rgba(255,255,255,.25);
-  }
-
-  .search-results {
-    margin-top: 25px;
-  }
-
-  .search-result {
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(255,255,255,.08);
-  }
-
-  .search-result small {
-    color: var(--gold);
-    text-transform: uppercase;
-    letter-spacing: .16em;
-    font-size: 7px;
-  }
-
-  .search-result strong {
-    display: block;
-    margin-top: 4px;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 23px;
-    font-weight: 500;
-  }
-
-  .close-search {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-
-    width: 40px;
-    height: 40px;
-
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.14);
-
-    background: rgba(255,255,255,.05);
-    color: white;
-  }
-
-  /* ==========================================================
-     NAVEGAÇÃO INFERIOR
-  ========================================================== */
-
-  .bottom-nav {
-    position: fixed;
-    left: 14px;
-    right: 14px;
-    bottom: 13px;
-    z-index: 2000;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-
-    min-height: 65px;
-
-    border-radius: 25px;
-    border: 1px solid rgba(255,255,255,.12);
-
-    background:
-      linear-gradient(
-        135deg,
-        rgba(24,26,22,.78),
-        rgba(10,11,10,.78)
-      );
-
-    box-shadow:
-      0 18px 60px rgba(0,0,0,.55);
-
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-  }
-
-  .nav-item {
-    border: 0;
-    background: transparent;
-    color: rgba(255,255,255,.42);
-
-    font-size: 8px;
-    letter-spacing: .05em;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-
-    padding: 8px 12px;
-  }
-
-  .nav-item.active {
-    color: var(--gold-light);
-  }
-
-  .nav-item span:first-child {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 16px;
-  }
-
-  /* ==========================================================
-     MODAL DO DEVOCIONAL
-  ========================================================== */
-
-  .devotional-view {
-    position: fixed;
-    inset: 0;
-    z-index: 4000;
-
-    display: none;
-    overflow-y: auto;
-
-    background:
-      radial-gradient(
-        circle at 50% 0%,
-        rgba(80,94,65,.20),
-        transparent 35%
-      ),
-      #090a08;
-
-    padding-bottom: 100px;
-  }
-
-  .devotional-view.active {
-    display: block;
-  }
-
-  .devotional-header {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 17px 20px;
-
-    background: rgba(8,9,8,.76);
-    backdrop-filter: blur(18px);
-  }
-
-  .back-button {
-    border: 0;
-    background: transparent;
-    color: var(--champagne);
-    font-size: 13px;
-  }
-
-  .devotional-inner {
-    max-width: 720px;
-    margin: auto;
-    padding: 35px 23px;
-  }
-
-  .devotional-day {
-    color: var(--gold);
-    text-transform: uppercase;
-    letter-spacing: .25em;
-    font-size: 8px;
-  }
-
-  .devotional-title {
-    margin: 12px 0 20px;
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(42px, 11vw, 68px);
-    line-height: .88;
-    font-weight: 500;
-  }
-
-  .devotional-text {
-    color: rgba(245,241,228,.78);
-    font-family: "Cormorant Garamond", serif;
-    font-size: 21px;
-    line-height: 1.55;
-  }
-
-  .devotional-text p {
-    margin: 0 0 20px;
-  }
-
-  .verse {
-    margin: 28px 0;
-    padding: 22px;
-
-    border-left: 1px solid var(--gold);
-
-    background: rgba(255,255,255,.035);
-
-    color: var(--champagne);
-    font-family: "Cormorant Garamond", serif;
-    font-size: 23px;
-    line-height: 1.4;
-  }
-
-  .prayer-card {
-    margin-top: 35px;
-    padding: 25px;
-
-    border-radius: 22px;
-
-    background:
-      linear-gradient(
-        145deg,
-        rgba(75,83,62,.28),
-        rgba(180,134,65,.10)
-      );
-
-    border: 1px solid rgba(239,216,167,.15);
-  }
-
-  .prayer-card h3 {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 28px;
-    font-weight: 500;
-    margin: 0 0 12px;
-  }
-
-  .prayer-card p {
-    color: rgba(255,255,255,.70);
-    font-family: "Cormorant Garamond", serif;
-    font-size: 19px;
-    line-height: 1.55;
-  }
-
-  /* ==========================================================
-     RESPONSIVO
-  ========================================================== */
-
-  @media (min-width: 700px) {
-
-    .topbar {
-      padding-left: 40px;
-      padding-right: 40px;
+  const state = {
+    day: Number(localStorage.getItem("doce-dia")) || 1,
+    devotional: null,
+    studies: [],
+    playing: false,
+    audio: null
+  };
+
+  /* ========================================================
+     UTILITÁRIOS
+     ======================================================== */
+
+  function esc(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function hideLoading() {
+    const loading = document.getElementById("app-loading");
+
+    if (loading) {
+      loading.classList.add("hidden");
+
+      setTimeout(() => {
+        loading.style.display = "none";
+      }, 500);
+    }
+  }
+
+  function getApp() {
+    let app = document.getElementById("app");
+
+    if (!app) {
+      app = document.createElement("main");
+      app.id = "app";
+      document.body.appendChild(app);
     }
 
-    .hero-content {
-      padding-left: 8%;
-      padding-bottom: 75px;
+    return app;
+  }
+
+  /* ========================================================
+     CSS DE SEGURANÇA
+     ======================================================== */
+
+  const safetyStyle = document.createElement("style");
+
+  safetyStyle.textContent = `
+    #app {
+      min-height: 100vh;
     }
 
-    .section {
-      max-width: 1050px;
-      margin: auto;
-      padding-left: 35px;
-      padding-right: 35px;
+    .dse-page {
+      min-height: 100vh;
+      padding-bottom: 115px;
     }
 
-    .image-grid {
-      grid-template-columns: repeat(4, 1fr);
+    .dse-container {
+      width: min(100%, 1180px);
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
-    .image-card {
-      min-height: 260px;
+    .dse-top {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: linear-gradient(
+        to bottom,
+        rgba(7,8,6,.98),
+        rgba(7,8,6,.82),
+        rgba(7,8,6,0)
+      );
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
-    .today-card {
-      min-height: 480px;
+    .dse-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .journey {
+    .dse-brand img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+
+    .dse-brand-text {
+      color: #ead6a4;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .dse-search {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.045);
+      color: #ead6a4;
+      font-size: 19px;
+      display: grid;
+      place-items: center;
+    }
+
+    .dse-hero {
+      position: relative;
+      min-height: 650px;
+      margin: 0 -20px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      border-radius: 0 0 34px 34px;
+      background: #10120e;
+    }
+
+    .dse-hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .dse-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(
+          circle at 72% 25%,
+          rgba(228,190,108,.18),
+          transparent 30%
+        ),
+        linear-gradient(
+          to bottom,
+          rgba(0,0,0,.08),
+          rgba(0,0,0,.18) 40%,
+          rgba(5,6,5,.95) 100%
+        );
+    }
+
+    .dse-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 55px 28px 42px;
+      width: 100%;
+    }
+
+    .dse-small {
+      color: #d8b86b;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .dse-title {
+      margin-top: 12px;
+      color: #f7efd9;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(42px, 10vw, 76px);
+      line-height: .98;
+      font-weight: 400;
+      letter-spacing: -.035em;
+      text-shadow: 0 5px 30px rgba(0,0,0,.5);
+    }
+
+    .dse-subtitle {
+      margin-top: 16px;
+      color: #ddcfb2;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(18px, 4vw, 27px);
+      line-height: 1.3;
+    }
+
+    .dse-button {
+      margin-top: 25px;
+      min-height: 51px;
+      padding: 0 23px;
+      border-radius: 999px;
+      border: 0;
+      color: #17130b;
+      background: linear-gradient(135deg,#ebd59a,#b98e43);
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 14px 40px rgba(190,150,65,.2);
+    }
+
+    .dse-section {
+      padding-top: 58px;
+    }
+
+    .dse-eyebrow {
+      color: #c9a45a;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .dse-section-title {
+      margin-top: 7px;
+      color: #f3ead7;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(28px, 7vw, 43px);
+      font-weight: 400;
+      line-height: 1.05;
+    }
+
+    .dse-section-text {
+      margin-top: 10px;
+      color: #928d82;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .dse-devotional {
+      position: relative;
       min-height: 360px;
+      margin-top: 22px;
+      overflow: hidden;
+      border-radius: 27px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: #11130f;
+      box-shadow: 0 25px 70px rgba(0,0,0,.42);
     }
 
-    .bottom-nav {
+    .dse-devotional img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .48;
+    }
+
+    .dse-devotional::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          to top,
+          rgba(5,6,5,.98),
+          rgba(5,6,5,.38) 65%,
+          rgba(5,6,5,.08)
+        );
+    }
+
+    .dse-devotional-content {
+      position: relative;
+      z-index: 2;
+      min-height: 360px;
+      padding: 27px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .dse-day {
+      color: #e1c47d;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+
+    .dse-devotional-title {
+      margin-top: 9px;
+      color: #f4ead3;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(28px, 7vw, 45px);
+      line-height: 1.03;
+      font-weight: 400;
+    }
+
+    .dse-devotional-description {
+      margin-top: 11px;
+      color: rgba(245,240,230,.7);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .dse-listen {
+      margin-top: 18px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-radius: 17px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(20,21,18,.72);
+      backdrop-filter: blur(16px);
+    }
+
+    .dse-play {
+      width: 43px;
+      height: 43px;
+      flex: 0 0 43px;
+      border-radius: 50%;
+      background: linear-gradient(135deg,#e7cf92,#b88e45);
+      color: #17130b;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+    }
+
+    .dse-listen-title {
+      color: #eee5d2;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .dse-listen-meta {
+      margin-top: 4px;
+      color: #888379;
+      font-size: 10px;
+    }
+
+    .dse-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 13px;
+    }
+
+    .dse-image-card {
+      position: relative;
+      min-height: 225px;
+      overflow: hidden;
+      border-radius: 21px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: #151711;
+    }
+
+    .dse-image-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .7;
+    }
+
+    .dse-image-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(4,5,4,.95),
+        rgba(4,5,4,.05)
+      );
+    }
+
+    .dse-card-content {
+      position: absolute;
+      z-index: 2;
+      left: 17px;
+      right: 17px;
+      bottom: 17px;
+    }
+
+    .dse-card-title {
+      color: #f4ead5;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 22px;
+      line-height: 1.05;
+    }
+
+    .dse-card-text {
+      margin-top: 7px;
+      color: rgba(245,240,230,.65);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .dse-journey {
+      position: relative;
+      overflow: hidden;
+      margin-top: 22px;
+      padding: 30px;
+      min-height: 285px;
+      border-radius: 27px;
+      border: 1px solid rgba(208,174,97,.18);
+      background:
+        radial-gradient(
+          circle at 90% 10%,
+          rgba(211,172,87,.14),
+          transparent 35%
+        ),
+        linear-gradient(135deg,#151712,#0b0d0a);
+    }
+
+    .dse-365 {
+      color: rgba(210,174,93,.18);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 110px;
+      line-height: .75;
+    }
+
+    .dse-journey-title {
+      margin-top: 25px;
+      color: #f2e7ca;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 39px;
+    }
+
+    .dse-journey-text {
+      margin-top: 10px;
+      color: #999388;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .dse-progress {
+      height: 4px;
+      margin-top: 20px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: rgba(255,255,255,.08);
+    }
+
+    .dse-progress span {
+      display: block;
+      width: .3%;
+      height: 100%;
+      background: linear-gradient(90deg,#a47e39,#e4c77d);
+    }
+
+    .dse-study {
+      position: relative;
+      min-height: 300px;
+      margin-top: 22px;
+      overflow: hidden;
+      border-radius: 27px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .dse-study img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .dse-study::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(5,6,5,.97),
+        rgba(5,6,5,.12)
+      );
+    }
+
+    .dse-study-content {
+      position: absolute;
+      z-index: 2;
+      left: 25px;
+      right: 25px;
+      bottom: 25px;
+    }
+
+    .dse-study-title {
+      color: #f2e6ca;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 36px;
+    }
+
+    .dse-study-text {
+      margin-top: 8px;
+      color: rgba(255,248,233,.67);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .dse-bottom {
+      position: fixed;
+      z-index: 300;
       left: 50%;
-      right: auto;
-      width: 530px;
+      bottom: 15px;
       transform: translateX(-50%);
-    }
-  }
-
-  @media (max-width: 380px) {
-    .hero {
-      min-height: 670px;
-    }
-
-    .hero h1 {
-      font-size: 45px;
-    }
-
-    .section-title {
-      font-size: 29px;
+      width: min(calc(100% - 28px),600px);
+      min-height: 65px;
+      padding: 7px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 23px;
+      background: rgba(18,20,16,.78);
+      box-shadow: 0 20px 70px rgba(0,0,0,.5);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
     }
 
-    .image-card {
-      min-height: 165px;
+    .dse-nav {
+      min-width: 55px;
+      height: 51px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+      border-radius: 16px;
+      color: #77756d;
+      background: transparent;
+      font-size: 10px;
     }
-  }
+
+    .dse-nav.active {
+      color: #e2c47e;
+      background: rgba(207,168,87,.08);
+    }
+
+    .dse-nav-icon {
+      font-size: 17px;
+    }
+
+    .dse-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      overflow-y: auto;
+      background: rgba(4,5,4,.97);
+    }
+
+    .dse-modal.open {
+      display: block;
+    }
+
+    .dse-modal-inner {
+      width: min(100%,850px);
+      margin: auto;
+      padding: 25px 20px 110px;
+    }
+
+    .dse-close {
+      width: 43px;
+      height: 43px;
+      margin-left: auto;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      background: rgba(255,255,255,.07);
+      font-size: 20px;
+    }
+
+    .dse-reading {
+      margin-top: 25px;
+      color: #ded7ca;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      line-height: 1.85;
+    }
+
+    .dse-reading p {
+      margin-bottom: 1.25em;
+    }
+
+    .dse-search-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      display: none;
+      padding: 90px 20px 40px;
+      background: rgba(4,5,4,.97);
+    }
+
+    .dse-search-modal.open {
+      display: block;
+    }
+
+    .dse-search-box {
+      width: min(100%,700px);
+      margin: auto;
+    }
+
+    .dse-search-input {
+      width: 100%;
+      height: 56px;
+      padding: 0 18px;
+      border-radius: 17px;
+      outline: none;
+      border: 1px solid rgba(255,255,255,.1);
+      color: white;
+      background: rgba(255,255,255,.06);
+      font-size: 16px;
+    }
+
+    .dse-results {
+      margin-top: 20px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .dse-result {
+      padding: 16px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+      color: #eee6d6;
+    }
+
+    @media (min-width:760px) {
+      .dse-container {
+        padding: 0 32px;
+      }
+
+      .dse-hero {
+        margin: 0 -32px;
+        min-height: 750px;
+      }
+
+      .dse-hero-content {
+        padding: 75px 60px 60px;
+      }
+
+      .dse-grid {
+        grid-template-columns: repeat(4,minmax(0,1fr));
+      }
+    }
   `;
 
-  document.head.appendChild(style);
+  document.head.appendChild(safetyStyle);
 
+  /* ========================================================
+     DADOS PADRÃO
+     ======================================================== */
 
-  /* ==========================================================
-     ESTRUTURA PRINCIPAL
-  ========================================================== */
+  const fallbackDevotional = {
+    day: 1,
+    title: "A Presença que já está aqui",
+    description:
+      "Antes de procurar sinais extraordinários, aprenda a perceber a presença do Doce Espírito Santo naquilo que já está acontecendo dentro e ao redor de você.",
+    text:
+      "Há uma diferença profunda entre procurar a presença e aprender a percebê-la. O Doce Espírito Santo não precisa chegar para estar presente. A jornada começa quando nossos olhos espirituais aprendem a reconhecer aquilo que muitas vezes já estava diante de nós.",
+    verse:
+      "“E eu pedirei ao Pai, e ele lhes dará outro Consolador, para que esteja com vocês para sempre.” — João 14:16"
+  };
 
-  const root = document.body;
+  const fallbackStudies = [
+    {
+      title: "Quem é o Doce Espírito Santo?",
+      description:
+        "Uma introdução teológica à pessoa, presença e obra do Espírito Santo."
+    },
+    {
+      title: "Presença",
+      description:
+        "Aprendendo a discernir a presença do Espírito Santo na vida cotidiana."
+    },
+    {
+      title: "Intimidade",
+      description:
+        "O caminho bíblico de comunhão, escuta e relacionamento."
+    }
+  ];
 
-  root.innerHTML = `
-    <div class="app-shell">
+  /* ========================================================
+     CARREGAR JSON
+     ======================================================== */
 
-      <header class="topbar">
+  async function loadJSON(file, fallback) {
+    try {
+      const response = await fetch(file, {
+        cache: "no-store"
+      });
 
-        <div class="brand-mini">
-          <strong>Doce Espírito Santo</strong>
-          <span>Um Amigo Íntimo</span>
-        </div>
+      if (!response.ok) {
+        return fallback;
+      }
 
-        <button
-          class="search-button"
-          id="openSearch"
-          aria-label="Pesquisar">
-          ⌕
-        </button>
+      const data = await response.json();
 
-      </header>
+      return data || fallback;
 
+    } catch (error) {
+      console.warn("Não foi possível carregar:", file, error);
+      return fallback;
+    }
+  }
 
-      <!-- HERO -->
+  function normalizeDevotional(data) {
+    if (!data) return fallbackDevotional;
 
-      <section class="hero">
+    let item = data;
 
-        <div class="hero-content">
+    if (Array.isArray(data)) {
+      item =
+        data.find(x =>
+          Number(
+            x.day ||
+            x.dia ||
+            x.numero ||
+            x.id
+          ) === state.day
+        ) || data[0];
+    }
 
-          <div class="eyebrow">
-            Uma jornada de presença
+    if (data.devocionais && Array.isArray(data.devocionais)) {
+      item =
+        data.devocionais.find(x =>
+          Number(x.day || x.dia || x.numero || x.id) === state.day
+        ) || data.devocionais[0];
+    }
+
+    return {
+      day:
+        item.day ||
+        item.dia ||
+        state.day,
+
+      title:
+        item.title ||
+        item.titulo ||
+        item.tema ||
+        fallbackDevotional.title,
+
+      description:
+        item.description ||
+        item.descricao ||
+        item.resumo ||
+        fallbackDevotional.description,
+
+      text:
+        item.text ||
+        item.texto ||
+        item.conteudo ||
+        item.conteúdo ||
+        fallbackDevotional.text,
+
+      verse:
+        item.verse ||
+        item.versiculo ||
+        item.versículo ||
+        fallbackDevotional.verse,
+
+      audio:
+        item.audio ||
+        item.audioUrl ||
+        item.audio_url ||
+        null,
+
+      prayerAudio:
+        item.prayerAudio ||
+        item.audioOracao ||
+        item.audio_oracao ||
+        null
+    };
+  }
+
+  function normalizeStudies(data) {
+    if (!data) return fallbackStudies;
+
+    if (Array.isArray(data)) {
+      return data.map(item => ({
+        title:
+          item.title ||
+          item.titulo ||
+          item.nome ||
+          "Estudo",
+
+        description:
+          item.description ||
+          item.descricao ||
+          item.resumo ||
+          ""
+      }));
+    }
+
+    if (data.estudos && Array.isArray(data.estudos)) {
+      return normalizeStudies(data.estudos);
+    }
+
+    return fallbackStudies;
+  }
+
+  /* ========================================================
+     IMAGEM SEGURA
+     ======================================================== */
+
+  function image(path) {
+    return `
+      <img
+        src="${esc(path)}"
+        alt=""
+        loading="lazy"
+        onerror="this.style.display='none'"
+      >
+    `;
+  }
+
+  /* ========================================================
+     RENDER
+     ======================================================== */
+
+  function render() {
+
+    const app = getApp();
+
+    const d = state.devotional || fallbackDevotional;
+
+    const study = state.studies[0] || fallbackStudies[0];
+
+    app.innerHTML = `
+
+      <div class="dse-page">
+
+        <!-- TOPO -->
+
+        <header class="dse-top">
+
+          <div class="dse-brand">
+
+            <img
+              src="icon.svg"
+              alt=""
+            >
+
+            <span class="dse-brand-text">
+              ${APP.name}
+            </span>
+
           </div>
-
-          <h1>
-            Doce Espírito
-            <span>Santo</span>
-          </h1>
-
-          <div class="hero-subtitle">
-            Um Amigo Íntimo
-          </div>
-
-          <p class="hero-description">
-            Ele já está aqui.
-            Aprenda a percebê-lo.
-          </p>
 
           <button
-            class="hero-button"
-            id="startJourney">
-            Começar minha jornada
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <main class="main">
-
-        <!-- HOJE -->
-
-        <section class="section">
-
-          <div class="section-header">
-
-            <div>
-              <div class="section-kicker">
-                Hoje
-              </div>
-
-              <h2 class="section-title">
-                Um encontro com a Presença
-              </h2>
-            </div>
-
-          </div>
-
-          <article class="today-card">
-
-            <div class="today-content">
-
-              <div class="day-label" id="todayDay">
-                DIA 1
-              </div>
-
-              <h3 class="today-title" id="todayTitle">
-                A Presença que já está aqui
-              </h3>
-
-              <p class="today-excerpt" id="todayExcerpt">
-                Antes de procurarmos a presença do Doce Espírito Santo,
-                precisamos aprender a perceber que Ele já está aqui.
-              </p>
-
-              <div class="today-actions">
-
-                <button
-                  class="button-light"
-                  id="openToday">
-                  Entrar no devocional
-                </button>
-
-                <button
-                  class="button-outline"
-                  id="listenToday">
-                  Ouvir devocional
-                </button>
-
-              </div>
-
-            </div>
-
-          </article>
-
-          <div id="todayAudio"></div>
-
-        </section>
-
-
-        <!-- PRÁTICAS -->
-
-        <section class="section">
-
-          <div class="section-header">
-
-            <div>
-
-              <div class="section-kicker">
-                Prática da presença
-              </div>
-
-              <h2 class="section-title">
-                Aprenda a percebê-lo
-              </h2>
-
-              <p class="section-description">
-                Pequenas práticas para transformar o cotidiano
-                em lugar de encontro.
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <div class="image-grid">
-
-            <article
-              class="image-card"
-              style="background-image:url('${IMAGES.forest}')">
-
-              <div class="image-card-content">
-
-                <h3>
-                  Tempo com Ele
-                </h3>
-
-                <p>
-                  Silêncio, presença e permanência.
-                </p>
-
-              </div>
-
-            </article>
-
-
-            <article
-              class="image-card"
-              style="background-image:url('${IMAGES.light}')">
-
-              <div class="image-card-content">
-
-                <h3>
-                  Escuta
-                </h3>
-
-                <p>
-                  Sensibilidade para perceber Sua presença.
-                </p>
-
-              </div>
-
-            </article>
-
-
-            <article
-              class="image-card"
-              style="background-image:url('${IMAGES.water}')">
-
-              <div class="image-card-content">
-
-                <h3>
-                  Contemplação
-                </h3>
-
-                <p>
-                  Permanecer antes de tentar produzir.
-                </p>
-
-              </div>
-
-            </article>
-
-
-            <article
-              class="image-card"
-              style="background-image:url('${IMAGES.sunset}')">
-
-              <div class="image-card-content">
-
-                <h3>
-                  Vida diária
-                </h3>
-
-                <p>
-                  Encontrá-lo também no ordinário.
-                </p>
-
-              </div>
-
-            </article>
-
-          </div>
-
-        </section>
-
-
-        <!-- JORNADA -->
-
-        <section class="section">
-
-          <div class="section-header">
-
-            <div>
-
-              <div class="section-kicker">
-                A jornada
-              </div>
-
-              <h2 class="section-title">
-                365 dias
-              </h2>
-
-            </div>
-
-          </div>
-
-
-          <article class="journey">
-
-            <div class="journey-content">
-
-              <div class="journey-number">
-                365
-              </div>
-
-              <h3>
-                Um ano aprendendo a percebê-lo.
-              </h3>
-
-              <p>
-                Uma caminhada progressiva de intimidade,
-                conhecimento, prática e presença.
-              </p>
-
-              <div class="progress-wrap">
-
-                <div class="progress-info">
-                  <span id="journeyProgressText">
-                    Dia 1 de 365
-                  </span>
-
-                  <span id="journeyPercent">
-                    0%
-                  </span>
-                </div>
-
-                <div class="progress">
-                  <span id="journeyProgress"></span>
-                </div>
-
-              </div>
-
-            </div>
-
-          </article>
-
-        </section>
-
-
-        <!-- ESTUDOS -->
-
-        <section class="section">
-
-          <div class="section-header">
-
-            <div>
-
-              <div class="section-kicker">
-                Profundidade
-              </div>
-
-              <h2 class="section-title">
-                Estudos teológicos
-              </h2>
-
-              <p class="section-description">
-                Vá além da leitura devocional.
-                Conheça, investigue e contemple.
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <article
-            class="study-card"
-            id="openStudies">
-
-            <div class="study-card-content">
-
-              <h3>
-                Conhecer para aprofundar.
-              </h3>
-
-              <p>
-                Estudos bíblicos, teologia do Espírito Santo,
-                contexto histórico, referências e mapas de estudo.
-              </p>
-
-              <button
-                class="button-light"
-                id="studiesButton">
-                Explorar estudos
-              </button>
-
-            </div>
-
-          </article>
-
-        </section>
-
-
-        <!-- BÍBLIA -->
-
-        <section class="section">
-
-          <div class="section-header">
-
-            <div>
-
-              <div class="section-kicker">
-                Escrituras
-              </div>
-
-              <h2 class="section-title">
-                A Bíblia no centro
-              </h2>
-
-            </div>
-
-          </div>
-
-
-          <article class="bible-card">
-
-            <div class="bible-content">
-
-              <h3>
-                Palavra, contexto e presença.
-              </h3>
-
-              <p>
-                Leia as Escrituras enquanto percorre
-                sua jornada com o Doce Espírito Santo.
-              </p>
-
-              <button class="button-outline">
-                Abrir Bíblia
-              </button>
-
-            </div>
-
-            <div class="bible-image"></div>
-
-          </article>
-
-        </section>
-
-
-        <!-- ENCERRAMENTO -->
-
-        <section class="section" style="padding-bottom:30px">
-
-          <div
-            style="
-              min-height:330px;
-              border-radius:28px;
-              overflow:hidden;
-              display:flex;
-              align-items:flex-end;
-              background:
-                linear-gradient(
-                  180deg,
-                  transparent,
-                  rgba(0,0,0,.88)
-                ),
-                url('${IMAGES.sunset}') center/cover;
-            "
+            class="dse-search"
+            id="openSearch"
+            aria-label="Pesquisar"
           >
-
-            <div style="padding:30px">
-
-              <div class="section-kicker">
-                Permaneça
-              </div>
-
-              <div
-                style="
-                  font-family:'Cormorant Garamond',serif;
-                  font-size:40px;
-                  line-height:.95;
-                  max-width:430px;
-                "
-              >
-                Ele já está aqui.
-                <br>
-                Aprenda a percebê-lo.
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-      </main>
-
-
-      <!-- NAVEGAÇÃO -->
-
-      <nav class="bottom-nav">
-
-        <button
-          class="nav-item active"
-          data-nav="home">
-
-          <span>Início</span>
-
-        </button>
-
-        <button
-          class="nav-item"
-          data-nav="journey">
-
-          <span>Jornada</span>
-
-        </button>
-
-        <button
-          class="nav-item"
-          data-nav="today">
-
-          <span>Hoje</span>
-
-        </button>
-
-        <button
-          class="nav-item"
-          data-nav="studies">
-
-          <span>Estudos</span>
-
-        </button>
-
-      </nav>
-
-
-      <!-- BUSCA -->
-
-      <div
-        class="search-overlay"
-        id="searchOverlay">
-
-        <button
-          class="close-search"
-          id="closeSearch">
-          ×
-        </button>
-
-        <div class="search-box">
-
-          <input
-            id="searchInput"
-            class="search-input"
-            type="search"
-            placeholder="O que você deseja encontrar?"
-            autocomplete="off"
-          >
-
-          <div
-            class="search-results"
-            id="searchResults">
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- DEVOCIONAL -->
-
-      <div
-        class="devotional-view"
-        id="devotionalView">
-
-        <header class="devotional-header">
-
-          <button
-            class="back-button"
-            id="closeDevotional">
-            ← Voltar
+            ⌕
           </button>
-
-          <span
-            style="
-              color:var(--gold);
-              font-size:8px;
-              letter-spacing:.22em;
-              text-transform:uppercase;
-            ">
-            Doce Espírito Santo
-          </span>
 
         </header>
 
-        <div class="devotional-inner">
 
-          <div
-            class="devotional-day"
-            id="devotionalDay">
-            DIA 1
-          </div>
+        <div class="dse-container">
 
-          <h1
-            class="devotional-title"
-            id="devotionalTitle">
-            A Presença que já está aqui
-          </h1>
+          <!-- HERO -->
 
-          <div
-            class="audio-player"
-            id="devotionalPlayer">
+          <section class="dse-hero">
 
-            <div class="audio-top">
+            <img
+              src="${APP.cover}"
+              alt="Doce Espírito Santo"
+              onerror="this.style.display='none'"
+            >
+
+            <div class="dse-hero-content">
+
+              <div class="dse-small">
+                ${APP.subtitle}
+              </div>
+
+              <h1 class="dse-title">
+                Doce Espírito Santo
+              </h1>
+
+              <div class="dse-subtitle">
+                ${APP.phrase}
+              </div>
 
               <button
-                class="audio-play"
-                id="audioPlay">
+                class="dse-button"
+                id="startJourney"
+              >
+                Começar minha jornada
+              </button>
+
+            </div>
+
+          </section>
+
+
+          <!-- DEVOCIONAL -->
+
+          <section class="dse-section">
+
+            <div class="dse-eyebrow">
+              Hoje
+            </div>
+
+            <h2 class="dse-section-title">
+              Seu encontro de hoje
+            </h2>
+
+            <div class="dse-devotional">
+
+              ${image(APP.cover)}
+
+              <div class="dse-devotional-content">
+
+                <div class="dse-day">
+                  Dia ${esc(d.day)} de 365
+                </div>
+
+                <h3 class="dse-devotional-title">
+                  ${esc(d.title)}
+                </h3>
+
+                <p class="dse-devotional-description">
+                  ${esc(d.description)}
+                </p>
+
+                <div class="dse-listen">
+
+                  <button
+                    class="dse-play"
+                    id="playDevotional"
+                  >
+                    ▶
+                  </button>
+
+                  <div>
+
+                    <div class="dse-listen-title">
+                      Ouvir devocional completo
+                    </div>
+
+                    <div class="dse-listen-meta">
+                      Palavra • reflexão • contemplação
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- PRÁTICAS -->
+
+          <section class="dse-section">
+
+            <div class="dse-eyebrow">
+              Presença
+            </div>
+
+            <h2 class="dse-section-title">
+              Aprenda a percebê-lo
+            </h2>
+
+            <p class="dse-section-text">
+              Pequenos espaços de atenção podem transformar
+              a maneira como você vive a presença do Doce
+              Espírito Santo.
+            </p>
+
+            <div class="dse-grid">
+
+              <article class="dse-image-card">
+                ${image(APP.cover)}
+                <div class="dse-card-content">
+                  <div class="dse-card-title">
+                    Tempo com Ele
+                  </div>
+                  <div class="dse-card-text">
+                    Um espaço diário para permanecer.
+                  </div>
+                </div>
+              </article>
+
+              <article class="dse-image-card">
+                ${image(APP.cover)}
+                <div class="dse-card-content">
+                  <div class="dse-card-title">
+                    Escuta
+                  </div>
+                  <div class="dse-card-text">
+                    Silenciar para perceber.
+                  </div>
+                </div>
+              </article>
+
+              <article class="dse-image-card">
+                ${image(APP.cover)}
+                <div class="dse-card-content">
+                  <div class="dse-card-title">
+                    Contemplação
+                  </div>
+                  <div class="dse-card-text">
+                    Permanecer diante da presença.
+                  </div>
+                </div>
+              </article>
+
+              <article class="dse-image-card">
+                ${image(APP.cover)}
+                <div class="dse-card-content">
+                  <div class="dse-card-title">
+                    Vida diária
+                  </div>
+                  <div class="dse-card-text">
+                    Percebê-lo também no ordinário.
+                  </div>
+                </div>
+              </article>
+
+            </div>
+
+          </section>
+
+
+          <!-- 365 DIAS -->
+
+          <section class="dse-section">
+
+            <div class="dse-eyebrow">
+              A jornada
+            </div>
+
+            <div class="dse-journey">
+
+              <div class="dse-365">
+                365
+              </div>
+
+              <h2 class="dse-journey-title">
+                Um ano de intimidade
+              </h2>
+
+              <p class="dse-journey-text">
+                Uma jornada construída dia após dia,
+                conduzindo você para uma vida mais consciente
+                da presença do Doce Espírito Santo.
+              </p>
+
+              <div class="dse-progress">
+                <span></span>
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- ESTUDOS -->
+
+          <section class="dse-section">
+
+            <div class="dse-eyebrow">
+              Aprofundamento
+            </div>
+
+            <h2 class="dse-section-title">
+              Estudos teológicos
+            </h2>
+
+            <div class="dse-study">
+
+              ${image(APP.cover)}
+
+              <div class="dse-study-content">
+
+                <h3 class="dse-study-title">
+                  ${esc(study.title)}
+                </h3>
+
+                <p class="dse-study-text">
+                  ${esc(study.description)}
+                </p>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- BÍBLIA -->
+
+          <section class="dse-section">
+
+            <div class="dse-eyebrow">
+              Palavra
+            </div>
+
+            <h2 class="dse-section-title">
+              A Bíblia dentro da jornada
+            </h2>
+
+            <p class="dse-section-text">
+              Explore a Palavra, conecte textos, temas,
+              estudos e momentos da sua caminhada.
+            </p>
+
+            <div class="dse-grid">
+
+              <article class="dse-image-card">
+                ${image(APP.cover)}
+                <div class="dse-card-content">
+                  <div class="dse-card-title">
+                    Bíblia
+                  </div>
+                  <div class="dse-card-text">
+                    Leia e medite na Palavra.
+                  </div>
+                </div>
+              </article>
+
+              <article class="dse-image-card">
+                ${image(APP.cover)}
+                <div class="dse-card-content">
+                  <div class="dse-card-title">
+                    Mapas
+                  </div>
+                  <div class="dse-card-text">
+                    Organize sua compreensão.
+                  </div>
+                </div>
+              </article>
+
+              <article class="dse-image-card">
+                ${image(APP.cover)}
+                <div class="dse-card-content">
+                  <div class="dse-card-title">
+                    Planos
+                  </div>
+                  <div class="dse-card-text">
+                    Caminhos de leitura e estudo.
+                  </div>
+                </div>
+              </article>
+
+              <article class="dse-image-card">
+                ${image(APP.cover)}
+                <div class="dse-card-content">
+                  <div class="dse-card-title">
+                    Práticas
+                  </div>
+                  <div class="dse-card-text">
+                    Transforme conhecimento em experiência.
+                  </div>
+                </div>
+              </article>
+
+            </div>
+
+          </section>
+
+
+          <!-- FINAL -->
+
+          <section class="dse-section">
+
+            <div
+              style="
+                text-align:center;
+                padding:90px 15px 50px;
+              "
+            >
+
+              <div class="dse-eyebrow">
+                Permaneça
+              </div>
+
+              <h2
+                style="
+                  margin-top:16px;
+                  color:#f4ead3;
+                  font-family:Georgia,serif;
+                  font-size:clamp(30px,7vw,52px);
+                  font-weight:400;
+                  line-height:1.08;
+                "
+              >
+                Ele já está aqui.
+              </h2>
+
+              <p
+                style="
+                  margin:16px auto 0;
+                  max-width:520px;
+                  color:#928d82;
+                  font-size:14px;
+                  line-height:1.8;
+                "
+              >
+                Talvez a jornada não seja encontrar
+                o Doce Espírito Santo, mas aprender a
+                perceber que Ele nunca esteve longe.
+              </p>
+
+            </div>
+
+          </section>
+
+        </div>
+
+
+        <!-- NAVEGAÇÃO -->
+
+        <nav class="dse-bottom">
+
+          <button
+            class="dse-nav active"
+            data-section="inicio"
+          >
+            <span class="dse-nav-icon">⌂</span>
+            <span>Início</span>
+          </button>
+
+          <button
+            class="dse-nav"
+            id="navDevotional"
+          >
+            <span class="dse-nav-icon">◈</span>
+            <span>Devocional</span>
+          </button>
+
+          <button
+            class="dse-nav"
+            id="navBible"
+          >
+            <span class="dse-nav-icon">▤</span>
+            <span>Bíblia</span>
+          </button>
+
+          <button
+            class="dse-nav"
+            id="navStudies"
+          >
+            <span class="dse-nav-icon">◇</span>
+            <span>Estudos</span>
+          </button>
+
+          <button
+            class="dse-nav"
+            id="navSearch"
+          >
+            <span class="dse-nav-icon">⌕</span>
+            <span>Buscar</span>
+          </button>
+
+        </nav>
+
+
+        <!-- MODAL DEVOCIONAL -->
+
+        <div
+          class="dse-modal"
+          id="devotionalModal"
+        >
+
+          <div class="dse-modal-inner">
+
+            <button
+              class="dse-close"
+              id="closeDevotional"
+            >
+              ×
+            </button>
+
+            <div class="dse-eyebrow">
+              Dia ${esc(d.day)} de 365
+            </div>
+
+            <h1
+              class="dse-section-title"
+              style="margin-top:10px;"
+            >
+              ${esc(d.title)}
+            </h1>
+
+            <div class="dse-reading">
+
+              <p>
+                ${esc(d.text)}
+              </p>
+
+              <p>
+                <strong style="color:#e0c37b;">
+                  ${esc(d.verse)}
+                </strong>
+              </p>
+
+              <p>
+                Permaneça por alguns instantes em silêncio.
+                Não tenha pressa para produzir uma resposta.
+                Apenas perceba.
+              </p>
+
+              <p>
+                O Doce Espírito Santo não é apenas um tema
+                para ser estudado. Ele é uma presença para
+                ser conhecida, uma comunhão para ser vivida
+                e uma realidade que acompanha cada passo
+                da caminhada.
+              </p>
+
+            </div>
+
+            <div class="dse-listen">
+
+              <button
+                class="dse-play"
+                id="playPrayer"
+              >
                 ▶
               </button>
 
               <div>
 
-                <div class="audio-title">
-                  Ouvir devocional completo
+                <div class="dse-listen-title">
+                  Ouvir oração
                 </div>
 
-                <div class="audio-subtitle">
-                  Permaneça ouvindo enquanto contempla.
+                <div class="dse-listen-meta">
+                  Permaneça em oração e contemplação
                 </div>
 
               </div>
 
             </div>
 
-            <div class="audio-progress">
-              <span id="audioProgress"></span>
-            </div>
-
           </div>
 
-          <article
-            class="devotional-text"
-            id="devotionalText">
+        </div>
 
-            <p>
-              Antes de procurar sinais extraordinários,
-              aprenda a perceber a presença que já está diante de você.
-            </p>
 
-            <div class="verse">
-              “Não sabeis vós que sois santuário de Deus
-              e que o Espírito de Deus habita em vós?”
-            </div>
+        <!-- BUSCA -->
 
-            <p>
-              A jornada começa não com uma tentativa de trazer
-              o Doce Espírito Santo para perto, mas com a consciência
-              de que Ele já está aqui.
-            </p>
+        <div
+          class="dse-search-modal"
+          id="searchModal"
+        >
 
-          </article>
-
-          <div class="prayer-card">
-
-            <h3>
-              Oração
-            </h3>
-
-            <p id="prayerText">
-              Doce Espírito Santo, ensina-me a perceber Sua presença.
-              Tira de mim a pressa, o ruído e a distração.
-              Quero aprender a permanecer.
-            </p>
+          <div class="dse-search-box">
 
             <button
-              class="button-light"
-              id="prayerAudio">
-              Ouvir oração
+              class="dse-close"
+              id="closeSearch"
+            >
+              ×
             </button>
+
+            <input
+              class="dse-search-input"
+              id="searchInput"
+              type="search"
+              placeholder="Buscar na sua jornada..."
+              autocomplete="off"
+            >
+
+            <div
+              class="dse-results"
+              id="searchResults"
+            ></div>
 
           </div>
 
         </div>
 
       </div>
+    `;
 
-    </div>
-  `;
+    bindEvents();
+  }
+
+  /* ========================================================
+     EVENTOS
+     ======================================================== */
+
+  function bindEvents() {
+
+    const searchModal =
+      document.getElementById("searchModal");
+
+    const devotionalModal =
+      document.getElementById("devotionalModal");
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const searchResults =
+      document.getElementById("searchResults");
 
 
-  /* ==========================================================
-     DADOS
-  ========================================================== */
+    /* BUSCA */
 
-  let devotionals = [];
-  let studies = [];
-  let currentDevotional = null;
+    function openSearch() {
+      if (!searchModal) return;
 
-  async function loadData() {
+      searchModal.classList.add("open");
 
-    try {
-      const response = await fetch("devocionais.json", {
-        cache: "no-store"
-      });
+      setTimeout(() => {
+        if (searchInput) searchInput.focus();
+      }, 100);
+    }
 
-      if (response.ok) {
-        const data = await response.json();
-
-        if (Array.isArray(data)) {
-          devotionals = data;
-        } else if (Array.isArray(data.devocionais)) {
-          devotionals = data.devocionais;
-        } else if (Array.isArray(data.days)) {
-          devotionals = data.days;
-        }
+    function closeSearch() {
+      if (searchModal) {
+        searchModal.classList.remove("open");
       }
-
-    } catch (error) {
-      console.warn("Não foi possível carregar devocionais.json", error);
     }
-
-
-    try {
-
-      const response = await fetch("estudos.json", {
-        cache: "no-store"
-      });
-
-      if (response.ok) {
-
-        const data = await response.json();
-
-        if (Array.isArray(data)) {
-          studies = data;
-        } else if (Array.isArray(data.estudos)) {
-          studies = data.estudos;
-        }
-
-      }
-
-    } catch (error) {
-      console.warn("Não foi possível carregar estudos.json", error);
-    }
-
-    updateToday();
-
-  }
-
-
-  /* ==========================================================
-     LOCALIZAR CAMPOS DO JSON
-  ========================================================== */
-
-  function getField(item, names, fallback = "") {
-
-    if (!item) return fallback;
-
-    for (const name of names) {
-
-      if (
-        item[name] !== undefined &&
-        item[name] !== null &&
-        item[name] !== ""
-      ) {
-        return item[name];
-      }
-
-    }
-
-    return fallback;
-  }
-
-
-  /* ==========================================================
-     DEVOCIONAL DE HOJE
-  ========================================================== */
-
-  function getTodayDevotional() {
-
-    if (!devotionals.length) {
-
-      return {
-        day: 1,
-        title: "A Presença que já está aqui",
-        excerpt:
-          "Antes de procurarmos a presença do Doce Espírito Santo, precisamos aprender a perceber que Ele já está aqui.",
-        text: `
-          <p>
-            Antes de procurar sinais extraordinários,
-            aprenda a perceber a presença que já está diante de você.
-          </p>
-
-          <div class="verse">
-            “Não sabeis vós que sois santuário de Deus
-            e que o Espírito de Deus habita em vós?”
-          </div>
-
-          <p>
-            A jornada começa não com uma tentativa de trazer
-            o Doce Espírito Santo para perto, mas com a consciência
-            de que Ele já está aqui.
-          </p>
-        `,
-        prayer:
-          "Doce Espírito Santo, ensina-me a perceber Sua presença. Tira de mim a pressa, o ruído e a distração. Quero aprender a permanecer."
-      };
-
-    }
-
-
-    const index = getSavedDay() - 1;
-
-    const item = devotionals[
-      Math.max(0, Math.min(index, devotionals.length - 1))
-    ];
-
-
-    return {
-
-      original: item,
-
-      day: getField(
-        item,
-        ["dia", "day", "numero", "number"],
-        getSavedDay()
-      ),
-
-      title: getField(
-        item,
-        ["titulo", "title", "nome", "name"],
-        "A Presença que já está aqui"
-      ),
-
-      excerpt: getField(
-        item,
-        ["resumo", "excerpt", "descricao", "description"],
-        "Um encontro com a Presença."
-      ),
-
-      text: getField(
-        item,
-        ["conteudo", "texto", "text", "devocional", "body"],
-        "<p>Permaneça nesta reflexão e permita que o Doce Espírito Santo conduza este momento.</p>"
-      ),
-
-      prayer: getField(
-        item,
-        ["oracao", "oração", "prayer"],
-        "Doce Espírito Santo, ensina-me a perceber Sua presença."
-      ),
-
-      audio: getField(
-        item,
-        ["audio", "audioUrl", "audio_url", "urlAudio"],
-        ""
-      ),
-
-      prayerAudio: getField(
-        item,
-        ["audioOracao", "audioOração", "prayerAudio"],
-        ""
-      )
-
-    };
-
-  }
-
-
-  /* ==========================================================
-     DIA SALVO
-  ========================================================== */
-
-  function getSavedDay() {
-
-    const saved =
-      Number(localStorage.getItem("doce-espirito-dia"));
-
-    if (
-      Number.isFinite(saved) &&
-      saved >= 1
-    ) {
-      return saved;
-    }
-
-    return 1;
-  }
-
-
-  function saveDay(day) {
-
-    localStorage.setItem(
-      "doce-espirito-dia",
-      String(day)
-    );
-
-  }
-
-
-  /* ==========================================================
-     ATUALIZA HOME
-  ========================================================== */
-
-  function updateToday() {
-
-    currentDevotional = getTodayDevotional();
-
-    document.getElementById("todayDay").textContent =
-      "DIA " + currentDevotional.day;
-
-    document.getElementById("todayTitle").textContent =
-      currentDevotional.title;
-
-    document.getElementById("todayExcerpt").textContent =
-      currentDevotional.excerpt;
-
-
-    const day = Number(currentDevotional.day) || 1;
-
-    const percent =
-      Math.min(100, Math.round((day / 365) * 100));
-
-    document.getElementById(
-      "journeyProgressText"
-    ).textContent =
-      `Dia ${day} de 365`;
-
-    document.getElementById(
-      "journeyPercent"
-    ).textContent =
-      `${percent}%`;
-
-    document.getElementById(
-      "journeyProgress"
-    ).style.width =
-      `${percent}%`;
-
-  }
-
-
-  /* ==========================================================
-     ABRIR DEVOCIONAL
-  ========================================================== */
-
-  function openDevotional(devotional = currentDevotional) {
-
-    if (!devotional) return;
-
-    currentDevotional = devotional;
-
-    const view =
-      document.getElementById("devotionalView");
-
-    document.getElementById(
-      "devotionalDay"
-    ).textContent =
-      "DIA " + devotional.day;
-
-    document.getElementById(
-      "devotionalTitle"
-    ).textContent =
-      devotional.title;
-
-    document.getElementById(
-      "devotionalText"
-    ).innerHTML =
-      devotional.text || "<p>Permaneça nesta reflexão.</p>";
-
-    document.getElementById(
-      "prayerText"
-    ).textContent =
-      devotional.prayer ||
-      "Doce Espírito Santo, ensina-me a permanecer.";
-
-    view.classList.add("active");
-
-    document.body.style.overflow = "hidden";
-
-  }
-
-
-  function closeDevotional() {
 
     document
-      .getElementById("devotionalView")
-      .classList.remove("active");
+      .getElementById("openSearch")
+      ?.addEventListener("click", openSearch);
 
-    document.body.style.overflow = "";
+    document
+      .getElementById("navSearch")
+      ?.addEventListener("click", openSearch);
 
-  }
+    document
+      .getElementById("closeSearch")
+      ?.addEventListener("click", closeSearch);
 
 
-  /* ==========================================================
-     ÁUDIO
-  ========================================================== */
+    /* DEVOCIONAL */
 
-  let audio = null;
-
-  function playDevotionalAudio() {
-
-    if (!currentDevotional) return;
-
-    const url = currentDevotional.audio;
-
-    if (!url) {
-
-      alert(
-        "O áudio deste devocional ainda não foi configurado."
-      );
-
-      return;
+    function openDevotional() {
+      if (devotionalModal) {
+        devotionalModal.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
     }
 
+    function closeDevotional() {
+      if (devotionalModal) {
+        devotionalModal.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+    }
 
-    if (!audio || audio.src !== new URL(url, location.href).href) {
+    document
+      .getElementById("startJourney")
+      ?.addEventListener("click", openDevotional);
 
-      audio = new Audio(url);
+    document
+      .getElementById("playDevotional")
+      ?.addEventListener("click", openDevotional);
 
-      audio.addEventListener(
-        "timeupdate",
-        updateAudioProgress
-      );
+    document
+      .getElementById("navDevotional")
+      ?.addEventListener("click", openDevotional);
 
-      audio.addEventListener(
-        "ended",
-        () => {
-          document.getElementById(
-            "audioPlay"
-          ).textContent = "▶";
+    document
+      .getElementById("closeDevotional")
+      ?.addEventListener("click", closeDevotional);
+
+
+    /* ÁUDIO */
+
+    document
+      .getElementById("playPrayer")
+      ?.addEventListener("click", function () {
+
+        const audioURL =
+          state.devotional?.prayerAudio ||
+          state.devotional?.audio;
+
+        if (!audioURL) {
+          alert(
+            "O áudio desta oração ainda não foi adicionado."
+          );
+          return;
+        }
+
+        playAudio(audioURL);
+      });
+
+
+    /* PESQUISA */
+
+    if (searchInput) {
+
+      searchInput.addEventListener(
+        "input",
+        function () {
+
+          const term =
+            this.value
+              .trim()
+              .toLowerCase();
+
+          if (!searchResults) return;
+
+          if (!term) {
+            searchResults.innerHTML = "";
+            return;
+          }
+
+          const items = [
+            {
+              title: "Devocional",
+              text: state.devotional?.title || ""
+            },
+            ...state.studies.map(item => ({
+              title: item.title,
+              text: item.description
+            })),
+            {
+              title: "Bíblia",
+              text: "Palavra, textos e estudos bíblicos"
+            },
+            {
+              title: "Práticas de presença",
+              text: "Silêncio, escuta e contemplação"
+            }
+          ];
+
+          const results =
+            items.filter(item =>
+              `${item.title} ${item.text}`
+                .toLowerCase()
+                .includes(term)
+            );
+
+          if (!results.length) {
+
+            searchResults.innerHTML = `
+              <div class="dse-result">
+                Nenhum resultado encontrado.
+              </div>
+            `;
+
+            return;
+          }
+
+          searchResults.innerHTML =
+            results
+              .map(item => `
+                <div class="dse-result">
+                  <strong>${esc(item.title)}</strong>
+                  <div
+                    style="
+                      margin-top:5px;
+                      color:#8f8a80;
+                      font-size:12px;
+                    "
+                  >
+                    ${esc(item.text)}
+                  </div>
+                </div>
+              `)
+              .join("");
+
         }
       );
 
     }
 
 
-    if (audio.paused) {
-
-      audio.play();
-
-      document.getElementById(
-        "audioPlay"
-      ).textContent = "Ⅱ";
-
-    } else {
-
-      audio.pause();
-
-      document.getElementById(
-        "audioPlay"
-      ).textContent = "▶";
-
-    }
-
-  }
-
-
-  function updateAudioProgress() {
-
-    if (!audio || !audio.duration) return;
-
-    const percent =
-      (audio.currentTime / audio.duration) * 100;
-
-    document.getElementById(
-      "audioProgress"
-    ).style.width =
-      `${percent}%`;
-
-  }
-
-
-  /* ==========================================================
-     BUSCA
-  ========================================================== */
-
-  const searchOverlay =
-    document.getElementById("searchOverlay");
-
-  const searchInput =
-    document.getElementById("searchInput");
-
-  const searchResults =
-    document.getElementById("searchResults");
-
-
-  function openSearch() {
-
-    searchOverlay.classList.add("active");
-
-    setTimeout(
-      () => searchInput.focus(),
-      100
-    );
-
-  }
-
-
-  function closeSearch() {
-
-    searchOverlay.classList.remove("active");
-
-    searchInput.value = "";
-
-    searchResults.innerHTML = "";
-
-  }
-
-
-  function performSearch(query) {
-
-    query =
-      String(query || "")
-        .trim()
-        .toLowerCase();
-
-
-    if (!query) {
-
-      searchResults.innerHTML = "";
-
-      return;
-
-    }
-
-
-    const devotionalResults =
-      devotionals
-        .map((item, index) => {
-
-          const title =
-            getField(
-              item,
-              ["titulo", "title", "nome", "name"],
-              `Dia ${index + 1}`
-            );
-
-          const text =
-            getField(
-              item,
-              ["conteudo", "texto", "text", "devocional"],
-              ""
-            );
-
-          return {
-            item,
-            index,
-            title,
-            text,
-            type: "Devocional"
-          };
-
-        })
-        .filter(item =>
-          `${item.title} ${item.text}`
-            .toLowerCase()
-            .includes(query)
-        )
-        .slice(0, 10);
-
-
-    const studyResults =
-      studies
-        .map((item, index) => {
-
-          const title =
-            getField(
-              item,
-              ["titulo", "title", "nome", "name"],
-              `Estudo ${index + 1}`
-            );
-
-          const text =
-            getField(
-              item,
-              ["conteudo", "texto", "text", "descricao"],
-              ""
-            );
-
-          return {
-            item,
-            index,
-            title,
-            text,
-            type: "Estudo"
-          };
-
-        })
-        .filter(item =>
-          `${item.title} ${item.text}`
-            .toLowerCase()
-            .includes(query)
-        )
-        .slice(0, 10);
-
-
-    const results = [
-      ...devotionalResults,
-      ...studyResults
-    ];
-
-
-    if (!results.length) {
-
-      searchResults.innerHTML = `
-        <div
-          style="
-            color:rgba(255,255,255,.45);
-            padding:25px 0;
-            font-family:'Cormorant Garamond',serif;
-            font-size:22px;
-          ">
-          Nenhum resultado encontrado.
-        </div>
-      `;
-
-      return;
-
-    }
-
-
-    searchResults.innerHTML =
-      results
-        .map((result, resultIndex) => `
-
-          <button
-            class="search-result"
-            data-result="${resultIndex}"
-            style="
-              width:100%;
-              background:transparent;
-              border:0;
-              color:white;
-              text-align:left;
-            ">
-
-            <small>
-              ${result.type}
-            </small>
-
-            <strong>
-              ${escapeHtml(result.title)}
-            </strong>
-
-          </button>
-
-        `)
-        .join("");
-
-
-    searchResults
-      .querySelectorAll(".search-result")
-      .forEach((button, index) => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            const result = results[index];
-
-            if (result.type === "Devocional") {
-
-              const item = result.item;
-
-              openDevotional({
-
-                original: item,
-
-                day: getField(
-                  item,
-                  ["dia", "day", "numero", "number"],
-                  result.index + 1
-                ),
-
-                title: result.title,
-
-                excerpt: getField(
-                  item,
-                  ["resumo", "excerpt", "descricao"],
-                  ""
-                ),
-
-                text: getField(
-                  item,
-                  ["conteudo", "texto", "text", "devocional"],
-                  ""
-                ),
-
-                prayer: getField(
-                  item,
-                  ["oracao", "oração", "prayer"],
-                  ""
-                ),
-
-                audio: getField(
-                  item,
-                  ["audio", "audioUrl", "audio_url"],
-                  ""
-                )
-
-              });
-
-              closeSearch();
-
-            }
-
-          }
-        );
+    /* NAVEGAÇÃO */
+
+    document
+      .getElementById("navBible")
+      ?.addEventListener("click", function () {
+
+        window.scrollTo({
+          top: document.body.scrollHeight * .68,
+          behavior: "smooth"
+        });
 
       });
 
-  }
+    document
+      .getElementById("navStudies")
+      ?.addEventListener("click", function () {
 
+        window.scrollTo({
+          top: document.body.scrollHeight * .48,
+          behavior: "smooth"
+        });
 
-  function escapeHtml(value) {
+      });
 
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
 
-  }
+    /* ESC */
 
+    document.addEventListener(
+      "keydown",
+      function (event) {
 
-  /* ==========================================================
-     NAVEGAÇÃO
-  ========================================================== */
-
-  function scrollToSection(selector) {
-
-    const element =
-      document.querySelector(selector);
-
-    if (!element) return;
-
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-
-  }
-
-
-  document
-    .querySelectorAll(".nav-item")
-    .forEach(item => {
-
-      item.addEventListener(
-        "click",
-        () => {
-
-          document
-            .querySelectorAll(".nav-item")
-            .forEach(nav =>
-              nav.classList.remove("active")
-            );
-
-          item.classList.add("active");
-
-          const nav =
-            item.dataset.nav;
-
-          if (nav === "home") {
-
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth"
-            });
-
-          }
-
-          if (nav === "journey") {
-
-            scrollToSection(".journey");
-
-          }
-
-          if (nav === "today") {
-
-            scrollToSection(".today-card");
-
-          }
-
-          if (nav === "studies") {
-
-            scrollToSection(".study-card");
-
-          }
-
-        }
-      );
-
-    });
-
-
-  /* ==========================================================
-     EVENTOS
-  ========================================================== */
-
-  document
-    .getElementById("openSearch")
-    .addEventListener(
-      "click",
-      openSearch
-    );
-
-
-  document
-    .getElementById("closeSearch")
-    .addEventListener(
-      "click",
-      closeSearch
-    );
-
-
-  searchInput.addEventListener(
-    "input",
-    event =>
-      performSearch(event.target.value)
-  );
-
-
-  document
-    .getElementById("startJourney")
-    .addEventListener(
-      "click",
-      () => {
-
-        scrollToSection(".today-card");
-
-      }
-    );
-
-
-  document
-    .getElementById("openToday")
-    .addEventListener(
-      "click",
-      () => openDevotional()
-    );
-
-
-  document
-    .getElementById("listenToday")
-    .addEventListener(
-      "click",
-      () => {
-
-        openDevotional();
-
-        setTimeout(
-          playDevotionalAudio,
-          300
-        );
-
-      }
-    );
-
-
-  document
-    .getElementById("closeDevotional")
-    .addEventListener(
-      "click",
-      closeDevotional
-    );
-
-
-  document
-    .getElementById("audioPlay")
-    .addEventListener(
-      "click",
-      playDevotionalAudio
-    );
-
-
-  document
-    .getElementById("prayerAudio")
-    .addEventListener(
-      "click",
-      () => {
-
-        const url =
-          currentDevotional &&
-          currentDevotional.prayerAudio;
-
-        if (!url) {
-
-          alert(
-            "O áudio da oração ainda não foi configurado."
-          );
-
-          return;
-
-        }
-
-        const prayer =
-          new Audio(url);
-
-        prayer.play();
-
-      }
-    );
-
-
-  document
-    .getElementById("studiesButton")
-    .addEventListener(
-      "click",
-      () => {
-
-        alert(
-          "A área de estudos continuará conectada ao seu conteúdo de estudos.json."
-        );
-
-      }
-    );
-
-
-  document.addEventListener(
-    "keydown",
-    event => {
-
-      if (event.key === "Escape") {
+        if (event.key !== "Escape") return;
 
         closeSearch();
         closeDevotional();
 
       }
+    );
+  }
+
+  /* ========================================================
+     ÁUDIO
+     ======================================================== */
+
+  function playAudio(url) {
+
+    try {
+
+      if (state.audio) {
+        state.audio.pause();
+      }
+
+      state.audio = new Audio(url);
+
+      state.audio.play()
+        .catch(() => {
+          alert(
+            "Não foi possível reproduzir este áudio agora."
+          );
+        });
+
+    } catch (error) {
+
+      console.warn(
+        "Erro ao reproduzir áudio:",
+        error
+      );
 
     }
-  );
+  }
 
-
-  /* ==========================================================
+  /* ========================================================
      INICIALIZAÇÃO
-  ========================================================== */
+     ======================================================== */
 
-  loadData();
+  async function init() {
+
+    try {
+
+      const devotionalData =
+        await loadJSON(
+          "devocionais.json",
+          fallbackDevotional
+        );
+
+      const studiesData =
+        await loadJSON(
+          "estudos.json",
+          fallbackStudies
+        );
+
+      state.devotional =
+        normalizeDevotional(
+          devotionalData
+        );
+
+      state.studies =
+        normalizeStudies(
+          studiesData
+        );
+
+      render();
+
+      hideLoading();
+
+      console.log(
+        "Doce Espírito Santo carregado com sucesso."
+      );
+
+    } catch (error) {
+
+      console.error(
+        "Erro na inicialização:",
+        error
+      );
+
+      /*
+       * Mesmo que alguma coisa dê errado,
+       * nunca deixamos a tela preta.
+       */
+
+      state.devotional =
+        fallbackDevotional;
+
+      state.studies =
+        fallbackStudies;
+
+      render();
+
+      hideLoading();
+
+    }
+
+  }
+
+  /* ========================================================
+     START
+     ======================================================== */
+
+  if (
+    document.readyState === "loading"
+  ) {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      init
+    );
+
+  } else {
+
+    init();
+
+  }
 
 })();
