@@ -1,2043 +1,2129 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#17120f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-<meta
-    name="viewport"
-    content="width=device-width,
-    initial-scale=1.0,
-    maximum-scale=1.0,
-    user-scalable=no,
-    viewport-fit=cover"
->
-
-<meta
-    name="theme-color"
-    content="#110904"
->
-
-<meta
-    name="apple-mobile-web-app-capable"
-    content="yes"
->
-
-<meta
-    name="apple-mobile-web-app-status-bar-style"
-    content="black-translucent"
->
-
-<title>
-Doce Espírito Santo — Um Amigo Íntimo
-</title>
-
+<title>Doce Espírito Santo — Um Amigo Íntimo</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
-/* =========================================================
-   RESET
-========================================================= */
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    -webkit-tap-highlight-color:transparent;
+:root{
+  --bg:#15110e;
+  --bg2:#1d1611;
+  --card:#241a13;
+  --card2:#2b2018;
+  --gold:#d6b16c;
+  --gold-light:#f0dfbb;
+  --cream:#f4eee4;
+  --muted:#aaa29a;
+  --line:rgba(255,255,255,.10);
+  --white:#fff;
+  --radius:28px;
+  --nav-height:82px;
 }
 
-html,
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html{
+  background:var(--bg);
+}
+
 body{
+  margin:0;
+  background:var(--bg);
+  color:var(--cream);
+  font-family:Inter,Arial,sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
 
-    width:100%;
-    height:100%;
-
-    overflow:hidden;
-
-    background:#110904;
-
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        "Segoe UI",
-        sans-serif;
-
+button,
+input,
+textarea{
+  font-family:inherit;
 }
 
 button{
-    font-family:inherit;
+  border:0;
+  cursor:pointer;
 }
 
-
-/* =========================================================
-   CAPA
-========================================================= */
-
-#introScreen{
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:9999;
-
-    background:#110904;
-
-    overflow:hidden;
-
-    transition:
-        opacity .7s ease,
-        visibility .7s ease;
-
+img{
+  max-width:100%;
+  display:block;
 }
 
-
-#introScreen.hidden{
-
-    opacity:0;
-
-    visibility:hidden;
-
-    pointer-events:none;
-
-}
-
-
-/*
-   A CAPA ORIGINAL.
-   Nenhum texto é colocado dentro da imagem.
-*/
-
-.coverImage{
-
-    position:absolute;
-
-    inset:0;
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    object-position:center center;
-
-}
-
-
-/*
-   Área inferior da capa.
-   É transparente para não esconder a arte.
-*/
-
-.coverAction{
-
-    position:absolute;
-
-    left:0;
-    right:0;
-
-    bottom:6%;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    z-index:5;
-
-    padding:
-        0 28px
-        env(safe-area-inset-bottom);
-
-}
-
-
-/*
-   FRASE CRIADA PELO CÓDIGO
-*/
-
-.coverPhrase{
-
-    max-width:330px;
-
-    margin-bottom:18px;
-
-    text-align:center;
-
-    color:#f6e6ca;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:15px;
-
-    line-height:1.45;
-
-    text-shadow:
-        0 2px 12px rgba(0,0,0,.85);
-
-}
-
-
-/*
-   BOTÃO REAL
-*/
-
-.startButton{
-
-    width:min(330px, 86vw);
-
-    height:58px;
-
-    border:none;
-
-    border-radius:40px;
-
-    cursor:pointer;
-
-    color:#241508;
-
-    background:
-        linear-gradient(
-            135deg,
-            #e7b967,
-            #f5d18c,
-            #d69a42
-        );
-
-    font-size:15px;
-
-    font-weight:800;
-
-    letter-spacing:.7px;
-
-    box-shadow:
-        0 10px 35px
-        rgba(0,0,0,.45),
-
-        0 0 30px
-        rgba(221,169,83,.22);
-
-    transition:
-        transform .18s ease,
-        box-shadow .18s ease;
-
-}
-
-
-.startButton:active{
-
-    transform:scale(.96);
-
-    box-shadow:
-        0 5px 20px
-        rgba(0,0,0,.5);
-
-}
-
-
-/* =========================================================
+/* =========================
    APP
-========================================================= */
+========================= */
 
 #app{
-
-    position:fixed;
-
-    inset:0;
-
-    display:none;
-
-    flex-direction:column;
-
-    color:#fff;
-
-    background:
-
-        radial-gradient(
-            circle at 50% -20%,
-            rgba(173,113,50,.20),
-            transparent 45%
-        ),
-
-        #15110d;
-
-    overflow:hidden;
-
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 80% 0%, rgba(139,91,42,.13), transparent 30%),
+    var(--bg);
 }
 
-
-#app.visible{
-
-    display:flex;
-
+.screen{
+  display:none;
+  min-height:100vh;
+  padding-bottom:calc(var(--nav-height) + 20px);
 }
 
-
-/* =========================================================
-   ÁREA DE CONTEÚDO
-========================================================= */
-
-.appContent{
-
-    flex:1;
-
-    overflow-y:auto;
-
-    overflow-x:hidden;
-
-    padding:
-
-        max(28px, env(safe-area-inset-top))
-        18px
-        110px;
-
-    scroll-behavior:smooth;
-
+.screen.active{
+  display:block;
 }
 
+.container{
+  width:min(100%,720px);
+  margin:0 auto;
+  padding:0 22px;
+}
 
-/* =========================================================
-   CABEÇALHO
-========================================================= */
+/* =========================
+   COVER
+========================= */
+
+#coverScreen{
+  padding:0;
+  background:#000;
+}
+
+.cover{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#000;
+}
+
+.cover img{
+  width:100%;
+  height:100vh;
+  object-fit:cover;
+  object-position:center;
+}
+
+.cover::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.02) 45%,
+    rgba(0,0,0,.18) 62%,
+    rgba(0,0,0,.48) 100%
+  );
+  pointer-events:none;
+}
+
+.coverAction{
+  position:absolute;
+  z-index:3;
+  left:25px;
+  right:25px;
+  bottom:13%;
+  text-align:center;
+}
+
+.coverPhrase{
+  margin:0 auto 18px;
+  max-width:430px;
+  color:var(--cream);
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(25px,7vw,42px);
+  line-height:1.05;
+  font-weight:600;
+  text-shadow:0 2px 20px rgba(0,0,0,.7);
+}
+
+.coverSub{
+  color:rgba(255,255,255,.82);
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.startButton{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:54px;
+  padding:0 27px;
+  border-radius:999px;
+  background:var(--cream);
+  color:#1a130e;
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:.02em;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+.startButton:active{
+  transform:scale(.98);
+}
+
+/* =========================
+   HEADER
+========================= */
 
 .topHeader{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    margin-bottom:20px;
-
+  padding:32px 0 20px;
 }
-
 
 .brandSmall{
-
-    display:block;
-
-    margin-bottom:5px;
-
-    color:#c8a263;
-
-    font-size:10px;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
+  color:var(--gold);
+  font-size:11px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  margin-bottom:8px;
 }
-
 
 .brandTitle{
-
-    display:block;
-
-    color:#f4e5cd;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:25px;
-
-    line-height:1;
-
+  margin:0;
+  font-family:"Cormorant Garamond",serif;
+  font-size:38px;
+  line-height:.95;
+  font-weight:600;
+  color:var(--cream);
 }
 
+.headerRow{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:15px;
+}
+
+.headerLogo{
+  width:62px;
+  height:62px;
+  object-fit:contain;
+  opacity:.92;
+  flex:none;
+}
 
 .searchButton{
-
-    width:42px;
-
-    height:42px;
-
-    border:1px solid
-        rgba(255,255,255,.10);
-
-    border-radius:50%;
-
-    background:
-        rgba(255,255,255,.06);
-
-    color:#eee;
-
-    font-size:20px;
-
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  background:rgba(255,255,255,.07);
+  border:1px solid var(--line);
+  color:var(--cream);
+  font-size:13px;
 }
 
+/* =========================
+   SEGMENT
+========================= */
 
-/* =========================================================
-   TABS
-========================================================= */
-
-.tabs{
-
-    display:flex;
-
-    gap:6px;
-
-    padding:5px;
-
-    margin-bottom:25px;
-
-    border-radius:18px;
-
-    background:
-        rgba(255,255,255,.06);
-
+.segment{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  background:#29231f;
+  border-radius:24px;
+  padding:5px;
+  margin:10px 0 42px;
 }
 
-
-.tab{
-
-    flex:1;
-
-    height:42px;
-
-    border:0;
-
-    border-radius:14px;
-
-    background:transparent;
-
-    color:#aaa;
-
-    font-size:14px;
-
-    font-weight:600;
-
+.segment button{
+  min-height:52px;
+  border-radius:20px;
+  background:transparent;
+  color:#aaa5a0;
+  font-weight:600;
+  font-size:16px;
 }
 
-
-.tab.active{
-
-    background:#f1ede7;
-
-    color:#26170d;
-
+.segment button.active{
+  background:#f1eee9;
+  color:#251b15;
 }
 
-
-/* =========================================================
+/* =========================
    HERO
-========================================================= */
+========================= */
 
 .hero{
-
-    position:relative;
-
-    height:250px;
-
-    overflow:hidden;
-
-    margin-bottom:30px;
-
-    border-radius:25px;
-
-    background-image:
-
-        linear-gradient(
-            180deg,
-            transparent 20%,
-            rgba(0,0,0,.88) 100%
-        ),
-
-        url("capa.jpeg");
-
-    background-size:cover;
-
-    background-position:center;
-
+  position:relative;
+  min-height:445px;
+  border-radius:32px;
+  overflow:hidden;
+  margin-bottom:28px;
+  background-position:center;
+  background-size:cover;
+  display:flex;
+  align-items:flex-end;
 }
 
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,.85),
+    rgba(0,0,0,.12) 75%
+  );
+}
 
 .heroContent{
-
-    position:absolute;
-
-    left:20px;
-    right:20px;
-
-    bottom:20px;
-
+  position:relative;
+  z-index:2;
+  padding:28px;
 }
 
-
-.heroLabel{
-
-    margin-bottom:7px;
-
-    color:#e0b76d;
-
-    font-size:10px;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
+.eyebrow{
+  color:var(--gold);
+  font-size:12px;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  margin-bottom:12px;
 }
 
-
-.heroTitle{
-
-    margin-bottom:8px;
-
-    color:#fff;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:29px;
-
-    line-height:1.05;
-
+.hero h2{
+  margin:0 0 12px;
+  font-family:"Cormorant Garamond",serif;
+  font-size:48px;
+  line-height:.92;
+  font-weight:600;
 }
 
-
-.heroText{
-
-    color:#ddd;
-
-    font-size:13px;
-
-    line-height:1.45;
-
+.hero p{
+  margin:0;
+  color:#eee;
+  line-height:1.55;
+  font-size:16px;
 }
 
-
-/* =========================================================
-   PROGRESSO
-========================================================= */
+/* =========================
+   PROGRESS
+========================= */
 
 .progressCard{
-
-    padding:18px;
-
-    margin-bottom:31px;
-
-    border:1px solid
-        rgba(255,255,255,.07);
-
-    border-radius:21px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(145,93,40,.22),
-            rgba(255,255,255,.035)
-        );
-
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:linear-gradient(135deg,#2a1c13,#211914);
+  padding:24px;
+  margin-bottom:42px;
 }
-
 
 .progressTop{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    margin-bottom:12px;
-
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:20px;
 }
-
 
 .progressTitle{
-
-    font-size:14px;
-
-    font-weight:700;
-
+  font-weight:700;
+  font-size:19px;
 }
 
-
-.progressNumber{
-
-    color:#d7b36c;
-
-    font-size:12px;
-
+.progressDay{
+  color:var(--gold);
+  font-size:15px;
 }
-
 
 .progressBar{
-
-    width:100%;
-
-    height:7px;
-
-    overflow:hidden;
-
-    border-radius:20px;
-
-    background:
-        rgba(255,255,255,.10);
-
+  height:9px;
+  border-radius:999px;
+  background:rgba(255,255,255,.13);
+  overflow:hidden;
 }
-
 
 .progressFill{
-
-    width:0%;
-
-    height:100%;
-
-    border-radius:20px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #96622d,
-            #e2b866
-        );
-
-    transition:width .5s ease;
-
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#a97b36,#e5c78e);
+  border-radius:999px;
+  transition:width .4s ease;
 }
 
-
-/* =========================================================
-   TÍTULOS
-========================================================= */
+/* =========================
+   SECTION
+========================= */
 
 .sectionHeader{
-
-    display:flex;
-
-    align-items:end;
-
-    justify-content:space-between;
-
-    margin-bottom:14px;
-
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:15px;
+  margin:38px 0 20px;
 }
 
-
-.sectionTitle{
-
-    color:#f3e5ce;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:24px;
-
+.sectionHeader h2{
+  margin:0;
+  font-family:"Cormorant Garamond",serif;
+  font-size:39px;
+  line-height:.95;
+  font-weight:600;
 }
 
-
-.sectionMore{
-
-    color:#b89962;
-
-    font-size:11px;
-
+.sectionMeta{
+  color:var(--gold);
+  font-size:14px;
 }
 
+/* =========================
+   PATH CARDS
+========================= */
 
-/* =========================================================
-   CARDS FOTOGRÁFICOS
-========================================================= */
-
-.photoGrid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0,1fr));
-
-    gap:12px;
-
-    margin-bottom:34px;
-
+.pathGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
 }
 
-
-.photoCard{
-
-    position:relative;
-
-    height:190px;
-
-    overflow:hidden;
-
-    border-radius:21px;
-
-    cursor:pointer;
-
-    isolation:isolate;
-
-    background:#302217;
-
+.pathCard{
+  min-height:300px;
+  border-radius:30px;
+  overflow:hidden;
+  position:relative;
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:flex-end;
+  text-align:left;
+  color:#fff;
 }
 
-
-/*
-   FOTOGRAFIA
-*/
-
-.photoCard::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background-image:
-        var(--image);
-
-    background-size:cover;
-
-    background-position:center;
-
-    z-index:-2;
-
-    transition:
-        transform .5s ease;
-
+.pathCard::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,.82),
+    rgba(0,0,0,.05) 75%
+  );
 }
 
-
-.photoCard::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    z-index:-1;
-
-    background:
-
-        linear-gradient(
-            180deg,
-            rgba(0,0,0,.02) 20%,
-            rgba(0,0,0,.82) 100%
-        );
-
+.pathContent{
+  position:relative;
+  z-index:2;
+  padding:22px;
 }
 
-
-.photoCard:active::before{
-
-    transform:scale(1.06);
-
+.pathNumber{
+  color:var(--gold);
+  font-size:10px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  margin-bottom:8px;
 }
 
-
-.photoContent{
-
-    position:absolute;
-
-    left:15px;
-    right:15px;
-
-    bottom:15px;
-
+.pathTitle{
+  font-family:"Cormorant Garamond",serif;
+  font-size:35px;
+  line-height:.95;
+  font-weight:600;
+  margin-bottom:10px;
 }
 
-
-.photoLabel{
-
-    margin-bottom:5px;
-
-    color:#e4bb70;
-
-    font-size:9px;
-
-    letter-spacing:1.5px;
-
-    text-transform:uppercase;
-
+.pathDescription{
+  font-size:14px;
+  line-height:1.45;
+  color:#eee;
 }
 
+/* =========================
+   JOURNEY CARDS
+========================= */
 
-.photoTitle{
-
-    margin-bottom:5px;
-
-    color:#fff;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:21px;
-
-    line-height:1.05;
-
+.journeyGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
 }
-
-
-.photoDescription{
-
-    color:#e0e0e0;
-
-    font-size:10px;
-
-    line-height:1.35;
-
-}
-
-
-/* =========================================================
-   JORNADA HORIZONTAL
-========================================================= */
-
-.journeyList{
-
-    display:flex;
-
-    gap:12px;
-
-    overflow-x:auto;
-
-    padding-bottom:10px;
-
-    margin-bottom:30px;
-
-    scrollbar-width:none;
-
-}
-
-
-.journeyList::-webkit-scrollbar{
-
-    display:none;
-
-}
-
 
 .journeyCard{
-
-    position:relative;
-
-    flex:0 0 275px;
-
-    height:175px;
-
-    overflow:hidden;
-
-    border-radius:22px;
-
-    background:#2a1c12;
-
+  min-height:260px;
+  position:relative;
+  overflow:hidden;
+  border-radius:30px;
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:flex-end;
+  color:#fff;
+  text-align:left;
 }
-
-
-.journeyCard::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background-image:
-        var(--image);
-
-    background-size:cover;
-
-    background-position:center;
-
-    z-index:-2;
-
-}
-
 
 .journeyCard::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    z-index:-1;
-
-    background:
-        linear-gradient(
-            180deg,
-            transparent 15%,
-            rgba(0,0,0,.86) 100%
-        );
-
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,.88),
+    rgba(0,0,0,.12) 75%
+  );
 }
-
 
 .journeyContent{
-
-    position:absolute;
-
-    left:17px;
-    right:17px;
-
-    bottom:16px;
-
+  position:relative;
+  z-index:2;
+  padding:21px;
 }
 
-
-.journeyNumber{
-
-    margin-bottom:5px;
-
-    color:#dfb76b;
-
-    font-size:9px;
-
-    letter-spacing:1.5px;
-
-    text-transform:uppercase;
-
+.journeyDays{
+  color:var(--gold);
+  font-size:10px;
+  letter-spacing:.22em;
+  margin-bottom:10px;
 }
-
 
 .journeyTitle{
-
-    margin-bottom:5px;
-
-    color:#fff;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:23px;
-
+  font-family:"Cormorant Garamond",serif;
+  font-size:32px;
+  line-height:.95;
+  margin-bottom:10px;
 }
 
-
-.journeyDescription{
-
-    color:#ddd;
-
-    font-size:11px;
-
+.journeyDesc{
+  color:#eee;
+  font-size:13px;
+  line-height:1.45;
 }
 
+/* =========================
+   SCREEN HEADERS
+========================= */
 
-/* =========================================================
-   NAVEGAÇÃO
-========================================================= */
-
-.bottomNav{
-
-    position:fixed;
-
-    left:0;
-    right:0;
-    bottom:0;
-
-    z-index:100;
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
-    height:
-        calc(72px + env(safe-area-inset-bottom));
-
-    padding:
-        7px
-        8px
-        env(safe-area-inset-bottom);
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.08);
-
-    background:
-        rgba(27,21,16,.96);
-
-    backdrop-filter:blur(20px);
-
+.pageHeader{
+  padding:30px 0 22px;
+  display:flex;
+  align-items:center;
+  gap:15px;
 }
-
-
-.navItem{
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:6px;
-
-    border:0;
-
-    background:transparent;
-
-    color:#8f8b87;
-
-    font-size:10px;
-
-}
-
-
-.navItem.active{
-
-    color:#e0b567;
-
-}
-
-
-/* =========================================================
-   DEVOCIONAL
-========================================================= */
-
-#devotionalScreen{
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:500;
-
-    display:none;
-
-    flex-direction:column;
-
-    background:#f5efe5;
-
-    color:#23170e;
-
-}
-
-
-#devotionalScreen.open{
-
-    display:flex;
-
-}
-
-
-.devotionalTop{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:
-        max(17px, env(safe-area-inset-top))
-        18px
-        12px;
-
-}
-
 
 .backButton{
-
-    width:42px;
-
-    height:42px;
-
-    border:0;
-
-    border-radius:50%;
-
-    background:#e8ddcf;
-
-    color:#352519;
-
-    font-size:20px;
-
+  width:44px;
+  height:44px;
+  flex:none;
+  border-radius:50%;
+  background:rgba(255,255,255,.07);
+  border:1px solid var(--line);
+  color:#fff;
+  font-size:20px;
 }
 
-
-.dayBadge{
-
-    color:#96723e;
-
-    font-size:11px;
-
-    font-weight:800;
-
+.pageHeaderText{
+  flex:1;
 }
 
-
-.devotionalScroll{
-
-    flex:1;
-
-    overflow-y:auto;
-
-    padding:
-        0 20px 50px;
-
+.pageEyebrow{
+  color:var(--gold);
+  font-size:10px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin-bottom:5px;
 }
 
+.pageTitle{
+  margin:0;
+  font-family:"Cormorant Garamond",serif;
+  font-size:40px;
+  line-height:.95;
+}
+
+/* =========================
+   DAY LIST
+========================= */
+
+.dayList{
+  display:grid;
+  gap:11px;
+}
+
+.dayItem{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  text-align:left;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:21px;
+  padding:16px;
+  color:#fff;
+}
+
+.dayNumber{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#32251b;
+  color:var(--gold);
+  font-weight:700;
+  flex:none;
+}
+
+.dayInfo{
+  min-width:0;
+  flex:1;
+}
+
+.dayInfo strong{
+  display:block;
+  font-size:15px;
+  margin-bottom:4px;
+}
+
+.dayInfo span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.dayStatus{
+  color:var(--gold);
+  font-size:12px;
+}
+
+.dayLocked{
+  opacity:.45;
+}
+
+/* =========================
+   DEVOTIONAL
+========================= */
+
+.devotionalHero{
+  border-radius:30px;
+  background:linear-gradient(135deg,#302015,#1f1712);
+  border:1px solid var(--line);
+  padding:25px;
+  margin-bottom:18px;
+}
+
+.devotionalDay{
+  color:var(--gold);
+  font-size:11px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
 
 .devotionalTitle{
-
-    margin:
-        10px 0 12px;
-
-    color:#26170e;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:34px;
-
-    line-height:1.08;
-
+  font-family:"Cormorant Garamond",serif;
+  font-size:46px;
+  line-height:.95;
+  margin:0 0 13px;
 }
-
 
 .reference{
-
-    margin-bottom:25px;
-
-    color:#997442;
-
-    font-size:13px;
-
-    font-weight:700;
-
+  color:#d9c6a6;
+  font-size:14px;
 }
 
-
-.block{
-
-    margin-bottom:25px;
-
+.contentCard{
+  background:#211914;
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:23px;
+  margin-bottom:14px;
 }
 
-
-.blockTitle{
-
-    margin-bottom:8px;
-
-    color:#997442;
-
-    font-size:11px;
-
-    font-weight:800;
-
-    letter-spacing:1.4px;
-
-    text-transform:uppercase;
-
+.contentCard h3{
+  margin:0 0 11px;
+  font-family:"Cormorant Garamond",serif;
+  font-size:27px;
 }
 
-
-.blockText{
-
-    color:#3a2b20;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:17px;
-
-    line-height:1.65;
-
+.contentCard p{
+  margin:0;
+  color:#ded9d2;
+  line-height:1.7;
+  font-size:15px;
 }
 
-
-.practice{
-
-    padding:18px;
-
-    margin-bottom:20px;
-
-    border-radius:20px;
-
-    background:#eadecc;
-
+.practiceBox{
+  border-left:3px solid var(--gold);
 }
 
-
-.question{
-
-    padding:18px;
-
-    border-radius:20px;
-
-    background:#302015;
-
+.journalArea{
+  width:100%;
+  min-height:150px;
+  resize:vertical;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#17120f;
+  color:#eee;
+  padding:16px;
+  outline:none;
+  font-size:14px;
+  line-height:1.6;
 }
 
-
-.question .blockTitle{
-
-    color:#ddb467;
-
+.actionRow{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin:18px 0;
 }
 
-
-.question .blockText{
-
-    color:#f5eadb;
-
+.actionButton{
+  min-height:50px;
+  border-radius:18px;
+  background:#30231a;
+  color:var(--cream);
+  border:1px solid var(--line);
+  font-weight:600;
 }
 
-
-textarea{
-
-    width:100%;
-
-    min-height:120px;
-
-    margin-top:15px;
-
-    padding:14px;
-
-    border:0;
-
-    outline:none;
-
-    resize:none;
-
-    border-radius:14px;
-
-    background:#fffaf3;
-
-    color:#291a10;
-
-    font-size:15px;
-
+.actionButton.primary{
+  background:var(--cream);
+  color:#1b140f;
 }
 
-
-.saveButton{
-
-    width:100%;
-
-    height:50px;
-
-    margin-top:10px;
-
-    border:0;
-
-    border-radius:15px;
-
-    background:#98672f;
-
-    color:#fff;
-
-    font-weight:700;
-
+.actionButton.favorite.active{
+  border-color:var(--gold);
+  color:var(--gold);
 }
 
+/* =========================
+   SEARCH
+========================= */
 
-/* =========================================================
-   DESKTOP
-========================================================= */
+.searchBox{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.searchInput{
+  flex:1;
+  min-width:0;
+  height:50px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:#211914;
+  color:#fff;
+  padding:0 16px;
+  outline:none;
+}
+
+.searchClose{
+  width:50px;
+  border-radius:18px;
+  background:#30231a;
+  color:#fff;
+}
+
+/* =========================
+   GENERIC CARDS
+========================= */
+
+.infoGrid{
+  display:grid;
+  gap:14px;
+}
+
+.infoCard{
+  position:relative;
+  min-height:150px;
+  border-radius:26px;
+  overflow:hidden;
+  background-size:cover;
+  background-position:center;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  text-align:left;
+  color:#fff;
+}
+
+.infoCard::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.8),rgba(0,0,0,.1));
+}
+
+.infoCard > *{
+  position:relative;
+  z-index:2;
+}
+
+.infoCard h3{
+  font-family:"Cormorant Garamond",serif;
+  font-size:30px;
+  margin:0 0 5px;
+}
+
+.infoCard p{
+  margin:0;
+  font-size:13px;
+  color:#eee;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profileCard{
+  background:linear-gradient(135deg,#2b1e16,#1e1712);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:25px;
+  margin-bottom:15px;
+}
+
+.profileLogo{
+  width:110px;
+  height:110px;
+  object-fit:contain;
+  margin:0 auto 20px;
+}
+
+.profileName{
+  text-align:center;
+  font-family:"Cormorant Garamond",serif;
+  font-size:34px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:20px;
+}
+
+.stat{
+  background:rgba(255,255,255,.05);
+  border-radius:18px;
+  padding:15px 8px;
+  text-align:center;
+}
+
+.stat strong{
+  display:block;
+  color:var(--gold);
+  font-size:20px;
+  margin-bottom:4px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+/* =========================
+   BIBLE
+========================= */
+
+.versionCard{
+  border:1px solid var(--line);
+  background:#211914;
+  border-radius:23px;
+  padding:20px;
+  margin-bottom:12px;
+}
+
+.versionCard strong{
+  display:block;
+  font-size:17px;
+  margin-bottom:7px;
+}
+
+.versionCard p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
+
+.notice{
+  border-left:3px solid var(--gold);
+  background:#241a13;
+  border-radius:18px;
+  padding:17px;
+  color:#d9d0c6;
+  font-size:13px;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.emptyState{
+  text-align:center;
+  padding:55px 25px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:#1c1511;
+}
+
+.emptyState h2{
+  font-family:"Cormorant Garamond",serif;
+  font-size:34px;
+  margin:0 0 10px;
+}
+
+.emptyState p{
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottomNav{
+  position:fixed;
+  z-index:50;
+  bottom:0;
+  left:0;
+  right:0;
+  height:var(--nav-height);
+  background:rgba(23,18,15,.96);
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding-bottom:env(safe-area-inset-bottom);
+  backdrop-filter:blur(20px);
+}
+
+.navButton{
+  background:transparent;
+  color:#817a74;
+  font-size:12px;
+  font-weight:500;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:5px;
+}
+
+.navButton.active{
+  color:var(--gold);
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+  position:fixed;
+  z-index:100;
+  left:50%;
+  bottom:calc(var(--nav-height) + 18px);
+  transform:translate(-50%,20px);
+  background:#f2ede4;
+  color:#1c1510;
+  padding:13px 18px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:600;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s ease;
+  white-space:nowrap;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:420px){
+  .container{
+    padding:0 18px;
+  }
+
+  .brandTitle{
+    font-size:35px;
+  }
+
+  .hero{
+    min-height:420px;
+  }
+
+  .hero h2{
+    font-size:44px;
+  }
+
+  .pathCard,
+  .journeyCard{
+    min-height:250px;
+  }
+
+  .pathTitle,
+  .journeyTitle{
+    font-size:30px;
+  }
+
+  .sectionHeader h2{
+    font-size:35px;
+  }
+}
 
 @media(min-width:700px){
-
-    .appContent{
-
-        width:100%;
-
-        max-width:650px;
-
-        margin:auto;
-
-    }
-
-    .coverAction{
-
-        bottom:5%;
-
-    }
-
+  .pathGrid,
+  .journeyGrid{
+    grid-template-columns:repeat(3,1fr);
+  }
 }
-
-
-/* =========================================================
-   ANIMAÇÃO
-========================================================= */
-
-.fade{
-
-    animation:
-        fade .7s ease both;
-
-}
-
-
-@keyframes fade{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(12px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
-
 </style>
-
 </head>
-
 
 <body>
 
+<div id="app">
 
-<!-- =======================================================
-     CAPA
-======================================================= -->
+  <!-- =========================
+       CAPA
+  ========================== -->
 
-<section id="introScreen">
+  <section id="coverScreen" class="screen active">
+
+    <div class="cover">
+
+      <img src="capa.jpeg" alt="Doce Espírito Santo">
+
+      <div class="coverAction">
+
+        <div class="coverPhrase">
+          Aprenda a percebê-lo.
+        </div>
+
+        <div class="coverSub">
+          Ele já está aqui. Caminhe um dia de cada vez.
+        </div>
+
+        <button class="startButton" onclick="startApp()">
+          COMEÇAR A JORNADA →
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
 
 
-    <!-- SUA CAPA ORIGINAL -->
+  <!-- =========================
+       INÍCIO
+  ========================== -->
 
-    <img
-        src="capa.jpeg"
-        class="coverImage"
-        alt="Doce Espírito Santo — Um Amigo Íntimo"
-    >
+  <section id="homeScreen" class="screen">
+
+    <div class="container">
+
+      <header class="topHeader">
+
+        <div class="headerRow">
+
+          <div>
+            <div class="brandSmall">365 DIAS DA PRESENÇA</div>
+            <h1 class="brandTitle">Doce Espírito Santo</h1>
+          </div>
+
+          <button class="searchButton" onclick="openSearch()">
+            Buscar
+          </button>
+
+        </div>
+
+      </header>
 
 
-    <!--
-       ELEMENTOS CRIADOS PELO CÓDIGO.
-       NÃO FAZEM PARTE DA IMAGEM.
-    -->
+      <div class="segment">
 
-    <div class="coverAction">
+        <button
+          id="journeySegment"
+          onclick="showHomeJourney()"
+        >
+          Minha jornada
+        </button>
+
+        <button
+          id="exploreSegment"
+          class="active"
+          onclick="showHomeExplore()"
+        >
+          Explorar
+        </button>
+
+      </div>
 
 
-        <p class="coverPhrase">
+      <div
+        class="hero"
+        style="background-image:url('capa.jpeg')"
+        onclick="openDay(currentDay)"
+      >
 
-            Uma jornada para perceber a Presença,
-            aprofundar a intimidade e viver
-            uma fé que transforma.
+        <div class="heroContent">
 
+          <div class="eyebrow">
+            O COMEÇO DE TUDO
+          </div>
+
+          <h2>
+            Aprenda a<br>
+            percebê-lo.
+          </h2>
+
+          <p>
+            Ele já está aqui. Caminhe um dia de cada vez e aprenda a reconhecer Sua presença.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="progressCard">
+
+        <div class="progressTop">
+
+          <div class="progressTitle">
+            Minha jornada
+          </div>
+
+          <div class="progressDay" id="homeProgressDay">
+            Dia 1 de 365
+          </div>
+
+        </div>
+
+        <div class="progressBar">
+          <div class="progressFill" id="homeProgressFill"></div>
+        </div>
+
+      </div>
+
+
+      <div id="homeExploreContent">
+
+        <div class="sectionHeader">
+
+          <h2>
+            Caminhos da presença
+          </h2>
+
+          <span class="sectionMeta">
+            6 caminhos
+          </span>
+
+        </div>
+
+
+        <div class="pathGrid">
+
+          <button
+            class="pathCard"
+            style="background-image:url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85')"
+            onclick="openPath('Presença')"
+          >
+            <div class="pathContent">
+              <div class="pathNumber">Primeiro caminho</div>
+              <div class="pathTitle">Presença</div>
+              <div class="pathDescription">
+                Aprender a perceber o Doce Espírito Santo.
+              </div>
+            </div>
+          </button>
+
+
+          <button
+            class="pathCard"
+            style="background-image:url('https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=900&q=85')"
+            onclick="openPath('Oração')"
+          >
+            <div class="pathContent">
+              <div class="pathNumber">Segundo caminho</div>
+              <div class="pathTitle">Oração</div>
+              <div class="pathDescription">
+                Conversar com O Eterno.
+              </div>
+            </div>
+          </button>
+
+
+          <button
+            class="pathCard"
+            style="background-image:url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=85')"
+            onclick="openPath('Jejum')"
+          >
+            <div class="pathContent">
+              <div class="pathNumber">Terceiro caminho</div>
+              <div class="pathTitle">Jejum</div>
+              <div class="pathDescription">
+                Aprender a renunciar para aprofundar a busca.
+              </div>
+            </div>
+          </button>
+
+
+          <button
+            class="pathCard"
+            style="background-image:url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=900&q=85')"
+            onclick="openPath('Palavra')"
+          >
+            <div class="pathContent">
+              <div class="pathNumber">Quarto caminho</div>
+              <div class="pathTitle">Palavra</div>
+              <div class="pathDescription">
+                Conhecer para viver.
+              </div>
+            </div>
+          </button>
+
+
+          <button
+            class="pathCard"
+            style="background-image:url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=85')"
+            onclick="openPath('Vivência')"
+          >
+            <div class="pathContent">
+              <div class="pathNumber">Quinto caminho</div>
+              <div class="pathTitle">Vivência</div>
+              <div class="pathDescription">
+                Transformar a Palavra em prática.
+              </div>
+            </div>
+          </button>
+
+
+          <button
+            class="pathCard"
+            style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85')"
+            onclick="openPath('Jornada')"
+          >
+            <div class="pathContent">
+              <div class="pathNumber">Sexto caminho</div>
+              <div class="pathTitle">Jornada</div>
+              <div class="pathDescription">
+                Caminhar dia após dia.
+              </div>
+            </div>
+          </button>
+
+        </div>
+
+
+        <div class="sectionHeader">
+
+          <h2>
+            Sua jornada
+          </h2>
+
+          <span class="sectionMeta">
+            12 etapas
+          </span>
+
+        </div>
+
+
+        <div id="journeyPreview" class="journeyGrid"></div>
+
+
+        <div class="sectionHeader">
+
+          <h2>
+            Explore
+          </h2>
+
+        </div>
+
+
+        <div class="infoGrid">
+
+          <button
+            class="infoCard"
+            style="background-image:url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1000&q=85')"
+            onclick="openBible()"
+          >
+            <h3>Bíblia</h3>
+            <p>Leia, pesquise e caminhe pelas Escrituras.</p>
+          </button>
+
+
+          <button
+            class="infoCard"
+            style="background-image:url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85')"
+            onclick="openPlans()"
+          >
+            <h3>Planos de leitura</h3>
+            <p>Organize sua leitura bíblica por diferentes jornadas.</p>
+          </button>
+
+
+          <button
+            class="infoCard"
+            style="background-image:url('https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1000&q=85')"
+            onclick="openStudies()"
+          >
+            <h3>Estudos</h3>
+            <p>Aprofunde sua compreensão das Escrituras.</p>
+          </button>
+
+
+          <button
+            class="infoCard"
+            style="background-image:url('https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=1000&q=85')"
+            onclick="openPratiques()"
+          >
+            <h3>Práticas</h3>
+            <p>Transforme conhecimento em vida.</p>
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div id="homeJourneyContent" style="display:none">
+
+        <div class="sectionHeader">
+          <h2>Minha jornada</h2>
+          <span class="sectionMeta" id="journeyPercent">0%</span>
+        </div>
+
+        <div class="progressCard">
+
+          <div class="progressTop">
+            <div class="progressTitle">
+              Seu progresso
+            </div>
+
+            <div class="progressDay" id="journeyProgressText">
+              Dia 1 de 365
+            </div>
+          </div>
+
+          <div class="progressBar">
+            <div class="progressFill" id="journeyProgressFill"></div>
+          </div>
+
+        </div>
+
+        <div id="homeJourneyList" class="dayList"></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       JORNADA
+  ========================== -->
+
+  <section id="journeyScreen" class="screen">
+
+    <div class="container">
+
+      <div class="pageHeader">
+
+        <button class="backButton" onclick="goHome()">
+          ‹
+        </button>
+
+        <div class="pageHeaderText">
+
+          <div class="pageEyebrow">
+            365 DIAS
+          </div>
+
+          <h1 class="pageTitle">
+            Sua jornada
+          </h1>
+
+        </div>
+
+      </div>
+
+
+      <div class="progressCard">
+
+        <div class="progressTop">
+
+          <div class="progressTitle">
+            Caminhando
+          </div>
+
+          <div class="progressDay" id="journeyScreenProgress">
+            Dia 1 de 365
+          </div>
+
+        </div>
+
+        <div class="progressBar">
+          <div class="progressFill" id="journeyScreenFill"></div>
+        </div>
+
+      </div>
+
+
+      <div id="journeyFullGrid" class="journeyGrid"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       HOJE
+  ========================== -->
+
+  <section id="todayScreen" class="screen">
+
+    <div class="container">
+
+      <div class="pageHeader">
+
+        <div class="pageHeaderText">
+
+          <div class="pageEyebrow">
+            SUA LEITURA DE HOJE
+          </div>
+
+          <h1 class="pageTitle">
+            Hoje
+          </h1>
+
+        </div>
+
+      </div>
+
+      <div id="todayContent"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FAVORITOS
+  ========================== -->
+
+  <section id="favoritesScreen" class="screen">
+
+    <div class="container">
+
+      <div class="pageHeader">
+
+        <div class="pageHeaderText">
+
+          <div class="pageEyebrow">
+            SUA BIBLIOTECA
+          </div>
+
+          <h1 class="pageTitle">
+            Favoritos
+          </h1>
+
+        </div>
+
+      </div>
+
+      <div id="favoritesContent"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       PERFIL
+  ========================== -->
+
+  <section id="profileScreen" class="screen">
+
+    <div class="container">
+
+      <div class="pageHeader">
+
+        <div class="pageHeaderText">
+
+          <div class="pageEyebrow">
+            SUA JORNADA
+          </div>
+
+          <h1 class="pageTitle">
+            Perfil
+          </h1>
+
+        </div>
+
+      </div>
+
+
+      <div class="profileCard">
+
+        <img
+          src="imagens/logo-denis-willian.png"
+          class="profileLogo"
+          alt="Denis Willian Cruz"
+        >
+
+        <div class="profileName">
+          Doce Espírito Santo
+        </div>
+
+        <div class="stats">
+
+          <div class="stat">
+            <strong id="profileDay">1</strong>
+            <span>DIA ATUAL</span>
+          </div>
+
+          <div class="stat">
+            <strong id="profileCompleted">0</strong>
+            <span>CONCLUÍDOS</span>
+          </div>
+
+          <div class="stat">
+            <strong id="profileFavorites">0</strong>
+            <span>FAVORITOS</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="contentCard">
+
+        <h3>Minha caminhada</h3>
+
+        <p>
+          Este espaço acompanha seu caminho pelos 365 dias da presença.
+          Seu progresso é salvo neste dispositivo.
         </p>
 
+      </div>
 
-        <button
-            id="startButton"
-            class="startButton">
 
-            COMEÇAR A JORNADA&nbsp;&nbsp; →
+      <button
+        class="actionButton"
+        style="width:100%;margin-bottom:10px"
+        onclick="openJournal()"
+      >
+        Meu caderno
+      </button>
 
-        </button>
 
+      <button
+        class="actionButton"
+        style="width:100%;color:#d99b8c"
+        onclick="resetProgress()"
+      >
+        Reiniciar jornada
+      </button>
 
     </div>
 
-
-</section>
-
+  </section>
 
 
-<!-- =======================================================
-     APLICAÇÃO
-======================================================= -->
+  <!-- =========================
+       PATH
+  ========================== -->
 
-<main id="app">
+  <section id="pathScreen" class="screen">
 
+    <div class="container">
 
-    <div class="appContent">
+      <div class="pageHeader">
 
+        <button class="backButton" onclick="goHome()">
+          ‹
+        </button>
 
-        <!-- CABEÇALHO -->
+        <div class="pageHeaderText">
 
-        <header class="topHeader">
+          <div class="pageEyebrow" id="pathEyebrow">
+            CAMINHO
+          </div>
 
-            <div>
-
-                <span class="brandSmall">
-                    365 dias da Presença
-                </span>
-
-                <span class="brandTitle">
-                    Doce Espírito Santo
-                </span>
-
-            </div>
-
-
-            <button
-                class="searchButton"
-                onclick="showMessage('A busca pelos devocionais estará disponível em breve.')">
-
-                Buscar
-
-            </button>
-
-        </header>
-
-
-
-        <!-- ABAS -->
-
-        <div class="tabs">
-
-            <button
-                class="tab active"
-                onclick="activateTab(this)">
-
-                Minha jornada
-
-            </button>
-
-
-            <button
-                class="tab"
-                onclick="activateTab(this)">
-
-                Explorar
-
-            </button>
+          <h1 class="pageTitle" id="pathTitle">
+            Presença
+          </h1>
 
         </div>
 
+      </div>
 
 
-        <!-- HERO -->
+      <div class="hero" id="pathHero">
 
-        <section class="hero">
+        <div class="heroContent">
 
-            <div class="heroContent">
+          <div class="eyebrow" id="pathHeroEyebrow">
+            CAMINHO
+          </div>
 
-                <div class="heroLabel">
-                    O começo de tudo
-                </div>
+          <h2 id="pathHeroTitle">
+            Presença
+          </h2>
 
-                <h1 class="heroTitle">
-                    Aprenda a percebê-lo.
-                </h1>
-
-                <p class="heroText">
-                    Ele já está aqui.
-                    Caminhe um dia de cada vez
-                    e aprenda a reconhecer Sua presença.
-                </p>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- PROGRESSO -->
-
-        <section class="progressCard">
-
-            <div class="progressTop">
-
-                <span class="progressTitle">
-                    Minha jornada
-                </span>
-
-                <span
-                    id="progressNumber"
-                    class="progressNumber">
-
-                    Dia 1 de 365
-
-                </span>
-
-            </div>
-
-
-            <div class="progressBar">
-
-                <div
-                    id="progressFill"
-                    class="progressFill">
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =================================================
-             CAMINHOS
-        ================================================== -->
-
-        <div class="sectionHeader">
-
-            <h2 class="sectionTitle">
-                Caminhos da presença
-            </h2>
-
-            <span class="sectionMore">
-                6 caminhos
-            </span>
+          <p id="pathHeroDescription">
+            Aprender a perceber o Doce Espírito Santo.
+          </p>
 
         </div>
 
+      </div>
 
-        <section class="photoGrid">
 
+      <div class="sectionHeader">
 
-            <!-- PRESENÇA -->
+        <h2>
+          Dias relacionados
+        </h2>
 
-            <article
-                class="photoCard"
-                style="
-                    --image:url(
-                        'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85'
-                    );
-                "
-                onclick="openPath('Presença')"
-            >
+      </div>
 
-                <div class="photoContent">
-
-                    <div class="photoLabel">
-                        Primeiro caminho
-                    </div>
-
-                    <h3 class="photoTitle">
-                        Presença
-                    </h3>
-
-                    <p class="photoDescription">
-                        Aprender a perceber o
-                        Doce Espírito Santo.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- ORAÇÃO -->
-
-            <article
-                class="photoCard"
-                style="
-                    --image:url(
-                        'https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=900&q=85'
-                    );
-                "
-                onclick="openPath('Oração')"
-            >
-
-                <div class="photoContent">
-
-                    <div class="photoLabel">
-                        Segundo caminho
-                    </div>
-
-                    <h3 class="photoTitle">
-                        Oração
-                    </h3>
-
-                    <p class="photoDescription">
-                        Conversar com O Eterno
-                        e aprender a escutar.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- JEJUM -->
-
-            <article
-                class="photoCard"
-                style="
-                    --image:url(
-                        'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=85'
-                    );
-                "
-                onclick="openPath('Jejum')"
-            >
-
-                <div class="photoContent">
-
-                    <div class="photoLabel">
-                        Terceiro caminho
-                    </div>
-
-                    <h3 class="photoTitle">
-                        Jejum
-                    </h3>
-
-                    <p class="photoDescription">
-                        Aprender a renunciar
-                        para aprofundar a busca.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- PALAVRA -->
-
-            <article
-                class="photoCard"
-                style="
-                    --image:url(
-                        'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=900&q=85'
-                    );
-                "
-                onclick="openPath('Palavra')"
-            >
-
-                <div class="photoContent">
-
-                    <div class="photoLabel">
-                        Quarto caminho
-                    </div>
-
-                    <h3 class="photoTitle">
-                        Palavra
-                    </h3>
-
-                    <p class="photoDescription">
-                        Conhecer para viver.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- VIVÊNCIA -->
-
-            <article
-                class="photoCard"
-                style="
-                    --image:url(
-                        'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=85'
-                    );
-                "
-                onclick="openPath('Vivência')"
-            >
-
-                <div class="photoContent">
-
-                    <div class="photoLabel">
-                        Quinto caminho
-                    </div>
-
-                    <h3 class="photoTitle">
-                        Vivência
-                    </h3>
-
-                    <p class="photoDescription">
-                        Transformar a Palavra
-                        em prática.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- JORNADA -->
-
-            <article
-                class="photoCard"
-                style="
-                    --image:url(
-                        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85'
-                    );
-                "
-                onclick="openPath('Jornada')"
-            >
-
-                <div class="photoContent">
-
-                    <div class="photoLabel">
-                        Sexto caminho
-                    </div>
-
-                    <h3 class="photoTitle">
-                        Jornada
-                    </h3>
-
-                    <p class="photoDescription">
-                        Caminhar dia após dia.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-        </section>
-
-
-
-        <!-- =================================================
-             ETAPAS
-        ================================================== -->
-
-        <div class="sectionHeader">
-
-            <h2 class="sectionTitle">
-                Sua jornada
-            </h2>
-
-            <span class="sectionMore">
-                12 etapas
-            </span>
-
-        </div>
-
-
-        <section class="journeyList">
-
-
-            <article
-                class="journeyCard"
-                style="
-                    --image:url(
-                        'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85'
-                    );
-                "
-            >
-
-                <div class="journeyContent">
-
-                    <div class="journeyNumber">
-                        Dias 1–30
-                    </div>
-
-                    <h3 class="journeyTitle">
-                        Perceber
-                    </h3>
-
-                    <p class="journeyDescription">
-                        Reconhecer a presença.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-
-            <article
-                class="journeyCard"
-                style="
-                    --image:url(
-                        'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=85'
-                    );
-                "
-            >
-
-                <div class="journeyContent">
-
-                    <div class="journeyNumber">
-                        Dias 31–60
-                    </div>
-
-                    <h3 class="journeyTitle">
-                        Aprofundar
-                    </h3>
-
-                    <p class="journeyDescription">
-                        Ir além da superfície.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-
-            <article
-                class="journeyCard"
-                style="
-                    --image:url(
-                        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=85'
-                    );
-                "
-            >
-
-                <div class="journeyContent">
-
-                    <div class="journeyNumber">
-                        Dias 61–90
-                    </div>
-
-                    <h3 class="journeyTitle">
-                        Ser transformado
-                    </h3>
-
-                    <p class="journeyDescription">
-                        Permitir que a presença transforme.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-
-            <article
-                class="journeyCard"
-                style="
-                    --image:url(
-                        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=85'
-                    );
-                "
-            >
-
-                <div class="journeyContent">
-
-                    <div class="journeyNumber">
-                        Dias 91–120
-                    </div>
-
-                    <h3 class="journeyTitle">
-                        Orar
-                    </h3>
-
-                    <p class="journeyDescription">
-                        Transformar oração em relacionamento.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-        </section>
-
+      <div id="pathDays" class="dayList"></div>
 
     </div>
 
+  </section>
 
 
-    <!-- =====================================================
-         NAVEGAÇÃO INFERIOR
-    ====================================================== -->
+  <!-- =========================
+       DEVOTIONAL
+  ========================== -->
 
-    <nav class="bottomNav">
+  <section id="devotionalScreen" class="screen">
 
+    <div class="container">
 
-        <button
-            class="navItem active"
-            onclick="goHome()">
+      <div class="pageHeader">
 
-            <span>Início</span>
-
+        <button class="backButton" onclick="goBackFromDevotional()">
+          ‹
         </button>
 
+        <div class="pageHeaderText">
 
-        <button
-            class="navItem"
-            onclick="showMessage('Sua jornada de 365 dias.')">
+          <div class="pageEyebrow">
+            DEVOCIONAL
+          </div>
 
-            <span>Jornada</span>
-
-        </button>
-
-
-        <button
-            class="navItem"
-            onclick="openToday()">
-
-            <span>Hoje</span>
-
-        </button>
-
-
-        <button
-            class="navItem"
-            onclick="showMessage('Seus favoritos aparecerão aqui.')">
-
-            <span>Favoritos</span>
-
-        </button>
-
-
-        <button
-            class="navItem"
-            onclick="showMessage('Seu perfil estará disponível em breve.')">
-
-            <span>Perfil</span>
-
-        </button>
-
-
-    </nav>
-
-
-</main>
-
-
-
-<!-- =======================================================
-     TELA DO DEVOCIONAL
-======================================================= -->
-
-<section id="devotionalScreen">
-
-
-    <header class="devotionalTop">
-
-        <button
-            class="backButton"
-            onclick="closeDevotional()">
-
-            ←
-
-        </button>
-
-
-        <span
-            id="devotionalDay"
-            class="dayBadge">
-
-            DIA 1
-
-        </span>
-
-
-        <div style="width:42px;"></div>
-
-    </header>
-
-
-
-    <div class="devotionalScroll">
-
-
-        <h1
-            id="devotionalTitle"
-            class="devotionalTitle">
-
-            Carregando...
-
-        </h1>
-
-
-        <div
-            id="devotionalReference"
-            class="reference">
-        </div>
-
-
-
-        <div class="block">
-
-            <div class="blockTitle">
-                Reflexão
-            </div>
-
-            <div
-                id="devotionalReflection"
-                class="blockText">
-            </div>
+          <h1 class="pageTitle">
+            Hoje
+          </h1>
 
         </div>
 
+      </div>
 
 
-        <div class="practice">
-
-            <div class="blockTitle">
-                Prática
-            </div>
-
-            <div
-                id="devotionalPractice"
-                class="blockText">
-            </div>
-
-        </div>
-
-
-
-        <div class="question">
-
-            <div class="blockTitle">
-                Para hoje
-            </div>
-
-            <div
-                id="devotionalQuestion"
-                class="blockText">
-            </div>
-
-
-            <textarea
-                id="journal"
-                placeholder="Escreva aqui o que você percebeu hoje..."
-            ></textarea>
-
-
-            <button
-                class="saveButton"
-                onclick="saveJournal()">
-
-                Guardar minha reflexão
-
-            </button>
-
-        </div>
-
-
-
-        <div
-            class="block"
-            style="margin-top:28px;">
-
-            <div class="blockTitle">
-                Oração
-            </div>
-
-            <div
-                id="devotionalPrayer"
-                class="blockText">
-            </div>
-
-        </div>
-
+      <div id="devotionalContent"></div>
 
     </div>
 
-</section>
+  </section>
 
+
+  <!-- =========================
+       SEARCH
+  ========================== -->
+
+  <section id="searchScreen" class="screen">
+
+    <div class="container">
+
+      <div class="pageHeader">
+
+        <button class="backButton" onclick="goHome()">
+          ‹
+        </button>
+
+        <div class="pageHeaderText">
+
+          <div class="pageEyebrow">
+            BUSCAR
+          </div>
+
+          <h1 class="pageTitle">
+            Encontrar
+          </h1>
+
+        </div>
+
+      </div>
+
+
+      <div class="searchBox">
+
+        <input
+          id="searchInput"
+          class="searchInput"
+          type="search"
+          placeholder="Título ou referência..."
+          oninput="performSearch()"
+        >
+
+        <button class="searchClose" onclick="goHome()">
+          ×
+        </button>
+
+      </div>
+
+
+      <div id="searchResults" class="dayList"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       BÍBLIA
+  ========================== -->
+
+  <section id="bibleScreen" class="screen">
+
+    <div class="container">
+
+      <div class="pageHeader">
+
+        <button class="backButton" onclick="goHome()">
+          ‹
+        </button>
+
+        <div class="pageHeaderText">
+
+          <div class="pageEyebrow">
+            ESCRITURAS
+          </div>
+
+          <h1 class="pageTitle">
+            Bíblia
+          </h1>
+
+        </div>
+
+      </div>
+
+
+      <div class="notice">
+        A biblioteca bíblica do aplicativo será construída somente com versões
+        que possam ser distribuídas legalmente. A estrutura já está preparada
+        para receber diferentes traduções e ferramentas de leitura.
+      </div>
+
+
+      <div class="versionCard">
+
+        <strong>Almeida 1819</strong>
+
+        <p>
+          Edição histórica de João Ferreira de Almeida em domínio público.
+        </p>
+
+      </div>
+
+
+      <div class="versionCard">
+
+        <strong>Bíblia Livre</strong>
+
+        <p>
+          Tradução baseada em Almeida 1819, disponibilizada sob licença livre,
+          respeitando os créditos e condições da licença.
+        </p>
+
+      </div>
+
+
+      <div class="sectionHeader">
+
+        <h2>
+          Ferramentas
+        </h2>
+
+      </div>
+
+
+      <div class="infoGrid">
+
+        <button
+          class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1000&q=85')"
+          onclick="openPlans()"
+        >
+          <h3>Planos de leitura</h3>
+          <p>Organize sua leitura das Escrituras.</p>
+        </button>
+
+
+        <button
+          class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('A busca bíblica será conectada ao texto das versões livres.')"
+        >
+          <h3>Buscar nas Escrituras</h3>
+          <p>Encontre palavras, temas e referências.</p>
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       PLANOS
+  ========================== -->
+
+  <section id="plansScreen" class="screen">
+
+    <div class="container">
+
+      <div class="pageHeader">
+
+        <button class="backButton" onclick="goBackFromModule()">
+          ‹
+        </button>
+
+        <div class="pageHeaderText">
+
+          <div class="pageEyebrow">
+            BÍBLIA
+          </div>
+
+          <h1 class="pageTitle">
+            Planos de leitura
+          </h1>
+
+        </div>
+
+      </div>
+
+
+      <div class="infoGrid">
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Plano anual selecionado.')">
+          <h3>Bíblia em 1 ano</h3>
+          <p>Uma leitura diária ao longo de 365 dias.</p>
+        </button>
+
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Plano de 6 meses selecionado.')">
+          <h3>Bíblia em 6 meses</h3>
+          <p>Uma jornada mais concentrada pelas Escrituras.</p>
+        </button>
+
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Plano de 90 dias selecionado.')">
+          <h3>90 dias</h3>
+          <p>Uma jornada intensa de leitura.</p>
+        </button>
+
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Plano dos Evangelhos selecionado.')">
+          <h3>Evangelhos em 30 dias</h3>
+          <p>Mateus, Marcos, Lucas e João.</p>
+        </button>
+
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Plano semanal selecionado.')">
+          <h3>Plano semanal</h3>
+          <p>Uma leitura organizada para cada semana.</p>
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       ESTUDOS
+  ========================== -->
+
+  <section id="studiesScreen" class="screen">
+
+    <div class="container">
+
+      <div class="pageHeader">
+
+        <button class="backButton" onclick="goBackFromModule()">
+          ‹
+        </button>
+
+        <div class="pageHeaderText">
+
+          <div class="pageEyebrow">
+            APROFUNDAMENTO
+          </div>
+
+          <h1 class="pageTitle">
+            Estudos
+          </h1>
+
+        </div>
+
+      </div>
+
+
+      <div class="infoGrid">
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Estudo: O Espírito Santo.')">
+          <h3>O Espírito Santo</h3>
+          <p>Quem Ele é, Sua obra e Sua presença.</p>
+        </button>
+
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Estudo: Oração.')">
+          <h3>Oração</h3>
+          <p>Oração como diálogo, relacionamento e prática.</p>
+        </button>
+
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Estudo: Jejum.')">
+          <h3>Jejum</h3>
+          <p>Renúncia, busca e sensibilidade espiritual.</p>
+        </button>
+
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Estudo: Palavra.')">
+          <h3>A Palavra</h3>
+          <p>Conhecer para viver.</p>
+        </button>
+
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Estudo: Ensinamentos de Jesus.')">
+          <h3>Jesus ensinou</h3>
+          <p>Os ensinamentos de Jesus aplicados à vida.</p>
+        </button>
+
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Estudo: Fruto do Espírito.')">
+          <h3>Fruto do Espírito</h3>
+          <p>Caráter, transformação e vida prática.</p>
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       PRÁTICAS
+  ========================== -->
+
+  <section id="pratiquesScreen" class="screen">
+
+    <div class="container">
+
+      <div class="pageHeader">
+
+        <button class="backButton" onclick="goBackFromModule()">
+          ‹
+        </button>
+
+        <div class="pageHeaderText">
+
+          <div class="pageEyebrow">
+            VIVÊNCIA
+          </div>
+
+          <h1 class="pageTitle">
+            Práticas
+          </h1>
+
+        </div>
+
+      </div>
+
+
+      <div class="infoGrid">
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Prática: silêncio e percepção.')">
+          <h3>Silêncio</h3>
+          <p>Aprenda a desacelerar e perceber.</p>
+        </button>
+
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Prática: oração.')">
+          <h3>Oração</h3>
+          <p>Transforme oração em relacionamento.</p>
+        </button>
+
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Prática: jejum.')">
+          <h3>Jejum</h3>
+          <p>Aprenda a renunciar com propósito.</p>
+        </button>
+
+
+        <button class="infoCard"
+          style="background-image:url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85')"
+          onclick="showToast('Prática: gratidão.')">
+          <h3>Gratidão</h3>
+          <p>Treine o olhar para reconhecer o que recebeu.</p>
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       JOURNAL
+  ========================== -->
+
+  <section id="journalScreen" class="screen">
+
+    <div class="container">
+
+      <div class="pageHeader">
+
+        <button class="backButton" onclick="goBackFromModule()">
+          ‹
+        </button>
+
+        <div class="pageHeaderText">
+
+          <div class="pageEyebrow">
+            MINHAS ANOTAÇÕES
+          </div>
+
+          <h1 class="pageTitle">
+            Meu caderno
+          </h1>
+
+        </div>
+
+      </div>
+
+
+      <div class="contentCard">
+
+        <h3>Minha caminhada</h3>
+
+        <p>
+          Aqui ficam as anotações que você escreveu durante seus devocionais.
+        </p>
+
+      </div>
+
+
+      <div id="journalList" class="dayList"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       NAV
+  ========================== -->
+
+  <nav id="bottomNav" class="bottomNav" style="display:none">
+
+    <button
+      class="navButton active"
+      data-screen="homeScreen"
+      onclick="navigate('homeScreen')"
+    >
+      Início
+    </button>
+
+    <button
+      class="navButton"
+      data-screen="journeyScreen"
+      onclick="navigate('journeyScreen')"
+    >
+      Jornada
+    </button>
+
+    <button
+      class="navButton"
+      data-screen="todayScreen"
+      onclick="navigate('todayScreen')"
+    >
+      Hoje
+    </button>
+
+    <button
+      class="navButton"
+      data-screen="favoritesScreen"
+      onclick="navigate('favoritesScreen')"
+    >
+      Favoritos
+    </button>
+
+    <button
+      class="navButton"
+      data-screen="profileScreen"
+      onclick="navigate('profileScreen')"
+    >
+      Perfil
+    </button>
+
+  </nav>
+
+
+  <div id="toast" class="toast"></div>
+
+</div>
 
 
 <script>
@@ -2046,144 +2132,377 @@ textarea{
    CONFIGURAÇÃO
 ========================================================= */
 
-const INTRO_KEY =
-    "doce_espirito_intro_v6";
-
-let currentDay = 1;
+const TOTAL_DAYS = 365;
 
 let devotionals = [];
+let currentDay = Number(localStorage.getItem("doce_current_day") || 1);
+let previousScreen = "homeScreen";
+let currentScreen = "homeScreen";
 
 
 /* =========================================================
-   ELEMENTOS
+   DADOS DOS CAMINHOS
 ========================================================= */
 
-const introScreen =
-    document.getElementById(
-        "introScreen"
-    );
+const paths = {
 
+  "Presença":{
+    title:"Presença",
+    number:"PRIMEIRO CAMINHO",
+    description:"Aprender a perceber o Doce Espírito Santo.",
+    image:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85",
+    days:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+  },
 
-const app =
-    document.getElementById(
-        "app"
-    );
+  "Oração":{
+    title:"Oração",
+    number:"SEGUNDO CAMINHO",
+    description:"Conversar com O Eterno.",
+    image:"https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=1200&q=85",
+    days:[12,21,24,33,39,40,41,54,60]
+  },
 
+  "Jejum":{
+    title:"Jejum",
+    number:"TERCEIRO CAMINHO",
+    description:"Aprender a renunciar para aprofundar a busca.",
+    image:"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=85",
+    days:[33,45,51,52,53,59]
+  },
 
-const startButton =
-    document.getElementById(
-        "startButton"
-    );
+  "Palavra":{
+    title:"Palavra",
+    number:"QUARTO CAMINHO",
+    description:"Conhecer para viver.",
+    image:"https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1200&q=85",
+    days:[6,25,32,34,38,54,57,83,86]
+  },
 
+  "Vivência":{
+    title:"Vivência",
+    number:"QUINTO CAMINHO",
+    description:"Transformar a Palavra em prática.",
+    image:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85",
+    days:[43,44,46,47,50,58,70,71,72,73,74,75,76,77,78,79,80,81,82]
+  },
 
-const devotionalScreen =
-    document.getElementById(
-        "devotionalScreen"
-    );
+  "Jornada":{
+    title:"Jornada",
+    number:"SEXTO CAMINHO",
+    description:"Caminhar dia após dia.",
+    image:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85",
+    days:[1,30,60,90]
+  }
+
+};
 
 
 /* =========================================================
-   ENTRAR NO APP
+   12 ETAPAS
 ========================================================= */
 
-function enterApp(){
+const stages = [
 
-    introScreen.classList.add(
-        "hidden"
-    );
+  {
+    number:1,
+    title:"Perceber",
+    days:"DIAS 1–30",
+    description:"Aprender a reconhecer a presença.",
+    image:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85",
+    start:1,
+    end:30
+  },
 
-    app.classList.add(
-        "visible"
-    );
+  {
+    number:2,
+    title:"Aprofundar",
+    days:"DIAS 31–60",
+    description:"Ir além da superfície.",
+    image:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=85",
+    start:31,
+    end:60
+  },
 
-    localStorage.setItem(
-        INTRO_KEY,
-        "true"
-    );
+  {
+    number:3,
+    title:"Ser Transformado",
+    days:"DIAS 61–90",
+    description:"Permitir que a presença transforme o interior.",
+    image:"https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1000&q=85",
+    start:61,
+    end:90
+  },
 
-    updateProgress();
+  {
+    number:4,
+    title:"Orar",
+    days:"DIAS 91–120",
+    description:"Aprender a conversar com O Eterno.",
+    image:"https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=1000&q=85",
+    start:91,
+    end:120
+  },
 
-}
+  {
+    number:5,
+    title:"Jejuar",
+    days:"DIAS 121–150",
+    description:"Aprender a renunciar para buscar.",
+    image:"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1000&q=85",
+    start:121,
+    end:150
+  },
 
+  {
+    number:6,
+    title:"Viver a Palavra",
+    days:"DIAS 151–180",
+    description:"Conhecer para obedecer e praticar.",
+    image:"https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1000&q=85",
+    start:151,
+    end:180
+  },
 
-/* =========================================================
-   BOTÃO REAL DA CAPA
-========================================================= */
+  {
+    number:7,
+    title:"Viver Jesus",
+    days:"DIAS 181–220",
+    description:"Colocar os ensinamentos de Jesus em prática.",
+    image:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85",
+    start:181,
+    end:220
+  },
 
-startButton.addEventListener(
-    "click",
-    enterApp
-);
+  {
+    number:8,
+    title:"Ser Guiado",
+    days:"DIAS 221–250",
+    description:"Aprender a discernir direção.",
+    image:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85",
+    start:221,
+    end:250
+  },
+
+  {
+    number:9,
+    title:"Dar Fruto",
+    days:"DIAS 251–290",
+    description:"Permitir que a raiz apareça no fruto.",
+    image:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85",
+    start:251,
+    end:290
+  },
+
+  {
+    number:10,
+    title:"Servir",
+    days:"DIAS 291–320",
+    description:"Transformar presença em serviço.",
+    image:"https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1000&q=85",
+    start:291,
+    end:320
+  },
+
+  {
+    number:11,
+    title:"Testemunhar",
+    days:"DIAS 321–345",
+    description:"Compartilhar aquilo que foi vivido.",
+    image:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=85",
+    start:321,
+    end:345
+  },
+
+  {
+    number:12,
+    title:"Permanecer",
+    days:"DIAS 346–365",
+    description:"Continuar quando a jornada já virou vida.",
+    image:"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1000&q=85",
+    start:346,
+    end:365
+  }
+
+];
 
 
 /* =========================================================
    INICIALIZAÇÃO
 ========================================================= */
 
-window.addEventListener(
-    "load",
-    () => {
+document.addEventListener("DOMContentLoaded", async function(){
 
-        const alreadyEntered =
-            localStorage.getItem(
-                INTRO_KEY
-            );
+  await loadDevotionals();
 
+  renderStages();
 
-        if(alreadyEntered === "true"){
+  updateProgress();
 
-            introScreen.classList.add(
-                "hidden"
-            );
+  renderToday();
 
-            app.classList.add(
-                "visible"
-            );
+  renderProfile();
 
-        }
+  renderJournal();
 
-
-        updateProgress();
-
-        loadDevotionals();
-
-    }
-);
+});
 
 
 /* =========================================================
-   DEVOCIONAIS
+   CARREGAR DEVOCIONAIS
 ========================================================= */
 
 async function loadDevotionals(){
 
-    try{
+  try{
 
-        const response =
-            await fetch(
-                "devocionais.json?v=15"
-            );
+    const response = await fetch("devocionais.json?v=15");
 
-
-        if(!response.ok){
-
-            throw new Error(
-                "Erro ao carregar devocionais."
-            );
-
-        }
-
-
-        devotionals =
-            await response.json();
-
+    if(!response.ok){
+      throw new Error("Arquivo não encontrado");
     }
 
-    catch(error){
+    devotionals = await response.json();
 
-        console.error(error);
-
+    if(!Array.isArray(devotionals)){
+      devotionals = [];
     }
+
+  }catch(error){
+
+    console.error(error);
+
+    devotionals = [];
+
+    showToast("Não foi possível carregar os devocionais.");
+
+  }
+
+}
+
+
+/* =========================================================
+   CAPA → APP
+========================================================= */
+
+function startApp(){
+
+  localStorage.setItem("doce_espirito_intro_v6","true");
+
+  document.getElementById("coverScreen").classList.remove("active");
+
+  document.getElementById("homeScreen").classList.add("active");
+
+  document.getElementById("bottomNav").style.display="grid";
+
+  currentScreen="homeScreen";
+
+  updateNav();
+
+  window.scrollTo(0,0);
+
+}
+
+
+/* =========================================================
+   NAVEGAÇÃO PRINCIPAL
+========================================================= */
+
+function navigate(screenId){
+
+  if(
+    screenId !== "homeScreen" &&
+    screenId !== "journeyScreen" &&
+    screenId !== "todayScreen" &&
+    screenId !== "favoritesScreen" &&
+    screenId !== "profileScreen"
+  ){
+    previousScreen=currentScreen;
+  }
+
+  document.querySelectorAll(".screen").forEach(screen=>{
+    screen.classList.remove("active");
+  });
+
+  const target=document.getElementById(screenId);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  currentScreen=screenId;
+
+  document.getElementById("bottomNav").style.display =
+    screenId==="coverScreen" ? "none" : "grid";
+
+  updateNav();
+
+  if(screenId==="todayScreen"){
+    renderToday();
+  }
+
+  if(screenId==="favoritesScreen"){
+    renderFavorites();
+  }
+
+  if(screenId==="profileScreen"){
+    renderProfile();
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+function goHome(){
+  navigate("homeScreen");
+}
+
+
+function updateNav(){
+
+  document.querySelectorAll(".navButton").forEach(button=>{
+
+    button.classList.toggle(
+      "active",
+      button.dataset.screen===currentScreen
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   HOME SEGMENT
+========================================================= */
+
+function showHomeExplore(){
+
+  document.getElementById("homeExploreContent").style.display="block";
+
+  document.getElementById("homeJourneyContent").style.display="none";
+
+  document.getElementById("exploreSegment").classList.add("active");
+
+  document.getElementById("journeySegment").classList.remove("active");
+
+}
+
+
+function showHomeJourney(){
+
+  document.getElementById("homeExploreContent").style.display="none";
+
+  document.getElementById("homeJourneyContent").style.display="block";
+
+  document.getElementById("journeySegment").classList.add("active");
+
+  document.getElementById("exploreSegment").classList.remove("active");
+
+  renderHomeJourney();
 
 }
 
@@ -2194,210 +2513,219 @@ async function loadDevotionals(){
 
 function updateProgress(){
 
-    const saved =
-        parseInt(
-            localStorage.getItem(
-                "doce_current_day"
-            ) || "1"
-        );
+  const percent=Math.min(
+    100,
+    Math.round((currentDay/TOTAL_DAYS)*100)
+  );
 
+  const fillIds=[
+    "homeProgressFill",
+    "journeyProgressFill",
+    "journeyScreenFill"
+  ];
 
-    currentDay = saved;
+  fillIds.forEach(id=>{
 
+    const element=document.getElementById(id);
 
-    const percentage =
-        Math.min(
-            (saved / 365) * 100,
-            100
-        );
-
-
-    document.getElementById(
-        "progressFill"
-    ).style.width =
-        percentage + "%";
-
-
-    document.getElementById(
-        "progressNumber"
-    ).textContent =
-        `Dia ${saved} de 365`;
-
-}
-
-
-/* =========================================================
-   ABRIR DEVOCIONAL
-========================================================= */
-
-function openDevotional(day){
-
-    currentDay =
-        Number(day);
-
-
-    const devotion =
-        devotionals.find(
-            item =>
-                Number(item.dia)
-                === currentDay
-        );
-
-
-    if(!devotion){
-
-        showMessage(
-            "Este dia ainda está sendo preparado."
-        );
-
-        return;
-
+    if(element){
+      element.style.width=percent+"%";
     }
 
-
-    document.getElementById(
-        "devotionalDay"
-    ).textContent =
-        `DIA ${devotion.dia}`;
+  });
 
 
-    document.getElementById(
-        "devotionalTitle"
-    ).textContent =
-        devotion.titulo || "";
+  const texts=[
+    "homeProgressDay",
+    "journeyProgressText",
+    "journeyScreenProgress"
+  ];
+
+  texts.forEach(id=>{
+
+    const element=document.getElementById(id);
+
+    if(element){
+      element.textContent=`Dia ${currentDay} de ${TOTAL_DAYS}`;
+    }
+
+  });
 
 
-    document.getElementById(
-        "devotionalReference"
-    ).textContent =
-        devotion.referencia || "";
+  const percentElement=document.getElementById("journeyPercent");
 
-
-    document.getElementById(
-        "devotionalReflection"
-    ).textContent =
-        devotion.reflexao ||
-        devotion.introducao ||
-        "";
-
-
-    document.getElementById(
-        "devotionalPractice"
-    ).textContent =
-        devotion.pratica || "";
-
-
-    document.getElementById(
-        "devotionalQuestion"
-    ).textContent =
-        devotion.pergunta || "";
-
-
-    document.getElementById(
-        "devotionalPrayer"
-    ).textContent =
-        devotion.oracao || "";
-
-
-    document.getElementById(
-        "journal"
-    ).value =
-        localStorage.getItem(
-            `doce_journal_${currentDay}`
-        ) || "";
-
-
-    devotionalScreen.classList.add(
-        "open"
-    );
+  if(percentElement){
+    percentElement.textContent=percent+"%";
+  }
 
 }
 
 
 /* =========================================================
-   HOJE
+   ETAPAS
 ========================================================= */
 
-function openToday(){
+function renderStages(){
 
-    openDevotional(
-        currentDay
-    );
+  const containers=[
+    document.getElementById("journeyPreview"),
+    document.getElementById("journeyFullGrid")
+  ];
+
+  containers.forEach(container=>{
+
+    if(!container) return;
+
+    container.innerHTML="";
+
+    stages.forEach(stage=>{
+
+      const available=stage.start<=devotionals.length;
+
+      const button=document.createElement("button");
+
+      button.className="journeyCard";
+
+      button.style.backgroundImage=
+        `url('${stage.image}')`;
+
+      button.innerHTML=`
+
+        <div class="journeyContent">
+
+          <div class="journeyDays">
+            ${stage.days}
+          </div>
+
+          <div class="journeyTitle">
+            ${stage.title}
+          </div>
+
+          <div class="journeyDesc">
+            ${stage.description}
+          </div>
+
+        </div>
+
+      `;
+
+      button.onclick=()=>{
+        openStage(stage.number);
+      };
+
+      container.appendChild(button);
+
+    });
+
+  });
 
 }
 
 
 /* =========================================================
-   FECHAR DEVOCIONAL
+   ABRIR ETAPA
 ========================================================= */
 
-function closeDevotional(){
+function openStage(stageNumber){
 
-    devotionalScreen.classList.remove(
-        "open"
-    );
+  const stage=stages.find(
+    item=>item.number===stageNumber
+  );
 
-}
+  if(!stage) return;
 
+  previousScreen=currentScreen;
 
-/* =========================================================
-   SALVAR REFLEXÃO
-========================================================= */
+  document.querySelectorAll(".screen").forEach(screen=>{
+    screen.classList.remove("active");
+  });
 
-function saveJournal(){
+  document.getElementById("journeyScreen").classList.remove("active");
 
-    const text =
-        document.getElementById(
-            "journal"
-        ).value;
+  const pathScreen=document.getElementById("pathScreen");
 
+  pathScreen.classList.add("active");
 
-    localStorage.setItem(
-        `doce_journal_${currentDay}`,
-        text
-    );
+  document.getElementById("pathEyebrow").textContent=
+    `ETAPA ${stage.number} • ${stage.days}`;
 
+  document.getElementById("pathTitle").textContent=
+    stage.title;
 
-    localStorage.setItem(
-        "doce_current_day",
-        String(
-            Math.min(
-                currentDay + 1,
-                365
-            )
-        )
-    );
+  document.getElementById("pathHero").style.backgroundImage=
+    `url('${stage.image}')`;
 
+  document.getElementById("pathHeroEyebrow").textContent=
+    stage.days;
 
-    updateProgress();
+  document.getElementById("pathHeroTitle").textContent=
+    stage.title;
 
+  document.getElementById("pathHeroDescription").textContent=
+    stage.description;
 
-    showMessage(
-        "Sua reflexão foi guardada."
-    );
+  const list=document.getElementById("pathDays");
 
-}
+  list.innerHTML="";
 
+  for(let day=stage.start; day<=stage.end; day++){
 
-/* =========================================================
-   ABAS
-========================================================= */
+    const devotion=getDevotional(day);
 
-function activateTab(button){
+    const button=document.createElement("button");
 
-    document
-        .querySelectorAll(".tab")
-        .forEach(
-            tab =>
-                tab.classList.remove(
-                    "active"
-                )
-        );
+    button.className="dayItem";
 
+    if(!devotion){
+      button.classList.add("dayLocked");
+    }
 
-    button.classList.add(
-        "active"
-    );
+    button.innerHTML=`
+
+      <div class="dayNumber">
+        ${day}
+      </div>
+
+      <div class="dayInfo">
+
+        <strong>
+          ${devotion ? escapeHtml(getTitle(devotion)) : "Conteúdo ainda não publicado"}
+        </strong>
+
+        <span>
+          ${devotion ? escapeHtml(getReference(devotion)) : "Disponível em breve"}
+        </span>
+
+      </div>
+
+      <div class="dayStatus">
+        ${devotion ? "Abrir" : "—"}
+      </div>
+
+    `;
+
+    button.onclick=()=>{
+
+      if(devotion){
+        openDay(day);
+      }else{
+        showToast("Este dia ainda não está disponível.");
+      }
+
+    };
+
+    list.appendChild(button);
+
+  }
+
+  currentScreen="pathScreen";
+
+  document.getElementById("bottomNav").style.display="grid";
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
@@ -2406,49 +2734,1291 @@ function activateTab(button){
    CAMINHOS
 ========================================================= */
 
-function openPath(path){
+function openPath(name){
 
-    showMessage(
-        `${path} será desenvolvido como uma parte da sua jornada.`
-    );
+  const path=paths[name];
+
+  if(!path) return;
+
+  previousScreen=currentScreen;
+
+  document.querySelectorAll(".screen").forEach(screen=>{
+    screen.classList.remove("active");
+  });
+
+  document.getElementById("pathScreen").classList.add("active");
+
+  document.getElementById("pathEyebrow").textContent=
+    path.number;
+
+  document.getElementById("pathTitle").textContent=
+    path.title;
+
+  document.getElementById("pathHero").style.backgroundImage=
+    `url('${path.image}')`;
+
+  document.getElementById("pathHeroEyebrow").textContent=
+    path.number;
+
+  document.getElementById("pathHeroTitle").textContent=
+    path.title;
+
+  document.getElementById("pathHeroDescription").textContent=
+    path.description;
+
+  const list=document.getElementById("pathDays");
+
+  list.innerHTML="";
+
+  path.days.forEach(day=>{
+
+    const devotion=getDevotional(day);
+
+    const button=document.createElement("button");
+
+    button.className="dayItem";
+
+    button.innerHTML=`
+
+      <div class="dayNumber">
+        ${day}
+      </div>
+
+      <div class="dayInfo">
+
+        <strong>
+          ${devotion ? escapeHtml(getTitle(devotion)) : "Conteúdo ainda não publicado"}
+        </strong>
+
+        <span>
+          ${devotion ? escapeHtml(getReference(devotion)) : "Disponível em breve"}
+        </span>
+
+      </div>
+
+      <div class="dayStatus">
+        ${devotion ? "Abrir" : "—"}
+      </div>
+
+    `;
+
+    button.onclick=()=>{
+
+      if(devotion){
+        openDay(day);
+      }else{
+        showToast("Este conteúdo ainda não está disponível.");
+      }
+
+    };
+
+    list.appendChild(button);
+
+  });
+
+  currentScreen="pathScreen";
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
 
 /* =========================================================
-   INÍCIO
+   LISTA DE DIAS
 ========================================================= */
 
-function goHome(){
+function renderHomeJourney(){
 
-    devotionalScreen.classList.remove(
-        "open"
-    );
+  const list=document.getElementById("homeJourneyList");
 
+  if(!list) return;
 
-    document
-        .querySelector(".appContent")
-        .scrollTo({
-            top:0,
-            behavior:"smooth"
-        });
+  list.innerHTML="";
+
+  const start=Math.max(1,currentDay-2);
+  const end=Math.min(TOTAL_DAYS,start+9);
+
+  for(let day=start; day<=end; day++){
+
+    const devotion=getDevotional(day);
+
+    const button=document.createElement("button");
+
+    button.className="dayItem";
+
+    if(!devotion){
+      button.classList.add("dayLocked");
+    }
+
+    button.innerHTML=`
+
+      <div class="dayNumber">
+        ${day}
+      </div>
+
+      <div class="dayInfo">
+
+        <strong>
+          ${devotion ? escapeHtml(getTitle(devotion)) : "Conteúdo ainda não publicado"}
+        </strong>
+
+        <span>
+          ${devotion ? escapeHtml(getReference(devotion)) : "Disponível em breve"}
+        </span>
+
+      </div>
+
+      <div class="dayStatus">
+        ${devotion ? "Abrir" : "—"}
+      </div>
+
+    `;
+
+    button.onclick=()=>{
+
+      if(devotion){
+        openDay(day);
+      }else{
+        showToast("Este conteúdo ainda não está disponível.");
+      }
+
+    };
+
+    list.appendChild(button);
+
+  }
 
 }
 
 
 /* =========================================================
-   MENSAGENS
+   DEVOCIONAL
 ========================================================= */
 
-function showMessage(message){
+function getDevotional(day){
 
-    alert(message);
+  return devotionals.find(item=>{
+
+    const itemDay=Number(
+      item.day ??
+      item.dia ??
+      item.numero
+    );
+
+    return itemDay===Number(day);
+
+  });
+
+}
+
+
+function getTitle(devotion){
+
+  return devotion.title ||
+         devotion.titulo ||
+         devotion.name ||
+         "Devocional";
+
+}
+
+
+function getReference(devotion){
+
+  return devotion.reference ||
+         devotion.referencia ||
+         devotion.ref ||
+         "";
+
+}
+
+
+function getText(devotion){
+
+  return devotion.reflection ||
+         devotion.reflexao ||
+         devotion.introduction ||
+         devotion.introducao ||
+         devotion.content ||
+         devotion.text ||
+         "";
+
+}
+
+
+function getPractice(devotion){
+
+  return devotion.practice ||
+         devotion.pratica ||
+         "";
+
+}
+
+
+function getQuestion(devotion){
+
+  return devotion.question ||
+         devotion.pergunta ||
+         "";
+
+}
+
+
+function getPrayer(devotion){
+
+  return devotion.prayer ||
+         devotion.oracao ||
+         "";
+
+}
+
+
+function getJournal(devotion){
+
+  return devotion.journal ||
+         devotion.diario ||
+         "";
+
+}
+
+
+function openDay(day){
+
+  const devotion=getDevotional(day);
+
+  if(!devotion){
+
+    showToast("Este conteúdo ainda não está disponível.");
+
+    return;
+
+  }
+
+  previousScreen=currentScreen;
+
+  currentDay=Number(day);
+
+  localStorage.setItem(
+    "doce_current_day",
+    currentDay
+  );
+
+  renderDevotional(devotion);
+
+  document.querySelectorAll(".screen").forEach(screen=>{
+    screen.classList.remove("active");
+  });
+
+  document.getElementById("devotionalScreen").classList.add("active");
+
+  currentScreen="devotionalScreen";
+
+  document.getElementById("bottomNav").style.display="grid";
+
+  updateProgress();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+function renderDevotional(devotion){
+
+  const day=Number(
+    devotion.day ??
+    devotion.dia ??
+    currentDay
+  );
+
+  const favorite=isFavorite(day);
+
+  const content=document.getElementById("devotionalContent");
+
+  content.innerHTML=`
+
+    <div class="devotionalHero">
+
+      <div class="devotionalDay">
+        DIA ${day} DE ${TOTAL_DAYS}
+      </div>
+
+      <h2 class="devotionalTitle">
+        ${escapeHtml(getTitle(devotion))}
+      </h2>
+
+      <div class="reference">
+        ${escapeHtml(getReference(devotion))}
+      </div>
+
+    </div>
+
+
+    <div class="actionRow">
+
+      <button
+        class="actionButton favorite ${favorite ? "active":""}"
+        onclick="toggleFavorite(${day})"
+      >
+        ${favorite ? "Favorito" : "Adicionar aos favoritos"}
+      </button>
+
+      <button
+        class="actionButton"
+        onclick="shareDevotional(${day})"
+      >
+        Compartilhar
+      </button>
+
+    </div>
+
+
+    ${
+      getText(devotion)
+      ?
+      `
+      <div class="contentCard">
+
+        <h3>Reflexão</h3>
+
+        <p>
+          ${formatText(getText(devotion))}
+        </p>
+
+      </div>
+      `
+      :""
+    }
+
+
+    ${
+      getPractice(devotion)
+      ?
+      `
+      <div class="contentCard practiceBox">
+
+        <h3>Prática</h3>
+
+        <p>
+          ${formatText(getPractice(devotion))}
+        </p>
+
+      </div>
+      `
+      :""
+    }
+
+
+    ${
+      getQuestion(devotion)
+      ?
+      `
+      <div class="contentCard">
+
+        <h3>Para refletir</h3>
+
+        <p>
+          ${formatText(getQuestion(devotion))}
+        </p>
+
+      </div>
+      `
+      :""
+    }
+
+
+    ${
+      getPrayer(devotion)
+      ?
+      `
+      <div class="contentCard">
+
+        <h3>Oração</h3>
+
+        <p>
+          ${formatText(getPrayer(devotion))}
+        </p>
+
+      </div>
+      `
+      :""
+    }
+
+
+    <div class="contentCard">
+
+      <h3>Meu caderno</h3>
+
+      <textarea
+        id="journal-${day}"
+        class="journalArea"
+        placeholder="O que você percebeu hoje?"
+      >${escapeHtml(
+        localStorage.getItem("journal_"+day) || ""
+      )}</textarea>
+
+      <button
+        class="actionButton primary"
+        style="width:100%;margin-top:12px"
+        onclick="saveJournal(${day})"
+      >
+        Salvar anotação
+      </button>
+
+    </div>
+
+
+    <div class="actionRow">
+
+      <button
+        class="actionButton"
+        onclick="previousDay(${day})"
+      >
+        ← Dia anterior
+      </button>
+
+      <button
+        class="actionButton primary"
+        onclick="completeDay(${day})"
+      >
+        Concluir dia
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   CONCLUIR DIA
+========================================================= */
+
+function completeDay(day){
+
+  const completed=
+    JSON.parse(
+      localStorage.getItem("doce_completed_days") || "[]"
+    );
+
+  if(!completed.includes(Number(day))){
+    completed.push(Number(day));
+  }
+
+  localStorage.setItem(
+    "doce_completed_days",
+    JSON.stringify(completed)
+  );
+
+  if(Number(day)>=currentDay && Number(day)<TOTAL_DAYS){
+
+    currentDay=Number(day)+1;
+
+    localStorage.setItem(
+      "doce_current_day",
+      currentDay
+    );
+
+  }
+
+  updateProgress();
+
+  renderProfile();
+
+  showToast("Dia concluído.");
+
+  setTimeout(()=>{
+
+    if(getDevotional(currentDay)){
+      openDay(currentDay);
+    }else{
+      navigate("homeScreen");
+    }
+
+  },500);
+
+}
+
+
+/* =========================================================
+   DIA ANTERIOR
+========================================================= */
+
+function previousDay(day){
+
+  const previous=Number(day)-1;
+
+  if(previous<1){
+    showToast("Você já está no primeiro dia.");
+    return;
+  }
+
+  if(getDevotional(previous)){
+    openDay(previous);
+  }else{
+    showToast("O dia anterior ainda não está disponível.");
+  }
+
+}
+
+
+/* =========================================================
+   HOJE
+========================================================= */
+
+function renderToday(){
+
+  const content=document.getElementById("todayContent");
+
+  const devotion=getDevotional(currentDay);
+
+  if(!devotion){
+
+    content.innerHTML=`
+
+      <div class="emptyState">
+
+        <h2>
+          Sua próxima leitura
+        </h2>
+
+        <p>
+          Você está no dia ${currentDay} de ${TOTAL_DAYS}.
+          O conteúdo deste dia ainda não foi publicado no arquivo atual.
+        </p>
+
+        <button
+          class="actionButton primary"
+          style="margin-top:20px;width:100%"
+          onclick="openDay(${Math.max(1,Math.min(devotionals.length,currentDay))})"
+        >
+          Ir para o último dia disponível
+        </button>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  content.innerHTML="";
+
+  const wrapper=document.createElement("div");
+
+  content.appendChild(wrapper);
+
+  renderDevotionalInto(wrapper,devotion);
+
+}
+
+
+function renderDevotionalInto(container,devotion){
+
+  const day=Number(
+    devotion.day ??
+    devotion.dia ??
+    currentDay
+  );
+
+  container.innerHTML=`
+
+    <div class="devotionalHero">
+
+      <div class="devotionalDay">
+        DIA ${day} DE ${TOTAL_DAYS}
+      </div>
+
+      <h2 class="devotionalTitle">
+        ${escapeHtml(getTitle(devotion))}
+      </h2>
+
+      <div class="reference">
+        ${escapeHtml(getReference(devotion))}
+      </div>
+
+    </div>
+
+    ${
+      getText(devotion)
+      ?
+      `
+      <div class="contentCard">
+        <h3>Reflexão</h3>
+        <p>${formatText(getText(devotion))}</p>
+      </div>
+      `
+      :""
+    }
+
+    ${
+      getPractice(devotion)
+      ?
+      `
+      <div class="contentCard practiceBox">
+        <h3>Prática</h3>
+        <p>${formatText(getPractice(devotion))}</p>
+      </div>
+      `
+      :""
+    }
+
+    ${
+      getQuestion(devotion)
+      ?
+      `
+      <div class="contentCard">
+        <h3>Para refletir</h3>
+        <p>${formatText(getQuestion(devotion))}</p>
+      </div>
+      `
+      :""
+    }
+
+    ${
+      getPrayer(devotion)
+      ?
+      `
+      <div class="contentCard">
+        <h3>Oração</h3>
+        <p>${formatText(getPrayer(devotion))}</p>
+      </div>
+      `
+      :""
+    }
+
+    <button
+      class="actionButton primary"
+      style="width:100%"
+      onclick="openDay(${day})"
+    >
+      Abrir devocional completo
+    </button>
+
+  `;
+
+}
+
+
+/* =========================================================
+   FAVORITOS
+========================================================= */
+
+function getFavorites(){
+
+  return JSON.parse(
+    localStorage.getItem("doce_favorites") || "[]"
+  );
+
+}
+
+
+function isFavorite(day){
+
+  return getFavorites().includes(Number(day));
+
+}
+
+
+function toggleFavorite(day){
+
+  let favorites=getFavorites();
+
+  const number=Number(day);
+
+  if(favorites.includes(number)){
+
+    favorites=favorites.filter(
+      item=>item!==number
+    );
+
+    showToast("Removido dos favoritos.");
+
+  }else{
+
+    favorites.push(number);
+
+    showToast("Adicionado aos favoritos.");
+
+  }
+
+  localStorage.setItem(
+    "doce_favorites",
+    JSON.stringify(favorites)
+  );
+
+  const devotion=getDevotional(number);
+
+  if(devotion){
+    renderDevotional(devotion);
+  }
+
+  renderProfile();
+
+}
+
+
+function renderFavorites(){
+
+  const container=document.getElementById("favoritesContent");
+
+  const favorites=getFavorites();
+
+  if(!favorites.length){
+
+    container.innerHTML=`
+
+      <div class="emptyState">
+
+        <h2>
+          Ainda não há favoritos
+        </h2>
+
+        <p>
+          Durante um devocional, toque em “Adicionar aos favoritos”
+          para guardar aquilo que deseja revisitar.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  container.innerHTML="";
+
+  const list=document.createElement("div");
+
+  list.className="dayList";
+
+  favorites
+    .sort((a,b)=>a-b)
+    .forEach(day=>{
+
+      const devotion=getDevotional(day);
+
+      if(!devotion) return;
+
+      const button=document.createElement("button");
+
+      button.className="dayItem";
+
+      button.innerHTML=`
+
+        <div class="dayNumber">
+          ${day}
+        </div>
+
+        <div class="dayInfo">
+
+          <strong>
+            ${escapeHtml(getTitle(devotion))}
+          </strong>
+
+          <span>
+            ${escapeHtml(getReference(devotion))}
+          </span>
+
+        </div>
+
+        <div class="dayStatus">
+          Abrir
+        </div>
+
+      `;
+
+      button.onclick=()=>{
+        openDay(day);
+      };
+
+      list.appendChild(button);
+
+    });
+
+  container.appendChild(list);
+
+}
+
+
+/* =========================================================
+   JOURNAL
+========================================================= */
+
+function saveJournal(day){
+
+  const field=document.getElementById(
+    "journal-"+day
+  );
+
+  if(!field) return;
+
+  localStorage.setItem(
+    "journal_"+day,
+    field.value
+  );
+
+  showToast("Anotação salva.");
+
+  renderJournal();
+
+}
+
+
+function renderJournal(){
+
+  const container=document.getElementById("journalList");
+
+  if(!container) return;
+
+  container.innerHTML="";
+
+  const entries=[];
+
+  for(let day=1; day<=TOTAL_DAYS; day++){
+
+    const text=localStorage.getItem(
+      "journal_"+day
+    );
+
+    if(text && text.trim()){
+
+      const devotion=getDevotional(day);
+
+      entries.push({
+        day,
+        text,
+        title:devotion ? getTitle(devotion) : "Dia "+day
+      });
+
+    }
+
+  }
+
+  if(!entries.length){
+
+    container.innerHTML=`
+
+      <div class="emptyState">
+
+        <h2>
+          Seu caderno está vazio
+        </h2>
+
+        <p>
+          Suas anotações aparecerão aqui conforme você caminhar pelos devocionais.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  entries.reverse().forEach(entry=>{
+
+    const card=document.createElement("button");
+
+    card.className="dayItem";
+
+    card.innerHTML=`
+
+      <div class="dayNumber">
+        ${entry.day}
+      </div>
+
+      <div class="dayInfo">
+
+        <strong>
+          ${escapeHtml(entry.title)}
+        </strong>
+
+        <span>
+          ${escapeHtml(entry.text.substring(0,90))}
+          ${entry.text.length>90 ? "..." : ""}
+        </span>
+
+      </div>
+
+    `;
+
+    card.onclick=()=>{
+      openDay(entry.day);
+    };
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+function openJournal(){
+
+  previousScreen=currentScreen;
+
+  navigate("journalScreen");
+
+  renderJournal();
+
+}
+
+
+/* =========================================================
+   PERFIL
+========================================================= */
+
+function renderProfile(){
+
+  const completed=JSON.parse(
+    localStorage.getItem("doce_completed_days") || "[]"
+  );
+
+  const favorites=getFavorites();
+
+  document.getElementById("profileDay").textContent=
+    currentDay;
+
+  document.getElementById("profileCompleted").textContent=
+    completed.length;
+
+  document.getElementById("profileFavorites").textContent=
+    favorites.length;
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetProgress(){
+
+  const confirmed=confirm(
+    "Deseja realmente reiniciar sua jornada? Seus favoritos e anotações serão mantidos."
+  );
+
+  if(!confirmed) return;
+
+  currentDay=1;
+
+  localStorage.setItem(
+    "doce_current_day",
+    "1"
+  );
+
+  localStorage.removeItem(
+    "doce_completed_days"
+  );
+
+  updateProgress();
+
+  renderProfile();
+
+  showToast("Jornada reiniciada.");
+
+}
+
+
+/* =========================================================
+   BUSCA
+========================================================= */
+
+function openSearch(){
+
+  previousScreen=currentScreen;
+
+  navigate("searchScreen");
+
+  setTimeout(()=>{
+    document.getElementById("searchInput").focus();
+  },100);
+
+}
+
+
+function performSearch(){
+
+  const query=
+    document.getElementById("searchInput")
+    .value
+    .trim()
+    .toLowerCase();
+
+  const container=
+    document.getElementById("searchResults");
+
+  container.innerHTML="";
+
+  if(!query){
+
+    container.innerHTML=`
+
+      <div class="emptyState">
+
+        <h2>
+          O que você procura?
+        </h2>
+
+        <p>
+          Pesquise pelo título ou pela referência bíblica.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  const results=devotionals.filter(devotion=>{
+
+    return (
+      getTitle(devotion).toLowerCase().includes(query) ||
+      getReference(devotion).toLowerCase().includes(query) ||
+      getText(devotion).toLowerCase().includes(query)
+    );
+
+  });
+
+  if(!results.length){
+
+    container.innerHTML=`
+
+      <div class="emptyState">
+
+        <h2>
+          Nada encontrado
+        </h2>
+
+        <p>
+          Tente outro termo.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  results.forEach(devotion=>{
+
+    const day=Number(
+      devotion.day ??
+      devotion.dia
+    );
+
+    const button=document.createElement("button");
+
+    button.className="dayItem";
+
+    button.innerHTML=`
+
+      <div class="dayNumber">
+        ${day}
+      </div>
+
+      <div class="dayInfo">
+
+        <strong>
+          ${escapeHtml(getTitle(devotion))}
+        </strong>
+
+        <span>
+          ${escapeHtml(getReference(devotion))}
+        </span>
+
+      </div>
+
+      <div class="dayStatus">
+        Abrir
+      </div>
+
+    `;
+
+    button.onclick=()=>{
+      openDay(day);
+    };
+
+    container.appendChild(button);
+
+  });
+
+}
+
+
+/* =========================================================
+   MÓDULOS
+========================================================= */
+
+function openBible(){
+
+  previousScreen=currentScreen;
+
+  navigate("bibleScreen");
+
+}
+
+
+function openPlans(){
+
+  previousScreen=currentScreen;
+
+  navigate("plansScreen");
+
+}
+
+
+function openStudies(){
+
+  previousScreen=currentScreen;
+
+  navigate("studiesScreen");
+
+}
+
+
+function openPratiques(){
+
+  previousScreen=currentScreen;
+
+  navigate("pratiquesScreen");
+
+}
+
+
+function goBackFromModule(){
+
+  if(previousScreen && document.getElementById(previousScreen)){
+
+    navigate(previousScreen);
+
+  }else{
+
+    goHome();
+
+  }
+
+}
+
+
+function goBackFromDevotional(){
+
+  if(previousScreen && document.getElementById(previousScreen)){
+
+    navigate(previousScreen);
+
+  }else{
+
+    goHome();
+
+  }
+
+}
+
+
+/* =========================================================
+   COMPARTILHAR
+========================================================= */
+
+async function shareDevotional(day){
+
+  const devotion=getDevotional(day);
+
+  if(!devotion) return;
+
+  const title=getTitle(devotion);
+
+  const text=
+    `${title}\n${getReference(devotion)}\n\nDoce Espírito Santo — Um Amigo Íntimo`;
+
+  if(navigator.share){
+
+    try{
+
+      await navigator.share({
+        title,
+        text,
+        url:window.location.href
+      });
+
+    }catch(error){}
+
+  }else{
+
+    try{
+
+      await navigator.clipboard.writeText(text);
+
+      showToast("Texto copiado.");
+
+    }catch(error){
+
+      showToast("Compartilhamento não disponível.");
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   UTILITÁRIOS
+========================================================= */
+
+function formatText(text){
+
+  if(!text) return "";
+
+  return escapeHtml(String(text))
+    .replace(/\n/g,"<br>");
+}
+
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function showToast(message){
+
+  const toast=document.getElementById("toast");
+
+  toast.textContent=message;
+
+  toast.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer=setTimeout(()=>{
+
+    toast.classList.remove("show");
+
+  },2200);
 
 }
 
 </script>
 
-
 </body>
-
 </html>
