@@ -1,139 +1,383 @@
+/* =========================================================
+   DOCE ESPÍRITO SANTO
+   UM AMIGO ÍNTIMO
+   Streaming Experience Engine
+========================================================= */
+
 let devotionals = [];
 let currentDay = 1;
 let currentFilter = "all";
 
 const $ = (id) => document.getElementById(id);
 
-const doneKey = (d) => `day-${d}-done`;
-const favKey = (d) => `day-${d}-favorite`;
+const doneKey = (day) => `doce-day-${day}-done`;
+const favKey = (day) => `doce-day-${day}-favorite`;
+
+
+/* =========================================================
+   UTILIDADES
+========================================================= */
 
 function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
-  }[c]));
-}
 
-function isDone(day){
-  return localStorage.getItem(doneKey(day)) === "true";
-}
+  return String(value ?? "").replace(
+    /[&<>"']/g,
+    char => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[char])
+  );
 
-function isFavorite(day){
-  return localStorage.getItem(favKey(day)) === "true";
 }
 
 
-/* =========================================================
-   CARREGAR DEVOCIONAIS
-========================================================= */
+function normalizeText(value){
 
-async function loadDevotionals(){
-
-  try{
-
-    const response = await fetch(
-      `devocionais.json?v=${Date.now()}`
-    );
-
-    if(!response.ok){
-      throw new Error("devocionais.json não encontrado");
-    }
-
-    const data = await response.json();
-
-    devotionals =
-      Array.isArray(data)
-        ? data
-        : (
-            Array.isArray(data.devocionais)
-              ? data.devocionais
-              : []
-          );
-
-    if(!devotionals.length){
-      throw new Error(
-        "Nenhum devocional encontrado"
-      );
-    }
-
-  }catch(err){
-
-    console.error(err);
-
-    /*
-      Fallback apenas para a interface não ficar
-      completamente vazia caso o JSON não carregue.
-    */
-
-    devotionals = Array.from(
-      {length:365},
-      (_,i) => ({
-
-        dia:i+1,
-
-        titulo:
-          i === 0
-            ? "Comece aprendendo a percebê-lo"
-            : `Jornada — Dia ${i+1}`,
-
-        introducao:
-          i === 0
-            ? "A presença não precisa ser fabricada. Aprenda a reconhecer aquilo que já está aqui."
-            : "Um novo passo para aprofundar sua caminhada.",
-
-        referencia:
-          "João 14:16–17",
-
-        reflexao:
-          "O conteúdo deste dia será carregado a partir do seu devocionais.json.",
-
-        pratica:
-          "Abra o coração, diminua o ruído e permaneça alguns minutos consciente da presença do Doce Espírito Santo.",
-
-        pergunta:
-          "O que estou percebendo hoje?",
-
-        oracao:
-          "Doce Espírito Santo, ensina-me a perceber Tua presença e a viver esta jornada com verdade. Amém."
-      })
-    );
+  if(Array.isArray(value)){
+    return value.join(" ");
   }
 
-  renderAll();
+  return String(value ?? "");
+
 }
 
 
-/* =========================================================
-   LOCALIZAR DIA
-========================================================= */
+function isDone(day){
 
-function getDay(n){
+  return localStorage.getItem(doneKey(day)) === "true";
 
-  return (
-    devotionals.find(
-      d => Number(d.dia) === Number(n)
-    )
-    ||
-    devotionals[n-1]
+}
+
+
+function isFavorite(day){
+
+  return localStorage.getItem(favKey(day)) === "true";
+
+}
+
+
+function getDay(number){
+
+  return devotionals.find(
+    item => Number(item.dia) === Number(number)
   );
+
 }
 
 
 /* =========================================================
-   PRÓXIMO DIA
+   CORES CINEMATOGRÁFICAS
+   Cada card recebe uma atmosfera diferente
 ========================================================= */
 
-function getNextDay(){
+const posterPalettes = [
 
-  const first =
-    devotionals.find(
-      d => !isDone(Number(d.dia))
-    );
+  ["#4c3016","#120b06","#e8bb72"],
+  ["#30251a","#0b0907","#d9c39a"],
+  ["#563519","#100906","#f0c777"],
+  ["#37261b","#0a0806","#d8b27a"],
+  ["#5a3b20","#120b06","#f3d59a"],
+  ["#2c241b","#090806","#c9ae7b"],
+  ["#47301c","#100a06","#e7c184"],
+  ["#392619","#080706","#f0cc8a"],
+  ["#51341c","#0d0906","#ddb36c"],
+  ["#2a2119","#080706","#e6cfaa"]
+];
 
-  return first || devotionals[0];
+
+function getPalette(day){
+
+  return posterPalettes[
+    (Number(day) - 1) %
+    posterPalettes.length
+  ];
+
+}
+
+
+function getPosterStyle(day){
+
+  const palette = getPalette(day);
+
+  const angle =
+    125 +
+    ((Number(day) * 17) % 60);
+
+  const glowX =
+    25 +
+    ((Number(day) * 13) % 55);
+
+  const glowY =
+    10 +
+    ((Number(day) * 7) % 55);
+
+  return `
+    background:
+      radial-gradient(
+        circle at ${glowX}% ${glowY}%,
+        ${palette[2]}55,
+        transparent 22%
+      ),
+      radial-gradient(
+        circle at 70% 75%,
+        ${palette[2]}18,
+        transparent 32%
+      ),
+      linear-gradient(
+        ${angle}deg,
+        ${palette[0]},
+        ${palette[1]} 72%
+      );
+  `;
+
+}
+
+
+function getFeatherRotation(day){
+
+  const rotations = [
+    "-22deg",
+    "-12deg",
+    "8deg",
+    "18deg",
+    "-30deg",
+    "24deg",
+    "-5deg"
+  ];
+
+  return rotations[
+    (Number(day)-1) %
+    rotations.length
+  ];
+
+}
+
+
+/* =========================================================
+   POSTER VISUAL
+========================================================= */
+
+function posterArt(day){
+
+  const n = Number(day);
+
+  return `
+    <div
+      class="generated-poster-art"
+      style="
+        position:absolute;
+        inset:0;
+        overflow:hidden;
+        ${getPosterStyle(n)}
+      "
+    >
+
+      <div
+        style="
+          position:absolute;
+          width:80px;
+          height:80px;
+          right:-15px;
+          top:20px;
+          border-radius:50%;
+          background:rgba(255,221,163,.13);
+          filter:blur(18px);
+        "
+      ></div>
+
+      <div
+        style="
+          position:absolute;
+          width:120px;
+          height:1px;
+          left:12px;
+          top:39px;
+          background:
+            linear-gradient(
+              90deg,
+              transparent,
+              rgba(245,210,145,.55),
+              transparent
+            );
+        "
+      ></div>
+
+      <div
+        style="
+          position:absolute;
+          width:55px;
+          height:55px;
+          left:50%;
+          top:51%;
+          transform:
+            translate(-50%,-50%)
+            rotate(${getFeatherRotation(n)});
+          opacity:.58;
+          color:#f3d49a;
+          font-size:47px;
+          line-height:1;
+          font-family:Georgia,serif;
+          text-shadow:
+            0 10px 20px rgba(0,0,0,.7);
+        "
+      >⌁</div>
+
+      <div
+        style="
+          position:absolute;
+          left:0;
+          right:0;
+          bottom:0;
+          height:65%;
+          background:
+            linear-gradient(
+              180deg,
+              transparent,
+              rgba(0,0,0,.75)
+            );
+        "
+      ></div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+function cardHTML(day){
+
+  const n = Number(day.dia);
+
+  const title =
+    day.titulo ||
+    `Encontro do Dia ${n}`;
+
+  const done =
+    isDone(n);
+
+  return `
+
+    <button
+      class="dev-card ${done ? "done" : ""}"
+      data-open-day="${n}"
+      aria-label="Abrir Dia ${n}: ${escapeHTML(title)}"
+    >
+
+      ${posterArt(n)}
+
+      <div class="dev-card-content">
+
+        <div class="dev-card-day">
+          DIA ${String(n).padStart(2,"0")}
+        </div>
+
+        <h3>
+          ${escapeHTML(title)}
+        </h3>
+
+      </div>
+
+    </button>
+
+  `;
+
+}
+
+
+/* =========================================================
+   TOP 10
+========================================================= */
+
+function topTenHTML(day,index){
+
+  const n = Number(day.dia);
+
+  return `
+
+    <button
+      class="top-ten-item"
+      data-open-day="${n}"
+      aria-label="Top ${index + 1}"
+    >
+
+      <div class="top-ten-number">
+        ${index + 1}
+      </div>
+
+      <div
+        class="top-ten-poster"
+        style="${getPosterStyle(n)}"
+      >
+
+        <div
+          style="
+            position:absolute;
+            inset:0;
+            background:
+              radial-gradient(
+                circle at 65% 20%,
+                rgba(255,224,165,.22),
+                transparent 24%
+              ),
+              linear-gradient(
+                180deg,
+                transparent 25%,
+                rgba(0,0,0,.8)
+              );
+          "
+        ></div>
+
+        <div
+          style="
+            position:absolute;
+            left:11px;
+            right:11px;
+            bottom:11px;
+            z-index:5;
+          "
+        >
+
+          <small
+            style="
+              color:#f1d39a;
+              font-size:7px;
+              letter-spacing:1.5px;
+            "
+          >
+            DIA ${String(n).padStart(2,"0")}
+          </small>
+
+          <strong
+            style="
+              display:block;
+              margin-top:4px;
+              color:#fff8ef;
+              font-family:Georgia,serif;
+              font-size:14px;
+              line-height:1.05;
+            "
+          >
+            ${escapeHTML(
+              day.titulo ||
+              "Um novo encontro"
+            )}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </button>
+
+  `;
+
 }
 
 
@@ -143,100 +387,105 @@ function getNextDay(){
 
 function countDone(){
 
-  let count = 0;
+  let total = 0;
 
-  for(let i = 1; i <= 365; i++){
+  devotionals.forEach(day => {
 
-    if(isDone(i)){
-      count++;
+    if(isDone(Number(day.dia))){
+      total++;
     }
 
-  }
+  });
 
-  return count;
+  return total;
+
 }
 
 
 function updateProgress(){
 
-  const done = countDone();
+  const done =
+    countDone();
 
-  const pct =
+  const total =
+    Math.max(
+      365,
+      devotionals.length
+    );
+
+  const percent =
     Math.min(
       100,
-      (done / 365) * 100
+      (done / total) * 100
     );
+
 
   if($("progressLabel")){
     $("progressLabel").textContent =
-      `${done} / 365`;
+      `${done} / ${total}`;
   }
+
 
   if($("progressFill")){
     $("progressFill").style.width =
-      `${pct}%`;
+      `${percent}%`;
   }
+
 
   if($("journeyDone")){
     $("journeyDone").textContent =
       done;
   }
 
+
   if($("journeyPercent")){
     $("journeyPercent").textContent =
-      `${Math.round(pct)}%`;
+      `${Math.round(percent)}%`;
   }
+
 
   if($("profileProgress")){
     $("profileProgress").textContent =
-      `${done} / 365`;
+      `${done} / ${total}`;
   }
+
 
   if($("profileProgressFill")){
     $("profileProgressFill").style.width =
-      `${pct}%`;
+      `${percent}%`;
   }
+
+
+  if($("heroProgressFill")){
+    $("heroProgressFill").style.width =
+      `${percent}%`;
+  }
+
+
+  if($("heroProgressLabel")){
+    $("heroProgressLabel").textContent =
+      `${done} de ${total} dias`;
+  }
+
 }
 
 
 /* =========================================================
-   CARD
+   PRÓXIMO DIA
 ========================================================= */
 
-function cardHTML(day){
+function getNextDay(){
 
-  const n = Number(day.dia);
+  const unfinished =
+    devotionals.find(
+      day =>
+        !isDone(Number(day.dia))
+    );
 
-  return `
+  return unfinished ||
+         devotionals[0] ||
+         null;
 
-    <button
-      class="dev-card ${isDone(n) ? "done" : ""}"
-      data-open-day="${n}"
-    >
-
-      <img
-        src="capa.jpeg"
-        alt=""
-      >
-
-      <div class="dev-card-content">
-
-        <div class="dev-card-day">
-          DIA ${String(n).padStart(2,"0")}
-        </div>
-
-        <h3>
-          ${escapeHTML(
-            day.titulo ||
-            "Um novo encontro"
-          )}
-        </h3>
-
-      </div>
-
-    </button>
-
-  `;
 }
 
 
@@ -246,84 +495,147 @@ function cardHTML(day){
 
 function renderRails(){
 
-  const next = getNextDay();
+  const next =
+    getNextDay();
+
+
+  /* CONTINUE */
 
   if(next){
 
     const n =
       Number(next.dia);
 
-    $("continueNumber").textContent =
-      String(n).padStart(2,"0");
+    if($("continueNumber")){
+      $("continueNumber").textContent =
+        String(n).padStart(2,"0");
+    }
 
-    $("continueTitle").textContent =
-      next.titulo ||
-      `Dia ${n}`;
+    if($("continueTitle")){
+      $("continueTitle").textContent =
+        next.titulo ||
+        `Dia ${n}`;
+    }
 
-    $("continueIntro").textContent =
-      next.introducao ||
-      "Continue sua jornada.";
+    if($("continueIntro")){
+      $("continueIntro").textContent =
+        next.introducao ||
+        "Continue sua caminhada.";
+    }
+
   }
 
 
-  /*
-    Primeira fileira
-  */
+  /* PARA HOJE */
 
-  $("todayRail").innerHTML =
-    devotionals
-      .slice(0,10)
-      .map(cardHTML)
-      .join("");
+  const todayItems =
+    devotionals.slice(
+      Math.max(
+        0,
+        (next ? Number(next.dia)-1 : 0)
+      ),
+      Math.max(
+        0,
+        (next ? Number(next.dia)-1 : 0)
+      ) + 10
+    );
+
+  if($("todayRail")){
+
+    $("todayRail").innerHTML =
+      todayItems
+        .map(cardHTML)
+        .join("");
+
+  }
 
 
-  /*
-    Fileira sobre presença
-  */
+  /* PRESENÇA */
 
-  $("presenceRail").innerHTML =
-    devotionals
-      .filter(d =>
-        /presen|perceb|silên|silenc|atenção|presença/i
-          .test(
-            `${d.titulo}
-             ${d.introducao}
-             ${d.pratica}`
-          )
+  const presence =
+    devotionals.filter(
+      day => {
+
+        const text =
+          (
+            normalizeText(day.titulo) +
+            " " +
+            normalizeText(day.introducao) +
+            " " +
+            normalizeText(day.reflexao) +
+            " " +
+            normalizeText(day.pratica)
+          ).toLowerCase();
+
+        return (
+          text.includes("presença") ||
+          text.includes("presenca") ||
+          text.includes("perceb") ||
+          text.includes("silêncio") ||
+          text.includes("silencio") ||
+          text.includes("atenção") ||
+          text.includes("atencao")
+        );
+
+      }
+    );
+
+
+  if($("presenceRail")){
+
+    $("presenceRail").innerHTML =
+      (
+        presence.length
+          ? presence
+          : devotionals
       )
       .slice(0,10)
       .map(cardHTML)
       .join("");
 
-
-  /*
-    Caso não encontre conteúdo
-  */
-
-  if(
-    !$("presenceRail").innerHTML
-  ){
-
-    $("presenceRail").innerHTML =
-      devotionals
-        .slice(0,10)
-        .map(cardHTML)
-        .join("");
   }
 
 
-  /*
-    Jornada
-  */
+  /* JORNADA */
 
-  $("journeyRail").innerHTML =
-    devotionals
-      .slice(0,14)
-      .map(cardHTML)
-      .join("");
+  if($("journeyRail")){
+
+    $("journeyRail").innerHTML =
+      devotionals
+        .slice(0,14)
+        .map(cardHTML)
+        .join("");
+
+  }
+
+
+  /* TOP 10 */
+
+  const topTen =
+    [...devotionals]
+      .sort(
+        (a,b) =>
+          Number(a.dia) -
+          Number(b.dia)
+      )
+      .slice(0,10);
+
+
+  if($("topTenRail")){
+
+    $("topTenRail").innerHTML =
+      topTen
+        .map(
+          (day,index) =>
+            topTenHTML(day,index)
+        )
+        .join("");
+
+  }
 
 
   bindCards();
+
 }
 
 
@@ -333,17 +645,22 @@ function renderRails(){
 
 function renderDayGrid(){
 
+  if(!$("dayGrid")) return;
+
   $("dayGrid").innerHTML =
     devotionals
-      .map(d => {
+      .map(day => {
 
         const n =
-          Number(d.dia);
+          Number(day.dia);
 
         return `
 
           <button
-            class="day-tile ${isDone(n) ? "done" : ""}"
+            class="
+              day-tile
+              ${isDone(n) ? "done" : ""}
+            "
             data-open-day="${n}"
           >
 
@@ -353,7 +670,7 @@ function renderDayGrid(){
 
             <strong>
               ${escapeHTML(
-                d.titulo ||
+                day.titulo ||
                 "Devocional"
               )}
             </strong>
@@ -361,10 +678,13 @@ function renderDayGrid(){
           </button>
 
         `;
+
       })
       .join("");
 
+
   bindCards();
+
 }
 
 
@@ -374,81 +694,120 @@ function renderDayGrid(){
 
 function renderFavorites(){
 
-  const favs =
+  if(!$("favoritesRail"))
+    return;
+
+
+  const favorites =
     devotionals.filter(
-      d => isFavorite(
-        Number(d.dia)
-      )
+      day =>
+        isFavorite(
+          Number(day.dia)
+        )
     );
 
+
   $("favoritesRail").innerHTML =
-    favs
+    favorites
       .map(cardHTML)
       .join("");
 
-  $("favoritesEmpty").style.display =
-    favs.length
-      ? "none"
-      : "block";
+
+  if($("favoritesEmpty")){
+
+    $("favoritesEmpty").style.display =
+      favorites.length
+        ? "none"
+        : "block";
+
+  }
+
 
   bindCards();
+
 }
 
 
 /* =========================================================
-   TELA "HOJE"
+   TELA HOJE
 ========================================================= */
 
 function renderToday(){
 
-  const day =
-    getNextDay() ||
-    devotionals[0];
+  if(!$("todayDetail"))
+    return;
 
-  if(!day) return;
+
+  const day =
+    getNextDay();
+
+
+  if(!day)
+    return;
+
+
+  const n =
+    Number(day.dia);
+
 
   $("todayDetail").innerHTML = `
 
-    <div
-      class="journey-card"
-      data-open-day="${Number(day.dia)}"
+    <button
+      class="continue-card"
+      data-open-day="${n}"
     >
 
-      <div class="journey-number">
-        ${String(
-          Number(day.dia)
-        ).padStart(2,"0")}
+      <div class="continue-art">
+
+        <div class="continue-orb"></div>
+
+        <div class="continue-feather">
+          ⌁
+        </div>
+
+        <div class="continue-number">
+          DIA ${String(n).padStart(2,"0")}
+        </div>
+
       </div>
 
-      <div class="journey-copy">
+      <div class="continue-copy">
 
-        <span>
+        <span class="continue-label">
           SEU PRÓXIMO ENCONTRO
         </span>
 
         <h3>
-          ${escapeHTML(day.titulo)}
+          ${escapeHTML(
+            day.titulo ||
+            `Dia ${n}`
+          )}
         </h3>
 
         <p>
           ${escapeHTML(
-            day.introducao || ""
+            day.introducao ||
+            "Continue sua caminhada."
           )}
         </p>
 
       </div>
 
-      <div class="journey-arrow">
+      <div class="continue-arrow">
         ›
       </div>
 
-    </div>
+    </button>
+
 
     <div style="padding:18px">
 
       <div
         class="detail-block"
-        style="border-top:0;margin-top:0"
+        style="
+          border-top:0;
+          margin-top:0;
+        "
       >
 
         <span>
@@ -457,11 +816,14 @@ function renderToday(){
 
         <p>
           ${escapeHTML(
-            day.referencia || ""
+            day.referencia ||
+            day.biblia ||
+            ""
           )}
         </p>
 
       </div>
+
 
       <div class="detail-block">
 
@@ -471,24 +833,34 @@ function renderToday(){
 
         <p>
           ${escapeHTML(
-            day.pratica || ""
+            day.pratica ||
+            ""
           )}
         </p>
 
       </div>
 
+
       <button
         class="primary-cta wide"
-        data-open-day="${Number(day.dia)}"
+        data-open-day="${n}"
       >
+
+        <span class="play-icon">
+          ▶
+        </span>
+
         Abrir encontro
+
       </button>
 
     </div>
 
   `;
 
+
   bindCards();
+
 }
 
 
@@ -501,114 +873,146 @@ function openDay(dayNumber){
   const day =
     getDay(dayNumber);
 
-  if(!day) return;
+
+  if(!day)
+    return;
+
 
   currentDay =
     Number(day.dia);
 
 
-  $("detailDay").textContent =
-    `DIA ${String(
-      currentDay
-    ).padStart(2,"0")}`;
+  if($("detailDay")){
+
+    $("detailDay").textContent =
+      `DIA ${String(currentDay).padStart(2,"0")}`;
+
+  }
 
 
-  $("detailRef").textContent =
-    day.referencia ||
-    day.biblia ||
-    "";
+  if($("detailRef")){
+
+    $("detailRef").textContent =
+      day.referencia ||
+      day.biblia ||
+      "";
+
+  }
 
 
-  $("detailTitle").textContent =
-    day.titulo ||
-    "";
+  if($("detailTitle")){
+
+    $("detailTitle").textContent =
+      day.titulo ||
+      "";
+
+  }
 
 
-  $("detailIntro").textContent =
-    day.introducao ||
-    "";
+  if($("detailIntro")){
+
+    $("detailIntro").textContent =
+      day.introducao ||
+      "";
+
+  }
 
 
-  $("detailPractice").textContent =
-    day.pratica ||
-    "";
+  if($("detailPractice")){
+
+    $("detailPractice").textContent =
+      day.pratica ||
+      "";
+
+  }
 
 
-  $("detailQuestion").textContent =
-    day.pergunta ||
-    "";
+  if($("detailQuestion")){
+
+    $("detailQuestion").textContent =
+      day.pergunta ||
+      "";
+
+  }
 
 
-  $("detailPrayer").textContent =
-    day.oracao ||
-    "";
+  if($("detailPrayer")){
+
+    $("detailPrayer").textContent =
+      day.oracao ||
+      "";
+
+  }
 
 
-  /*
-    Reflexão
-  */
+  /* REFLEXÃO */
 
-  const reflection =
-    day.reflexao ||
-    "";
+  if($("detailReflection")){
 
+    const reflection =
+      day.reflexao ||
+      "";
 
-  const paragraphs =
-    Array.isArray(reflection)
-      ? reflection
-      : String(
-          reflection
-        ).split(/\n+/);
+    const paragraphs =
+      Array.isArray(reflection)
+        ? reflection
+        : String(reflection)
+            .split(/\n+/);
 
 
-  $("detailReflection").innerHTML =
-    paragraphs
-      .filter(Boolean)
-      .map(
-        p =>
-          `<p>${escapeHTML(p)}</p>`
-      )
-      .join("");
+    $("detailReflection").innerHTML =
+      paragraphs
+        .filter(Boolean)
+        .map(
+          paragraph =>
+            `<p>${escapeHTML(paragraph)}</p>`
+        )
+        .join("");
+
+  }
 
 
-  /*
-    Favorito
-  */
+  /* BOTÃO FAVORITO */
 
-  $("favoriteButton").textContent =
-    isFavorite(currentDay)
-      ? "♥ Na minha lista"
-      : "♡ Minha lista";
+  if($("favoriteButton")){
 
+    $("favoriteButton").textContent =
+      isFavorite(currentDay)
+        ? "♥ Na minha lista"
+        : "♡ Minha lista";
 
-  /*
-    Concluído
-  */
-
-  $("completeButton").textContent =
-    isDone(currentDay)
-      ? "✓ Dia concluído"
-      : "✓ Concluir este dia";
+  }
 
 
-  /*
-    Abrir modal
-  */
+  /* BOTÃO CONCLUSÃO */
 
-  $("detailModal")
-    .classList
-    .add("open");
+  if($("completeButton")){
+
+    $("completeButton").textContent =
+      isDone(currentDay)
+        ? "✓ Dia concluído"
+        : "✓ Concluir este dia";
+
+  }
 
 
-  $("detailModal")
-    .setAttribute(
+  /* MODAL */
+
+  if($("detailModal")){
+
+    $("detailModal").classList.add("open");
+
+    $("detailModal").setAttribute(
       "aria-hidden",
       "false"
     );
 
+  }
+
 
   document.body.style.overflow =
     "hidden";
+
 }
 
 
@@ -617,6 +1021,10 @@ function openDay(dayNumber){
 ========================================================= */
 
 function closeModal(){
+
+  if(!$("detailModal"))
+    return;
+
 
   $("detailModal")
     .classList
@@ -632,11 +1040,12 @@ function closeModal(){
 
   document.body.style.overflow =
     "";
+
 }
 
 
 /* =========================================================
-   CONCLUIR DIA
+   CONCLUIR
 ========================================================= */
 
 function completeCurrentDay(){
@@ -645,6 +1054,7 @@ function completeCurrentDay(){
     doneKey(currentDay),
     "true"
   );
+
 
   updateProgress();
 
@@ -657,13 +1067,18 @@ function completeCurrentDay(){
   renderToday();
 
 
-  $("completeButton").textContent =
-    "✓ Dia concluído";
+  if($("completeButton")){
+
+    $("completeButton").textContent =
+      "✓ Dia concluído";
+
+  }
+
 }
 
 
 /* =========================================================
-   FAVORITAR
+   FAVORITO
 ========================================================= */
 
 function toggleFavorite(){
@@ -676,9 +1091,7 @@ function toggleFavorite(){
     isFavorite(currentDay)
   ){
 
-    localStorage.removeItem(
-      key
-    );
+    localStorage.removeItem(key);
 
   }else{
 
@@ -690,13 +1103,18 @@ function toggleFavorite(){
   }
 
 
-  $("favoriteButton").textContent =
-    isFavorite(currentDay)
-      ? "♥ Na minha lista"
-      : "♡ Minha lista";
+  if($("favoriteButton")){
+
+    $("favoriteButton").textContent =
+      isFavorite(currentDay)
+        ? "♥ Na minha lista"
+        : "♡ Minha lista";
+
+  }
 
 
   renderFavorites();
+
 }
 
 
@@ -709,20 +1127,20 @@ function showScreen(name){
   document
     .querySelectorAll(".screen")
     .forEach(
-      s =>
-        s.classList.remove(
+      screen =>
+        screen.classList.remove(
           "active"
         )
     );
 
 
-  const screen =
+  const target =
     $(`${name}Screen`);
 
 
-  if(screen){
+  if(target){
 
-    screen.classList.add(
+    target.classList.add(
       "active"
     );
 
@@ -730,15 +1148,16 @@ function showScreen(name){
 
 
   document
-    .querySelectorAll(
-      ".nav-item"
-    )
+    .querySelectorAll(".nav-item")
     .forEach(
-      b =>
-        b.classList.toggle(
+      button => {
+
+        button.classList.toggle(
           "active",
-          b.dataset.action === name
-        )
+          button.dataset.action === name
+        );
+
+      }
     );
 
 
@@ -746,6 +1165,17 @@ function showScreen(name){
     top:0,
     behavior:"smooth"
   });
+
+
+  if(name === "today"){
+    renderToday();
+  }
+
+
+  if(name === "favorites"){
+    renderFavorites();
+  }
+
 }
 
 
@@ -755,32 +1185,48 @@ function showScreen(name){
 
 function openSearch(){
 
+  if(!$("searchOverlay"))
+    return;
+
+
   $("searchOverlay")
     .classList
     .add("open");
 
 
-  $("searchInput").value =
-    "";
+  if($("searchInput")){
 
+    $("searchInput").value = "";
 
-  setTimeout(
-    () =>
-      $("searchInput").focus(),
-    100
-  );
+    setTimeout(
+      () =>
+        $("searchInput").focus(),
+      100
+    );
+
+  }
+
 }
 
 
 function closeSearch(){
 
+  if(!$("searchOverlay"))
+    return;
+
+
   $("searchOverlay")
     .classList
     .remove("open");
+
 }
 
 
 function search(query){
+
+  if(!$("searchResults"))
+    return;
+
 
   const q =
     query
@@ -788,41 +1234,54 @@ function search(query){
       .toLowerCase();
 
 
+  if(!q){
+
+    $("searchResults").innerHTML =
+      "";
+
+    return;
+
+  }
+
+
   const results =
-    q
-      ? devotionals
-          .filter(d =>
-            `
-              ${d.dia}
-              ${d.titulo || ""}
-              ${d.introducao || ""}
-              ${d.reflexao || ""}
-              ${d.referencia || ""}
-            `
-              .toLowerCase()
-              .includes(q)
-          )
-          .slice(0,30)
-      : [];
+    devotionals
+      .filter(day => {
+
+        const text =
+          [
+            day.dia,
+            day.titulo,
+            day.introducao,
+            day.reflexao,
+            day.referencia,
+            day.pratica,
+            day.pergunta,
+            day.oracao
+          ]
+          .map(normalizeText)
+          .join(" ")
+          .toLowerCase();
+
+
+        return text.includes(q);
+
+      })
+      .slice(0,30);
 
 
   $("searchResults").innerHTML =
-    results
-      .map(cardHTML)
-      .join("")
-      ||
-      (
-        q
-          ? `
-            <div class="empty-state">
-              Nenhum encontro encontrado.
-            </div>
-          `
-          : ""
-      );
+    results.length
+      ? results.map(cardHTML).join("")
+      : `
+        <div class="empty-state">
+          Nenhum encontro encontrado.
+        </div>
+      `;
 
 
   bindCards();
+
 }
 
 
@@ -832,39 +1291,45 @@ function search(query){
 
 function saveJournal(){
 
+  if(!$("journal"))
+    return;
+
+
   localStorage.setItem(
-    "general-journal",
+    "doce-general-journal",
     $("journal").value
   );
 
 
-  const btn =
+  const button =
     document.querySelector(
       '[data-action="saveJournal"]'
     );
 
 
-  if(btn){
+  if(button){
 
-    const old =
-      btn.textContent;
+    const original =
+      button.textContent;
 
-    btn.textContent =
+    button.textContent =
       "Salvo ✓";
 
 
     setTimeout(
       () =>
-        btn.textContent =
-          old,
-      1400
+        button.textContent =
+          original,
+      1500
     );
+
   }
+
 }
 
 
 /* =========================================================
-   VINCULAR CARDS
+   EVENTOS DOS CARDS
 ========================================================= */
 
 function bindCards(){
@@ -873,16 +1338,21 @@ function bindCards(){
     .querySelectorAll(
       "[data-open-day]"
     )
-    .forEach(el => {
+    .forEach(element => {
 
-      el.onclick = () =>
-        openDay(
+      element.onclick = () => {
+
+        const day =
           Number(
-            el.dataset.openDay
-          )
-        );
+            element.dataset.openDay
+          );
+
+        openDay(day);
+
+      };
 
     });
+
 }
 
 
@@ -892,78 +1362,88 @@ function bindCards(){
 
 function handleAction(action){
 
-  if(action === "home"){
+  switch(action){
 
-    showScreen("home");
+    case "home":
 
-  }
+      showScreen("home");
 
-  else if(action === "journey"){
+      break;
 
-    showScreen("journey");
 
-  }
+    case "journey":
 
-  else if(action === "today"){
+      showScreen("journey");
 
-    showScreen("today");
+      break;
 
-    renderToday();
 
-  }
+    case "today":
 
-  else if(action === "favorites"){
+      showScreen("today");
 
-    showScreen("favorites");
+      break;
 
-    renderFavorites();
 
-  }
+    case "favorites":
 
-  else if(action === "profile"){
+      showScreen("favorites");
 
-    showScreen("profile");
+      break;
 
-  }
 
-  else if(action === "journal"){
+    case "profile":
 
-    showScreen("journal");
+      showScreen("profile");
 
-  }
+      break;
 
-  else if(action === "continue"){
 
-    openDay(
-      Number(
-        getNextDay()?.dia ||
-        1
-      )
-    );
+    case "journal":
 
-  }
+      showScreen("journal");
 
-  else if(action === "search"){
+      break;
 
-    openSearch();
 
-  }
+    case "continue":
 
-  else if(action === "closeModal"){
+      openDay(
+        Number(
+          getNextDay()?.dia ||
+          1
+        )
+      );
 
-    closeModal();
+      break;
 
-  }
 
-  else if(action === "closeSearch"){
+    case "search":
 
-    closeSearch();
+      openSearch();
 
-  }
+      break;
 
-  else if(action === "saveJournal"){
 
-    saveJournal();
+    case "closeModal":
+
+      closeModal();
+
+      break;
+
+
+    case "closeSearch":
+
+      closeSearch();
+
+      break;
+
+
+    case "saveJournal":
+
+      saveJournal();
+
+      break;
 
   }
 
@@ -971,7 +1451,287 @@ function handleAction(action){
 
 
 /* =========================================================
-   RENDERIZAÇÃO GERAL
+   FILTROS
+========================================================= */
+
+function applyFilter(filter){
+
+  currentFilter =
+    filter;
+
+
+  const matches =
+    devotionals.filter(
+      day => {
+
+        const text =
+          (
+            normalizeText(day.titulo) +
+            " " +
+            normalizeText(day.introducao) +
+            " " +
+            normalizeText(day.reflexao) +
+            " " +
+            normalizeText(day.pratica) +
+            " " +
+            normalizeText(day.oracao)
+          )
+          .toLowerCase();
+
+
+        switch(filter){
+
+          case "presence":
+
+            return (
+              text.includes("presença") ||
+              text.includes("presenca") ||
+              text.includes("perceb") ||
+              text.includes("silêncio") ||
+              text.includes("silencio") ||
+              text.includes("atenção") ||
+              text.includes("atencao")
+            );
+
+
+          case "prayer":
+
+            return (
+              text.includes("oração") ||
+              text.includes("oracao") ||
+              text.includes("orar") ||
+              text.includes("oração")
+            );
+
+
+          case "word":
+
+            return (
+              text.includes("palavra") ||
+              text.includes("bíblia") ||
+              text.includes("biblia") ||
+              text.includes("escritura") ||
+              text.includes("versículo") ||
+              text.includes("versiculo")
+            );
+
+
+          case "journey":
+
+            return true;
+
+
+          default:
+
+            return true;
+
+        }
+
+      }
+    );
+
+
+  if(filter === "all"){
+
+    renderRails();
+
+    return;
+
+  }
+
+
+  if($("todayRail")){
+
+    $("todayRail").innerHTML =
+      matches
+        .slice(0,12)
+        .map(cardHTML)
+        .join("");
+
+  }
+
+
+  if($("presenceRail")){
+
+    $("presenceRail").innerHTML =
+      matches
+        .slice(12,24)
+        .map(cardHTML)
+        .join("");
+
+  }
+
+
+  if($("journeyRail")){
+
+    $("journeyRail").innerHTML =
+      matches
+        .slice(24,38)
+        .map(cardHTML)
+        .join("");
+
+  }
+
+
+  bindCards();
+
+}
+
+
+/* =========================================================
+   CARREGAMENTO DOS DEVOCIONAIS
+========================================================= */
+
+async function loadDevotionals(){
+
+  try{
+
+    const response =
+      await fetch(
+        `devocionais.json?v=${Date.now()}`
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        "Não foi possível carregar devocionais.json"
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    if(Array.isArray(data)){
+
+      devotionals =
+        data;
+
+    }
+
+    else if(
+      Array.isArray(
+        data.devocionais
+      )
+    ){
+
+      devotionals =
+        data.devocionais;
+
+    }
+
+    else if(
+      Array.isArray(
+        data.days
+      )
+    ){
+
+      devotionals =
+        data.days;
+
+    }
+
+    else if(
+      Array.isArray(
+        data.dias
+      )
+    ){
+
+      devotionals =
+        data.dias;
+
+    }
+
+    else{
+
+      throw new Error(
+        "Estrutura do devocionais.json não reconhecida"
+      );
+
+    }
+
+
+    devotionals =
+      devotionals
+        .filter(Boolean)
+        .sort(
+          (a,b) =>
+            Number(a.dia || 0) -
+            Number(b.dia || 0)
+        );
+
+
+    if(!devotionals.length){
+
+      throw new Error(
+        "O arquivo não possui devocionais."
+      );
+
+    }
+
+
+    console.log(
+      `✓ ${devotionals.length} devocionais carregados`
+    );
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Erro ao carregar devocionais:",
+      error
+    );
+
+
+    /*
+      Não vamos inventar 365 conteúdos.
+      Se o JSON não carregar, mostramos
+      apenas uma mensagem elegante.
+    */
+
+    devotionals = [
+
+      {
+        dia:1,
+
+        titulo:
+          "A presença que já está aqui",
+
+        referencia:
+          "João 14:16–17",
+
+        introducao:
+          "Antes de tentar encontrar alguma coisa, pare. A presença não precisa ser fabricada.",
+
+        reflexao:
+          "O Doce Espírito Santo não chega apenas quando sentimos alguma emoção extraordinária. Ele já está aqui.",
+
+        pratica:
+          "Diminua o ritmo por alguns minutos e perceba conscientemente o ambiente ao seu redor.",
+
+        pergunta:
+          "O que muda em mim quando percebo que não estou sozinho?",
+
+        oracao:
+          "Doce Espírito Santo, ensina-me a perceber Tua presença."
+      }
+
+    ];
+
+  }
+
+
+  renderAll();
+
+}
+
+
+/* =========================================================
+   RENDER GERAL
 ========================================================= */
 
 function renderAll(){
@@ -987,42 +1747,45 @@ function renderAll(){
   updateProgress();
 
 
-  const saved =
+  const journal =
     localStorage.getItem(
-      "general-journal"
+      "doce-general-journal"
     );
 
 
   if(
-    saved &&
+    journal &&
     $("journal")
   ){
 
     $("journal").value =
-      saved;
+      journal;
 
   }
+
 }
 
 
 /* =========================================================
-   EVENTOS
+   EVENT LISTENER GLOBAL
 ========================================================= */
 
 document.addEventListener(
   "click",
-  e => {
+  event => {
 
-    const actionEl =
-      e.target.closest(
+    const actionElement =
+      event.target.closest(
         "[data-action]"
       );
 
 
-    if(actionEl){
+    if(
+      actionElement
+    ){
 
       handleAction(
-        actionEl.dataset.action
+        actionElement.dataset.action
       );
 
     }
@@ -1035,32 +1798,44 @@ document.addEventListener(
    BOTÕES DO MODAL
 ========================================================= */
 
-$("completeButton")
-  .addEventListener(
-    "click",
-    completeCurrentDay
-  );
+if($("completeButton")){
+
+  $("completeButton")
+    .addEventListener(
+      "click",
+      completeCurrentDay
+    );
+
+}
 
 
-$("favoriteButton")
-  .addEventListener(
-    "click",
-    toggleFavorite
-  );
+if($("favoriteButton")){
+
+  $("favoriteButton")
+    .addEventListener(
+      "click",
+      toggleFavorite
+    );
+
+}
 
 
 /* =========================================================
    BUSCA
 ========================================================= */
 
-$("searchInput")
-  .addEventListener(
-    "input",
-    e =>
-      search(
-        e.target.value
-      )
-  );
+if($("searchInput")){
+
+  $("searchInput")
+    .addEventListener(
+      "input",
+      event =>
+        search(
+          event.target.value
+        )
+    );
+
+}
 
 
 /* =========================================================
@@ -1078,8 +1853,8 @@ document
         document
           .querySelectorAll(".chip")
           .forEach(
-            c =>
-              c.classList.remove(
+            item =>
+              item.classList.remove(
                 "active"
               )
           );
@@ -1090,95 +1865,10 @@ document
         );
 
 
-        currentFilter =
-          chip.dataset.filter;
-
-
-        if(
-          currentFilter === "all"
-        ){
-
-          renderRails();
-
-          return;
-        }
-
-
-        const filtered =
-          devotionals.filter(
-            d => {
-
-              const text =
-                `
-                  ${d.titulo || ""}
-                  ${d.introducao || ""}
-                  ${d.reflexao || ""}
-                  ${d.pratica || ""}
-                `
-                  .toLowerCase();
-
-
-              if(
-                currentFilter ===
-                "presence"
-              ){
-
-                return /presen|perceb|atenção|silên|silenc/
-                  .test(text);
-
-              }
-
-
-              if(
-                currentFilter ===
-                "prayer"
-              ){
-
-                return /oraç|oração|orar/
-                  .test(text);
-
-              }
-
-
-              if(
-                currentFilter ===
-                "word"
-              ){
-
-                return /palavra|bíblia|bíblico|escritura/
-                  .test(text);
-
-              }
-
-
-              return true;
-
-            }
-          );
-
-
-        $("todayRail").innerHTML =
-          filtered
-            .slice(0,12)
-            .map(cardHTML)
-            .join("");
-
-
-        $("presenceRail").innerHTML =
-          filtered
-            .slice(12,24)
-            .map(cardHTML)
-            .join("");
-
-
-        $("journeyRail").innerHTML =
-          filtered
-            .slice(24,38)
-            .map(cardHTML)
-            .join("");
-
-
-        bindCards();
+        applyFilter(
+          chip.dataset.filter ||
+          "all"
+        );
 
       }
     );
@@ -1187,19 +1877,23 @@ document
 
 
 /* =========================================================
-   TOPBAR
+   SCROLL TOPBAR
 ========================================================= */
 
 window.addEventListener(
   "scroll",
   () => {
 
-    $("topbar")
-      .classList
-      .toggle(
-        "scrolled",
-        window.scrollY > 20
-      );
+    if($("topbar")){
+
+      $("topbar")
+        .classList
+        .toggle(
+          "scrolled",
+          window.scrollY > 25
+        );
+
+    }
 
   },
   {
@@ -1209,36 +1903,14 @@ window.addEventListener(
 
 
 /* =========================================================
-   FECHAR MODAL CLICANDO FORA
-========================================================= */
-
-$("detailModal")
-  .addEventListener(
-    "click",
-    e => {
-
-      if(
-        e.target ===
-        $("detailModal")
-      ){
-
-        closeModal();
-
-      }
-
-    }
-  );
-
-
-/* =========================================================
-   TECLA ESC
+   ESC PARA FECHAR
 ========================================================= */
 
 document.addEventListener(
   "keydown",
-  e => {
+  event => {
 
-    if(e.key === "Escape"){
+    if(event.key === "Escape"){
 
       closeModal();
 
@@ -1251,7 +1923,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   INICIAR APP
+   INICIAR
 ========================================================= */
 
 loadDevotionals();
