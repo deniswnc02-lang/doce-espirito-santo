@@ -1519,3 +1519,188 @@ main {
   }
 
 }
+/* =========================================================
+   CORREÇÃO VISUAL — DOCE ESPÍRITO SANTO
+   Cole este bloco no FINAL de styles.css
+========================================================= */
+
+/* Corrige o caminho da arte principal: o SVG está na raiz */
+.hero::before {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(8, 7, 6, 0.04) 0%,
+      rgba(8, 7, 6, 0.12) 35%,
+      rgba(8, 7, 6, 0.62) 68%,
+      rgba(8, 7, 6, 0.98) 100%
+    ),
+    url("./hero-presenca.svg");
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Garante que o conteúdo fique acima da imagem */
+.hero {
+  isolation: isolate;
+  position: relative;
+  min-height: min(760px, 90svh);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+}
+
+/* Ajusta os nomes das classes usadas pelo HTML atual */
+.content-section {
+  position: relative;
+  padding: 24px 18px 8px;
+}
+
+.horizontal-rail,
+.top10-rail {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 4px 2px 16px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.horizontal-rail::-webkit-scrollbar,
+.top10-rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* Corrige a aparência dos cartões gerados pelo app.js */
+.card-square {
+  position: relative;
+  flex: 0 0 156px;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #17100b;
+  scroll-snap-align: start;
+}
+
+.card-square-image {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.card-square-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-square-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.05) 15%,
+    rgba(0, 0, 0, 0.2) 45%,
+    rgba(0, 0, 0, 0.92) 100%
+  );
+  pointer-events: none;
+}
+
+.card-square-top,
+.card-square-content {
+  position: absolute;
+  z-index: 2;
+  left: 12px;
+  right: 12px;
+}
+
+.card-square-top {
+  top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-square-content {
+  bottom: 13px;
+}
+
+.card-square-content h3 {
+  margin: 5px 0;
+  color: #fff5e7;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.card-square-content p,
+.card-category,
+.card-day {
+  color: rgba(255, 242, 222, 0.78);
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.card-favorite {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  color: #f1d3a0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+/* Navegação compatível com o HTML atual */
+.bottom-nav button {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  height: 58px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: 0;
+  border-radius: 16px;
+  color: rgba(255, 255, 255, 0.55);
+  background: transparent;
+}
+
+.bottom-nav button.active {
+  color: #f1d3a0;
+  background: rgba(214, 161, 95, 0.1);
+}
+
+.bottom-nav button span {
+  font-size: 19px;
+}
+
+.bottom-nav button small {
+  font-size: 9px;
+}
+
+/* Ajustes para telas pequenas */
+@media (max-width: 480px) {
+  .hero {
+    min-height: 78svh;
+    padding: 120px 20px 48px;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 10vw, 52px);
+  }
+
+  .hero p {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .content-section {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+}
