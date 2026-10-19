@@ -1,269 +1,113 @@
-/* =========================================================
-   DOCE ESPÍRITO SANTO — UM AMIGO ÍNTIMO
-   SERVICE WORKER
-   ========================================================= */
+const CACHE_VERSION = "doce-espirito-v4";
 
-const CACHE_NAME = "doce-espirito-v3";
-
-const CORE_FILES = [
+const APP_SHELL = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
-  "./motor-editorial.js",
+  "./manifest.json",
   "./devocionais.json",
+  "./temas.json",
   "./estudos.json",
-  "./manifest.json"
+  "./planos.json",
+  "./biblia.json",
+  "./assets/capa.jpeg"
 ];
 
-/* =========================================================
-   INSTALAÇÃO
-   ========================================================= */
-
-self.addEventListener("install", event => {
-
+self.addEventListener("install", (event) => {
   event.waitUntil(
-
-    caches.open(CACHE_NAME)
-      .then(cache => {
-
-        return cache.addAll(
-          CORE_FILES
-        );
-
-      })
-      .catch(error => {
-
-        console.warn(
-          "Alguns arquivos não puderam ser armazenados:",
-          error
-        );
-
-      })
-
+    caches.open(CACHE_VERSION).then((cache) => {
+      return cache.addAll(APP_SHELL);
+    })
   );
-
-  /*
-    Faz a nova versão assumir o controle
-    imediatamente.
-  */
 
   self.skipWaiting();
-
 });
 
-
-/* =========================================================
-   ATIVAÇÃO
-   ========================================================= */
-
-self.addEventListener("activate", event => {
-
+self.addEventListener("activate", (event) => {
   event.waitUntil(
-
-    caches.keys()
-      .then(keys => {
-
-        return Promise.all(
-
-          keys
-            .filter(
-              key => key !== CACHE_NAME
-            )
-            .map(
-              key => caches.delete(key)
-            )
-
-        );
-
-      })
-      .then(() => {
-
-        /*
-          Assume imediatamente todas as páginas
-          abertas pelo aplicativo.
-        */
-
-        return self.clients.claim();
-
-      })
-
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames
+          .filter((cacheName) => cacheName !== CACHE_VERSION)
+          .map((cacheName) => caches.delete(cacheName))
+      );
+    }).then(() => {
+      return self.clients.claim();
+    })
   );
-
 });
 
+self.addEventListener("fetch", (event) => {
+  const request = event.request;
 
-/* =========================================================
-   FETCH
-   ========================================================= */
-
-self.addEventListener("fetch", event => {
-
-  const request =
-    event.request;
-
-  /*
-    Apenas requisições GET.
-  */
-
-  if (
-    request.method !== "GET"
-  ) {
+  if (request.method !== "GET") {
     return;
   }
 
+  const url = new URL(request.url);
+
+  if (url.origin !== self.location.origin) {
+    return;
+  }
 
   /*
-    JSON:
-    sempre tenta buscar a versão mais nova
-    na rede antes de usar o cache.
-  */
+   * Arquivos principais do aplicativo:
+   * sempre tenta buscar a versão atual primeiro.
+   */
+  const isAppFile =
+    url.pathname.endsWith("/index.html") ||
+    url.pathname.endsWith("/app.js") ||
+    url.pathname.endsWith("/styles.css") ||
+    url.pathname.endsWith("/manifest.json") ||
+    url.pathname.endsWith("/devocionais.json") ||
+    url.pathname.endsWith("/temas.json") ||
+    url.pathname.endsWith("/estudos.json") ||
+    url.pathname.endsWith("/planos.json") ||
+    url.pathname.endsWith("/biblia.json") ||
+    url.pathname.endsWith("/sw.js");
 
-  if (
-    request.url.endsWith(".json") ||
-    request.url.includes(".json?")
-  ) {
-
+  if (isAppFile) {
     event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response && response.ok) {
+            const responseClone = response.clone();
 
-      fetch(request, {
-        cache: "no-store"
-      })
-
-        .then(response => {
-
-          /*
-            Atualiza o cache com a versão nova.
-          */
-
-          const clone =
-            response.clone();
-
-          caches.open(CACHE_NAME)
-            .then(cache => {
-
-              cache.put(
-                request,
-                clone
-              );
-
+            caches.open(CACHE_VERSION).then((cache) => {
+              cache.put(request, responseClone);
             });
+          }
 
           return response;
-
         })
-
         .catch(() => {
-
-          return caches.match(
-            request
-          );
-
+          return caches.match(request);
         })
-
     );
 
     return;
   }
 
-
   /*
-    JavaScript e CSS:
-    prioriza a rede.
-    
-    Isso é importante durante o desenvolvimento,
-    porque alterações no GitHub precisam aparecer
-    imediatamente.
-  */
-
-  if (
-    request.url.endsWith(".js") ||
-    request.url.endsWith(".css")
-  ) {
-
-    event.respondWith(
-
-      fetch(request, {
-        cache: "no-store"
-      })
-
-        .then(response => {
-
-          const clone =
-            response.clone();
-
-          caches.open(CACHE_NAME)
-            .then(cache => {
-
-              cache.put(
-                request,
-                clone
-              );
-
-            });
-
-          return response;
-
-        })
-
-        .catch(() => {
-
-          return caches.match(
-            request
-          );
-
-        })
-
-    );
-
-    return;
-  }
-
-
-  /*
-    Imagens, fontes e outros arquivos:
-    tenta primeiro a rede.
-    Se estiver offline, usa o cache.
-  */
-
+   * Imagens e demais recursos:
+   * tenta a rede e utiliza o cache como fallback.
+   */
   event.respondWith(
-
     fetch(request)
+      .then((response) => {
+        if (response && response.ok) {
+          const responseClone = response.clone();
 
-      .then(response => {
-
-        if (
-          response &&
-          response.status === 200
-        ) {
-
-          const clone =
-            response.clone();
-
-          caches.open(CACHE_NAME)
-            .then(cache => {
-
-              cache.put(
-                request,
-                clone
-              );
-
-            });
-
+          caches.open(CACHE_VERSION).then((cache) => {
+            cache.put(request, responseClone);
+          });
         }
 
         return response;
-
       })
-
       .catch(() => {
-
-        return caches.match(
-          request
-        );
-
+        return caches.match(request);
       })
-
   );
-
 });
