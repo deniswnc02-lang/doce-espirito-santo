@@ -248,7 +248,7 @@ async function loadContent() {
 
     const devotionalResponse =
       await fetch(
-        "devocionais.json"
+        "devocionais.json?v=8"
       );
 
     if (
@@ -339,21 +339,6 @@ function getCurrentDevotional() {
   }
 
 
-  /*
-    Aceita tanto:
-
-    [
-      {...},
-      {...}
-    ]
-
-    quanto:
-
-    {
-      "days": [...]
-    }
-  */
-
   const list =
     Array.isArray(
       state.devotionals
@@ -388,6 +373,47 @@ function getCurrentDevotional() {
 
 }
 
+
+function getDevotionalByDay(day) {
+
+  const list =
+    Array.isArray(
+      state.devotionals
+    )
+      ? state.devotionals
+      : state.devotionals?.days;
+
+
+  if (
+    !Array.isArray(list)
+  ) {
+
+    return null;
+
+  }
+
+
+  return (
+    list.find(
+      item =>
+        Number(
+          item.day ||
+          item.dia ||
+          item.number
+        ) === day
+    )
+    ||
+    list[day - 1]
+    ||
+    null
+  );
+
+}
+
+
+/* =========================================================
+   CARD DE HOJE
+========================================================= */
 
 function updateTodayCard() {
 
@@ -442,6 +468,7 @@ function updateTodayCard() {
     devotional.descricao ||
     devotional.excerpt ||
     devotional.resumo ||
+    devotional.subtitulo ||
     "";
 
 
@@ -450,6 +477,7 @@ function updateTodayCard() {
     devotional.referencia ||
     devotional.verse ||
     devotional.versiculo ||
+    devotional.referencia_principal?.texto ||
     "";
 
 
@@ -481,6 +509,7 @@ function updateTodayCard() {
 
 /* =========================================================
    TELA DE HOJE
+   DEVOCIONAL COMPLETO
 ========================================================= */
 
 function renderToday() {
@@ -519,9 +548,8 @@ function renderToday() {
 
       body.innerHTML = `
         <p>
-          Seu conteúdo será carregado
-          quando o arquivo de devocionais
-          estiver disponível.
+          O devocional deste dia ainda
+          não está disponível.
         </p>
       `;
 
@@ -532,83 +560,950 @@ function renderToday() {
   }
 
 
-  const devotionalTitle =
-    devotional.title ||
-    devotional.titulo ||
-    "A Presença que já está aqui";
-
-
-  const devotionalBody =
-    devotional.content ||
-    devotional.conteudo ||
-    devotional.body ||
-    devotional.corpo ||
-    devotional.reflection ||
-    devotional.reflexao ||
-    "";
-
-
   if (title) {
 
     title.textContent =
-      devotionalTitle;
+      devotional.titulo ||
+      devotional.title ||
+      `Dia ${state.currentDay}`;
 
   }
 
 
-  if (body) {
-
-    body.innerHTML =
-      formatContent(
-        devotionalBody
-      );
-
-  }
-
-}
+  if (!body) return;
 
 
-/* =========================================================
-   FORMATADOR
-========================================================= */
+  const sections = [];
 
-function formatContent(content) {
 
-  if (!content) {
-
-    return `
-      <p>
-        Conteúdo em preparação.
-      </p>
-    `;
-
-  }
-
+  /* =====================================================
+     TEMA
+  ===================================================== */
 
   if (
-    typeof content !== "string"
+    devotional.tema ||
+    devotional.subtitulo
   ) {
 
-    return `
-      <p>
-        ${escapeHTML(
-          JSON.stringify(content)
-        )}
-      </p>
-    `;
+    sections.push(`
+
+      <section class="devotional-section">
+
+        <div class="eyebrow">
+          TEMA DO DIA
+        </div>
+
+        ${
+          devotional.tema
+            ? `
+              <h2>
+                ${escapeHTML(
+                  devotional.tema
+                )}
+              </h2>
+            `
+            : ""
+        }
+
+        ${
+          devotional.subtitulo
+            ? `
+              <p class="devotional-subtitle">
+                ${escapeHTML(
+                  devotional.subtitulo
+                )}
+              </p>
+            `
+            : ""
+        }
+
+      </section>
+
+    `);
 
   }
 
 
-  return content
-    .split(/\n\s*\n/)
-    .map(
-      paragraph =>
-        `<p>${escapeHTML(
-          paragraph
-        )}</p>`
+  /* =====================================================
+     REFERÊNCIA PRINCIPAL
+  ===================================================== */
+
+  const reference =
+    devotional.referencia_principal;
+
+
+  if (reference) {
+
+    const referenceText =
+      typeof reference === "string"
+        ? reference
+        : reference.texto ||
+          reference.referencia ||
+          "";
+
+
+    if (referenceText) {
+
+      sections.push(`
+
+        <section class="devotional-section">
+
+          <div class="eyebrow">
+            REFERÊNCIA BÍBLICA PRINCIPAL
+          </div>
+
+          <p class="biblical-reference">
+            ${escapeHTML(
+              referenceText
+            )}
+          </p>
+
+        </section>
+
+      `);
+
+    }
+
+  }
+
+
+  /* =====================================================
+     LEITURA BÍBLICA
+  ===================================================== */
+
+  if (
+    devotional.leitura_biblica
+  ) {
+
+    const reading =
+      devotional.leitura_biblica;
+
+
+    sections.push(`
+
+      <section class="devotional-section">
+
+        <div class="eyebrow">
+          LEITURA BÍBLICA
+        </div>
+
+        ${
+          reading.referencia
+            ? `
+              <h3>
+                ${escapeHTML(
+                  reading.referencia
+                )}
+              </h3>
+            `
+            : ""
+        }
+
+        ${
+          reading.orientacao
+            ? `
+              <p>
+                ${escapeHTML(
+                  reading.orientacao
+                )}
+              </p>
+            `
+            : ""
+        }
+
+      </section>
+
+    `);
+
+  }
+
+
+  /* =====================================================
+     CONTEXTO BÍBLICO
+  ===================================================== */
+
+  if (
+    devotional.contexto_biblico
+  ) {
+
+    const context =
+      devotional.contexto_biblico;
+
+
+    sections.push(`
+
+      <section class="devotional-section">
+
+        <div class="eyebrow">
+          CONTEXTO BÍBLICO
+        </div>
+
+        ${
+          context.titulo
+            ? `
+              <h2>
+                ${escapeHTML(
+                  context.titulo
+                )}
+              </h2>
+            `
+            : ""
+        }
+
+        ${
+          context.conteudo
+            ? `
+              <p>
+                ${escapeHTML(
+                  context.conteudo
+                )}
+              </p>
+            `
+            : ""
+        }
+
+        ${
+          Array.isArray(
+            context.pontos
+          )
+            ? `
+              <div class="devotional-list">
+
+                ${context.pontos
+                  .map(
+                    item => `
+                      <p>
+                        ${escapeHTML(
+                          item
+                        )}
+                      </p>
+                    `
+                  )
+                  .join("")}
+
+              </div>
+            `
+            : ""
+        }
+
+      </section>
+
+    `);
+
+  }
+
+
+  /* =====================================================
+     EXPOSIÇÃO BÍBLICA
+  ===================================================== */
+
+  if (
+    devotional.exposicao
+  ) {
+
+    const exposition =
+      devotional.exposicao;
+
+
+    let content = "";
+
+
+    if (
+      exposition.conteudo
+    ) {
+
+      content += `
+        <p>
+          ${escapeHTML(
+            exposition.conteudo
+          )}
+        </p>
+      `;
+
+    }
+
+
+    if (
+      Array.isArray(
+        exposition.desenvolvimento
+      )
+    ) {
+
+      content +=
+        exposition.desenvolvimento
+          .map(
+            item => `
+
+              <div class="devotional-subsection">
+
+                <h3>
+                  ${escapeHTML(
+                    item.titulo || ""
+                  )}
+                </h3>
+
+                <p>
+                  ${escapeHTML(
+                    item.conteudo || ""
+                  )}
+                </p>
+
+              </div>
+
+            `
+          )
+          .join("");
+
+    }
+
+
+    sections.push(`
+
+      <section class="devotional-section">
+
+        <div class="eyebrow">
+          EXPOSIÇÃO BÍBLICA
+        </div>
+
+        ${
+          exposition.titulo
+            ? `
+              <h2>
+                ${escapeHTML(
+                  exposition.titulo
+                )}
+              </h2>
+            `
+            : ""
+        }
+
+        ${content}
+
+      </section>
+
+    `);
+
+  }
+
+
+  /* =====================================================
+     EXEGESE
+  ===================================================== */
+
+  if (
+    devotional.exegese
+  ) {
+
+    const exegesis =
+      devotional.exegese;
+
+
+    sections.push(`
+
+      <section class="devotional-section">
+
+        <div class="eyebrow">
+          EXEGESE
+        </div>
+
+        ${
+          exegesis.titulo
+            ? `
+              <h2>
+                ${escapeHTML(
+                  exegesis.titulo
+                )}
+              </h2>
+            `
+            : ""
+        }
+
+        ${
+          exegesis.conteudo
+            ? `
+              <p>
+                ${escapeHTML(
+                  exegesis.conteudo
+                )}
+              </p>
+            `
+            : ""
+        }
+
+        ${
+          Array.isArray(
+            exegesis.observacoes
+          )
+            ? `
+              <div class="devotional-list">
+
+                ${exegesis.observacoes
+                  .map(
+                    item => `
+                      <p>
+                        ${escapeHTML(
+                          item
+                        )}
+                      </p>
+                    `
+                  )
+                  .join("")}
+
+              </div>
+            `
+            : ""
+        }
+
+      </section>
+
+    `);
+
+  }
+
+
+  /* =====================================================
+     COMENTÁRIO TEOLÓGICO
+  ===================================================== */
+
+  if (
+    devotional.comentario_teologico
+  ) {
+
+    const commentary =
+      devotional.comentario_teologico;
+
+
+    sections.push(`
+
+      <section class="devotional-section">
+
+        <div class="eyebrow">
+          COMENTÁRIO TEOLÓGICO
+        </div>
+
+        ${
+          commentary.titulo
+            ? `
+              <h2>
+                ${escapeHTML(
+                  commentary.titulo
+                )}
+              </h2>
+            `
+            : ""
+        }
+
+        ${
+          commentary.conteudo
+            ? `
+              <p>
+                ${escapeHTML(
+                  commentary.conteudo
+                )}
+              </p>
+            `
+            : ""
+        }
+
+        ${
+          commentary.contemplacao
+            ? `
+              <div class="devotional-highlight">
+
+                <p>
+                  ${escapeHTML(
+                    commentary.contemplacao
+                  )}
+                </p>
+
+              </div>
+            `
+            : ""
+        }
+
+      </section>
+
+    `);
+
+  }
+
+
+  /* =====================================================
+     REFLEXÃO
+  ===================================================== */
+
+  if (
+    devotional.reflexao
+  ) {
+
+    const reflection =
+      devotional.reflexao;
+
+
+    sections.push(`
+
+      <section class="devotional-section">
+
+        <div class="eyebrow">
+          REFLEXÃO
+        </div>
+
+        ${
+          reflection.titulo
+            ? `
+              <h2>
+                ${escapeHTML(
+                  reflection.titulo
+                )}
+              </h2>
+            `
+            : ""
+        }
+
+        ${
+          reflection.conteudo
+            ? `
+              <p>
+                ${escapeHTML(
+                  reflection.conteudo
+                )}
+              </p>
+            `
+            : ""
+        }
+
+        ${
+          reflection.aplicacao
+            ? `
+              <div class="devotional-highlight">
+
+                <p>
+                  ${escapeHTML(
+                    reflection.aplicacao
+                  )}
+                </p>
+
+              </div>
+            `
+            : ""
+        }
+
+      </section>
+
+    `);
+
+  }
+
+
+  /* =====================================================
+     CONTEMPLAÇÃO TEOLÓGICA
+  ===================================================== */
+
+  if (
+    devotional.contemplacao_teologica
+  ) {
+
+    const contemplation =
+      devotional.contemplacao_teologica;
+
+
+    sections.push(`
+
+      <section class="devotional-section">
+
+        <div class="eyebrow">
+          CONTEMPLAÇÃO TEOLÓGICA
+        </div>
+
+        ${
+          contemplation.titulo
+            ? `
+              <h2>
+                ${escapeHTML(
+                  contemplation.titulo
+                )}
+              </h2>
+            `
+            : ""
+        }
+
+        ${
+          contemplation.texto
+            ? `
+              <p>
+                ${escapeHTML(
+                  contemplation.texto
+                )}
+              </p>
+            `
+            : ""
+        }
+
+        ${
+          Array.isArray(
+            contemplation.perguntas
+          )
+            ? `
+              <div class="devotional-questions">
+
+                ${contemplation.perguntas
+                  .map(
+                    question => `
+                      <p>
+                        ${escapeHTML(
+                          question
+                        )}
+                      </p>
+                    `
+                  )
+                  .join("")}
+
+              </div>
+            `
+            : ""
+        }
+
+      </section>
+
+    `);
+
+  }
+
+
+  /* =====================================================
+     APLICAÇÃO PRÁTICA
+  ===================================================== */
+
+  if (
+    devotional.aplicacao_pratica
+  ) {
+
+    const practice =
+      devotional.aplicacao_pratica;
+
+
+    sections.push(`
+
+      <section class="devotional-section">
+
+        <div class="eyebrow">
+          PRÁTICA DO DIA
+        </div>
+
+        ${
+          practice.titulo
+            ? `
+              <h2>
+                ${escapeHTML(
+                  practice.titulo
+                )}
+              </h2>
+            `
+            : ""
+        }
+
+        ${
+          Array.isArray(
+            practice.passos
+          )
+            ? `
+              <div class="devotional-steps">
+
+                ${practice.passos
+                  .map(
+                    (step, index) => `
+                      <p>
+                        <strong>
+                          ${index + 1}.
+                        </strong>
+                        ${escapeHTML(
+                          step
+                        )}
+                      </p>
+                    `
+                  )
+                  .join("")}
+
+              </div>
+            `
+            : ""
+        }
+
+      </section>
+
+    `);
+
+  }
+
+
+  /* =====================================================
+     PERGUNTAS DE INTERIORIZAÇÃO
+  ===================================================== */
+
+  if (
+    Array.isArray(
+      devotional.perguntas_interiorizacao
     )
-    .join("");
+  ) {
+
+    sections.push(`
+
+      <section class="devotional-section">
+
+        <div class="eyebrow">
+          PARA INTERIORIZAR
+        </div>
+
+        <div class="devotional-questions">
+
+          ${devotional.perguntas_interiorizacao
+            .map(
+              question => `
+                <p>
+                  ${escapeHTML(
+                    question
+                  )}
+                </p>
+              `
+            )
+            .join("")}
+
+        </div>
+
+      </section>
+
+    `);
+
+  }
+
+
+  /* =====================================================
+     DIÁRIO
+  ===================================================== */
+
+  if (
+    devotional.diario
+  ) {
+
+    const journal =
+      devotional.diario;
+
+
+    sections.push(`
+
+      <section class="devotional-section">
+
+        <div class="eyebrow">
+          DIÁRIO PESSOAL
+        </div>
+
+        ${
+          journal.titulo
+            ? `
+              <h2>
+                ${escapeHTML(
+                  journal.titulo
+                )}
+              </h2>
+            `
+            : ""
+        }
+
+        ${
+          journal.orientacao
+            ? `
+              <p>
+                ${escapeHTML(
+                  journal.orientacao
+                )}
+              </p>
+            `
+            : ""
+        }
+
+        ${
+          Array.isArray(
+            journal.perguntas
+          )
+            ? `
+              <div class="devotional-questions">
+
+                ${journal.perguntas
+                  .map(
+                    question => `
+                      <p>
+                        ${escapeHTML(
+                          question
+                        )}
+                      </p>
+                    `
+                  )
+                  .join("")}
+
+              </div>
+            `
+            : ""
+        }
+
+      </section>
+
+    `);
+
+  }
+
+
+  /* =====================================================
+     REFERÊNCIAS RELACIONADAS
+  ===================================================== */
+
+  if (
+    Array.isArray(
+      devotional.referencias_relacionadas
+    )
+  ) {
+
+    sections.push(`
+
+      <section class="devotional-section">
+
+        <div class="eyebrow">
+          REFERÊNCIAS RELACIONADAS
+        </div>
+
+        <div class="devotional-list">
+
+          ${devotional.referencias_relacionadas
+            .map(
+              reference => `
+                <p>
+                  ${escapeHTML(
+                    reference
+                  )}
+                </p>
+              `
+            )
+            .join("")}
+
+        </div>
+
+      </section>
+
+    `);
+
+  }
+
+
+  /* =====================================================
+     ORAÇÃO
+  ===================================================== */
+
+  if (
+    devotional.oracao
+  ) {
+
+    const prayer =
+      devotional.oracao;
+
+
+    sections.push(`
+
+      <section class="devotional-section prayer-section">
+
+        <div class="eyebrow">
+          ORAÇÃO
+        </div>
+
+        ${
+          prayer.titulo
+            ? `
+              <h2>
+                ${escapeHTML(
+                  prayer.titulo
+                )}
+              </h2>
+            `
+            : ""
+        }
+
+        ${
+          prayer.texto
+            ? `
+              <p>
+                ${escapeHTML(
+                  prayer.texto
+                )}
+              </p>
+            `
+            : ""
+        }
+
+      </section>
+
+    `);
+
+  }
+
+
+  /* =====================================================
+     ÁUDIO
+  ===================================================== */
+
+  if (
+    devotional.audio
+  ) {
+
+    const audio =
+      devotional.audio;
+
+
+    sections.push(`
+
+      <section class="devotional-section audio-section">
+
+        <div class="eyebrow">
+          ÁUDIO DO DIA
+        </div>
+
+        ${
+          audio.disponivel &&
+          audio.arquivo
+            ? `
+              <audio
+                controls
+                preload="metadata"
+                style="width:100%"
+              >
+
+                <source
+                  src="${escapeHTML(
+                    audio.arquivo
+                  )}"
+                  type="audio/mpeg"
+                >
+
+                Seu navegador não suporta
+                reprodução de áudio.
+
+              </audio>
+            `
+            : `
+              <p>
+                O áudio completo deste
+                devocional será disponibilizado
+                nesta etapa da jornada.
+              </p>
+            `
+        }
+
+      </section>
+
+    `);
+
+  }
+
+
+  body.innerHTML =
+    sections.join("");
 
 }
 
@@ -707,52 +1602,19 @@ function renderJourney() {
 }
 
 
-function getDevotionalByDay(day) {
-
-  const list =
-    Array.isArray(
-      state.devotionals
-    )
-      ? state.devotionals
-      : state.devotionals?.days;
-
-
-  if (
-    !Array.isArray(list)
-  ) {
-
-    return null;
-
-  }
-
-
-  return (
-    list.find(
-      item =>
-        Number(
-          item.day ||
-          item.dia ||
-          item.number
-        ) === day
-    )
-    ||
-    list[day - 1]
-    ||
-    null
-  );
-
-}
-
+/* =========================================================
+   ABRIR DIA
+========================================================= */
 
 function openDay(day) {
 
   state.currentDay =
-    day;
+    Number(day);
 
 
   localStorage.setItem(
     "des_current_day",
-    day
+    state.currentDay
   );
 
 
@@ -1025,6 +1887,10 @@ function searchContent(query) {
           item.content ||
           item.conteudo ||
           item.body ||
+          item.reflexao?.conteudo ||
+          item.exposicao?.conteudo ||
+          item.comentario_teologico?.conteudo ||
+          item.contexto_biblico?.conteudo ||
           "";
 
 
@@ -1175,33 +2041,68 @@ if (
   );
 
 }
-/* =========================================
+
+
+/* =========================================================
    TELA DE ABERTURA
    365 DIAS DE PRESENÇA
-   ========================================= */
+========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-    const splashScreen = document.getElementById("splashScreen");
-    const startButton = document.getElementById("startApp");
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
-    if (!splashScreen || !startButton) {
-        return;
+    const splashScreen =
+      document.getElementById(
+        "splashScreen"
+      );
+
+    const startButton =
+      document.getElementById(
+        "startApp"
+      );
+
+
+    if (
+      !splashScreen ||
+      !startButton
+    ) {
+
+      return;
+
     }
 
-    // Mantém o aplicativo travado enquanto a capa está aberta
-    document.body.classList.add("splash-active");
 
-    startButton.addEventListener("click", () => {
+    document.body.classList.add(
+      "splash-active"
+    );
 
-        // Inicia o desaparecimento suave da capa
-        splashScreen.classList.add("hidden");
 
-        // Libera a rolagem do aplicativo
-        document.body.classList.remove("splash-active");
+    startButton.addEventListener(
+      "click",
+      () => {
 
-        // Remove a capa depois da animação
-        setTimeout(() => {
+        splashScreen.classList.add(
+          "hidden"
+        );
+
+
+        document.body.classList.remove(
+          "splash-active"
+        );
+
+
+        setTimeout(
+          () => {
+
             splashScreen.remove();
-        }, 1000);
-    });
-});
+
+          },
+          1000
+        );
+
+      }
+    );
+
+  }
+);
