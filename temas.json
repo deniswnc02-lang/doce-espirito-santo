@@ -1,1 +1,74 @@
-
+[
+  {
+    "mes": 1,
+    "titulo": "Perceber a Presença",
+    "subtitulo": "Aprender a reconhecer que o Doce Espírito Santo já está aqui.",
+    "dias": "1–30"
+  },
+  {
+    "mes": 2,
+    "titulo": "Permanecer",
+    "subtitulo": "Comunhão, constância e intimidade.",
+    "dias": "31–60"
+  },
+  {
+    "mes": 3,
+    "titulo": "Palavra e Presença",
+    "subtitulo": "As Escrituras como fundamento da vida de presença.",
+    "dias": "61–90"
+  },
+  {
+    "mes": 4,
+    "titulo": "Oração e Comunhão",
+    "subtitulo": "Aprender a conversar, escutar e depender.",
+    "dias": "91–120"
+  },
+  {
+    "mes": 5,
+    "titulo": "Silêncio e Contemplação",
+    "subtitulo": "Atenção, quietude e percepção.",
+    "dias": "121–150"
+  },
+  {
+    "mes": 6,
+    "titulo": "Caráter e Transformação",
+    "subtitulo": "Santificação, hábitos e maturidade.",
+    "dias": "151–180"
+  },
+  {
+    "mes": 7,
+    "titulo": "Presença no Cotidiano",
+    "subtitulo": "Família, trabalho, relacionamentos e decisões.",
+    "dias": "181–210"
+  },
+  {
+    "mes": 8,
+    "titulo": "Discernimento",
+    "subtitulo": "Sabedoria, consciência e direção.",
+    "dias": "211–240"
+  },
+  {
+    "mes": 9,
+    "titulo": "Serviço e Propósito",
+    "subtitulo": "Dons, serviço e missão.",
+    "dias": "241–270"
+  },
+  {
+    "mes": 10,
+    "titulo": "Provação e Perseverança",
+    "subtitulo": "Dor, espera, silêncio e fé.",
+    "dias": "271–300"
+  },
+  {
+    "mes": 11,
+    "titulo": "Intimidade e Maturidade",
+    "subtitulo": "Profundidade, identidade e comunhão.",
+    "dias": "301–330"
+  },
+  {
+    "mes": 12,
+    "titulo": "Uma Vida de Presença",
+    "subtitulo": "Integrando a jornada e aprendendo a permanecer.",
+    "dias": "331–365"
+  }
+]
