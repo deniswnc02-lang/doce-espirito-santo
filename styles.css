@@ -1,43 +1,42 @@
-/* ============================================================
+/* =========================================================
    DOCE ESPÍRITO SANTO
-   DESIGN SYSTEM
-============================================================ */
+   UM AMIGO ÍNTIMO
+   Interface cinematográfica
+========================================================= */
 
 :root {
 
   --black: #080604;
-  --black-soft: #120d09;
+  --black-soft: #100c08;
 
-  --gold: #e7bd70;
-  --gold-light: #f5d89d;
+  --brown: #21150d;
+  --brown-soft: #332015;
 
-  --cream: #f6ead2;
-  --cream-soft: #d9c9ad;
+  --gold: #d7ae65;
+  --gold-light: #f3d28f;
+
+  --cream: #f4eee2;
+  --cream-soft: #cfc5b7;
 
   --white: #ffffff;
-  --muted: #b9ab97;
 
-  --border: rgba(244, 211, 160, 0.25);
+  --glass: rgba(19, 13, 9, 0.64);
+  --glass-light: rgba(255, 255, 255, 0.08);
 
-  --serif:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+  --border: rgba(242, 214, 164, 0.26);
 
-  --sans:
-    "Montserrat",
-    Arial,
-    sans-serif;
+  --radius-large: 30px;
+  --radius-medium: 22px;
 
-  --script:
-    "Parisienne",
-    cursive;
+  --shadow:
+    0 20px 60px rgba(0,0,0,.45);
+
 }
 
 
-/* ============================================================
+/* =========================================================
    RESET
-============================================================ */
+========================================================= */
 
 * {
   box-sizing: border-box;
@@ -53,231 +52,185 @@ body {
 
   background:
     radial-gradient(
-      circle at 50% -20%,
-      rgba(155, 101, 45, 0.18),
-      transparent 45%
-    ),
-    var(--black);
+      circle at top,
+      #2a1b10 0%,
+      var(--black) 48%
+    );
 
   color: var(--cream);
 
-  font-family: var(--sans);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
 
   min-height: 100vh;
 
   overflow-x: hidden;
-}
 
-button,
-input {
-  font: inherit;
-}
+  -webkit-font-smoothing: antialiased;
 
-button {
-  cursor: pointer;
-}
-
-button:focus-visible,
-input:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
 }
 
 
-/* ============================================================
+/* =========================================================
    APP
-============================================================ */
+========================================================= */
 
-.app {
-
-  width: 100%;
-  max-width: 780px;
+#app {
 
   min-height: 100vh;
 
-  margin: 0 auto;
-
-  position: relative;
-
   padding-bottom: 110px;
+
 }
 
 
-/* ============================================================
-   HEADER
-============================================================ */
+/* =========================================================
+   TOPO
+========================================================= */
 
-.top-header {
+.topbar {
 
-  position: absolute;
+  position: fixed;
 
   top: 0;
   left: 0;
   right: 0;
 
-  z-index: 20;
+  z-index: 100;
+
+  height: 78px;
 
   display: flex;
 
-  justify-content: space-between;
   align-items: center;
 
+  justify-content: space-between;
+
   padding:
-    28px
-    28px
-    20px;
+    env(safe-area-inset-top)
+    22px
+    0
+    22px;
 
   background:
     linear-gradient(
       to bottom,
-      rgba(0,0,0,.65),
-      transparent
+      rgba(7,5,3,.88),
+      rgba(7,5,3,.12)
     );
+
+  backdrop-filter: blur(14px);
+
 }
+
 
 .brand {
 
   display: flex;
 
-  align-items: center;
-
-  gap: 14px;
-}
-
-.brand-logo {
-
-  width: 50px;
-  height: 50px;
-
-  border-radius: 14px;
-
-  display: flex;
-
   flex-direction: column;
 
-  justify-content: center;
-  align-items: center;
+  gap: 3px;
 
-  text-align: center;
-
-  color: var(--gold-light);
-
-  font-family: var(--serif);
-
-  font-size: 8px;
-
-  line-height: .9;
-
-  border:
-    1px solid
-    rgba(255,220,160,.45);
-
-  background:
-    radial-gradient(
-      circle at 50% 30%,
-      #9a642e,
-      #21150d 65%,
-      #080604
-    );
-
-  box-shadow:
-    inset 0 0 20px rgba(255,200,100,.12),
-    0 5px 25px rgba(0,0,0,.35);
 }
 
 .brand-name {
 
-  display: flex;
+  font-family: Georgia, serif;
 
-  flex-direction: column;
+  font-size: 18px;
 
-  gap: 5px;
+  color: var(--cream);
+
 }
 
-.brand-name strong {
+.brand-subtitle {
 
-  font-family: var(--serif);
-
-  font-size: 22px;
-
-  font-weight: 600;
-
-  letter-spacing: -.4px;
-}
-
-.brand-name small {
-
-  font-size: 9px;
+  font-size: 7px;
 
   letter-spacing: 4px;
 
-  color: var(--gold-light);
+  color: var(--gold);
+
 }
 
-.header-actions {
+
+.topbar-actions {
 
   display: flex;
 
   gap: 10px;
+
 }
 
-.icon-button {
+.text-action {
 
-  width: 48px;
-  height: 48px;
+  border: 1px solid var(--border);
 
-  border-radius: 50%;
+  background: rgba(0,0,0,.22);
 
-  border:
-    1px solid
-    rgba(255,255,255,.2);
+  color: var(--cream);
 
-  background:
-    rgba(30,20,12,.55);
+  padding: 9px 13px;
 
-  backdrop-filter: blur(12px);
+  border-radius: 100px;
 
-  display: grid;
+  font-size: 11px;
 
-  place-items: center;
+  cursor: pointer;
 
-  color: white;
-}
-
-.icon-button svg {
-
-  width: 23px;
-  height: 23px;
-
-  fill: none;
-
-  stroke: currentColor;
-
-  stroke-width: 1.8;
-
-  stroke-linecap: round;
 }
 
 
-/* ============================================================
-   PAGES
-============================================================ */
+/* =========================================================
+   TELAS
+========================================================= */
 
-.page {
+.screen {
 
   display: none;
 
-  min-height: 100vh;
+  animation:
+    screenIn .45s ease both;
+
 }
 
-.page.active {
+.screen.active {
+
   display: block;
+
+}
+
+@keyframes screenIn {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(12px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0);
+
+  }
+
 }
 
 
-/* ============================================================
+/* =========================================================
    HERO
-============================================================ */
+========================================================= */
 
 .hero {
 
@@ -285,28 +238,33 @@ input:focus-visible {
 
   min-height: 720px;
 
-  overflow: hidden;
-
   display: flex;
 
   align-items: flex-end;
+
+  overflow: hidden;
+
 }
 
-.hero-background {
+
+.hero-image {
 
   position: absolute;
 
   inset: 0;
 
   background-image:
-    url("assets/hero.jpg");
+    url("assets/home/hero.jpg");
 
   background-size: cover;
 
   background-position: center;
 
-  background-color: #17100a;
+  transform:
+    scale(1.03);
+
 }
+
 
 .hero-overlay {
 
@@ -315,19 +273,17 @@ input:focus-visible {
   inset: 0;
 
   background:
+
     linear-gradient(
-      to right,
-      rgba(0,0,0,.9) 0%,
-      rgba(0,0,0,.55) 43%,
-      rgba(0,0,0,.08) 100%
-    ),
-    linear-gradient(
-      to top,
-      #080604 2%,
-      rgba(8,6,4,.15) 65%,
-      rgba(0,0,0,.4) 100%
+      to bottom,
+      rgba(0,0,0,.15),
+      rgba(0,0,0,.05) 35%,
+      rgba(0,0,0,.78) 78%,
+      var(--black) 100%
     );
+
 }
+
 
 .hero-content {
 
@@ -339,227 +295,192 @@ input:focus-visible {
 
   padding:
     0
-    48px
-    52px;
+    30px
+    50px;
+
+  max-width: 700px;
+
 }
 
+
 .eyebrow {
+
+  color: var(--gold-light);
 
   font-size: 10px;
 
   letter-spacing: 4px;
 
-  color: var(--gold-light);
-
-  font-weight: 500;
+  text-transform: uppercase;
 
   margin-bottom: 10px;
+
 }
+
 
 .hero h1 {
 
-  font-family: var(--serif);
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
-  font-size: clamp(
-    62px,
-    12vw,
-    100px
-  );
+  font-weight: 400;
 
-  line-height: .77;
+  font-size: clamp(52px, 14vw, 92px);
 
-  font-weight: 500;
+  line-height: .82;
 
   letter-spacing: -4px;
 
-  color: #f7e5c4;
+  color: var(--cream);
 
   text-shadow:
-    0 4px 30px rgba(0,0,0,.5);
+    0 5px 25px rgba(0,0,0,.5);
+
 }
 
-.script-title {
 
-  font-family: var(--script);
+.hero-script {
 
-  font-size: clamp(
-    30px,
-    6vw,
-    48px
-  );
+  margin-top: 22px;
 
-  margin-top: 17px;
+  font-family:
+    Georgia,
+    serif;
 
-  color: #ead1a4;
+  font-style: italic;
+
+  font-size: 27px;
+
+  color: var(--gold-light);
+
 }
 
-.ornament {
 
-  display: flex;
+.hero-description {
 
-  align-items: center;
+  max-width: 340px;
 
-  gap: 10px;
+  margin-top: 20px;
 
-  margin:
-    10px 0
-    12px;
+  font-size: 15px;
 
-  color: var(--gold);
+  line-height: 1.6;
+
+  color: rgba(255,255,255,.78);
+
 }
 
-.ornament span {
 
-  width: 55px;
+/* =========================================================
+   BOTÕES
+========================================================= */
 
-  height: 1px;
+button {
+
+  font-family: inherit;
+
+}
+
+.primary-button {
+
+  margin-top: 25px;
+
+  border: none;
 
   background:
     linear-gradient(
-      to right,
-      transparent,
-      var(--gold)
+      135deg,
+      #f0c97e,
+      #c7964a
     );
+
+  color: #21150c;
+
+  padding:
+    16px
+    24px;
+
+  border-radius: 100px;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.35);
+
+  cursor: pointer;
+
+  transition:
+    transform .2s ease,
+    filter .2s ease;
+
 }
 
-.ornament span:last-child {
+.primary-button:active,
+.secondary-button:active {
+
+  transform:
+    scale(.96);
+
+}
+
+
+.secondary-button {
+
+  border: 1px solid var(--border);
 
   background:
-    linear-gradient(
-      to left,
-      transparent,
-      var(--gold)
-    );
+    rgba(18,11,7,.62);
+
+  color: var(--gold-light);
+
+  padding:
+    11px
+    18px;
+
+  border-radius: 100px;
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  backdrop-filter:
+    blur(10px);
+
 }
 
-.hero-subtitle {
+
+.view-all {
+
+  border: none;
+
+  background: none;
 
   color: var(--gold-light);
 
   font-size: 11px;
 
-  letter-spacing: 3px;
+  cursor: pointer;
 
-  line-height: 1.8;
-
-  margin-bottom: 25px;
 }
 
 
-/* ============================================================
-   BUTTONS
-============================================================ */
+/* =========================================================
+   SEÇÕES
+========================================================= */
 
-.primary-button {
-
-  border: none;
-
-  border-radius: 50px;
-
-  background:
-    linear-gradient(
-      100deg,
-      #f1c97e,
-      #f9dfaa
-    );
-
-  color: #191008;
-
-  min-height: 54px;
+.content-section {
 
   padding:
-    0 26px;
+    0
+    20px
+    25px;
 
-  font-weight: 600;
-
-  font-size: 15px;
-
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 30px;
-
-  box-shadow:
-    0 12px 35px
-    rgba(0,0,0,.3);
-
-  transition:
-    transform .2s,
-    filter .2s;
 }
 
-.primary-button:hover {
-
-  transform: translateY(-2px);
-
-  filter: brightness(1.06);
-}
-
-.primary-button span {
-
-  font-size: 26px;
-
-  line-height: 0;
-}
-
-.secondary-button {
-
-  min-height: 42px;
-
-  padding: 0 20px;
-
-  border-radius: 30px;
-
-  background:
-    rgba(20,14,9,.65);
-
-  border:
-    1px solid
-    rgba(235,190,111,.55);
-
-  color: var(--gold-light);
-
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 12px;
-
-  font-size: 12px;
-
-  font-weight: 500;
-
-  backdrop-filter: blur(10px);
-}
-
-.secondary-button span {
-
-  font-size: 22px;
-
-  line-height: 0;
-}
-
-.full-button {
-
-  width: 100%;
-}
-
-
-/* ============================================================
-   SECTIONS
-============================================================ */
-
-.section {
-
-  padding:
-    18px
-    28px;
-}
 
 .section-heading {
 
@@ -569,203 +490,154 @@ input:focus-visible {
 
   justify-content: space-between;
 
-  margin-bottom: 16px;
+  margin-bottom: 15px;
+
 }
+
 
 .section-heading h2 {
 
-  font-family: var(--serif);
+  font-family: Georgia, serif;
 
-  font-size: 36px;
+  font-size: 29px;
 
-  font-weight: 500;
+  font-weight: 400;
 
-  line-height: .95;
-}
+  color: var(--cream);
 
-.see-all {
-
-  background: none;
-
-  border: none;
-
-  color: var(--gold-light);
-
-  font-size: 11px;
-}
-
-.see-all span {
-  font-size: 20px;
 }
 
 
-/* ============================================================
-   TODAY CARD
-============================================================ */
+/* =========================================================
+   DEVOCIONAL
+========================================================= */
 
-.today-card {
+.devotional-card {
 
   position: relative;
 
-  min-height: 340px;
-
-  border-radius: 22px;
+  min-height: 360px;
 
   overflow: hidden;
 
   border:
-    1px solid
-    var(--border);
+    1px solid var(--border);
+
+  border-radius:
+    var(--radius-large);
 
   box-shadow:
-    0 15px 45px
-    rgba(0,0,0,.4);
+    var(--shadow);
+
 }
 
-.today-image {
+
+.devotional-image {
 
   position: absolute;
 
   inset: 0;
 
   background:
-    url("assets/presenca.jpg")
+    url("assets/home/devocional.jpg")
     center / cover;
 
-  background-color: #24170e;
 }
 
-.today-overlay {
+
+.card-gradient {
 
   position: absolute;
 
   inset: 0;
 
   background:
+
     linear-gradient(
       90deg,
-      rgba(5,3,2,.95),
-      rgba(5,3,2,.68) 45%,
-      rgba(5,3,2,.1)
+      rgba(8,5,3,.94),
+      rgba(8,5,3,.62) 50%,
+      rgba(8,5,3,.08)
     );
+
 }
 
-.today-content {
+
+.devotional-content {
 
   position: relative;
 
   z-index: 2;
 
-  min-height: 340px;
+  padding: 25px;
 
-  padding: 30px;
+  max-width: 540px;
 
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: space-between;
-
-  max-width: 650px;
 }
 
-.today-top {
+
+.card-topline {
 
   display: flex;
 
   justify-content: space-between;
 
   gap: 20px;
+
+  color: var(--gold-light);
+
+  font-size: 9px;
+
+  letter-spacing: 3px;
+
 }
 
-.day-number {
 
-  font-size: 11px;
+.card-topline span:last-child {
 
-  color: var(--cream-soft);
+  letter-spacing: 0;
 
-  margin-top: 3px;
+  font-size: 10px;
+
+  white-space: nowrap;
+
 }
 
-.progress-mini {
 
-  width: 100px;
+.devotional-content h2 {
 
-  margin-top: 7px;
+  font-family: Georgia, serif;
+
+  font-size: 35px;
+
+  line-height: 1;
+
+  font-weight: 400;
+
+  margin-top: 17px;
+
 }
 
-.progress-dots {
 
-  display: flex;
+.devotional-content p {
 
-  gap: 4px;
-
-  justify-content: flex-end;
-
-  margin-bottom: 7px;
-}
-
-.progress-dots span {
-
-  width: 5px;
-  height: 5px;
-
-  background: #8c7b67;
-
-  border-radius: 50%;
-}
-
-.progress-dots span.active {
-  background: var(--gold-light);
-}
-
-.progress-line {
-
-  height: 3px;
-
-  border-radius: 10px;
-
-  background: rgba(255,255,255,.22);
-}
-
-.progress-line div {
-
-  height: 100%;
-
-  width: 0%;
-
-  background: var(--gold-light);
-
-  border-radius: inherit;
-
-  transition: width .5s;
-}
-
-.today-content h2 {
-
-  font-family: var(--serif);
-
-  font-size: 48px;
-
-  line-height: .95;
-
-  max-width: 420px;
-
-  font-weight: 500;
-}
-
-.today-content p {
-
-  max-width: 450px;
-
-  color: #d8cdbd;
+  margin-top: 17px;
 
   font-size: 13px;
 
-  line-height: 1.65;
+  line-height: 1.6;
+
+  color:
+    rgba(255,255,255,.74);
+
+  max-width: 370px;
+
 }
 
-.today-bottom {
+
+.devotional-footer {
+
+  margin-top: 22px;
 
   display: flex;
 
@@ -774,23 +646,24 @@ input:focus-visible {
   justify-content: space-between;
 
   gap: 15px;
+
 }
 
-.today-bottom > span {
 
-  font-family: var(--serif);
-
-  font-size: 17px;
+.devotional-footer span {
 
   color: var(--cream-soft);
+
+  font-size: 12px;
+
 }
 
 
-/* ============================================================
-   CAROUSEL
-============================================================ */
+/* =========================================================
+   CARDS HORIZONTAIS
+========================================================= */
 
-.horizontal-scroll {
+.horizontal-cards {
 
   display: flex;
 
@@ -802,89 +675,61 @@ input:focus-visible {
 
   scrollbar-width: none;
 
-  scroll-snap-type: x mandatory;
 }
 
-.horizontal-scroll::-webkit-scrollbar {
+.horizontal-cards::-webkit-scrollbar {
+
   display: none;
+
 }
 
-.content-card {
 
-  flex: 0 0 190px;
+.image-card {
 
-  height: 220px;
+  flex:
+    0 0 145px;
+
+  height: 205px;
 
   position: relative;
 
   overflow: hidden;
 
-  border-radius: 17px;
+  border-radius:
+    18px;
 
   border:
-    1px solid
-    rgba(255,255,255,.13);
+    1px solid var(--border);
 
-  scroll-snap-align: start;
-
-  cursor: pointer;
-
-  transition:
-    transform .25s;
 }
 
-.content-card:hover {
-  transform: translateY(-4px);
-}
 
-.card-image {
+.image-card-background {
 
   position: absolute;
 
   inset: 0;
 
+  background-position: center;
+
   background-size: cover;
 
-  background-position: center;
+  transition:
+    transform .6s ease;
+
 }
 
-.image-tempo {
-  background:
-    linear-gradient(
-      135deg,
-      #392719,
-      #0e0905
-    );
+
+.image-card:active
+.image-card-background {
+
+  transform:
+    scale(1.06);
+
 }
 
-.image-escuta {
-  background:
-    linear-gradient(
-      135deg,
-      #557050,
-      #182218
-    );
-}
 
-.image-silencio {
-  background:
-    linear-gradient(
-      135deg,
-      #657b8d,
-      #171d22
-    );
-}
-
-.image-vida {
-  background:
-    linear-gradient(
-      135deg,
-      #8e673b,
-      #201209
-    );
-}
-
-.card-gradient {
+.image-card-overlay {
 
   position: absolute;
 
@@ -893,66 +738,75 @@ input:focus-visible {
   background:
     linear-gradient(
       to top,
-      rgba(0,0,0,.9),
-      transparent 65%
+      rgba(0,0,0,.88),
+      rgba(0,0,0,.05) 70%
     );
+
 }
 
-.content-card h3 {
+
+.image-card-title {
 
   position: absolute;
 
-  z-index: 2;
+  bottom: 16px;
 
-  left: 17px;
+  left: 14px;
 
-  bottom: 17px;
+  right: 10px;
 
-  font-family: var(--serif);
+  font-family: Georgia, serif;
 
-  font-size: 23px;
+  font-size: 18px;
 
-  line-height: .95;
+  line-height: 1.05;
 
-  font-weight: 500;
 }
 
 
-/* ============================================================
-   THEOLOGY
-============================================================ */
+/* =========================================================
+   FEATURE
+========================================================= */
 
-.theology-card,
-.journey-card {
-
-  min-height: 190px;
+.feature-card {
 
   position: relative;
 
+  height: 230px;
+
   overflow: hidden;
 
-  border-radius: 22px;
+  border-radius:
+    var(--radius-medium);
 
   border:
-    1px solid
-    var(--border);
+    1px solid var(--border);
+
 }
 
-.theology-background {
+
+.feature-image {
 
   position: absolute;
 
   inset: 0;
 
-  background:
-    linear-gradient(
-      120deg,
-      #32251a,
-      #0c0805
-    );
+  background-size: cover;
+
+  background-position: center;
+
 }
 
-.theology-overlay {
+
+.studies-image {
+
+  background-image:
+    url("assets/home/estudos.jpg");
+
+}
+
+
+.feature-overlay {
 
   position: absolute;
 
@@ -961,74 +815,82 @@ input:focus-visible {
   background:
     linear-gradient(
       90deg,
-      rgba(0,0,0,.9),
-      rgba(0,0,0,.15)
+      rgba(8,5,3,.92),
+      rgba(8,5,3,.35),
+      rgba(8,5,3,.05)
     );
+
 }
 
-.theology-content {
+
+.feature-content {
 
   position: relative;
 
   z-index: 2;
 
-  padding: 28px;
+  padding: 25px;
 
-  min-height: 190px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: flex-start;
-
-  justify-content: center;
 }
 
-.theology-content h2,
-.journey-content h2 {
 
-  font-family: var(--serif);
+.feature-content h2 {
 
-  font-size: 39px;
+  font-family: Georgia, serif;
 
-  line-height: .9;
+  font-size: 29px;
 
-  font-weight: 500;
+  font-weight: 400;
 
-  margin-bottom: 8px;
 }
 
-.theology-content p,
-.journey-content p {
 
-  color: #d1c2ae;
+.feature-content p {
+
+  margin:
+    8px 0
+    18px;
+
+  color: var(--cream-soft);
 
   font-size: 12px;
 
-  line-height: 1.6;
-
-  margin-bottom: 15px;
 }
 
 
-/* ============================================================
-   JOURNEY
-============================================================ */
+/* =========================================================
+   JORNADA CARD
+========================================================= */
 
-.journey-background {
+.journey-card {
+
+  position: relative;
+
+  min-height: 260px;
+
+  overflow: hidden;
+
+  border-radius:
+    var(--radius-medium);
+
+  border:
+    1px solid var(--border);
+
+}
+
+
+.journey-image {
 
   position: absolute;
 
   inset: 0;
 
   background:
-    linear-gradient(
-      135deg,
-      #5c442b,
-      #171009
-    );
+    url("assets/home/jornada.jpg")
+    center / cover;
+
 }
+
 
 .journey-overlay {
 
@@ -1039,10 +901,13 @@ input:focus-visible {
   background:
     linear-gradient(
       90deg,
-      rgba(0,0,0,.9),
-      rgba(0,0,0,.2)
+      rgba(8,5,3,.94),
+      rgba(8,5,3,.46),
+      rgba(8,5,3,.12)
     );
+
 }
+
 
 .journey-content {
 
@@ -1050,864 +915,732 @@ input:focus-visible {
 
   z-index: 2;
 
-  padding: 27px;
+  padding: 25px;
 
-  min-height: 190px;
 }
 
-.journey-progress {
 
-  position: absolute;
+.journey-content h2 {
 
-  right: 25px;
+  font-family: Georgia, serif;
 
-  top: 50px;
+  font-size: 42px;
 
-  width: 125px;
+  font-weight: 400;
+
 }
 
-.journey-progress-label {
 
-  font-size: 10px;
+.journey-content p {
 
   color: var(--cream-soft);
 
-  text-align: right;
+  max-width: 260px;
 
-  margin-bottom: 8px;
+  font-size: 13px;
+
+  line-height: 1.5;
+
 }
 
-.journey-bar {
+
+.journey-progress {
+
+  width: 180px;
+
+  margin:
+    18px 0;
+
+}
+
+
+.journey-progress-top {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  color: var(--cream-soft);
+
+  font-size: 10px;
+
+  margin-bottom: 7px;
+
+}
+
+
+.progress-track {
+
+  width: 100%;
 
   height: 3px;
 
   background:
-    rgba(255,255,255,.25);
+    rgba(255,255,255,.18);
 
   border-radius: 10px;
+
+  overflow: hidden;
+
 }
 
-.journey-bar div {
+
+.progress-value {
 
   height: 100%;
 
-  background: var(--gold-light);
+  width: 0%;
 
-  border-radius: inherit;
+  background:
+    var(--gold-light);
 
-  transition: width .5s;
+  transition:
+    width .5s ease;
+
 }
 
 
-/* ============================================================
-   BOTTOM NAV
-============================================================ */
+/* =========================================================
+   PÁGINAS INTERNAS
+========================================================= */
 
-.bottom-nav {
+.page-header {
+
+  padding:
+    125px
+    25px
+    35px;
+
+}
+
+
+.page-header h1 {
+
+  font-family: Georgia, serif;
+
+  font-weight: 400;
+
+  font-size: 48px;
+
+  line-height: .95;
+
+}
+
+
+.page-header p {
+
+  margin-top: 15px;
+
+  color: var(--cream-soft);
+
+  line-height: 1.6;
+
+  max-width: 450px;
+
+}
+
+
+/* =========================================================
+   JORNADA GRID
+========================================================= */
+
+.journey-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 12px;
+
+  padding:
+    0
+    20px
+    30px;
+
+}
+
+
+.day-card {
+
+  position: relative;
+
+  min-height: 150px;
+
+  overflow: hidden;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 20px;
+
+  background:
+    var(--brown);
+
+}
+
+
+.day-card-image {
+
+  position: absolute;
+
+  inset: 0;
+
+  background-size: cover;
+
+  background-position: center;
+
+}
+
+
+.day-card-overlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.88),
+      rgba(0,0,0,.08)
+    );
+
+}
+
+
+.day-card-content {
+
+  position: absolute;
+
+  z-index: 2;
+
+  left: 15px;
+
+  right: 15px;
+
+  bottom: 15px;
+
+}
+
+
+.day-number {
+
+  color: var(--gold-light);
+
+  font-size: 9px;
+
+  letter-spacing: 2px;
+
+}
+
+
+.day-title {
+
+  margin-top: 4px;
+
+  font-family: Georgia, serif;
+
+  font-size: 17px;
+
+}
+
+
+/* =========================================================
+   LEITURA
+========================================================= */
+
+.reading-container {
+
+  padding-bottom: 50px;
+
+}
+
+
+.reading-image {
+
+  height: 420px;
+
+  background:
+    url("assets/home/devocional.jpg")
+    center / cover;
+
+  position: relative;
+
+}
+
+
+.reading-image::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 40%,
+      var(--black)
+    );
+
+}
+
+
+.reading-content {
+
+  margin-top:
+    -80px;
+
+  position: relative;
+
+  z-index: 2;
+
+  padding:
+    0
+    25px;
+
+}
+
+
+.reading-day {
+
+  color: var(--gold-light);
+
+  font-size: 10px;
+
+  letter-spacing: 4px;
+
+  margin-bottom: 15px;
+
+}
+
+
+.reading-content h1 {
+
+  font-family: Georgia, serif;
+
+  font-weight: 400;
+
+  font-size: 46px;
+
+  line-height: .98;
+
+}
+
+
+.reading-body {
+
+  margin-top: 30px;
+
+  color: var(--cream-soft);
+
+  font-size: 16px;
+
+  line-height: 1.85;
+
+}
+
+
+/* =========================================================
+   ESTUDOS
+========================================================= */
+
+.studies-grid {
+
+  display: grid;
+
+  gap: 14px;
+
+  padding:
+    0
+    20px
+    30px;
+
+}
+
+
+.study-card {
+
+  min-height: 200px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 22px;
+
+  background-size: cover;
+
+  background-position: center;
+
+}
+
+
+.study-card::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.9),
+      rgba(0,0,0,.1)
+    );
+
+}
+
+
+.study-card-content {
+
+  position: absolute;
+
+  z-index: 2;
+
+  left: 20px;
+
+  right: 20px;
+
+  bottom: 20px;
+
+}
+
+
+.study-card h2 {
+
+  font-family: Georgia, serif;
+
+  font-size: 28px;
+
+  font-weight: 400;
+
+}
+
+
+/* =========================================================
+   PRÁTICAS
+========================================================= */
+
+.practice-list {
+
+  display: grid;
+
+  gap: 14px;
+
+  padding:
+    0
+    20px
+    30px;
+
+}
+
+
+.practice-large {
+
+  min-height: 220px;
+
+  border-radius: 24px;
+
+  background-size: cover;
+
+  background-position: center;
+
+  position: relative;
+
+  overflow: hidden;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  padding: 25px;
+
+  border:
+    1px solid var(--border);
+
+}
+
+
+.practice-large::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.88),
+      rgba(0,0,0,.08)
+    );
+
+}
+
+
+.practice-large > div {
+
+  position: relative;
+
+  z-index: 2;
+
+}
+
+
+.practice-large h2 {
+
+  font-family: Georgia, serif;
+
+  font-size: 32px;
+
+  font-weight: 400;
+
+}
+
+
+/* =========================================================
+   PERFIL
+========================================================= */
+
+.profile-card {
+
+  margin:
+    0
+    20px;
+
+  padding: 30px;
+
+  min-height: 240px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(73,48,26,.55),
+      rgba(17,11,7,.85)
+    );
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+}
+
+
+.profile-number {
+
+  font-family: Georgia, serif;
+
+  font-size: 80px;
+
+  color: var(--gold-light);
+
+  line-height: .8;
+
+}
+
+
+.profile-card h2 {
+
+  font-family: Georgia, serif;
+
+  font-weight: 400;
+
+}
+
+
+/* =========================================================
+   BUSCA
+========================================================= */
+
+.search-input {
+
+  width: 100%;
+
+  margin-top: 25px;
+
+  padding:
+    17px
+    20px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 100px;
+
+  background:
+    rgba(255,255,255,.06);
+
+  color: var(--cream);
+
+  outline: none;
+
+  font-size: 15px;
+
+}
+
+
+.search-input::placeholder {
+
+  color:
+    rgba(255,255,255,.42);
+
+}
+
+
+/* =========================================================
+   NAVEGAÇÃO
+========================================================= */
+
+.bottom-navigation {
 
   position: fixed;
 
-  z-index: 50;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
 
-  left: 50%;
+  z-index: 200;
 
-  bottom: 18px;
-
-  transform: translateX(-50%);
-
-  width:
-    min(
-      calc(100% - 30px),
-      720px
-    );
-
-  min-height: 78px;
-
-  border-radius: 40px;
-
-  background:
-    rgba(27,20,14,.88);
+  height: 70px;
 
   border:
     1px solid
-    rgba(255,220,165,.3);
+    rgba(239,205,148,.25);
+
+  border-radius:
+    28px;
+
+  background:
+    rgba(18,12,8,.78);
 
   backdrop-filter:
-    blur(22px);
-
-  box-shadow:
-    0 15px 50px
-    rgba(0,0,0,.55);
+    blur(25px);
 
   display: grid;
 
   grid-template-columns:
     repeat(5, 1fr);
 
-  padding:
-    8px 10px;
+  box-shadow:
+    0 15px 50px
+    rgba(0,0,0,.5);
+
 }
+
 
 .nav-item {
 
-  position: relative;
-
   border: none;
 
-  background: none;
+  background: transparent;
 
-  color: #9f9588;
+  color:
+    rgba(255,255,255,.55);
 
-  display: flex;
+  font-size: 10px;
 
-  flex-direction: column;
+  cursor: pointer;
 
-  align-items: center;
+  transition:
+    color .25s ease;
 
-  justify-content: center;
-
-  gap: 4px;
-
-  font-size: 9px;
-
-  letter-spacing: .3px;
-
-  min-width: 0;
 }
+
 
 .nav-item.active {
 
-  color: var(--gold-light);
-}
+  color:
+    var(--gold-light);
 
-.nav-icon {
-
-  width: 25px;
-  height: 25px;
-
-  display: grid;
-
-  place-items: center;
-}
-
-.nav-icon svg {
-
-  width: 22px;
-  height: 22px;
-
-  fill: none;
-
-  stroke: currentColor;
-
-  stroke-width: 1.5;
-
-  stroke-linecap: round;
-
-  stroke-linejoin: round;
-}
-
-.center-nav {
-
-  margin-top: -25px;
-}
-
-.flame {
-
-  width: 55px;
-  height: 55px;
-
-  border-radius: 50%;
-
-  display: grid;
-
-  place-items: center;
-
-  background:
-    radial-gradient(
-      circle,
-      #efcf91,
-      #8c5d29 65%,
-      #2a190c
-    );
-
-  border:
-    1px solid
-    rgba(255,230,180,.65);
-
-  color: white;
-
-  font-size: 22px;
-
-  box-shadow:
-    0 5px 25px
-    rgba(0,0,0,.4);
 }
 
 
-/* ============================================================
-   INNER PAGES
-============================================================ */
+.nav-item.featured {
 
-.reading-page,
-.journey-page,
-.studies-page,
-.profile-page {
+  color:
+    var(--gold-light);
 
-  padding:
-    110px
-    28px
-    60px;
-}
-
-.back-button {
-
-  position: absolute;
-
-  top: 100px;
-  left: 28px;
-
-  background: none;
-
-  border: none;
-
-  color: var(--gold-light);
-
-  font-size: 12px;
-}
-
-.reading-page h1,
-.journey-page h1,
-.studies-page h1,
-.profile-page h1 {
-
-  font-family: var(--serif);
-
-  font-size: clamp(48px, 10vw, 76px);
-
-  line-height: .9;
-
-  font-weight: 500;
-
-  margin-bottom: 18px;
-}
-
-.reading-reference {
-
-  color: var(--gold);
-
-  font-family: var(--serif);
-
-  font-size: 20px;
-}
-
-.reading-divider {
-
-  color: var(--gold);
-
-  margin: 25px 0;
-
-  letter-spacing: 10px;
-}
-
-.reading-page p {
-
-  color: #d4c6b4;
-
-  font-size: 15px;
-
-  line-height: 1.9;
-
-  margin-bottom: 25px;
-}
-
-.reading-page h2 {
-
-  font-family: var(--serif);
-
-  font-size: 36px;
-
-  margin:
-    45px 0
-    15px;
-}
-
-.reflection-box {
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius: 20px;
-
-  padding: 25px;
-
-  margin:
-    35px 0;
-}
-
-.reflection-box span {
-
-  display: block;
-
-  color: var(--gold);
-
-  font-size: 9px;
-
-  letter-spacing: 3px;
-
-  margin-bottom: 10px;
-}
-
-.reflection-box strong {
-
-  display: block;
-
-  font-family: var(--serif);
-
-  font-size: 26px;
-
-  font-weight: 500;
-
-  line-height: 1.1;
-}
-
-.intro-text {
-
-  color: var(--muted);
-
-  font-size: 14px;
-
-  line-height: 1.7;
-
-  max-width: 560px;
-
-  margin-bottom: 35px;
 }
 
 
-/* ============================================================
-   JOURNEY CIRCLE
-============================================================ */
+/* =========================================================
+   RESPONSIVIDADE
+========================================================= */
 
-.journey-circle {
+@media (min-width: 700px) {
 
-  width: 190px;
-  height: 190px;
+  #app {
 
-  margin:
-    30px auto
-    45px;
+    max-width: 900px;
 
-  border-radius: 50%;
+    margin: auto;
 
-  display: grid;
-
-  place-items: center;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(232,192,120,.2),
-      rgba(232,192,120,.03) 60%,
-      transparent 61%
-    );
-
-  border:
-    1px solid
-    rgba(232,192,120,.5);
-
-  box-shadow:
-    inset 0 0 40px
-    rgba(232,192,120,.08);
-}
-
-.journey-circle div {
-
-  text-align: center;
-}
-
-.journey-circle strong {
-
-  display: block;
-
-  font-family: var(--serif);
-
-  font-size: 60px;
-
-  line-height: .8;
-
-  color: var(--gold-light);
-}
-
-.journey-circle span {
-
-  color: var(--muted);
-
-  font-size: 13px;
-}
-
-
-/* ============================================================
-   PHASES
-============================================================ */
-
-.phases {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 10px;
-}
-
-.phase-card {
-
-  width: 100%;
-
-  min-height: 80px;
-
-  padding: 15px 18px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.1);
-
-  background:
-    rgba(255,255,255,.025);
-
-  color: var(--cream);
-
-  border-radius: 18px;
-
-  display: grid;
-
-  grid-template-columns:
-    45px 1fr 20px;
-
-  align-items: center;
-
-  text-align: left;
-}
-
-.phase-card.active {
-
-  border-color:
-    rgba(232,192,120,.45);
-
-  background:
-    rgba(232,192,120,.06);
-}
-
-.phase-card > span {
-
-  color: var(--gold);
-
-  font-family: var(--serif);
-
-  font-size: 20px;
-}
-
-.phase-card div {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 3px;
-}
-
-.phase-card strong {
-
-  font-family: var(--serif);
-
-  font-size: 22px;
-
-  font-weight: 500;
-}
-
-.phase-card small {
-
-  color: var(--muted);
-
-  font-size: 10px;
-}
-
-.phase-card b {
-
-  color: var(--gold);
-}
-
-
-/* ============================================================
-   STUDIES
-============================================================ */
-
-.study-list {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 12px;
-}
-
-.study-item {
-
-  display: grid;
-
-  grid-template-columns:
-    45px 1fr 20px;
-
-  align-items: center;
-
-  gap: 10px;
-
-  padding: 20px;
-
-  border-radius: 18px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.1);
-
-  background:
-    rgba(255,255,255,.025);
-}
-
-.study-number {
-
-  color: var(--gold);
-
-  font-family: var(--serif);
-
-  font-size: 21px;
-}
-
-.study-item h3 {
-
-  font-family: var(--serif);
-
-  font-size: 23px;
-
-  font-weight: 500;
-
-  line-height: 1;
-}
-
-.study-item p {
-
-  color: var(--muted);
-
-  font-size: 11px;
-
-  margin-top: 5px;
-}
-
-.study-item > span {
-
-  color: var(--gold);
-
-  font-size: 23px;
-}
-
-
-/* ============================================================
-   PROFILE
-============================================================ */
-
-.profile-page {
-
-  text-align: center;
-}
-
-.profile-avatar {
-
-  width: 90px;
-  height: 90px;
-
-  margin:
-    0 auto
-    25px;
-
-  border-radius: 50%;
-
-  display: grid;
-
-  place-items: center;
-
-  font-size: 30px;
-
-  color: var(--gold-light);
-
-  border:
-    1px solid
-    rgba(232,192,120,.5);
-
-  background:
-    radial-gradient(
-      circle,
-      #a36e34,
-      #21130a
-    );
-}
-
-.profile-stat {
-
-  padding: 20px;
-
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.1);
-}
-
-.profile-stat strong {
-
-  display: block;
-
-  font-family: var(--serif);
-
-  font-size: 42px;
-
-  color: var(--gold-light);
-}
-
-.profile-stat span {
-
-  font-size: 11px;
-
-  color: var(--muted);
-}
-
-
-/* ============================================================
-   SEARCH
-============================================================ */
-
-.search-modal {
-
-  position: fixed;
-
-  z-index: 100;
-
-  inset: 0;
-
-  display: none;
-
-  align-items: flex-start;
-
-  justify-content: center;
-
-  padding:
-    80px
-    20px;
-
-  background:
-    rgba(0,0,0,.8);
-
-  backdrop-filter:
-    blur(15px);
-}
-
-.search-modal.active {
-
-  display: flex;
-}
-
-.search-box {
-
-  width: 100%;
-
-  max-width: 600px;
-
-  padding: 30px;
-
-  border-radius: 25px;
-
-  background:
-    #17100b;
-
-  border:
-    1px solid
-    var(--border);
-
-  position: relative;
-}
-
-.close-search {
-
-  position: absolute;
-
-  top: 15px;
-  right: 18px;
-
-  border: none;
-
-  background: none;
-
-  color: var(--cream);
-
-  font-size: 30px;
-}
-
-.search-box h2 {
-
-  font-family: var(--serif);
-
-  font-size: 38px;
-
-  line-height: .95;
-
-  margin-bottom: 25px;
-}
-
-.search-box input {
-
-  width: 100%;
-
-  height: 55px;
-
-  border-radius: 14px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.15);
-
-  background:
-    rgba(255,255,255,.05);
-
-  color: white;
-
-  padding: 0 18px;
-
-  outline: none;
-}
-
-.search-results {
-
-  margin-top: 20px;
-}
-
-.search-result {
-
-  padding: 15px 0;
-
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.08);
-
-  cursor: pointer;
-}
-
-.search-result strong {
-
-  font-family: var(--serif);
-
-  font-size: 21px;
-}
-
-.search-result small {
-
-  display: block;
-
-  color: var(--muted);
-
-  margin-top: 4px;
-}
-
-
-/* ============================================================
-   RESPONSIVE
-============================================================ */
-
-@media (max-width: 600px) {
-
-  .top-header {
-    padding:
-      20px
-      18px;
-  }
-
-  .brand-name strong {
-    font-size: 18px;
-  }
-
-  .brand-name small {
-    font-size: 7px;
-    letter-spacing: 3px;
-  }
-
-  .brand-logo {
-    width: 44px;
-    height: 44px;
-  }
-
-  .icon-button {
-    width: 43px;
-    height: 43px;
   }
 
   .hero {
-    min-height: 650px;
+
+    min-height: 850px;
+
   }
 
-  .hero-content {
-    padding:
-      0
-      28px
-      42px;
+  .horizontal-cards {
+
+    gap: 18px;
+
   }
 
-  .hero h1 {
-    font-size: 65px;
+  .image-card {
+
+    flex-basis: 190px;
+
+    height: 250px;
+
   }
 
-  .today-content {
-    padding: 25px;
+  .journey-grid {
+
+    grid-template-columns:
+      repeat(3, 1fr);
+
   }
 
-  .today-content h2 {
-    font-size: 39px;
+  .studies-grid {
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
   }
 
-  .today-content p {
-    font-size: 12px;
-  }
-
-  .section {
-    padding:
-      15px
-      18px;
-  }
-
-  .content-card {
-    flex-basis: 165px;
-    height: 200px;
-  }
-
-  .bottom-nav {
-    width:
-      calc(100% - 18px);
-
-    bottom: 9px;
-  }
-
-  .reading-page,
-  .journey-page,
-  .studies-page,
-  .profile-page {
-    padding:
-      110px
-      22px
-      45px;
-  }
 }
 
-@media (prefers-reduced-motion: reduce) {
 
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition: none !important;
-  }
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+button:focus-visible,
+input:focus-visible {
+
+  outline:
+    2px solid var(--gold-light);
+
+  outline-offset:
+    3px;
+
 }
