@@ -1,1 +1,603 @@
-
+{
+  "planos": [
+    {
+      "id": "365-presenca",
+      "titulo": "365 Dias de Presença",
+      "subtitulo": "Uma jornada anual de leitura, reflexão e comunhão com o Eterno.",
+      "tipo": "anual",
+      "duracao": 365,
+      "descricao": "Uma jornada de um ano integrada ao Devocional Doce Espírito Santo — Um Amigo Íntimo. A cada dia, a leitura bíblica acompanha a formação espiritual proposta pela jornada.",
+      "ordem": "cronologica",
+      "dias": [
+        {
+          "dia": 1,
+          "referencias": ["Gênesis 1–3"],
+          "tema": "Criação e presença"
+        },
+        {
+          "dia": 2,
+          "referencias": ["Gênesis 4–7"],
+          "tema": "Queda, juízo e graça"
+        },
+        {
+          "dia": 3,
+          "referencias": ["Gênesis 8–11"],
+          "tema": "Aliança e recomeço"
+        },
+        {
+          "dia": 4,
+          "referencias": ["Gênesis 12–15"],
+          "tema": "Chamado e promessa"
+        },
+        {
+          "dia": 5,
+          "referencias": ["Gênesis 16–18"],
+          "tema": "Promessa e espera"
+        },
+        {
+          "dia": 6,
+          "referencias": ["Gênesis 19–21"],
+          "tema": "Juízo, preservação e nascimento"
+        },
+        {
+          "dia": 7,
+          "referencias": ["Gênesis 22–24"],
+          "tema": "Fé, entrega e providência"
+        },
+        {
+          "dia": 8,
+          "referencias": ["Gênesis 25–27"],
+          "tema": "Família e escolhas"
+        },
+        {
+          "dia": 9,
+          "referencias": ["Gênesis 28–30"],
+          "tema": "Presença no caminho"
+        },
+        {
+          "dia": 10,
+          "referencias": ["Gênesis 31–33"],
+          "tema": "Retorno, reconciliação e proteção"
+        },
+        {
+          "dia": 11,
+          "referencias": ["Gênesis 34–36"],
+          "tema": "Conflitos e consequências"
+        },
+        {
+          "dia": 12,
+          "referencias": ["Gênesis 37–40"],
+          "tema": "José e os processos ocultos"
+        },
+        {
+          "dia": 13,
+          "referencias": ["Gênesis 41–43"],
+          "tema": "Providência e liderança"
+        },
+        {
+          "dia": 14,
+          "referencias": ["Gênesis 44–46"],
+          "tema": "Reconciliação e restauração"
+        },
+        {
+          "dia": 15,
+          "referencias": ["Gênesis 47–50"],
+          "tema": "Propósito através das gerações"
+        },
+        {
+          "dia": 16,
+          "referencias": ["Êxodo 1–4"],
+          "tema": "Chamado e libertação"
+        },
+        {
+          "dia": 17,
+          "referencias": ["Êxodo 5–8"],
+          "tema": "Confronto e perseverança"
+        },
+        {
+          "dia": 18,
+          "referencias": ["Êxodo 9–12"],
+          "tema": "Páscoa e redenção"
+        },
+        {
+          "dia": 19,
+          "referencias": ["Êxodo 13–15"],
+          "tema": "Liberdade e travessia"
+        },
+        {
+          "dia": 20,
+          "referencias": ["Êxodo 16–18"],
+          "tema": "Dependência e provisão"
+        },
+        {
+          "dia": 21,
+          "referencias": ["Êxodo 19–21"],
+          "tema": "Aliança e santidade"
+        },
+        {
+          "dia": 22,
+          "referencias": ["Êxodo 22–24"],
+          "tema": "Comunidade e responsabilidade"
+        },
+        {
+          "dia": 23,
+          "referencias": ["Êxodo 25–28"],
+          "tema": "Presença e adoração"
+        },
+        {
+          "dia": 24,
+          "referencias": ["Êxodo 29–31"],
+          "tema": "Consagração e serviço"
+        },
+        {
+          "dia": 25,
+          "referencias": ["Êxodo 32–34"],
+          "tema": "Queda, intercessão e misericórdia"
+        },
+        {
+          "dia": 26,
+          "referencias": ["Êxodo 35–38"],
+          "tema": "Obediência e construção"
+        },
+        {
+          "dia": 27,
+          "referencias": ["Êxodo 39–40"],
+          "tema": "A glória e a presença"
+        },
+        {
+          "dia": 28,
+          "referencias": ["Levítico 1–7"],
+          "tema": "Sacrifício e aproximação"
+        },
+        {
+          "dia": 29,
+          "referencias": ["Levítico 8–10"],
+          "tema": "Sacerdócio e santidade"
+        },
+        {
+          "dia": 30,
+          "referencias": ["Levítico 11–15"],
+          "tema": "Santidade no cotidiano"
+        }
+      ]
+    },
+    {
+      "id": "evangelhos",
+      "titulo": "Conhecendo Jesus",
+      "subtitulo": "Uma jornada pelos Evangelhos para contemplar a vida, as palavras e as obras de Jesus.",
+      "tipo": "tematico",
+      "duracao": 30,
+      "descricao": "Um plano introdutório pelos quatro Evangelhos, conduzindo o leitor à observação cuidadosa da pessoa e da missão de Jesus.",
+      "ordem": "evangelhos",
+      "dias": [
+        {
+          "dia": 1,
+          "referencias": ["João 1:1–18"],
+          "tema": "O Verbo e a encarnação"
+        },
+        {
+          "dia": 2,
+          "referencias": ["Marcos 1:1–20"],
+          "tema": "O início do ministério"
+        },
+        {
+          "dia": 3,
+          "referencias": ["Lucas 4:1–30"],
+          "tema": "Tentação, missão e anúncio"
+        },
+        {
+          "dia": 4,
+          "referencias": ["Mateus 5:1–20"],
+          "tema": "O Reino e a justiça"
+        },
+        {
+          "dia": 5,
+          "referencias": ["Mateus 5:21–48"],
+          "tema": "A profundidade da Lei"
+        },
+        {
+          "dia": 6,
+          "referencias": ["Mateus 6:1–18"],
+          "tema": "Vida diante do Eterno"
+        },
+        {
+          "dia": 7,
+          "referencias": ["Mateus 6:19–34"],
+          "tema": "Ansiedade e confiança"
+        },
+        {
+          "dia": 8,
+          "referencias": ["Mateus 7:1–29"],
+          "tema": "Discernimento e prática"
+        },
+        {
+          "dia": 9,
+          "referencias": ["Marcos 4:1–34"],
+          "tema": "Parábolas do Reino"
+        },
+        {
+          "dia": 10,
+          "referencias": ["Lucas 10:25–42"],
+          "tema": "Amor, serviço e presença"
+        },
+        {
+          "dia": 11,
+          "referencias": ["Lucas 15:1–32"],
+          "tema": "O Eterno e os que estão perdidos"
+        },
+        {
+          "dia": 12,
+          "referencias": ["João 3:1–21"],
+          "tema": "Novo nascimento"
+        },
+        {
+          "dia": 13,
+          "referencias": ["João 4:1–42"],
+          "tema": "Água viva e adoração"
+        },
+        {
+          "dia": 14,
+          "referencias": ["João 6:22–71"],
+          "tema": "O pão da vida"
+        },
+        {
+          "dia": 15,
+          "referencias": ["João 10:1–30"],
+          "tema": "O bom pastor"
+        },
+        {
+          "dia": 16,
+          "referencias": ["João 11:1–44"],
+          "tema": "Vida em meio à morte"
+        },
+        {
+          "dia": 17,
+          "referencias": ["João 13:1–20"],
+          "tema": "Serviço e humildade"
+        },
+        {
+          "dia": 18,
+          "referencias": ["João 14:1–31"],
+          "tema": "Presença e consolação"
+        },
+        {
+          "dia": 19,
+          "referencias": ["João 15:1–27"],
+          "tema": "Permanecer"
+        },
+        {
+          "dia": 20,
+          "referencias": ["João 16:1–33"],
+          "tema": "A promessa da presença"
+        },
+        {
+          "dia": 21,
+          "referencias": ["João 17:1–26"],
+          "tema": "A oração de Jesus"
+        },
+        {
+          "dia": 22,
+          "referencias": ["Mateus 26:26–46"],
+          "tema": "A noite da entrega"
+        },
+        {
+          "dia": 23,
+          "referencias": ["Mateus 27:1–61"],
+          "tema": "A cruz"
+        },
+        {
+          "dia": 24,
+          "referencias": ["Mateus 28:1–20"],
+          "tema": "Ressurreição e missão"
+        },
+        {
+          "dia": 25,
+          "referencias": ["Lucas 24:1–53"],
+          "tema": "O Cristo ressuscitado"
+        },
+        {
+          "dia": 26,
+          "referencias": ["João 20:1–31"],
+          "tema": "Crer e encontrar"
+        },
+        {
+          "dia": 27,
+          "referencias": ["João 21:1–25"],
+          "tema": "Restauração e chamado"
+        },
+        {
+          "dia": 28,
+          "referencias": ["Atos 1:1–14"],
+          "tema": "A promessa e a espera"
+        },
+        {
+          "dia": 29,
+          "referencias": ["Atos 2:1–47"],
+          "tema": "A presença e a comunidade"
+        },
+        {
+          "dia": 30,
+          "referencias": ["Romanos 8:1–39"],
+          "tema": "Vida segundo o Espírito"
+        }
+      ]
+    },
+    {
+      "id": "salmos-oracao",
+      "titulo": "Salmos para uma Vida de Oração",
+      "subtitulo": "Aprender a levar diante do Eterno alegria, dor, medo, gratidão e esperança.",
+      "tipo": "tematico",
+      "duracao": 30,
+      "descricao": "Uma jornada pelos Salmos para desenvolver uma linguagem de oração honesta, profunda e consciente.",
+      "ordem": "tematico",
+      "dias": [
+        {
+          "dia": 1,
+          "referencias": ["Salmos 1"],
+          "tema": "Dois caminhos"
+        },
+        {
+          "dia": 2,
+          "referencias": ["Salmos 3"],
+          "tema": "Confiança em meio à ameaça"
+        },
+        {
+          "dia": 3,
+          "referencias": ["Salmos 8"],
+          "tema": "A grandeza do Eterno"
+        },
+        {
+          "dia": 4,
+          "referencias": ["Salmos 16"],
+          "tema": "Satisfação e segurança"
+        },
+        {
+          "dia": 5,
+          "referencias": ["Salmos 19"],
+          "tema": "Criação e Palavra"
+        },
+        {
+          "dia": 6,
+          "referencias": ["Salmos 23"],
+          "tema": "O Eterno como pastor"
+        },
+        {
+          "dia": 7,
+          "referencias": ["Salmos 27"],
+          "tema": "Buscar a face do Eterno"
+        },
+        {
+          "dia": 8,
+          "referencias": ["Salmos 32"],
+          "tema": "Perdão e confissão"
+        },
+        {
+          "dia": 9,
+          "referencias": ["Salmos 34"],
+          "tema": "Provar e ver"
+        },
+        {
+          "dia": 10,
+          "referencias": ["Salmos 42"],
+          "tema": "Sede de Deus"
+        },
+        {
+          "dia": 11,
+          "referencias": ["Salmos 46"],
+          "tema": "Quietude e confiança"
+        },
+        {
+          "dia": 12,
+          "referencias": ["Salmos 51"],
+          "tema": "Arrependimento e restauração"
+        },
+        {
+          "dia": 13,
+          "referencias": ["Salmos 63"],
+          "tema": "Desejo pela presença"
+        },
+        {
+          "dia": 14,
+          "referencias": ["Salmos 73"],
+          "tema": "Quando a fé é confrontada"
+        },
+        {
+          "dia": 15,
+          "referencias": ["Salmos 84"],
+          "tema": "Desejar a presença"
+        },
+        {
+          "dia": 16,
+          "referencias": ["Salmos 90"],
+          "tema": "Tempo e eternidade"
+        },
+        {
+          "dia": 17,
+          "referencias": ["Salmos 91"],
+          "tema": "Refúgio"
+        },
+        {
+          "dia": 18,
+          "referencias": ["Salmos 103"],
+          "tema": "Memória da graça"
+        },
+        {
+          "dia": 19,
+          "referencias": ["Salmos 119:1–32"],
+          "tema": "Amor pela Palavra"
+        },
+        {
+          "dia": 20,
+          "referencias": ["Salmos 119:33–72"],
+          "tema": "Ensina-me os teus caminhos"
+        },
+        {
+          "dia": 21,
+          "referencias": ["Salmos 119:73–112"],
+          "tema": "A Palavra na aflição"
+        },
+        {
+          "dia": 22,
+          "referencias": ["Salmos 121"],
+          "tema": "De onde vem o socorro"
+        },
+        {
+          "dia": 23,
+          "referencias": ["Salmos 127"],
+          "tema": "Dependência"
+        },
+        {
+          "dia": 24,
+          "referencias": ["Salmos 130"],
+          "tema": "Esperar no Eterno"
+        },
+        {
+          "dia": 25,
+          "referencias": ["Salmos 131"],
+          "tema": "Alma aquietada"
+        },
+        {
+          "dia": 26,
+          "referencias": ["Salmos 139:1–12"],
+          "tema": "Conhecido profundamente"
+        },
+        {
+          "dia": 27,
+          "referencias": ["Salmos 139:13–24"],
+          "tema": "Examina-me"
+        },
+        {
+          "dia": 28,
+          "referencias": ["Salmos 142"],
+          "tema": "Derramar a alma"
+        },
+        {
+          "dia": 29,
+          "referencias": ["Salmos 143"],
+          "tema": "Ensina-me a fazer a tua vontade"
+        },
+        {
+          "dia": 30,
+          "referencias": ["Salmos 150"],
+          "tema": "Louvor"
+        }
+      ]
+    },
+    {
+      "id": "fundamentos-fe",
+      "titulo": "Fundamentos da Fé",
+      "subtitulo": "Uma introdução às grandes verdades que sustentam a vida cristã.",
+      "tipo": "tematico",
+      "duracao": 21,
+      "descricao": "Um plano introdutório para estudar criação, pecado, graça, fé, salvação, cruz, ressurreição, oração, santificação, igreja e missão.",
+      "ordem": "tematico",
+      "dias": [
+        {
+          "dia": 1,
+          "referencias": ["Gênesis 1:1–31"],
+          "tema": "Criação"
+        },
+        {
+          "dia": 2,
+          "referencias": ["Gênesis 3:1–24"],
+          "tema": "A queda"
+        },
+        {
+          "dia": 3,
+          "referencias": ["Romanos 3:9–26"],
+          "tema": "Pecado e necessidade de graça"
+        },
+        {
+          "dia": 4,
+          "referencias": ["Efésios 2:1–10"],
+          "tema": "Graça"
+        },
+        {
+          "dia": 5,
+          "referencias": ["Gênesis 12:1–9"],
+          "tema": "Chamado"
+        },
+        {
+          "dia": 6,
+          "referencias": ["Romanos 4:1–25"],
+          "tema": "Fé"
+        },
+        {
+          "dia": 7,
+          "referencias": ["João 1:1–18"],
+          "tema": "Cristo"
+        },
+        {
+          "dia": 8,
+          "referencias": ["João 3:1–21"],
+          "tema": "Novo nascimento"
+        },
+        {
+          "dia": 9,
+          "referencias": ["Isaías 53:1–12"],
+          "tema": "O Servo sofredor"
+        },
+        {
+          "dia": 10,
+          "referencias": ["Romanos 5:1–11"],
+          "tema": "Reconciliação"
+        },
+        {
+          "dia": 11,
+          "referencias": ["1 Coríntios 15:1–28"],
+          "tema": "Ressurreição"
+        },
+        {
+          "dia": 12,
+          "referencias": ["Atos 2:1–21"],
+          "tema": "A promessa da presença"
+        },
+        {
+          "dia": 13,
+          "referencias": ["João 14:15–27"],
+          "tema": "Presença e consolação"
+        },
+        {
+          "dia": 14,
+          "referencias": ["Gálatas 5:13–26"],
+          "tema": "Fruto e transformação"
+        },
+        {
+          "dia": 15,
+          "referencias": ["Romanos 12:1–21"],
+          "tema": "Vida transformada"
+        },
+        {
+          "dia": 16,
+          "referencias": ["Efésios 4:1–32"],
+          "tema": "Maturidade"
+        },
+        {
+          "dia": 17,
+          "referencias": ["Mateus 28:16–20"],
+          "tema": "Missão"
+        },
+        {
+          "dia": 18,
+          "referencias": ["Atos 2:42–47"],
+          "tema": "Comunidade"
+        },
+        {
+          "dia": 19,
+          "referencias": ["Hebreus 10:19–25"],
+          "tema": "Perseverança"
+        },
+        {
+          "dia": 20,
+          "referencias": ["Tiago 1:1–27"],
+          "tema": "Fé praticada"
+        },
+        {
+          "dia": 21,
+          "referencias": ["Apocalipse 21:1–7"],
+          "tema": "Esperança final"
+        }
+      ]
+    }
+  ]
+}
