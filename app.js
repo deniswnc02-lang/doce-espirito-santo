@@ -1,501 +1,194 @@
-/* ============================================================
+/* =========================================================
    DOCE ESPÍRITO SANTO
-   APPLICATION LOGIC
-============================================================ */
+   UM AMIGO ÍNTIMO
 
-document.addEventListener("DOMContentLoaded", () => {
-
-  /* ==========================================================
-     STATE
-  ========================================================== */
-
-  let currentDay =
-    Number(localStorage.getItem("doceEspíritoDay")) || 0;
-
-  const totalDays = 365;
+   Motor principal da aplicação
+========================================================= */
 
 
-  /* ==========================================================
-     ELEMENTS
-  ========================================================== */
+/* =========================================================
+   ESTADO
+========================================================= */
 
-  const pages =
-    document.querySelectorAll(".page");
+const state = {
 
-  const navItems =
-    document.querySelectorAll(".nav-item");
+  currentScreen: "home",
 
-  const startJourney =
-    document.getElementById("startJourney");
+  currentDay:
+    Number(
+      localStorage.getItem("des_current_day")
+    ) || 1,
 
-  const continueDevotional =
-    document.getElementById("continueDevotional");
+  completedDays:
+    JSON.parse(
+      localStorage.getItem("des_completed_days")
+    ) || [],
 
-  const journeyButton =
-    document.getElementById("journeyButton");
+  devotionals: [],
 
-  const studiesButton =
-    document.getElementById("studiesButton");
+  studies: []
 
-  const profileButton =
-    document.getElementById("profileButton");
-
-  const profileContinue =
-    document.getElementById("profileContinue");
-
-  const completeDay =
-    document.getElementById("completeDay");
-
-  const searchButton =
-    document.getElementById("searchButton");
-
-  const searchModal =
-    document.getElementById("searchModal");
-
-  const closeSearch =
-    document.getElementById("closeSearch");
-
-  const searchInput =
-    document.getElementById("searchInput");
-
-  const searchResults =
-    document.getElementById("searchResults");
+};
 
 
-  /* ==========================================================
-     PAGE NAVIGATION
-  ========================================================== */
+/* =========================================================
+   ELEMENTOS
+========================================================= */
 
-  function showPage(pageId) {
+const screens =
+  document.querySelectorAll(".screen");
 
-    pages.forEach(page => {
-
-      page.classList.toggle(
-        "active",
-        page.id === pageId
-      );
-
-    });
+const navigationItems =
+  document.querySelectorAll(
+    "[data-screen]"
+  );
 
 
-    navItems.forEach(item => {
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
 
-      item.classList.toggle(
-        "active",
-        item.dataset.page === pageId
-      );
+document.addEventListener(
+  "DOMContentLoaded",
+  async () => {
 
-    });
+    setupNavigation();
 
+    setupActions();
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    await loadContent();
+
+    updateInterface();
+
   }
+);
 
 
-  /* ==========================================================
-     NAV BUTTONS
-  ========================================================== */
+/* =========================================================
+   NAVEGAÇÃO
+========================================================= */
 
-  navItems.forEach(item => {
+function setupNavigation() {
 
-    item.addEventListener("click", () => {
+  navigationItems.forEach(
+    element => {
 
-      const pageId =
-        item.dataset.page;
-
-      showPage(pageId);
-
-    });
-
-  });
-
-
-  /* ==========================================================
-     BACK BUTTON
-  ========================================================== */
-
-  document
-    .querySelectorAll("[data-back]")
-    .forEach(button => {
-
-      button.addEventListener(
+      element.addEventListener(
         "click",
-        () => showPage("homePage")
+        () => {
+
+          const screen =
+            element.dataset.screen;
+
+          if (!screen) return;
+
+          showScreen(screen);
+
+        }
       );
 
-    });
+    }
+  );
+
+}
 
 
-  /* ==========================================================
-     START JOURNEY
-  ========================================================== */
+function showScreen(screenName) {
 
-  startJourney.addEventListener(
-    "click",
-    () => {
+  state.currentScreen =
+    screenName;
 
-      if (currentDay === 0) {
+  screens.forEach(
+    screen => {
 
-        openDevotional(1);
-
-      } else {
-
-        openDevotional(currentDay + 1);
-
-      }
+      screen.classList.remove(
+        "active"
+      );
 
     }
   );
 
 
-  /* ==========================================================
-     DEVOTIONAL
-  ========================================================== */
-
-  function openDevotional(day) {
-
-    const safeDay =
-      Math.max(
-        1,
-        Math.min(totalDays, day)
-      );
-
+  const target =
     document.getElementById(
-      "readingDay"
-    ).textContent = safeDay;
-
-    document.getElementById(
-      "readingTitle"
-    ).textContent =
-      getDevotionalTitle(safeDay);
-
-    showPage("devotionalPage");
-
-  }
+      `${screenName}-screen`
+    );
 
 
-  continueDevotional.addEventListener(
-    "click",
-    () => {
+  if (target) {
 
-      openDevotional(
-        Math.max(1, currentDay + 1)
-      );
-
-    }
-  );
-
-
-  /* ==========================================================
-     COMPLETE DAY
-  ========================================================== */
-
-  completeDay.addEventListener(
-    "click",
-    () => {
-
-      const readingDay =
-        Number(
-          document.getElementById(
-            "readingDay"
-          ).textContent
-        );
-
-      if (
-        readingDay > currentDay &&
-        readingDay <= totalDays
-      ) {
-
-        currentDay = readingDay;
-
-        localStorage.setItem(
-          "doceEspíritoDay",
-          currentDay
-        );
-
-      }
-
-      updateProgress();
-
-      showPage("homePage");
-
-    }
-  );
-
-
-  /* ==========================================================
-     JOURNEY
-  ========================================================== */
-
-  journeyButton.addEventListener(
-    "click",
-    () => showPage("journeyPage")
-  );
-
-
-  /* ==========================================================
-     STUDIES
-  ========================================================== */
-
-  studiesButton.addEventListener(
-    "click",
-    () => showPage("studiesPage")
-  );
-
-
-  /* ==========================================================
-     PROFILE
-  ========================================================== */
-
-  profileButton.addEventListener(
-    "click",
-    () => showPage("profilePage")
-  );
-
-
-  profileContinue.addEventListener(
-    "click",
-    () => {
-
-      openDevotional(
-        Math.max(1, currentDay + 1)
-      );
-
-    }
-  );
-
-
-  /* ==========================================================
-     SEARCH
-  ========================================================== */
-
-  searchButton.addEventListener(
-    "click",
-    () => {
-
-      searchModal.classList.add("active");
-
-      setTimeout(() => {
-        searchInput.focus();
-      }, 100);
-
-    }
-  );
-
-
-  closeSearch.addEventListener(
-    "click",
-    closeSearchModal
-  );
-
-
-  searchModal.addEventListener(
-    "click",
-    event => {
-
-      if (
-        event.target === searchModal
-      ) {
-
-        closeSearchModal();
-
-      }
-
-    }
-  );
-
-
-  function closeSearchModal() {
-
-    searchModal.classList.remove(
+    target.classList.add(
       "active"
     );
 
-    searchInput.value = "";
-
-    searchResults.innerHTML = "";
-
   }
 
 
-  /* ==========================================================
-     SEARCH DATA
-  ========================================================== */
-
-  const searchData = [
-
-    {
-      title: "A Presença que já está aqui",
-      category: "Devocional",
-      day: 1
-    },
-
-    {
-      title: "Tempo com Ele",
-      category: "Práticas de presença"
-    },
-
-    {
-      title: "Escuta e Sensibilidade",
-      category: "Práticas de presença"
-    },
-
-    {
-      title: "Silêncio e Contemplação",
-      category: "Práticas de presença"
-    },
-
-    {
-      title: "O Espírito Santo no Antigo Testamento",
-      category: "Estudo teológico"
-    },
-
-    {
-      title: "A promessa de Jesus",
-      category: "Estudo teológico"
-    },
-
-    {
-      title: "Pentecostes",
-      category: "Estudo teológico"
-    }
-
-  ];
-
-
-  searchInput.addEventListener(
-    "input",
-    () => {
-
-      const query =
-        searchInput.value
-          .toLowerCase()
-          .trim();
-
-
-      if (!query) {
-
-        searchResults.innerHTML = "";
-
-        return;
-
-      }
-
-
-      const results =
-        searchData.filter(item =>
-          item.title
-            .toLowerCase()
-            .includes(query)
-        );
-
-
-      if (!results.length) {
-
-        searchResults.innerHTML = `
-          <div class="search-result">
-            <small>Nenhum resultado encontrado.</small>
-          </div>
-        `;
-
-        return;
-
-      }
-
-
-      searchResults.innerHTML =
-        results
-          .map(item => `
-            <div
-              class="search-result"
-              data-day="${item.day || ""}"
-            >
-              <strong>
-                ${item.title}
-              </strong>
-
-              <small>
-                ${item.category}
-              </small>
-            </div>
-          `)
-          .join("");
-
-
-      document
-        .querySelectorAll(
-          ".search-result[data-day]"
-        )
-        .forEach(result => {
-
-          result.addEventListener(
-            "click",
-            () => {
-
-              const day =
-                Number(
-                  result.dataset.day
-                );
-
-              closeSearchModal();
-
-              openDevotional(day);
-
-            }
-          );
-
-        });
-
-    }
-  );
-
-
-  /* ==========================================================
-     CONTENT CARDS
-  ========================================================== */
-
   document
-    .querySelectorAll(".content-card")
-    .forEach(card => {
+    .querySelectorAll(".nav-item")
+    .forEach(item => {
 
-      card.addEventListener(
-        "click",
-        () => {
-
-          const title =
-            card.dataset.title;
-
-          const description =
-            card.dataset.description;
-
-          alert(
-            `${title}\n\n${description}`
-          );
-
-        }
+      item.classList.toggle(
+        "active",
+        item.dataset.screen === screenName
       );
 
     });
 
 
-  /* ==========================================================
-     SEE ALL
-  ========================================================== */
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+
+  if (screenName === "journey") {
+
+    renderJourney();
+
+  }
+
+
+  if (screenName === "studies") {
+
+    renderStudies();
+
+  }
+
+
+  if (screenName === "today") {
+
+    renderToday();
+
+  }
+
+
+  if (screenName === "profile") {
+
+    updateProfile();
+
+  }
+
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+function setupActions() {
 
   document
-    .querySelectorAll(".see-all")
+    .querySelectorAll(
+      '[data-action="start"]'
+    )
     .forEach(button => {
 
       button.addEventListener(
         "click",
         () => {
 
-          alert(
-            "Aqui entraremos na biblioteca completa de conteúdos."
-          );
+          showScreen("journey");
 
         }
       );
@@ -503,125 +196,982 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-  /* ==========================================================
-     DEVOTIONAL TITLES
-  ========================================================== */
+  document
+    .querySelectorAll(
+      '[data-action="today"]'
+    )
+    .forEach(button => {
 
-  function getDevotionalTitle(day) {
+      button.addEventListener(
+        "click",
+        () => {
 
-    const titles = {
+          showScreen("today");
 
-      1:
-        "A Presença que já está aqui",
+        }
+      );
 
-      2:
-        "Antes de procurar, perceba",
-
-      3:
-        "O Deus que decidiu permanecer",
-
-      4:
-        "Aprendendo a reconhecer a presença",
-
-      5:
-        "Quando o silêncio também fala",
-
-      6:
-        "A presença que não depende da emoção",
-
-      7:
-        "O Consolador prometido"
-
-    };
+    });
 
 
-    return (
-      titles[day] ||
-      `A jornada da presença — Dia ${day}`
+  const searchInput =
+    document.getElementById(
+      "search-input"
+    );
+
+
+  if (searchInput) {
+
+    searchInput.addEventListener(
+      "input",
+      event => {
+
+        searchContent(
+          event.target.value
+        );
+
+      }
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+async function loadContent() {
+
+  try {
+
+    const devotionalResponse =
+      await fetch(
+        "devocionais.json"
+      );
+
+    if (
+      devotionalResponse.ok
+    ) {
+
+      state.devotionals =
+        await devotionalResponse.json();
+
+    }
+
+  } catch (error) {
+
+    console.warn(
+      "Não foi possível carregar devocionais.json",
+      error
     );
 
   }
 
 
-  /* ==========================================================
-     PROGRESS
-  ========================================================== */
+  try {
 
-  function updateProgress() {
+    const studiesResponse =
+      await fetch(
+        "estudos.json"
+      );
 
-    const percent =
-      (currentDay / totalDays) * 100;
+    if (
+      studiesResponse.ok
+    ) {
 
+      state.studies =
+        await studiesResponse.json();
 
-    document.getElementById(
-      "dayNumber"
-    ).textContent =
-      `Dia ${Math.max(1, currentDay)} de 365`;
+    }
 
+  } catch (error) {
 
-    document.getElementById(
-      "journeyDay"
-    ).textContent =
-      currentDay;
+    console.warn(
+      "Não foi possível carregar estudos.json",
+      error
+    );
 
+  }
 
-    document.getElementById(
-      "circleDay"
-    ).textContent =
-      currentDay;
-
-
-    document.getElementById(
-      "profileDay"
-    ).textContent =
-      currentDay;
+}
 
 
-    document.getElementById(
-      "profilePercent"
-    ).textContent =
-      `${percent.toFixed(1)}%`;
+/* =========================================================
+   INTERFACE
+========================================================= */
+
+function updateInterface() {
+
+  updateTodayCard();
+
+  updateJourneyProgress();
+
+  updateProfile();
+
+}
 
 
-    document.getElementById(
-      "journeyBar"
-    ).style.width =
-      `${percent}%`;
+/* =========================================================
+   DEVOCIONAL
+========================================================= */
 
+function getCurrentDevotional() {
 
-    document.getElementById(
-      "miniProgress"
-    ).style.width =
-      `${percent}%`;
+  if (
+    !Array.isArray(
+      state.devotionals
+    )
+  ) {
+
+    return null;
 
   }
 
 
-  /* ==========================================================
-     KEYBOARD
-  ========================================================== */
+  if (
+    state.devotionals.length === 0
+  ) {
 
-  document.addEventListener(
-    "keydown",
-    event => {
+    return null;
 
-      if (
-        event.key === "Escape" &&
-        searchModal.classList.contains("active")
-      ) {
+  }
 
-        closeSearchModal();
+
+  /*
+    Aceita tanto:
+
+    [
+      {...},
+      {...}
+    ]
+
+    quanto:
+
+    {
+      "days": [...]
+    }
+  */
+
+  const list =
+    Array.isArray(
+      state.devotionals
+    )
+      ? state.devotionals
+      : state.devotionals.days;
+
+
+  if (
+    !Array.isArray(list)
+  ) {
+
+    return null;
+
+  }
+
+
+  return (
+    list.find(
+      item =>
+        Number(
+          item.day ||
+          item.dia ||
+          item.number
+        ) === state.currentDay
+    )
+    ||
+    list[state.currentDay - 1]
+    ||
+    null
+  );
+
+}
+
+
+function updateTodayCard() {
+
+  const devotional =
+    getCurrentDevotional();
+
+
+  const progress =
+    document.getElementById(
+      "today-progress"
+    );
+
+  const title =
+    document.getElementById(
+      "today-title"
+    );
+
+  const description =
+    document.getElementById(
+      "today-description"
+    );
+
+  const reference =
+    document.getElementById(
+      "today-reference"
+    );
+
+
+  if (progress) {
+
+    progress.textContent =
+      `Dia ${state.currentDay} de 365`;
+
+  }
+
+
+  if (!devotional) {
+
+    return;
+
+  }
+
+
+  const devotionalTitle =
+    devotional.title ||
+    devotional.titulo ||
+    "A Presença que já está aqui";
+
+
+  const devotionalDescription =
+    devotional.description ||
+    devotional.descricao ||
+    devotional.excerpt ||
+    devotional.resumo ||
+    "";
+
+
+  const devotionalReference =
+    devotional.reference ||
+    devotional.referencia ||
+    devotional.verse ||
+    devotional.versiculo ||
+    "";
+
+
+  if (title) {
+
+    title.textContent =
+      devotionalTitle;
+
+  }
+
+
+  if (description) {
+
+    description.textContent =
+      devotionalDescription;
+
+  }
+
+
+  if (reference) {
+
+    reference.textContent =
+      devotionalReference;
+
+  }
+
+}
+
+
+/* =========================================================
+   TELA DE HOJE
+========================================================= */
+
+function renderToday() {
+
+  const devotional =
+    getCurrentDevotional();
+
+
+  const day =
+    document.getElementById(
+      "reading-day"
+    );
+
+  const title =
+    document.getElementById(
+      "reading-title"
+    );
+
+  const body =
+    document.getElementById(
+      "reading-body"
+    );
+
+
+  if (day) {
+
+    day.textContent =
+      `DIA ${state.currentDay}`;
+
+  }
+
+
+  if (!devotional) {
+
+    if (body) {
+
+      body.innerHTML = `
+        <p>
+          Seu conteúdo será carregado
+          quando o arquivo de devocionais
+          estiver disponível.
+        </p>
+      `;
+
+    }
+
+    return;
+
+  }
+
+
+  const devotionalTitle =
+    devotional.title ||
+    devotional.titulo ||
+    "A Presença que já está aqui";
+
+
+  const devotionalBody =
+    devotional.content ||
+    devotional.conteudo ||
+    devotional.body ||
+    devotional.corpo ||
+    devotional.reflection ||
+    devotional.reflexao ||
+    "";
+
+
+  if (title) {
+
+    title.textContent =
+      devotionalTitle;
+
+  }
+
+
+  if (body) {
+
+    body.innerHTML =
+      formatContent(
+        devotionalBody
+      );
+
+  }
+
+}
+
+
+/* =========================================================
+   FORMATADOR
+========================================================= */
+
+function formatContent(content) {
+
+  if (!content) {
+
+    return `
+      <p>
+        Conteúdo em preparação.
+      </p>
+    `;
+
+  }
+
+
+  if (
+    typeof content !== "string"
+  ) {
+
+    return `
+      <p>
+        ${escapeHTML(
+          JSON.stringify(content)
+        )}
+      </p>
+    `;
+
+  }
+
+
+  return content
+    .split(/\n\s*\n/)
+    .map(
+      paragraph =>
+        `<p>${escapeHTML(
+          paragraph
+        )}</p>`
+    )
+    .join("");
+
+}
+
+
+/* =========================================================
+   JORNADA
+========================================================= */
+
+function renderJourney() {
+
+  const container =
+    document.getElementById(
+      "journey-grid"
+    );
+
+
+  if (!container) return;
+
+
+  container.innerHTML = "";
+
+
+  for (
+    let day = 1;
+    day <= 365;
+    day++
+  ) {
+
+    const devotional =
+      getDevotionalByDay(day);
+
+
+    const title =
+      devotional
+        ? (
+            devotional.title ||
+            devotional.titulo ||
+            `Dia ${day}`
+          )
+        : `Dia ${day}`;
+
+
+    const card =
+      document.createElement(
+        "article"
+      );
+
+
+    card.className =
+      "day-card";
+
+
+    card.innerHTML = `
+
+      <div
+        class="day-card-image"
+        style="
+          background-image:
+          url('assets/jornada/day-${String(day).padStart(3, "0")}.jpg')
+        "
+      ></div>
+
+      <div class="day-card-overlay"></div>
+
+      <div class="day-card-content">
+
+        <div class="day-number">
+          DIA ${day}
+        </div>
+
+        <div class="day-title">
+          ${escapeHTML(title)}
+        </div>
+
+      </div>
+
+    `;
+
+
+    card.addEventListener(
+      "click",
+      () => {
+
+        openDay(day);
 
       }
+    );
+
+
+    container.appendChild(
+      card
+    );
+
+  }
+
+}
+
+
+function getDevotionalByDay(day) {
+
+  const list =
+    Array.isArray(
+      state.devotionals
+    )
+      ? state.devotionals
+      : state.devotionals?.days;
+
+
+  if (
+    !Array.isArray(list)
+  ) {
+
+    return null;
+
+  }
+
+
+  return (
+    list.find(
+      item =>
+        Number(
+          item.day ||
+          item.dia ||
+          item.number
+        ) === day
+    )
+    ||
+    list[day - 1]
+    ||
+    null
+  );
+
+}
+
+
+function openDay(day) {
+
+  state.currentDay =
+    day;
+
+
+  localStorage.setItem(
+    "des_current_day",
+    day
+  );
+
+
+  updateInterface();
+
+  showScreen("today");
+
+}
+
+
+/* =========================================================
+   PROGRESSO
+========================================================= */
+
+function updateJourneyProgress() {
+
+  const day =
+    document.getElementById(
+      "journey-day"
+    );
+
+  const bar =
+    document.getElementById(
+      "journey-progress-bar"
+    );
+
+
+  if (day) {
+
+    day.textContent =
+      `${Math.max(
+        0,
+        state.currentDay - 1
+      )} de 365 dias`;
+
+  }
+
+
+  if (bar) {
+
+    const percentage =
+      (
+        Math.max(
+          0,
+          state.currentDay - 1
+        ) / 365
+      ) * 100;
+
+
+    bar.style.width =
+      `${percentage}%`;
+
+  }
+
+}
+
+
+/* =========================================================
+   ESTUDOS
+========================================================= */
+
+function renderStudies() {
+
+  const container =
+    document.getElementById(
+      "studies-grid"
+    );
+
+
+  if (!container) return;
+
+
+  container.innerHTML = "";
+
+
+  const list =
+    Array.isArray(
+      state.studies
+    )
+      ? state.studies
+      : state.studies?.studies;
+
+
+  if (
+    !Array.isArray(list) ||
+    list.length === 0
+  ) {
+
+    container.innerHTML = `
+
+      <div class="profile-card">
+
+        <div class="eyebrow">
+          ESTUDOS
+        </div>
+
+        <h2>
+          Seus estudos teológicos
+          aparecerão aqui.
+        </h2>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  list.forEach(
+    (study, index) => {
+
+      const title =
+        study.title ||
+        study.titulo ||
+        study.name ||
+        `Estudo ${index + 1}`;
+
+
+      const description =
+        study.description ||
+        study.descricao ||
+        "";
+
+
+      const image =
+        study.image ||
+        study.imagem ||
+        `assets/estudos/study-${String(
+          index + 1
+        ).padStart(3, "0")}.jpg`;
+
+
+      const card =
+        document.createElement(
+          "article"
+        );
+
+
+      card.className =
+        "study-card";
+
+
+      card.style.backgroundImage =
+        `url("${image}")`;
+
+
+      card.innerHTML = `
+
+        <div class="study-card-content">
+
+          <div class="eyebrow">
+            ESTUDO TEOLÓGICO
+          </div>
+
+          <h2>
+            ${escapeHTML(title)}
+          </h2>
+
+          ${
+            description
+              ? `
+                <p>
+                  ${escapeHTML(
+                    description
+                  )}
+                </p>
+              `
+              : ""
+          }
+
+        </div>
+
+      `;
+
+
+      container.appendChild(
+        card
+      );
 
     }
   );
 
+}
 
-  /* ==========================================================
-     INITIALIZE
-  ========================================================== */
 
-  updateProgress();
+/* =========================================================
+   PERFIL
+========================================================= */
 
-});
+function updateProfile() {
+
+  const element =
+    document.getElementById(
+      "profile-day"
+    );
+
+
+  if (element) {
+
+    element.textContent =
+      Math.max(
+        0,
+        state.currentDay - 1
+      );
+
+  }
+
+}
+
+
+/* =========================================================
+   PESQUISA
+========================================================= */
+
+function searchContent(query) {
+
+  const container =
+    document.getElementById(
+      "search-results"
+    );
+
+
+  if (!container) return;
+
+
+  const normalized =
+    query
+      .trim()
+      .toLowerCase();
+
+
+  if (!normalized) {
+
+    container.innerHTML = "";
+
+    return;
+
+  }
+
+
+  const results = [];
+
+
+  const devotionalList =
+    Array.isArray(
+      state.devotionals
+    )
+      ? state.devotionals
+      : state.devotionals?.days;
+
+
+  if (
+    Array.isArray(
+      devotionalList
+    )
+  ) {
+
+    devotionalList.forEach(
+      (item, index) => {
+
+        const title =
+          item.title ||
+          item.titulo ||
+          "";
+
+
+        const content =
+          item.content ||
+          item.conteudo ||
+          item.body ||
+          "";
+
+
+        const text =
+          `${title} ${content}`
+            .toLowerCase();
+
+
+        if (
+          text.includes(
+            normalized
+          )
+        ) {
+
+          results.push({
+            type: "Devocional",
+            day:
+              Number(
+                item.day ||
+                item.dia ||
+                index + 1
+              ),
+            title
+          });
+
+        }
+
+      }
+    );
+
+  }
+
+
+  if (
+    results.length === 0
+  ) {
+
+    container.innerHTML = `
+
+      <div class="profile-card">
+
+        <h2>
+          Nenhum resultado encontrado.
+        </h2>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    results
+      .map(
+        result => `
+
+          <article
+            class="profile-card"
+            style="min-height:150px"
+          >
+
+            <div class="eyebrow">
+              ${escapeHTML(
+                result.type
+              )}
+            </div>
+
+            <h2>
+              ${escapeHTML(
+                result.title ||
+                `Dia ${result.day}`
+              )}
+            </h2>
+
+            <button
+              class="secondary-button"
+              onclick="openDay(${result.day})"
+            >
+              Abrir
+            </button>
+
+          </article>
+
+        `
+      )
+      .join("");
+
+}
+
+
+/* =========================================================
+   SEGURANÇA
+========================================================= */
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   PWA / SERVICE WORKER
+========================================================= */
+
+if (
+  "serviceWorker" in navigator
+) {
+
+  window.addEventListener(
+    "load",
+    () => {
+
+      navigator.serviceWorker
+        .register("sw.js")
+        .catch(
+          error =>
+            console.warn(
+              "Service Worker:",
+              error
+            )
+        );
+
+    }
+  );
+
+}
