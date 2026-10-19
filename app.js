@@ -1175,3 +1175,33 @@ if (
   );
 
 }
+/* =========================================
+   TELA DE ABERTURA
+   365 DIAS DE PRESENÇA
+   ========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+    const splashScreen = document.getElementById("splashScreen");
+    const startButton = document.getElementById("startApp");
+
+    if (!splashScreen || !startButton) {
+        return;
+    }
+
+    // Mantém o aplicativo travado enquanto a capa está aberta
+    document.body.classList.add("splash-active");
+
+    startButton.addEventListener("click", () => {
+
+        // Inicia o desaparecimento suave da capa
+        splashScreen.classList.add("hidden");
+
+        // Libera a rolagem do aplicativo
+        document.body.classList.remove("splash-active");
+
+        // Remove a capa depois da animação
+        setTimeout(() => {
+            splashScreen.remove();
+        }, 1000);
+    });
+});
